@@ -1,0 +1,1113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
+    <generated>
+      <config projectName="server" targetName="server" />
+    </generated>
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="true">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" readonly="true" id="3c6324e7-bc27-435d-b133-486dd747b177" name="Default" comment="" />
+    <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="game_majiang_table.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/servers/game_logic/majiang/game_majiang_table.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+            <state relative-caret-position="0">
+              <caret line="507" column="0" lean-forward="false" selection-start-line="507" selection-start-column="0" selection-end-line="507" selection-end-column="0" />
+||||||| .r1229
+            <state relative-caret-position="951">
+              <caret line="507" column="0" lean-forward="false" selection-start-line="507" selection-start-column="0" selection-end-line="507" selection-end-column="0" />
+=======
+            <state relative-caret-position="293">
+              <caret line="229" column="11" lean-forward="true" selection-start-line="229" selection-start-column="11" selection-end-line="229" selection-end-column="11" />
+>>>>>>> .r1230
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="player_base.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/servers/common/src/player_base.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+            <state relative-caret-position="0">
+              <caret line="434" column="5" lean-forward="false" selection-start-line="434" selection-start-column="5" selection-end-line="434" selection-end-column="5" />
+||||||| .r1229
+            <state relative-caret-position="411">
+              <caret line="434" column="5" lean-forward="true" selection-start-line="434" selection-start-column="5" selection-end-line="434" selection-end-column="5" />
+=======
+            <state relative-caret-position="6944">
+              <caret line="434" column="5" lean-forward="false" selection-start-line="434" selection-start-column="5" selection-end-line="434" selection-end-column="5" />
+>>>>>>> .r1230
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="game_table.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/servers/game_server/src/game_table.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+            <state relative-caret-position="0">
+              <caret line="1173" column="9" lean-forward="false" selection-start-line="1173" selection-start-column="9" selection-end-line="1173" selection-end-column="9" />
+||||||| .r1229
+            <state relative-caret-position="786">
+              <caret line="1173" column="9" lean-forward="false" selection-start-line="1173" selection-start-column="9" selection-end-line="1173" selection-end-column="9" />
+=======
+            <state relative-caret-position="18800">
+              <caret line="1175" column="9" lean-forward="false" selection-start-line="1175" selection-start-column="9" selection-end-line="1175" selection-end-column="9" />
+>>>>>>> .r1230
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="msg_client_handle.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/servers/lobby_server/src/msg_client_handle.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+            <state relative-caret-position="0">
+              <caret line="562" column="0" lean-forward="false" selection-start-line="562" selection-start-column="0" selection-end-line="562" selection-end-column="0" />
+||||||| .r1229
+            <state relative-caret-position="726">
+              <caret line="562" column="0" lean-forward="true" selection-start-line="562" selection-start-column="0" selection-end-line="562" selection-end-column="0" />
+=======
+            <state relative-caret-position="8992">
+              <caret line="562" column="0" lean-forward="false" selection-start-line="562" selection-start-column="0" selection-end-line="562" selection-end-column="0" />
+>>>>>>> .r1230
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="player.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/servers/lobby_server/src/player.h">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+            <state relative-caret-position="0">
+||||||| .r1229
+            <state relative-caret-position="378">
+=======
+            <state relative-caret-position="1408">
+>>>>>>> .r1230
+              <caret line="88" column="23" lean-forward="false" selection-start-line="88" selection-start-column="23" selection-end-line="88" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="game_table.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/servers/game_server/src/game_table.h">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+            <state relative-caret-position="0">
+||||||| .r1229
+            <state relative-caret-position="381">
+=======
+            <state relative-caret-position="912">
+>>>>>>> .r1230
+              <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="player.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/servers/lobby_server/src/player.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+            <state relative-caret-position="0">
+              <caret line="439" column="36" lean-forward="false" selection-start-line="439" selection-start-column="36" selection-end-line="439" selection-end-column="36" />
+||||||| .r1229
+            <state relative-caret-position="426">
+              <caret line="439" column="36" lean-forward="true" selection-start-line="439" selection-start-column="36" selection-end-line="439" selection-end-column="36" />
+=======
+            <state relative-caret-position="7024">
+              <caret line="439" column="36" lean-forward="false" selection-start-line="439" selection-start-column="36" selection-end-line="439" selection-end-column="36" />
+>>>>>>> .r1230
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="msg_lobby_handle.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/servers/game_server/src/msg_lobby_handle.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+            <state relative-caret-position="309">
+              <caret line="351" column="0" lean-forward="false" selection-start-line="351" selection-start-column="0" selection-end-line="351" selection-end-column="0" />
+              <folding>
+                <marker date="1524034339284" expanded="true" signature="373:2731" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="2843:3156" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="3259:3671" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="3788:4074" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="4194:4355" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="4467:4823" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="4934:5991" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="6103:6863" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="6980:7162" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="7271:7944" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="8053:9127" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="9242:10083" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="10198:16236" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="16350:17056" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="17166:17893" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="18003:18596" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="18705:19115" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="19230:19560" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="19673:20141" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="20255:20699" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="20816:21263" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="21377:22122" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="22230:22464" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="22582:23037" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="23156:23547" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="23658:23841" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="23949:24099" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="24212:24353" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="24417:24623" ph="{...}" />
+                <marker date="1524034339284" expanded="true" signature="24723:24778" ph="{...}" />
+              </folding>
+||||||| .r1229
+            <state relative-caret-position="531">
+              <caret line="351" column="0" lean-forward="true" selection-start-line="351" selection-start-column="0" selection-end-line="351" selection-end-column="0" />
+              <folding />
+=======
+            <state relative-caret-position="531">
+              <caret line="351" column="0" lean-forward="false" selection-start-line="351" selection-start-column="0" selection-end-line="351" selection-end-column="0" />
+              <folding />
+>>>>>>> .r1230
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="game_room.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/servers/game_server/src/game_room.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+            <state relative-caret-position="0">
+||||||| .r1229
+            <state relative-caret-position="561">
+=======
+            <state relative-caret-position="2800">
+>>>>>>> .r1230
+              <caret line="175" column="45" lean-forward="false" selection-start-line="175" selection-start-column="45" selection-end-line="175" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="game_majiang_table.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/servers/game_logic/majiang/game_majiang_table.h">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+            <state relative-caret-position="0">
+||||||| .r1229
+            <state relative-caret-position="363">
+=======
+            <state relative-caret-position="3600">
+>>>>>>> .r1230
+              <caret line="225" column="10" lean-forward="false" selection-start-line="225" selection-start-column="10" selection-end-line="225" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>SearchSingleLineOutCard</find>
+      <find>IsCanLessOutCard</find>
+      <find>CompareCard</find>
+      <find>SetPlayerOnlineInfo</find>
+      <find>msg_enter_room_rep</find>
+      <find>SearchOutCard</find>
+      <find>NoHongZhongAddBird</find>
+      <find>GetReadyInfo</find>
+      <find>SendReadyStateToClient</find>
+      <find>NotifyVoteGameOver</find>
+      <find>CheckAutoLeaveTable</find>
+      <find>m_startTime</find>
+      <find>SearchActionOutCard</find>
+      <find>VoteGameOver</find>
+      <find>SortCardListByLogicValue</find>
+      <find>Sort</find>
+      <find>SortCardList</find>
+      <find>::SortCardList</find>
+      <find>SortCardListByColorAndValue</find>
+      <find>::Sort</find>
+      <find>stRoomCardCfg</find>
+      <find>CalcPrivateCardCfg</find>
+      <find>GetPlayerOnlineInfo</find>
+      <find>CalcGangScore</find>
+      <find>m_addHitBirdCount</find>
+      <find>EnterGameSvr</find>
+      <find>FlushPlayerState2Client</find>
+      <find>GetBirdValue</find>
+      <find>hitBirdCalcType</find>
+      <find>m_cbDiscardCard</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>const char*</replace>
+      <replace>uint32</replace>
+      <replace>uint16</replace>
+      <replace>uint8</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>F:\workspace\chess\code\server\release\server_config\lua</dir>
+      <dir>F:\workspace\chess\code\server</dir>
+    </dirStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/servers/game_logic/game_logic_mgr.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_logic/game_logic_mgr.h" />
+        <option value="$PROJECT_DIR$/servers/game_logic/majiang/majiang_logic.h" />
+        <option value="$PROJECT_DIR$/servers/game_logic/beard/game_beard_table.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_logic/land/game_land_table.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_server/src/game_room.h" />
+        <option value="$PROJECT_DIR$/servers/game_logic/thirteen/game_thirteen_table.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_logic/sangong/game_sangong_table.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_server/src/game_player.h" />
+        <option value="$PROJECT_DIR$/servers/common/src/player_base.h" />
+        <option value="$PROJECT_DIR$/servers/lobby_server/src/player.h" />
+        <option value="$PROJECT_DIR$/servers/common/src/player_base.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_server/src/game_player.cpp" />
+        <option value="$PROJECT_DIR$/servers/lobby_server/src/msg_server_handle.cpp" />
+        <option value="$PROJECT_DIR$/servers/lobby_server/src/server_mgr.h" />
+        <option value="$PROJECT_DIR$/servers/lobby_server/src/server_mgr.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_logic/niuniu/niuniu_logic.h" />
+        <option value="$PROJECT_DIR$/servers/game_logic/niuniu/niuniu_logic.cpp" />
+        <option value="$PROJECT_DIR$/servers/common/src/poker/poker_logic.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_logic/sangong/sangong_logic.h" />
+        <option value="$PROJECT_DIR$/servers/game_logic/sangong/sangong_logic.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_logic/thirteen/thirteen_logic.cpp" />
+        <option value="$PROJECT_DIR$/servers/common/src/poker/poker_logic.h" />
+        <option value="$PROJECT_DIR$/servers/game_logic/kuaipao/kuaipao_logic.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_logic/kuaipao/game_kuaipao_table.cpp" />
+        <option value="$PROJECT_DIR$/servers/common/src/dbmysql_mgr.h" />
+        <option value="$PROJECT_DIR$/servers/game_server/src/game_table.h" />
+        <option value="$PROJECT_DIR$/servers/lobby_server/src/msg_plat_handle.h" />
+        <option value="$PROJECT_DIR$/servers/game_server/src/msg_lobby_handle.h" />
+        <option value="$PROJECT_DIR$/servers/game_server/src/game_table.cpp" />
+        <option value="$PROJECT_DIR$/servers/common/src/db_struct_define.h" />
+        <option value="$PROJECT_DIR$/servers/common/src/db_operator.cpp" />
+        <option value="$PROJECT_DIR$/servers/common/src/data_cfg_mgr.h" />
+        <option value="$PROJECT_DIR$/servers/common/src/data_cfg_mgr.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_logic/niuniu/game_niuniu_table.h" />
+        <option value="$PROJECT_DIR$/servers/game_logic/niuniu/game_niuniu_table.cpp" />
+        <option value="$PROJECT_DIR$/servers/common/src/center_log.h" />
+        <option value="$PROJECT_DIR$/servers/lobby_server/src/msg_plat_handle.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_logic/majiang/majiang_config.cpp" />
+        <option value="$PROJECT_DIR$/servers/lobby_server/src/async_dbcallback.cpp" />
+        <option value="$PROJECT_DIR$/servers/lobby_server/src/game_net_mgr.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_logic/kuaipao/game_kuaipao_table.h" />
+        <option value="$PROJECT_DIR$/servers/game_logic/kuaipao/kuaipao_logic.h" />
+        <option value="$PROJECT_DIR$/servers/game_logic/majiang/majiang_config.h" />
+        <option value="$PROJECT_DIR$/servers/game_logic/majiang/game_majiang_table.h" />
+        <option value="$PROJECT_DIR$/servers/lobby_server/src/msg_client_handle.cpp" />
+        <option value="$PROJECT_DIR$/servers/lobby_server/src/player.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_server/src/game_room.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_server/src/msg_lobby_handle.cpp" />
+        <option value="$PROJECT_DIR$/servers/game_logic/majiang/game_majiang_table.cpp" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="OCFindUsagesOptions" text="false" ivars="false" properties="true" derivedClasses="false" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1440" />
+    <option name="height" value="846" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="server" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="server" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="servers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="server" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="servers" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="server" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="servers" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="server" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="servers" type="462c0819:PsiDirectoryNode" />
+              <item name="game_logic" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="server" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="servers" type="462c0819:PsiDirectoryNode" />
+              <item name="game_logic" type="462c0819:PsiDirectoryNode" />
+              <item name="kuaipao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="server" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="servers" type="462c0819:PsiDirectoryNode" />
+              <item name="game_logic" type="462c0819:PsiDirectoryNode" />
+              <item name="majiang" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="server" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="servers" type="462c0819:PsiDirectoryNode" />
+              <item name="game_logic" type="462c0819:PsiDirectoryNode" />
+              <item name="niuniu" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="server" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="servers" type="462c0819:PsiDirectoryNode" />
+              <item name="game_logic" type="462c0819:PsiDirectoryNode" />
+              <item name="sangong" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="server" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="servers" type="462c0819:PsiDirectoryNode" />
+              <item name="game_server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="server" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="servers" type="462c0819:PsiDirectoryNode" />
+              <item name="game_server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="server" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="servers" type="462c0819:PsiDirectoryNode" />
+              <item name="lobby_server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="server" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="servers" type="462c0819:PsiDirectoryNode" />
+              <item name="lobby_server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+<<<<<<< .mine
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+||||||| .r1229
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C/C++" />
+=======
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
+>>>>>>> .r1230
+    <property name="last_opened_file_path" value="F:/other/leishen/chess/program/server" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.server">
+    <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
+      <envs />
+    </configuration>
+    <configuration name="server" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="server" TARGET_NAME="server" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="server" RUN_TARGET_NAME="server">
+      <envs />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
+      <item index="1" class="java.lang.String" itemvalue="Application.server" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="StructureViewFactory">
+    <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
+    <option name="ACTIVE_ACTIONS" value=",KIND" />
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3c6324e7-bc27-435d-b133-486dd747b177" name="Default" comment="" />
+      <created>1519437559161</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1519437559161</updated>
+      <workItem from="1519437562306" duration="141938000" />
+      <workItem from="1520040251568" duration="232000" />
+      <workItem from="1520041847899" duration="114038000" />
+      <workItem from="1520598007983" duration="1931000" />
+      <workItem from="1520669754390" duration="59934000" />
+      <workItem from="1521076030602" duration="9172000" />
+      <workItem from="1521100006661" duration="3652000" />
+      <workItem from="1521103725186" duration="59307000" />
+      <workItem from="1521594852672" duration="87071000" />
+      <workItem from="1522141282606" duration="10652000" />
+      <workItem from="1522198699127" duration="15761000" />
+      <workItem from="1522238520072" duration="8290000" />
+      <workItem from="1522289484071" duration="610000" />
+      <workItem from="1522293247922" duration="79754000" />
+      <workItem from="1522672232248" duration="36077000" />
+      <workItem from="1522806809384" duration="37485000" />
+      <workItem from="1523150357364" duration="126729000" />
+      <workItem from="1523586094819" duration="80177000" />
+<<<<<<< .mine
+      <workItem from="1524034914289" duration="40000" />
+||||||| .r1229
+=======
+      <workItem from="1524024095160" duration="320000" />
+      <workItem from="1524032548195" duration="78000" />
+>>>>>>> .r1230
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+<<<<<<< .mine
+    <option name="totallyTimeSpent" value="872850000" />
+||||||| .r1229
+    <option name="totallyTimeSpent" value="872810000" />
+=======
+    <option name="totallyTimeSpent" value="873208000" />
+>>>>>>> .r1230
+  </component>
+  <component name="ToolWindowManager">
+<<<<<<< .mine
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="7" />
+||||||| .r1229
+    <frame x="-8" y="-8" width="1936" height="1035" extended-state="6" />
+=======
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+>>>>>>> .r1230
+    <editor active="true" />
+    <layout>
+<<<<<<< .mine
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16041666" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+||||||| .r1229
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16044776" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+=======
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1578125" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+>>>>>>> .r1230
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36707452" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17291667" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14126807" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3971079" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15671642" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42269188" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14392324" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/majiang/majiang_logic.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="233" column="0" lean-forward="true" selection-start-line="233" selection-start-column="0" selection-end-line="233" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/common/src/player_base.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="121" column="19" lean-forward="false" selection-start-line="121" selection-start-column="19" selection-end-line="121" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/pb/src/client_logic_msg.pb.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="4891" column="14" lean-forward="false" selection-start-line="4891" selection-start-column="14" selection-end-line="4891" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_server/src/game_room_mgr.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="153" column="19" lean-forward="false" selection-start-line="153" selection-start-column="19" selection-end-line="153" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_server/src/game_player.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="219" column="25" lean-forward="false" selection-start-line="219" selection-start-column="25" selection-end-line="219" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/land/game_land_table.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="585" column="16" lean-forward="false" selection-start-line="585" selection-start-column="16" selection-end-line="585" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/land/land_logic.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="113" column="15" lean-forward="true" selection-start-line="113" selection-start-column="15" selection-end-line="113" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/land/land_logic.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="146" column="15" lean-forward="false" selection-start-line="146" selection-start-column="15" selection-end-line="146" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/sangong/sangong_logic.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="70" column="72" lean-forward="false" selection-start-line="70" selection-start-column="60" selection-end-line="70" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/sangong/sangong_logic.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="56" column="63" lean-forward="true" selection-start-line="56" selection-start-column="63" selection-end-line="56" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/niuniu/niuniu_logic.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="94" column="21" lean-forward="false" selection-start-line="94" selection-start-column="9" selection-end-line="94" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/niuniu/niuniu_logic.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="687" column="19" lean-forward="false" selection-start-line="687" selection-start-column="19" selection-end-line="687" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/common/src/poker/poker_logic.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="43" column="18" lean-forward="false" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/common/src/poker/poker_logic.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/thirteen/thirteen_logic.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="690" column="19" lean-forward="false" selection-start-line="690" selection-start-column="19" selection-end-line="690" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/kuaipao/kuaipao_logic.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6336">
+          <caret line="627" column="37" lean-forward="false" selection-start-line="627" selection-start-column="37" selection-end-line="627" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/lobby_server/src/msg_plat_handle.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="40" column="20" lean-forward="false" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_server/src/msg_lobby_handle.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="86" column="21" lean-forward="false" selection-start-line="86" selection-start-column="21" selection-end-line="86" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_server/src/game_server.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/common/src/dbmysql_mgr.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="603">
+          <caret line="133" column="0" lean-forward="false" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/common/src/data_cfg_mgr.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="30" column="55" lean-forward="false" selection-start-line="30" selection-start-column="55" selection-end-line="30" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/common/src/db_struct_define.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="618">
+          <caret line="251" column="3" lean-forward="false" selection-start-line="251" selection-start-column="3" selection-end-line="251" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/common/src/db_operator.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="144" column="0" lean-forward="false" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/common/src/data_cfg_mgr.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1605">
+          <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/common/src/dbmysql_mgr.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="120" column="0" lean-forward="false" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/kuaipao/game_kuaipao_table.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/niuniu/game_niuniu_table.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="183" column="70" lean-forward="false" selection-start-line="183" selection-start-column="70" selection-end-line="183" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/niuniu/game_niuniu_table.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2805">
+          <caret line="892" column="9" lean-forward="false" selection-start-line="892" selection-start-column="9" selection-end-line="892" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/common/src/center_log.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-162">
+          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/common/src/redis_mgr.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="516">
+          <caret line="99" column="36" lean-forward="false" selection-start-line="99" selection-start-column="17" selection-end-line="99" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_server/src/lobby_mgr.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="203" column="64" lean-forward="false" selection-start-line="203" selection-start-column="45" selection-end-line="203" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/lobby_server/src/msg_server_handle.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="115" column="17" lean-forward="false" selection-start-line="115" selection-start-column="17" selection-end-line="115" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/lobby_server/src/msg_plat_handle.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="255" column="19" lean-forward="false" selection-start-line="255" selection-start-column="19" selection-end-line="255" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/majiang/majiang_config.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="282" column="34" lean-forward="false" selection-start-line="282" selection-start-column="19" selection-end-line="282" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/lobby_server/src/async_dbcallback.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/lobby_server/src/game_net_mgr.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2280">
+          <caret line="158" column="7" lean-forward="false" selection-start-line="158" selection-start-column="7" selection-end-line="158" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/kuaipao/game_kuaipao_table.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-387">
+          <caret line="71" column="22" lean-forward="false" selection-start-line="71" selection-start-column="22" selection-end-line="71" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/kuaipao/kuaipao_logic.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1515">
+          <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/majiang/majiang_config.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-705">
+          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/sangong/game_sangong_table.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-90">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/majiang/game_majiang_table.h">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+        <state relative-caret-position="0">
+||||||| .r1229
+        <state relative-caret-position="363">
+=======
+        <state relative-caret-position="3600">
+>>>>>>> .r1230
+          <caret line="225" column="10" lean-forward="false" selection-start-line="225" selection-start-column="10" selection-end-line="225" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_server/src/game_table.h">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+        <state relative-caret-position="0">
+||||||| .r1229
+        <state relative-caret-position="381">
+=======
+        <state relative-caret-position="912">
+>>>>>>> .r1230
+          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< .mine
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/majiang/game_majiang_table.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="507" column="0" lean-forward="false" selection-start-line="507" selection-start-column="0" selection-end-line="507" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+||||||| .r1229
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/majiang/game_majiang_table.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="951">
+          <caret line="507" column="0" lean-forward="false" selection-start-line="507" selection-start-column="0" selection-end-line="507" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+=======
+>>>>>>> .r1230
+    <entry file="file://$PROJECT_DIR$/servers/game_server/src/game_table.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+        <state relative-caret-position="0">
+          <caret line="1173" column="9" lean-forward="false" selection-start-line="1173" selection-start-column="9" selection-end-line="1173" selection-end-column="9" />
+||||||| .r1229
+        <state relative-caret-position="786">
+          <caret line="1173" column="9" lean-forward="false" selection-start-line="1173" selection-start-column="9" selection-end-line="1173" selection-end-column="9" />
+=======
+        <state relative-caret-position="18800">
+          <caret line="1175" column="9" lean-forward="false" selection-start-line="1175" selection-start-column="9" selection-end-line="1175" selection-end-column="9" />
+>>>>>>> .r1230
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/lobby_server/src/player.h">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+        <state relative-caret-position="0">
+||||||| .r1229
+        <state relative-caret-position="378">
+=======
+        <state relative-caret-position="1408">
+>>>>>>> .r1230
+          <caret line="88" column="23" lean-forward="false" selection-start-line="88" selection-start-column="23" selection-end-line="88" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/lobby_server/src/player.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+        <state relative-caret-position="0">
+          <caret line="439" column="36" lean-forward="false" selection-start-line="439" selection-start-column="36" selection-end-line="439" selection-end-column="36" />
+||||||| .r1229
+        <state relative-caret-position="426">
+          <caret line="439" column="36" lean-forward="true" selection-start-line="439" selection-start-column="36" selection-end-line="439" selection-end-column="36" />
+=======
+        <state relative-caret-position="7024">
+          <caret line="439" column="36" lean-forward="false" selection-start-line="439" selection-start-column="36" selection-end-line="439" selection-end-column="36" />
+>>>>>>> .r1230
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/lobby_server/src/msg_client_handle.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+        <state relative-caret-position="0">
+          <caret line="562" column="0" lean-forward="false" selection-start-line="562" selection-start-column="0" selection-end-line="562" selection-end-column="0" />
+||||||| .r1229
+        <state relative-caret-position="726">
+          <caret line="562" column="0" lean-forward="true" selection-start-line="562" selection-start-column="0" selection-end-line="562" selection-end-column="0" />
+=======
+        <state relative-caret-position="8992">
+          <caret line="562" column="0" lean-forward="false" selection-start-line="562" selection-start-column="0" selection-end-line="562" selection-end-column="0" />
+>>>>>>> .r1230
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_server/src/game_room.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+        <state relative-caret-position="0">
+||||||| .r1229
+        <state relative-caret-position="561">
+=======
+        <state relative-caret-position="2800">
+>>>>>>> .r1230
+          <caret line="175" column="45" lean-forward="false" selection-start-line="175" selection-start-column="45" selection-end-line="175" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/common/src/player_base.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+        <state relative-caret-position="0">
+          <caret line="434" column="5" lean-forward="false" selection-start-line="434" selection-start-column="5" selection-end-line="434" selection-end-column="5" />
+||||||| .r1229
+        <state relative-caret-position="411">
+          <caret line="434" column="5" lean-forward="true" selection-start-line="434" selection-start-column="5" selection-end-line="434" selection-end-column="5" />
+=======
+        <state relative-caret-position="6944">
+          <caret line="434" column="5" lean-forward="false" selection-start-line="434" selection-start-column="5" selection-end-line="434" selection-end-column="5" />
+>>>>>>> .r1230
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_server/src/msg_lobby_handle.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< .mine
+        <state relative-caret-position="309">
+          <caret line="351" column="0" lean-forward="false" selection-start-line="351" selection-start-column="0" selection-end-line="351" selection-end-column="0" />
+          <folding>
+            <marker date="1524034339284" expanded="true" signature="373:2731" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="2843:3156" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="3259:3671" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="3788:4074" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="4194:4355" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="4467:4823" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="4934:5991" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="6103:6863" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="6980:7162" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="7271:7944" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="8053:9127" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="9242:10083" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="10198:16236" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="16350:17056" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="17166:17893" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="18003:18596" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="18705:19115" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="19230:19560" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="19673:20141" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="20255:20699" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="20816:21263" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="21377:22122" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="22230:22464" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="22582:23037" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="23156:23547" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="23658:23841" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="23949:24099" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="24212:24353" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="24417:24623" ph="{...}" />
+            <marker date="1524034339284" expanded="true" signature="24723:24778" ph="{...}" />
+          </folding>
+||||||| .r1229
+        <state relative-caret-position="531">
+          <caret line="351" column="0" lean-forward="true" selection-start-line="351" selection-start-column="0" selection-end-line="351" selection-end-column="0" />
+          <folding />
+=======
+        <state relative-caret-position="531">
+          <caret line="351" column="0" lean-forward="false" selection-start-line="351" selection-start-column="0" selection-end-line="351" selection-end-column="0" />
+          <folding />
+>>>>>>> .r1230
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/servers/game_logic/majiang/game_majiang_table.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="229" column="11" lean-forward="true" selection-start-line="229" selection-start-column="11" selection-end-line="229" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

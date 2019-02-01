@@ -1,0 +1,256 @@
+cmake_minimum_required(VERSION 2.80)
+project(server_asio_frame)
+
+set(CMAKE_CXX_STANDARD 11)
+
+INCLUDE_DIRECTORIES(include)
+INCLUDE_DIRECTORIES(include/redis)
+INCLUDE_DIRECTORIES(include/zlib)
+INCLUDE_DIRECTORIES(include/lua)
+INCLUDE_DIRECTORIES(include/packet)
+
+include_directories(include)
+include_directories(include/config)
+include_directories(include/crypt)
+include_directories(include/dbmysql)
+include_directories(include/framework)
+include_directories(include/fundamental)
+include_directories(include/helper)
+include_directories(include/lua)
+include_directories(include/math)
+include_directories(include/modern)
+include_directories(include/modern/nlohmann)
+include_directories(include/modern/sol)
+include_directories(include/modern/spdlog)
+include_directories(include/modern/spdlog/contrib)
+include_directories(include/modern/spdlog/contrib/sinks)
+include_directories(include/modern/spdlog/details)
+include_directories(include/modern/spdlog/fmt)
+include_directories(include/modern/spdlog/fmt/bundled)
+include_directories(include/modern/spdlog/sinks)
+include_directories(include/network)
+include_directories(include/packet)
+include_directories(include/redis)
+include_directories(include/utility)
+include_directories(include/zlib)
+include_directories(src/framework)
+include_directories(src/network)
+
+add_executable(server_asio_frame
+        include/config/config.h
+        include/config/csvreader.h
+        include/crypt/aes.h
+        include/crypt/base64.hpp
+        include/crypt/blowfish.h
+        include/crypt/crypt.h
+        include/crypt/mars.h
+        include/crypt/md5.h
+        include/crypt/net_encrypt.h
+        include/crypt/serpent.h
+        include/crypt/sha1.hpp
+        include/crypt/url_encode.h
+        include/crypt/xor256.h
+        include/dbmysql/db_task.h
+        include/dbmysql/db_wrap.h
+        include/dbmysql/dbmysql.h
+        include/dbmysql/sql_join.h
+        include/framework/application.h
+        include/framework/cmdline.h
+        include/fundamental/common.h
+        include/fundamental/cyclebuffer.h
+        include/fundamental/cyclebuffer_shm.h
+        include/fundamental/hashtable.h
+        include/fundamental/hashval.h
+        include/fundamental/linkcache.h
+        include/fundamental/multiprocesshashtable.h
+        include/fundamental/noncopyable.h
+        include/fundamental/ring_buff.h
+        include/fundamental/variablehashtable.h
+        include/fundamental/variablelengthhashtable.h
+        include/helper/bufferStream.h
+        include/helper/filehelper.h
+        include/helper/fileStream.h
+        include/helper/helper.h
+        include/helper/numberStream.h
+        include/helper/streamBase.h
+        include/helper/stringStream.h
+        include/lua/lauxlib.h
+        include/lua/lua.h
+        include/lua/lua.hpp
+        include/lua/luaconf.h
+        include/lua/lualib.h
+        include/math/box2.h
+        include/math/math_functions.h
+        include/math/point2.h
+        include/math/point3.h
+        include/math/rand_table.h
+        include/math/rank.h
+        include/math/rect.h
+        include/modern/nlohmann/json.hpp
+        include/modern/nlohmann/json_wrap.h
+        include/modern/sol/sol.hpp
+        include/modern/sol/sol_forward.hpp
+        include/modern/spdlog/contrib/sinks/step_file_sink.h
+        include/modern/spdlog/details/async_log_helper.h
+        include/modern/spdlog/details/async_logger_impl.h
+        include/modern/spdlog/details/file_helper.h
+        include/modern/spdlog/details/log_msg.h
+        include/modern/spdlog/details/logger_impl.h
+        include/modern/spdlog/details/mpmc_blocking_q.h
+        include/modern/spdlog/details/null_mutex.h
+        include/modern/spdlog/details/os.h
+        include/modern/spdlog/details/pattern_formatter_impl.h
+        include/modern/spdlog/details/registry.h
+        include/modern/spdlog/details/spdlog_impl.h
+        include/modern/spdlog/fmt/bundled/format.cc
+        include/modern/spdlog/fmt/bundled/format.h
+        include/modern/spdlog/fmt/bundled/ostream.cc
+        include/modern/spdlog/fmt/bundled/ostream.h
+        include/modern/spdlog/fmt/bundled/posix.cc
+        include/modern/spdlog/fmt/bundled/posix.h
+        include/modern/spdlog/fmt/bundled/printf.cc
+        include/modern/spdlog/fmt/bundled/printf.h
+        include/modern/spdlog/fmt/bundled/time.h
+        include/modern/spdlog/fmt/fmt.h
+        include/modern/spdlog/fmt/ostr.h
+        include/modern/spdlog/sinks/android_sink.h
+        include/modern/spdlog/sinks/ansicolor_sink.h
+        include/modern/spdlog/sinks/base_sink.h
+        include/modern/spdlog/sinks/dist_sink.h
+        include/modern/spdlog/sinks/file_sinks.h
+        include/modern/spdlog/sinks/msvc_sink.h
+        include/modern/spdlog/sinks/null_sink.h
+        include/modern/spdlog/sinks/ostream_sink.h
+        include/modern/spdlog/sinks/sink.h
+        include/modern/spdlog/sinks/stdout_sinks.h
+        include/modern/spdlog/sinks/syslog_sink.h
+        include/modern/spdlog/sinks/wincolor_sink.h
+        include/modern/spdlog/sinks/windebug_sink.h
+        include/modern/spdlog/async_logger.h
+        include/modern/spdlog/common.h
+        include/modern/spdlog/formatter.h
+        include/modern/spdlog/logger.h
+        include/modern/spdlog/spdlog.h
+        include/modern/spdlog/tweakme.h
+        include/modern/httplib.h
+        include/modern/locked_queue.h
+        include/modern/read_write_lock.h
+        include/modern/thread_pool.h
+        include/modern/timer_wheel.h
+        include/modern/tinyxml2.h
+        include/network/IOCPServer.h
+        include/network/NetworkObject.h
+        include/network/tcp_connector.h
+        include/packet/inner_protobuf_pkg.h
+        include/packet/protobuf_pkg.h
+        include/redis/redis.h
+        include/utility/basic_functions.h
+        include/utility/basic_types.h
+        include/utility/comm_macro.h
+        include/utility/cooling.h
+        include/utility/ipcutility.h
+        include/utility/object_pool.hpp
+        include/utility/singleton.h
+        include/utility/string_functions.h
+        include/utility/stringutility.h
+        include/utility/time_function.h
+        include/utility/timeutility.h
+        include/aoi/quad_tree.hpp
+        include/aoi/rect.hpp
+        include/aoi/vec2.hpp
+        include/zlib/zconf.h
+        include/zlib/zlib.h
+        include/asio.hpp
+        include/svrlib.h
+        src/config/config.cpp
+        src/config/csvreader.cpp
+        src/crypt/aes.cpp
+        src/crypt/blowFish.cpp
+        src/crypt/crypt.cpp
+        src/crypt/mars.cpp
+        src/crypt/md5.cpp
+        src/crypt/net_encrypt.cpp
+        src/crypt/serpent.cpp
+        src/crypt/url_encode.cpp
+        src/dbmysql/db_task.cpp
+        src/dbmysql/db_wrap.cpp
+        src/dbmysql/dbmysql.cpp
+        src/dbmysql/dbmysql_exception.cpp
+        src/dbmysql/dbmysql_result.cpp
+        src/dbmysql/dbmysql_statement.cpp
+        src/dbmysql/dbmysql_transaction.cpp
+        src/dbmysql/test_client.cpp
+        src/framework/exception.cpp
+        src/framework/framework.cpp
+        src/framework/framework.h
+        src/framework/frameworkmain.cpp
+        src/helper/bufferStream.cpp
+        src/helper/filehelper.cpp
+        src/helper/fileStream.cpp
+        src/helper/helper.cpp
+        src/helper/streamBase.cpp
+        src/helper/stringStream.cpp
+        src/math/math_functions.cpp
+        src/math/rand_table.cpp
+        src/modern/json_wrap.cpp
+        src/modern/tinyxml2.cpp
+        src/network/Acceptor.cpp
+        src/network/Acceptor.h
+        src/network/CircuitQueue.h
+        src/network/Connector.cpp
+        src/network/Connector.h
+        src/network/Double_List_T.h
+        src/network/IOCPServer.cpp
+        src/network/IoHandler.cpp
+        src/network/IoHandler.h
+        src/network/Message.h
+        src/network/Network.h
+        src/network/NetworkObject.cpp
+        src/network/RecvBuffer.h
+        src/network/SendBuffer.h
+        src/network/Session.cpp
+        src/network/Session.h
+        src/network/SessionList.cpp
+        src/network/SessionList.h
+        src/network/Single_List_T.h
+        src/network/SocketOps.cpp
+        src/network/SocketOpt.h
+        src/network/tcp_connector.cpp
+        src/network/TLock.cpp
+        src/network/TLock.h
+        src/packet/inner_protobuf_pkg.cpp
+        src/packet/protobuf_pkg.cpp
+        src/redis/redis.cpp
+        src/utility/basic_functions.cpp
+        src/utility/cooling.cpp
+        src/utility/ipcutility.cpp
+        src/utility/string_functions.cpp
+        src/utility/stringutility.cpp
+        src/utility/time_function.cpp
+        src/utility/timeutility.cpp
+        src/zlib/adler32.c
+        src/zlib/compress.c
+        src/zlib/crc32.c
+        src/zlib/crc32.h
+        src/zlib/deflate.c
+        src/zlib/deflate.h
+        src/zlib/gzclose.c
+        src/zlib/gzguts.h
+        src/zlib/gzlib.c
+        src/zlib/gzread.c
+        src/zlib/gzwrite.c
+        src/zlib/infback.c
+        src/zlib/inffast.c
+        src/zlib/inffast.h
+        src/zlib/inffixed.h
+        src/zlib/inflate.c
+        src/zlib/inflate.h
+        src/zlib/inftrees.c
+        src/zlib/inftrees.h
+        src/zlib/trees.c
+        src/zlib/trees.h
+        src/zlib/uncompr.c
+        src/zlib/zutil.c
+        src/zlib/zutil.h
+        include/lua_service/lua_service.h
+        src/lua_service/lua_service.cpp include/aoi/scene.h)

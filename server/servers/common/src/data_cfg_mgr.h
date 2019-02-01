@@ -1,0 +1,36 @@
+
+#pragma once
+
+#include <string>
+#include "fundamental/noncopyable.h"
+#include "svrlib.h"
+#include "db_struct_define.h"
+#include "dbmysql_mgr.h"
+#include <vector>
+#include "game_define.h"
+#include <unordered_map>
+#include <unordered_set>
+
+using namespace std;
+using namespace svrlib;
+
+/*************************************************************/
+class CDataCfgMgr : public AutoDeleteSingleton<CDataCfgMgr>
+{
+public:
+	CDataCfgMgr();
+
+	virtual ~CDataCfgMgr();
+
+public:
+	bool Init();
+
+	void ShutDown();
+
+	bool Reload();
+
+protected:
+
+
+};
+
