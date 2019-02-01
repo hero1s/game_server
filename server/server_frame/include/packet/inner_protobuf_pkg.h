@@ -8,6 +8,7 @@
 #include <google/protobuf/message.h>
 #include "svrlib.h"
 #include "network/NetworkObject.h"
+#include "protobuf_handle.h"
 
 using namespace svrlib;
 using namespace Network;
@@ -43,23 +44,13 @@ bool SendInnerMsg(NetworkObject *pNetObj, const void *msg, uint16_t msg_len, uin
                   uint8_t route = 0, uint32_t routeMain = 0, uint32_t routeSub = 0);
 
 // 消息处理
-class CInnerMsgHanlde {
+class CInnerMsgHanlde : public CProtobufHandleBase {
 public:
     int OnHandleClientMsg(NetworkObject *pNetObj, uint8_t *pData, size_t uiDataLen);
 
-    //  收到客户端消息时回调
-    virtual int OnRecvClientMsg(NetworkObject *pNetObj, const uint8_t *pkt_buf, uint16_t buf_len, INNERHEAD *head) = 0;
-
-    //  添加消息映射
-    template<class TYPE, class F>
-    void bind_handler(TYPE *m, int key, F f) {
-        m_handlers[key] = std::bind(f, m, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3,
-                                    std::placeholders::_4);
-    }
 
 protected:
-    std::unordered_map<int, function<int(NetworkObject *pNetObj, const uint8_t *pkt_buf, uint16_t buf_len,
-                                         INNERHEAD *head)>> m_handlers;
+    INNERHEAD * _head;
 };
 
 // 消息解码

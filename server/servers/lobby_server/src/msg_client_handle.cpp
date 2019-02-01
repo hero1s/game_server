@@ -25,20 +25,6 @@ CHandleClientMsg::~CHandleClientMsg()
 
 }
 
-int CHandleClientMsg::OnRecvClientMsg(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, PACKETHEAD* head)
-{
-	auto it = m_handlers.find(head->cmd);
-	if (it != m_handlers.end())
-	{
-		it->second(pNetObj, pkt_buf, buf_len, head);
-	}
-	else
-	{
-		return 0;
-	}
-	return 0;
-}
-
 #ifndef CHECK_PLAYER_PLAY
 #define CHECK_PLAYER_PLAY   \
     CPlayer* pPlayer = GetPlayer(pNetObj);\
@@ -47,19 +33,19 @@ int CHandleClientMsg::OnRecvClientMsg(NetworkObject* pNetObj, const uint8_t* pkt
 #endif
 
 // 心跳包
-int CHandleClientMsg::handle_msg_heart(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, PACKETHEAD* head)
+int CHandleClientMsg::handle_msg_heart()
 {
 	net::msg_heart_test msg;
 	msg.set_svr_time(getSysTime());
-	SendProtobufMsg(pNetObj, &msg, net::C2S_MSG_HEART, 0);
+	SendProtobufMsg(_pNetObj, &msg, net::C2S_MSG_HEART, 0);
 	return 0;
 }
 
 //登录
-int CHandleClientMsg::handle_msg_login(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, PACKETHEAD* head)
+int CHandleClientMsg::handle_msg_login()
 {
 	net::msg_login_req msg;
-	PARSE_MSG_FROM_ARRAY(msg);
+	PARSE_MSG(msg);
 
 	LOG_ERROR("recv player login msg:uid:{}-deviceid:{}-key:{}", msg.uid(), msg.deviceid(), msg.key());
 	uint32_t             uid = msg.uid();
@@ -67,7 +53,7 @@ int CHandleClientMsg::handle_msg_login(NetworkObject* pNetObj, const uint8_t* pk
 	repmsg.set_server_time(getSysTime());
 
 	string strDecyPHP = msg.key();
-	CPlayer* pPlayerObj = (CPlayer*) CPlayerMgr::Instance().GetPlayer(pNetObj->GetUID());
+	CPlayer* pPlayerObj = (CPlayer*) CPlayerMgr::Instance().GetPlayer(_pNetObj->GetUID());
 	CPlayer* pPlayerUid = (CPlayer*) CPlayerMgr::Instance().GetPlayer(uid);
 
 	// 校验密码
@@ -77,9 +63,9 @@ int CHandleClientMsg::handle_msg_login(NetworkObject* pNetObj, const uint8_t* pk
 		if (strDecy != strDecyPHP || std::abs(int64_t(getSysTime()) - int64_t(msg.check_time())) > SECONDS_IN_ONE_DAY)
 		{
 			LOG_ERROR("check passwd error {}-PHP:{}--c++:{}", uid, strDecyPHP, strDecy);
-			LOG_ERROR("the ip is:{},svrtime:{},sendtime:{}", pNetObj->GetIP(), getSysTime(), msg.check_time());
+			LOG_ERROR("the ip is:{},svrtime:{},sendtime:{}", _pNetObj->GetIP(), getSysTime(), msg.check_time());
 			repmsg.set_result(-1);
-			SendProtobufMsg(pNetObj, &repmsg, net::S2C_MSG_LOGIN_REP, 0);
+			SendProtobufMsg(_pNetObj, &repmsg, net::S2C_MSG_LOGIN_REP, 0);
 			return -1;
 		}
 	}
@@ -90,9 +76,9 @@ int CHandleClientMsg::handle_msg_login(NetworkObject* pNetObj, const uint8_t* pk
 		if (pPlayerUid == NULL)
 		{
 			repmsg.set_result(0);
-			SendProtobufMsg(pNetObj, &repmsg, net::S2C_MSG_LOGIN_REP, 0);
+			SendProtobufMsg(_pNetObj, &repmsg, net::S2C_MSG_LOGIN_REP, 0);
 			LOG_ERROR("服务器维护状态，只有在玩玩家能进入");
-			pNetObj->Disconnect(false);
+			_pNetObj->Disconnect(false);
 			return 0;
 		}
 	}
@@ -131,8 +117,8 @@ int CHandleClientMsg::handle_msg_login(NetworkObject* pNetObj, const uint8_t* pk
 				pOldSock->Disconnect(false);
 			}
 
-			pNetObj->SetUID(uid);
-			pPlayerUid->SetSession(pNetObj);
+			_pNetObj->SetUID(uid);
+			pPlayerUid->SetSession(_pNetObj);
 			pPlayerUid->SetLoginKey(strDecyPHP);
 
 			if (pPlayerUid->GetPlayerState() == PLAYER_STATE_PLAYING)
@@ -148,8 +134,8 @@ int CHandleClientMsg::handle_msg_login(NetworkObject* pNetObj, const uint8_t* pk
 		}
 	}
 	CPlayer* pPlayer = new CPlayer(PLAYER_TYPE_ONLINE);
-	pNetObj->SetUID(uid);
-	pPlayer->SetSession(pNetObj);
+	_pNetObj->SetUID(uid);
+	pPlayer->SetSession(_pNetObj);
 	pPlayer->SetUID(uid);
 	CPlayerMgr::Instance().AddPlayer(pPlayer);
 	pPlayer->OnLogin();

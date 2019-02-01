@@ -196,45 +196,35 @@ void CCenterMgr::UpdateServerList() {
     SendMsg2All(&svrList,net::CS2S_MSG_SERVER_LIST_REP,0);
 }
 
-int CCenterMgr::OnRecvClientMsg(NetworkObject *pNetObj, const uint8_t *pkt_buf, uint16_t buf_len, INNERHEAD *head) {
+int CCenterMgr::OnRecvClientMsg() {
     m_msgMinCount++;
-    if (head->route > 0)
+    if (_head->route > 0)
     {
-        return OnRouteDispMsg(pNetObj, pkt_buf, buf_len, head);
+        return OnRouteDispMsg();
     }
 
-    auto it = m_handlers.find(head->cmd);
-    if (it != m_handlers.end())
-    {
-        it->second(pNetObj, pkt_buf, buf_len, head);
-    }
-    else
-    {
-        LOG_ERROR("未处理的协议定义:{}", head->cmd);
-    }
-
-    return 0;
+    return CProtobufHandleBase::OnRecvClientMsg();
 }
 
 //路由分发消息
-int CCenterMgr::OnRouteDispMsg(NetworkObject *pNetObj, const uint8_t *pkt_buf, uint16_t buf_len, INNERHEAD *head) {
-    switch (head->route)
+int CCenterMgr::OnRouteDispMsg() {
+    switch (_head->route)
     {
         case emROUTE_TYPE_ALL_GAME:
         {
             //LOG_DEBUG("转发全部游戏服{}", head->cmd);
-            SendMsg2AllGameServer(head->routeMain, pkt_buf, buf_len, head->cmd, head->uin);
+            SendMsg2AllGameServer(_head->routeMain, _pkt_buf, _buf_len, _head->cmd, _head->uin);
             break;
         }
         case emROUTE_TYPE_ONE_GAME:
         {
             //LOG_DEBUG("转发单个游戏服{}--{}--{}", head->cmd, head->routeMain, head->routeSub);
-            SendMsg2Server(head->routeMain, pkt_buf, buf_len, head->cmd, head->uin);
+            SendMsg2Server(_head->routeMain, _pkt_buf, _buf_len, _head->cmd, _head->uin);
             break;
         }
         default:
         {
-            LOG_ERROR("路由类型错误:{}", head->route);
+            LOG_ERROR("路由类型错误:{}", _head->route);
             break;
         }
     }
@@ -242,22 +232,22 @@ int CCenterMgr::OnRouteDispMsg(NetworkObject *pNetObj, const uint8_t *pkt_buf, u
 }
 
 //服务器注册
-int CCenterMgr::handle_msg_register_svr(NetworkObject *pNetObj, const uint8_t *pkt_buf, uint16_t buf_len, INNERHEAD *head) {
+int CCenterMgr::handle_msg_register_svr() {
     net::msg_register_center_svr_req msg;
-    PARSE_MSG_FROM_ARRAY(msg);
+    PARSE_MSG(msg);
 
     LOG_DEBUG("Server Register svrid:{}--svrType {}--gameType:{}--subType:{}", msg.info().svrid(), msg.info().svr_type(),
               msg.info().game_type(), msg.info().game_subtype());
     net::msg_register_center_svr_rep repmsg;
 
-    bool bRet = CCenterMgr::Instance().AddServer(pNetObj,msg.info());
+    bool bRet = CCenterMgr::Instance().AddServer(_pNetObj,msg.info());
     if (!bRet)
     {
         LOG_ERROR("Register Server fail svrid:{}", msg.info().svrid());
     }
     repmsg.set_result(bRet);
 
-    SendInnerMsg(pNetObj, &repmsg, net::CS2S_MSG_REGISTER_CENTER_REP, 0);
+    SendInnerMsg(_pNetObj, &repmsg, net::CS2S_MSG_REGISTER_CENTER_REP, 0);
 
     return 0;
 }

@@ -64,13 +64,13 @@ public:
 	void UpdateServerList();
 
 public:
-	virtual int OnRecvClientMsg(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, INNERHEAD* head);
+	virtual int OnRecvClientMsg();
 
 protected:
 	//路由分发消息
-	int OnRouteDispMsg(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, INNERHEAD* head);
+	int OnRouteDispMsg();
 	//服务器注册
-	int handle_msg_register_svr(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, INNERHEAD* head);
+	int handle_msg_register_svr();
 
 private:
 	using MAP_SERVERS = unordered_map<uint32_t, shared_ptr<CServerClient>>;

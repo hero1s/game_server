@@ -112,8 +112,13 @@ int CProtobufMsgHanlde::OnHandleClientMsg(NetworkObject *pNetObj, uint8_t *pData
         memcpy((pData + PACKET_HEADER_SIZE), s_crypt_buff, head->datalen);
         //LOG_DEBUG("xor256 crypt:%d", head->datalen);
     }
+    _pNetObj = pNetObj;
+    _head = head;
+    _pkt_buf = pData + PACKET_HEADER_SIZE;
+    _buf_len = head->datalen;
+    _cmd = head->cmd;
 
-    return OnRecvClientMsg(pNetObj, pData + PACKET_HEADER_SIZE, head->datalen, head);
+    return OnRecvClientMsg();
 }
 
 

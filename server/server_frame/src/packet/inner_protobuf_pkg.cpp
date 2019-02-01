@@ -70,8 +70,13 @@ int CInnerMsgHanlde::OnHandleClientMsg(NetworkObject *pNetObj, uint8_t *pData, s
         LOG_ERROR("msg length is not right:{}--{}", uiDataLen, head->datalen);
         return -1;
     }
+    _pNetObj = pNetObj;
+    _head = head;
+    _pkt_buf = pData + INNER_HEADER_SIZE;
+    _buf_len = head->datalen;
+    _cmd = head->cmd;
 
-    return OnRecvClientMsg(pNetObj, pData + INNER_HEADER_SIZE, head->datalen, head);
+    return OnRecvClientMsg();
 
 }
 

@@ -51,20 +51,14 @@ public:
 	void OnCloseClient(CCenterNetObj* pNetObj);
 	bool IsRun();
 
-	// 设置消息处理handle
-	void SetMsgHandle(CInnerMsgHanlde* pMsgHandle);
 public:
 	void SendMsg2Center(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin, uint8_t route = 0, uint32_t routeMain = 0, uint32_t routeSub = 0);
 
-// 消息处理
-public:
-	virtual int OnRecvClientMsg(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, INNERHEAD* head);
-
 protected:
 	//服务器注册
-	int handle_msg_register_svr_rep(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, INNERHEAD* head);
+	int handle_msg_register_svr_rep();
 	//更新服务器列表
-	int handle_msg_server_list_rep(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, INNERHEAD* head);
+	int handle_msg_server_list_rep();
 
 
 private:
@@ -72,7 +66,6 @@ private:
 	CCenterNetObj* m_pNetObj;
 	bool  m_isRun;
 	net::server_info m_curSvrInfo;
-	CInnerMsgHanlde* m_pMsgHandle;
 
 };
 

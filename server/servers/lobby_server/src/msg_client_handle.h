@@ -14,13 +14,11 @@ public:
 	CHandleClientMsg();
 	virtual ~CHandleClientMsg();
 
-	virtual int OnRecvClientMsg(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, PACKETHEAD* head);
-
 protected:
 	// ÐÄÌø°ü
-	int handle_msg_heart(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, PACKETHEAD* head);
+	int handle_msg_heart();
 	// µÇÂ¼
-	int handle_msg_login(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, PACKETHEAD* head);
+	int handle_msg_login();
 
 	CPlayer* GetPlayer(NetworkObject* pNetObj);
 };

@@ -50,7 +50,6 @@ CCenterClientMgr::CCenterClientMgr()
 {
 	m_pNetObj    = NULL;
 	m_isRun      = false;
-	m_pMsgHandle = NULL;
 
 	bind_handler(this, net::CS2S_MSG_REGISTER_CENTER_REP, &CCenterClientMgr::handle_msg_register_svr_rep);
 	bind_handler(this,net::CS2S_MSG_SERVER_LIST_REP,&CCenterClientMgr::handle_msg_server_list_rep);
@@ -115,55 +114,34 @@ bool CCenterClientMgr::IsRun()
 {
 	return m_isRun;
 }
-// 设置消息处理handle
-void CCenterClientMgr::SetMsgHandle(CInnerMsgHanlde* pMsgHandle)
-{
-	m_pMsgHandle = pMsgHandle;
-}
 void CCenterClientMgr::SendMsg2Center(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin, uint8_t route, uint32_t routeMain, uint32_t routeSub)
 {
 	if (!m_isRun || m_pNetObj == NULL)return;
 	SendInnerMsg(m_pNetObj, msg, msg_type, uin, route, routeMain, routeSub);
 }
-int CCenterClientMgr::OnRecvClientMsg(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, INNERHEAD* head)
-{
-	auto it = m_handlers.find(head->cmd);
-	if (it != m_handlers.end())
-	{
-		it->second(pNetObj, pkt_buf, buf_len, head);
-	}
-	else
-	{
-		if(m_pMsgHandle != NULL)
-		{
-			m_pMsgHandle->OnRecvClientMsg(pNetObj, pkt_buf, buf_len, head);
-		}
-	}
-	return 0;
-}
 //服务器注册
-int CCenterClientMgr::handle_msg_register_svr_rep(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, INNERHEAD* head)
+int CCenterClientMgr::handle_msg_register_svr_rep()
 {
 	net::msg_register_center_svr_rep msg;
-	PARSE_MSG_FROM_ARRAY(msg);
+	PARSE_MSG(msg);
 
 	LOG_DEBUG("中心服注册返回 :{}", msg.result());
 	if (msg.result() == 1)
 	{
-		CCenterClientMgr::Instance().RegisterRep(pNetObj->GetUID(), true);
+		CCenterClientMgr::Instance().RegisterRep(_pNetObj->GetUID(), true);
 	}
 	else
 	{
-		CCenterClientMgr::Instance().RegisterRep(pNetObj->GetUID(), false);
-		LOG_ERROR("中心服注册失败 {} -->:{}", pNetObj->GetUID(), CApplication::Instance().GetServerID());
+		CCenterClientMgr::Instance().RegisterRep(_pNetObj->GetUID(), false);
+		LOG_ERROR("中心服注册失败 {} -->:{}", _pNetObj->GetUID(), CApplication::Instance().GetServerID());
 	}
 	return 0;
 }
 //更新服务器列表
-int CCenterClientMgr::handle_msg_server_list_rep(NetworkObject* pNetObj, const uint8_t* pkt_buf, uint16_t buf_len, INNERHEAD* head)
+int CCenterClientMgr::handle_msg_server_list_rep()
 {
 	net::msg_server_list_rep msg;
-	PARSE_MSG_FROM_ARRAY(msg);
+	PARSE_MSG(msg);
 
 	LOG_DEBUG("中心服服务器列表返回 :{}", msg.server_list_size());
 
