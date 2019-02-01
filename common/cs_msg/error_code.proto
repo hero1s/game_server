@@ -1,0 +1,20 @@
+package net;
+
+// 结果码	
+enum RESULT_CODE
+{
+	RESULT_CODE_FAIL 			= 0; // 失败
+	RESULT_CODE_SUCCESS			= 1; // 成功
+		
+}
+
+
+
+
+
+
+
+
+
+
+

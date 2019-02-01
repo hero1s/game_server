@@ -1,0 +1,87 @@
+
+package net;
+import "base_msg_struct.proto";
+import "error_code.proto";
+
+//-----------------------------大厅服消息-------------------------------------------------------------------
+// 心跳包
+message msg_heart_test
+{
+	optional uint32 svr_time = 1;
+}
+// 登录
+message msg_login_req
+{
+	optional uint32 uid  		= 1;		// 帐号ID
+	optional bytes  key  		= 2;		// 密码		
+	optional bytes  deviceid	= 3;		// 设备ID
+	optional bytes  versionid	= 4;		// 版本号
+	optional uint32 check_time  = 5;		// 校验时间
+}
+// 登录返回
+message msg_login_rep
+{
+	optional uint32 result 		= 1;	// 返回结果
+	optional uint32 server_time = 2;	// 服务器时间
+}
+// 退出通知
+message msg_loginout_rep
+{
+	optional uint32 reason 		= 1;	// 退出原因
+	optional bytes  deviceid	= 2;	// 设备ID
+}
+// 版本信息
+message msg_version_info_rep
+{
+	optional bytes version = 1; // 版本信息
+}
+
+// 通知进入游戏
+message msg_enter_game_rep
+{
+	optional uint32 result = 1;	
+}
+// 发送玩家信息
+message msg_player_data_rep
+{	
+	optional base_info  base_data = 1;	// 基本信息		
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
