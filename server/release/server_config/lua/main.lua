@@ -4,16 +4,9 @@ function load_logic_script()
 
     -- 全局设置随机数
     math.randomseed(os.time())
-    reload_file("common_define");
-    reload_file("common_func");
-
+    reload_file("base.preload");
     reload_file("main");
-    reload_file("item");
     reload_file("player_handle");
-    reload_file("huodong");
-    reload_file("game_config");
-    reload_file("game_logic");
-
     return true;
 end
 
