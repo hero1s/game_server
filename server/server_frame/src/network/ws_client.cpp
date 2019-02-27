@@ -23,14 +23,14 @@ namespace Network {
     CWebSocketClient::~CWebSocketClient() {
 
     }
-    virtual uint16_t CWebSocketClient::GetHeadLen(){
-
+    uint16_t CWebSocketClient::GetHeadLen(){
+        return 4;
     }
-    virtual uint16_t CWebSocketClient::GetPacketLen(const uint8_t* pData, uint16_t wLen){
-
+    uint16_t CWebSocketClient::GetPacketLen(const uint8_t* pData, uint16_t wLen){
+        return 4;
     }
-    virtual uint16_t CWebSocketClient::MaxTickPacket(){
-
+    uint16_t CWebSocketClient::MaxTickPacket(){
+        return 20;
     }
 
     void CWebSocketClient::OnAccept(uint32_t dwNetworkIndex) {
