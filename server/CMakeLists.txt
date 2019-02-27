@@ -498,7 +498,7 @@ add_executable(server
         server_frame/include/crypt/md5.h
         server_frame/include/crypt/net_encrypt.h
         server_frame/include/crypt/serpent.h
-        server_frame/include/crypt/sha1.hpp
+        server_frame/include/crypt/sha1.h
         server_frame/include/crypt/url_encode.h
         server_frame/include/crypt/xor256.h
         server_frame/include/dbmysql/db_task.h
