@@ -37,17 +37,6 @@ public:
 
 	};
 };
-//消息解码
-class CMessageDecode
-{
-public:
-	virtual uint32_t GetHeadLen() = 0;
-	virtual uint32_t GetPacketLen(const uint8_t* pData, uint16_t wLen) = 0;
-	virtual uint32_t MaxTickPacket()
-	{
-		return 100;
-	};
-};
 
 //-------------------------------------------------------------------------------------------------
 /// I/O 
@@ -63,7 +52,6 @@ struct stIOHANDLER_DESC
   uint32_t dwTimeOut;               // 超时断开(秒)
   uint32_t dwMaxPacketSize;         // 最大包长
   CNetworkObjPool* pool;            // 对象池
-  CMessageDecode * decode;          // 消息解码器
   bool openMsgQueue;                // 是否开启消息队列(防止服务器突发阻塞爆掉缓存)
 
   stIOHANDLER_DESC()

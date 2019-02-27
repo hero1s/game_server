@@ -103,8 +103,6 @@ private:
 	uint32_t m_dwMaxAcceptSession;
 
 	CNetworkObjPool* m_pNetworkPool;
-	CMessageDecode * m_pMsgDecode;
-
 	unordered_map<uint32_t, uint32_t> m_mpWhiteListIp;
 	bool                              m_openMsgQueue;
 };

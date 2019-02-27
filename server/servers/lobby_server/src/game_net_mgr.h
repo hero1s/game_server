@@ -19,6 +19,18 @@ public:
 private:
 	uint32_t m_seqNum;//–Ú¡–∫≈
 	bool IsCanHandle(const uint8_t* pMsg, uint16_t wSize);
+
+	virtual uint16_t GetHeadLen() {
+		return PACKET_HEADER_SIZE;
+	};
+
+	virtual uint16_t GetPacketLen(const uint8_t *pData, uint16_t wLen) {
+		return GetProtobufPacketLen(pData, wLen);
+	};
+
+	virtual uint16_t MaxTickPacket() {
+		return 20;
+	}
 protected:
 	virtual void OnAccept(uint32_t dwNetworkIndex);
 	virtual void OnDisconnect();

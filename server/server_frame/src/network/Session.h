@@ -172,7 +172,6 @@ private:
 	TLock m_lockRecv;
 	TLock m_lockSend;
 	int   m_bCanSend;
-	CMessageDecode* m_pMsgDecode;
 	svrlib::LockedQueue<std::shared_ptr<CMessage> > m_QueueMessage;//消息队列
 	bool                                    m_openMsgQueue;//是否开启消息队列模式
 	uint16_t                                m_wMaxPacketSize;

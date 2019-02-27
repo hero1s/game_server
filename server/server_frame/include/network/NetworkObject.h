@@ -30,6 +30,10 @@ public:
 	uint32_t GetUID();
 	void SetUID(uint32_t uid);
 
+public:
+	virtual uint16_t GetHeadLen() = 0;
+	virtual uint16_t GetPacketLen(const uint8_t* pData, uint16_t wLen) = 0;
+	virtual uint16_t MaxTickPacket() = 0;
 protected:
 	virtual void OnAccept(uint32_t dwNetworkIndex);
 	virtual void OnDisconnect();

@@ -65,7 +65,6 @@ bool CApplication::Initialize() {
         desc[0].dwTimeOut = 20;
         desc[0].dwMaxPacketSize = 1024 * 2;
         desc[0].pool = new CClientNetObj();
-        desc[0].decode = new CClientMsgDecode();
         desc[0].openMsgQueue = false;
 
         desc[1].dwIoHandlerKey = 1;
@@ -77,7 +76,6 @@ bool CApplication::Initialize() {
         desc[1].dwTimeOut = 60 * 60 * 24;
         desc[1].dwMaxPacketSize = INNER_MAX_SIZE;
         desc[1].pool = NULL;
-        desc[1].decode = new CInnerMsgDecode();
         desc[1].openMsgQueue = true;
 
         if (!m_iocpServer.AddIoHandler(desc[0]) || !m_iocpServer.AddIoHandler(desc[1]))

@@ -34,7 +34,6 @@ Session::Session(uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t 
 	m_bCanSend      = true;
 
 	m_pNetworkObject = NULL;
-	m_pMsgDecode     = NULL;
 	m_openMsgQueue   = false;
 	m_wMaxPacketSize = dwMaxPacketSize;
 
@@ -47,10 +46,6 @@ Session::~Session()
 
 	if (m_pSendBuffer) delete m_pSendBuffer;
 	if (m_pRecvBuffer) delete m_pRecvBuffer;
-}
-void Session::SetMsgDecode(CMessageDecode* pDecode)
-{
-	m_pMsgDecode = pDecode;
 }
 void Session::SetOpenMsgQueue(bool openMsgQueue)
 {
@@ -102,10 +97,10 @@ bool Session::ProcessRecvdPacket()
 
 	uint8_t* pPacket;
 	uint32_t msgNum = 0;
-	while (m_pRecvBuffer->GetRecvDataLen() >= m_pMsgDecode->GetHeadLen() && (msgNum++) < m_pMsgDecode->MaxTickPacket())
+	while (m_pRecvBuffer->GetRecvDataLen() >= m_pNetworkObject->GetHeadLen() && (msgNum++) < m_pNetworkObject->MaxTickPacket())
 	{
-		pPacket             = m_pRecvBuffer->GetFirstPacketPtr(m_pMsgDecode->GetHeadLen());
-		uint32_t iPacketLen = m_pMsgDecode->GetPacketLen(pPacket, m_pMsgDecode->GetHeadLen());
+		pPacket             = m_pRecvBuffer->GetFirstPacketPtr(m_pNetworkObject->GetHeadLen());
+		uint16_t iPacketLen = m_pNetworkObject->GetPacketLen(pPacket, m_pNetworkObject->GetHeadLen());
 		if (iPacketLen >= m_wMaxPacketSize)
 		{
 			LOG_ERROR("max packet is big than:{},ip:{}", iPacketLen, GetIP());
@@ -132,7 +127,7 @@ bool Session::ProcessRecvdPacket()
 bool Session::HandleRecvMessage()
 {
 	uint32_t msgNum = 0;
-	while (!m_QueueMessage.empty() && (msgNum++) < m_pMsgDecode->MaxTickPacket())
+	while (!m_QueueMessage.empty() && (msgNum++) < m_pNetworkObject->MaxTickPacket())
 	{
 		auto message = m_QueueMessage.pop();
 		int  iRet    = m_pNetworkObject->OnRecv(message->Data(), message->Length());
@@ -149,10 +144,10 @@ bool Session::HandleRecvMessage()
 bool Session::DecodeMsgToQueue()
 {
 	uint8_t* pPacket;
-	while (m_pRecvBuffer->GetRecvDataLen() >= m_pMsgDecode->GetHeadLen() && (m_QueueMessage.size() < m_pMsgDecode->MaxTickPacket()))
+	while (m_pRecvBuffer->GetRecvDataLen() >= m_pNetworkObject->GetHeadLen() && (m_QueueMessage.size() < m_pNetworkObject->MaxTickPacket()))
 	{
-		pPacket = m_pRecvBuffer->GetFirstPacketPtr(m_pMsgDecode->GetHeadLen());
-		uint32_t iPacketLen = m_pMsgDecode->GetPacketLen(pPacket, m_pMsgDecode->GetHeadLen());
+		pPacket = m_pRecvBuffer->GetFirstPacketPtr(m_pNetworkObject->GetHeadLen());
+		uint32_t iPacketLen = m_pNetworkObject->GetPacketLen(pPacket, m_pNetworkObject->GetHeadLen());
 		if (iPacketLen >= m_wMaxPacketSize)
 		{
 			LOG_ERROR("max packet is big than:{},ip:{}", iPacketLen, GetIP());

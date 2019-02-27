@@ -47,25 +47,8 @@ class CProtobufMsgHanlde : public CProtobufHandleBase {
 public:
     int OnHandleClientMsg(NetworkObject *pNetObj, uint8_t *pData, size_t uiDataLen);
 
-
 protected:
     PACKETHEAD * _head;
-};
-
-// 消息解码
-class CClientMsgDecode : public CMessageDecode {
-public:
-    virtual uint32_t GetHeadLen() {
-        return PACKET_HEADER_SIZE;
-    };
-
-    virtual uint32_t GetPacketLen(const uint8_t *pData, uint16_t wLen) {
-        return GetProtobufPacketLen(pData, wLen);
-    };
-
-    virtual uint32_t MaxTickPacket() {
-        return 20;
-    }
 };
 
 #define DUMP_PROTO_MSG_INFO(msg) \

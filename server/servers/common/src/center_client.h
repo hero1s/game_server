@@ -15,57 +15,77 @@ using namespace svrlib;
 using namespace Network;
 
 // center connector连接
-class CCenterNetObj : public CTcpConnector
-{
+class CCenterNetObj : public CTcpConnector {
 public:
-	CCenterNetObj();
+    CCenterNetObj();
 
-	virtual ~CCenterNetObj();
+    virtual ~CCenterNetObj();
+
+    virtual uint16_t GetHeadLen() {
+        return INNER_HEADER_SIZE;
+    };
+
+    virtual uint16_t GetPacketLen(const uint8_t *pData, uint16_t wLen) {
+        return GetInnerPacketLen(pData, wLen);
+    };
+
+    virtual uint16_t MaxTickPacket() {
+        return 1000;
+    }
 
 protected:
-	virtual void OnAccept(uint32_t dwNetworkIndex);
+    virtual void OnAccept(uint32_t dwNetworkIndex);
 
-	virtual void ConnectorOnDisconnect();
+    virtual void ConnectorOnDisconnect();
 
-	virtual int OnRecv(uint8_t* pMsg, uint16_t wSize);
+    virtual int OnRecv(uint8_t *pMsg, uint16_t wSize);
 
-	virtual void ConnectorOnConnect(bool bSuccess, uint32_t dwNetworkIndex);
-	virtual void OnLogString(const char* pszLog);
+    virtual void ConnectorOnConnect(bool bSuccess, uint32_t dwNetworkIndex);
+
+    virtual void OnLogString(const char *pszLog);
 
 };
 
 /******************中心服管理器****************************/
-class CCenterClientMgr : public CInnerMsgHanlde, public AutoDeleteSingleton<CCenterClientMgr>
-{
+class CCenterClientMgr : public CInnerMsgHanlde, public AutoDeleteSingleton<CCenterClientMgr> {
 public:
-	CCenterClientMgr();
-	virtual ~CCenterClientMgr();
+    CCenterClientMgr();
 
-	void OnTimer();
-	bool Init(int32_t ioKey,const net::server_info& info,string ip,uint32_t port);
-	void Register();
-	void RegisterRep(uint16_t svrid, bool rep);
-	// 大厅连接回调
-	void OnConnect(bool bSuccess, CCenterNetObj* pNetObj);
-	// 大厅断开
-	void OnCloseClient(CCenterNetObj* pNetObj);
-	bool IsRun();
+    virtual ~CCenterClientMgr();
+
+    void OnTimer();
+
+    bool Init(int32_t ioKey, const net::server_info &info, string ip, uint32_t port);
+
+    void Register();
+
+    void RegisterRep(uint16_t svrid, bool rep);
+
+    // 大厅连接回调
+    void OnConnect(bool bSuccess, CCenterNetObj *pNetObj);
+
+    // 大厅断开
+    void OnCloseClient(CCenterNetObj *pNetObj);
+
+    bool IsRun();
 
 public:
-	void SendMsg2Center(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin, uint8_t route = 0, uint32_t routeMain = 0, uint32_t routeSub = 0);
+    void SendMsg2Center(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin, uint8_t route = 0,
+                        uint32_t routeMain = 0, uint32_t routeSub = 0);
 
 protected:
-	//服务器注册
-	int handle_msg_register_svr_rep();
-	//更新服务器列表
-	int handle_msg_server_list_rep();
+    //服务器注册
+    int handle_msg_register_svr_rep();
+
+    //更新服务器列表
+    int handle_msg_server_list_rep();
 
 
 private:
-	MemberTimerEvent<CCenterClientMgr, &CCenterClientMgr::OnTimer> m_timer;
-	CCenterNetObj* m_pNetObj;
-	bool  m_isRun;
-	net::server_info m_curSvrInfo;
+    MemberTimerEvent<CCenterClientMgr, &CCenterClientMgr::OnTimer> m_timer;
+    CCenterNetObj *m_pNetObj;
+    bool m_isRun;
+    net::server_info m_curSvrInfo;
 
 };
 

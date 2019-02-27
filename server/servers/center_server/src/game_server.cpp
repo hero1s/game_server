@@ -48,7 +48,6 @@ bool CApplication::Initialize()
 		desc.dwTimeOut            = 60*60*24;
 		desc.dwMaxPacketSize      = INNER_MAX_SIZE;
 		desc.pool                 = new CCenterNetObj();
-		desc.decode               = new CInnerMsgDecode();
 		desc.openMsgQueue         = true;
 
 		if (!m_iocpServer.AddIoHandler(desc))

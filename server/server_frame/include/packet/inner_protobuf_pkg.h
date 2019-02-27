@@ -53,19 +53,4 @@ protected:
     INNERHEAD * _head;
 };
 
-// ÏûÏ¢½âÂë
-class CInnerMsgDecode : public CMessageDecode {
-public:
-    virtual uint32_t GetHeadLen() {
-        return INNER_HEADER_SIZE;
-    };
-
-    virtual uint32_t GetPacketLen(const uint8_t *pData, uint16_t wLen) {
-        return GetInnerPacketLen(pData, wLen);
-    };
-
-    virtual uint32_t MaxTickPacket() {
-        return 1000;
-    }
-};
 
