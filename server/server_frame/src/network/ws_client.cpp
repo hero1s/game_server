@@ -24,10 +24,66 @@ namespace Network {
 
     }
     uint16_t CWebSocketClient::GetHeadLen(){
+        if(shake_hands_)return 2;
         return 4;
     }
     uint16_t CWebSocketClient::GetPacketLen(const uint8_t* pData, uint16_t wLen){
-        return 4;
+        if(shake_hands_){
+            // 检查扩展位并忽略
+            if ((pData[0] & 0x70) != 0x0)
+            {
+                return -1;
+            }
+            // fin位: 为1表示已接收完整报文, 为0表示继续监听后续报文
+            if ((pData[0] & 0x80) != 0x80)
+            {
+                return -1;
+            }
+            // mask位, 为1表示数据被加密
+            if ((pData[1] & 0x80) != 0x80)
+            {
+                return -1;
+            }
+
+            // 操作码
+            uint16_t payloadLength = 0;
+            uint8_t payloadFieldExtraBytes = 0;
+            uint8_t opcode = static_cast<uint8_t >(pData[0] & 0x0f);
+            if (opcode == WS_TEXT_FRAME)
+            {
+                // 处理utf-8编码的文本帧
+                payloadLength = static_cast<uint16_t >(pData[1] & 0x7f);
+                if (payloadLength == 0x7e)
+                {
+                    uint16_t payloadLength16b = 0;
+                    payloadFieldExtraBytes = 2;
+                    memcpy(&payloadLength16b, &pData[2], payloadFieldExtraBytes);
+                    payloadLength = ntohs(payloadLength16b);
+                }
+                else if (payloadLength == 0x7f)
+                {
+                    // 数据过长,暂不支持
+                    return -1;
+                }
+                return 2+payloadFieldExtraBytes+payloadLength;
+            }
+            else if (opcode == WS_BINARY_FRAME || opcode == WS_PING_FRAME || opcode == WS_PONG_FRAME)
+            {
+                // 二进制/ping/pong帧暂不处理
+                return 2+payloadFieldExtraBytes+payloadLength;
+            }
+            else if (opcode == WS_CLOSING_FRAME)
+            {
+                return -1;
+            }
+            else
+            {
+                return -1;
+            }
+        }else{//握手前的包长判断(待实现)
+
+            return wLen;
+        }
     }
     uint16_t CWebSocketClient::MaxTickPacket(){
         return 20;
