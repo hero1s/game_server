@@ -874,4 +874,4 @@ add_executable(server
         servers/pb/src/msg_define.pb.cc
         servers/pb/src/msg_define.pb.h
         servers/pb/src/servers_msg.pb.cc
-        servers/pb/src/servers_msg.pb.h server_frame/include/packet/protobuf_handle.h server_frame/include/network/ws_client.h server_frame/src/network/ws_client.cpp)
+        servers/pb/src/servers_msg.pb.h server_frame/include/packet/protobuf_handle.h)
