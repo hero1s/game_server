@@ -133,7 +133,6 @@ namespace Network {
         m_pIOCPServer = pIOCPServer;
         m_pNetworkPool = lpDesc.pool;
         m_dwKey = lpDesc.dwIoHandlerKey;
-        m_openMsgQueue = lpDesc.openMsgQueue;
 
         m_pActiveSessionList = new SessionList;
         m_pAcceptedSessionList = new SessionList;
@@ -148,7 +147,9 @@ namespace Network {
                                                lpDesc.dwMaxPacketSize,
                                                lpDesc.dwTimeOut,
                                                1,
-                                               TRUE);
+                                               true,
+                                               lpDesc.openMsgQueue,
+                                               lpDesc.webSocket);
 
         m_pConnectSessionPool = new SessionPool(lpDesc.dwMaxConnectSession,
                                                 lpDesc.dwMaxConnectBuffSize,
@@ -156,9 +157,9 @@ namespace Network {
                                                 lpDesc.dwMaxPacketSize,
                                                 lpDesc.dwTimeOut,
                                                 m_pAcceptSessionPool->GetMaxSize() + 1,
-                                                FALSE);
-
-        m_dwMaxPacketSize = lpDesc.dwMaxPacketSize;
+                                                false,
+                                                lpDesc.openMsgQueue,
+                                                false);
 
         m_pEvents = new CircuitQueue<struct epoll_event>;
         m_pEvents->Create(SOCKET_HOLDER_SIZE * 2, SOCKET_HOLDER_SIZE);
@@ -237,11 +238,11 @@ namespace Network {
 //=============================================================================================================================
 
     Session *IoHandler::AllocAcceptSession() {
-        return m_pAcceptSessionPool->Alloc(m_openMsgQueue);
+        return m_pAcceptSessionPool->Alloc();
     }
 
     Session *IoHandler::AllocConnectSession() {
-        return m_pConnectSessionPool->Alloc(m_openMsgQueue);
+        return m_pConnectSessionPool->Alloc();
     }
 
     void IoHandler::FreeSession(Session *pSession) {

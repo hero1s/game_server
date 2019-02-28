@@ -13,7 +13,9 @@ SessionPool::SessionPool(uint32_t dwSize,
         uint32_t dwMaxPacketSize,
         uint32_t dwTimeOutTick,
         uint32_t dwIndexStart,
-        bool bAcceptSocket)
+        bool bAcceptSocket,
+        bool bOpenMsgQueue,
+        bool bWebSocket)
 {
     m_pList = new SessionList;
 
@@ -25,6 +27,8 @@ SessionPool::SessionPool(uint32_t dwSize,
     m_dwIndexStart     = dwIndexStart;
     m_bAcceptSocket    = bAcceptSocket;
     m_dwCurSize        = 0;
+    m_openMsgQueue     = bOpenMsgQueue;
+    m_webSocket        = bWebSocket;
 
     Create();
 }
@@ -48,7 +52,7 @@ void SessionPool::Create()
         m_pList->push_back(pSession);
     }
 }
-Session* SessionPool::Alloc(bool openMsgQueue)
+Session* SessionPool::Alloc()
 {
     m_pList->Lock();
     if (m_pList->empty())
@@ -65,7 +69,8 @@ Session* SessionPool::Alloc(bool openMsgQueue)
     if (NULL!=pSession)
     {
         pSession->Init();
-        pSession->SetOpenMsgQueue(openMsgQueue);
+        pSession->SetOpenMsgQueue(m_openMsgQueue);
+        pSession->SetWebSocket(m_webSocket);
     }
     m_pList->pop_front();
 

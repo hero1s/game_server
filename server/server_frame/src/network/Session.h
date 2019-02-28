@@ -40,8 +40,8 @@ public:
 	Session(uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t dwMaxPacketSize, uint32_t dwTimeOut);
 	virtual ~Session();
 
-	void SetMsgDecode(CMessageDecode* pDecode);
 	void SetOpenMsgQueue(bool openMsgQueue);
+	void SetWebSocket(bool webSocket);
 
 	void Init();
 	bool Send(uint8_t* pMsg, uint16_t wSize);
@@ -113,21 +113,21 @@ public:
 	{
 		return m_dwLastSyncTick;
 	}
-	inline int IsOnIdle()
+	inline bool IsOnIdle()
 	{
-		return m_dwTimeOut ? GetIdleTick() < time(NULL) : FALSE;
+		return m_dwTimeOut ? GetIdleTick() < time(NULL) : false;
 	}
 	inline uint32_t GetIndex()
 	{
 		return m_dwIndex;
 	}
-	inline int IsAcceptSocket()
+	inline bool IsAcceptSocket()
 	{
 		return m_bAcceptSocket;
 	}
 	inline void SetAcceptSocketFlag()
 	{
-		m_bAcceptSocket = TRUE;
+		m_bAcceptSocket = true;
 	}
 	void Remove()
 	{
@@ -166,15 +166,16 @@ private:
 	volatile int m_bRemove;
 	uint32_t     m_dwTimeOut;
 	uint32_t     m_dwIndex;
-	int          m_bAcceptSocket;
+	bool         m_bAcceptSocket;
 	bool         m_bDisconnectOrdered;
 
 	TLock m_lockRecv;
 	TLock m_lockSend;
 	int   m_bCanSend;
 	svrlib::LockedQueue<std::shared_ptr<CMessage> > m_QueueMessage;//消息队列
-	bool                                    m_openMsgQueue;//是否开启消息队列模式
-	uint16_t                                m_wMaxPacketSize;
+	bool  m_openMsgQueue;//是否开启消息队列模式
+	bool  m_webSocket;	 // 是否websocket
+	uint16_t   m_wMaxPacketSize;
 
 };
 

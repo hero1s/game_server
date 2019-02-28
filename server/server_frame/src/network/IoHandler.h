@@ -98,7 +98,6 @@ private:
 	TLock m_lockEvents;
 	TCond m_condEvents;
 
-	uint32_t m_dwMaxPacketSize;
 	uint32_t m_numActiveSessions;
 	uint32_t m_dwMaxAcceptSession;
 

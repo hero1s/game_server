@@ -53,6 +53,7 @@ struct stIOHANDLER_DESC
   uint32_t dwMaxPacketSize;         // 最大包长
   CNetworkObjPool* pool;            // 对象池
   bool openMsgQueue;                // 是否开启消息队列(防止服务器突发阻塞爆掉缓存)
+  bool webSocket;					// 是否websocket
 
   stIOHANDLER_DESC()
   {

@@ -30,12 +30,13 @@ Session::Session(uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t 
 
 	m_dwTimeOut     = dwTimeOut;
 	m_socket        = INVALID_SOCKET;
-	m_bAcceptSocket = FALSE;
+	m_bAcceptSocket = false;
 	m_bCanSend      = true;
 
 	m_pNetworkObject = NULL;
 	m_openMsgQueue   = false;
 	m_wMaxPacketSize = dwMaxPacketSize;
+	m_webSocket		 = false;
 
 	ResetTimeOut();
 }
@@ -50,6 +51,10 @@ Session::~Session()
 void Session::SetOpenMsgQueue(bool openMsgQueue)
 {
 	m_openMsgQueue = openMsgQueue;
+}
+void Session::SetWebSocket(bool webSocket){
+    m_webSocket = webSocket;
+    if(m_webSocket)m_openMsgQueue = true;
 }
 //=============================================================================================================================
 /**
