@@ -68,6 +68,7 @@ public:
 
 	void SetOpenMsgQueue(bool openMsgQueue);
 	void SetWebSocket(bool webSocket);
+	bool IsWebSocket(){return m_webSocket;}
 
 	void Init();
 	bool Send(uint8_t* pMsg, uint16_t wSize);

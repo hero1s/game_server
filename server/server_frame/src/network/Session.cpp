@@ -41,9 +41,9 @@ namespace Network
 				break;
 			}
 		}
-		//MSG_LOG("key:%s...", key);
+		LOG_DEBUG("key:{}...", key);
 		memcpy(key + strlen(key), MAGIC_KEY, sizeof(MAGIC_KEY));
-		//MSG_LOG("megerkey:%s...", key);
+		LOG_DEBUG("megerkey:{}...", key);
 		//求哈希1
 		SHA1 sha;
 		unsigned int message_digest[5];
@@ -59,7 +59,7 @@ namespace Network
 		char http_res[512] = "";
 		sprintf(http_res, WEB_SOCKET_HANDS_RE, key);
 		Send((uint8_t*)http_res, strlen(http_res));
-		//MSG_LOG("res:%s...",http_res);//fkYTdNEVkParesYkrM4S
+		LOG_DEBUG("shake hand success,res:{}...",http_res);//fkYTdNEVkParesYkrM4S
 		shake_hands_ = true;
 	}
 	bool Session::FindHttpParam(const char * param, const char * buf) {
@@ -71,18 +71,21 @@ namespace Network
 	}
 	int Session::wsDecodeFrame(std::string inFrame, std::string &outMessage)
 	{
+		LOG_DEBUG("解包:{}--len:{}",inFrame,inFrame.length());
 		int ret = WS_OPENING_FRAME;
 		const char *frameData = inFrame.c_str();
 		const int frameLength = inFrame.size();
 		if (frameLength < 2)
 		{
 			ret = WS_ERROR_FRAME;
+			LOG_DEBUG("长度小于2");
 		}
 
 		// 检查扩展位并忽略
 		if ((frameData[0] & 0x70) != 0x0)
 		{
 			ret = WS_ERROR_FRAME;
+			LOG_DEBUG("扩展位错误");
 		}
 
 		// fin位: 为1表示已接收完整报文, 为0表示继续监听后续报文
@@ -90,12 +93,14 @@ namespace Network
 		if ((frameData[0] & 0x80) != 0x80)
 		{
 			ret = WS_ERROR_FRAME;
+			LOG_DEBUG("未完整报文或继续监听");
 		}
 
 		// mask位, 为1表示数据被加密
 		if ((frameData[1] & 0x80) != 0x80)
 		{
 			ret = WS_ERROR_FRAME;
+			LOG_DEBUG("是否加密");
 		}
 
 		// 操作码
@@ -117,19 +122,23 @@ namespace Network
 			{
 				// 数据过长,暂不支持
 				ret = WS_ERROR_FRAME;
+				LOG_DEBUG("数据长度过长");
 			}
 		}
 		else if (opcode == WS_BINARY_FRAME || opcode == WS_PING_FRAME || opcode == WS_PONG_FRAME)
 		{
 			// 二进制/ping/pong帧暂不处理
+			LOG_DEBUG("二进制ping/pong");
 		}
 		else if (opcode == WS_CLOSING_FRAME)
 		{
 			ret = WS_CLOSING_FRAME;
+			LOG_DEBUG("socket已关闭");
 		}
 		else
 		{
 			ret = WS_ERROR_FRAME;
+			LOG_DEBUG("其它错误");
 		}
 
 		// 数据解码
@@ -326,9 +335,11 @@ void Session::Init()
 bool Session::Send(uint8_t* pMsg, uint16_t wSize)
 {
 	if(m_webSocket){
+		if(!shake_hands_)return false;
 		string smsg((const char*)pMsg,wSize);
 		string outMsg;
 		wsEncodeFrame(smsg,outMsg,WS_TEXT_FRAME);
+		LOG_DEBUG("wsSendMsg {} --> {}",smsg,outMsg);
 		if (m_pSendBuffer->Write(pMsg, wSize) == false)
 		{
 			LOG_ERROR("m_pSendBuffer->Write fail. data length = {}, {},ip:{}", m_pSendBuffer->GetLength(), wSize, GetIP());
@@ -416,7 +427,7 @@ bool Session::DecodeMsgToQueue()
 		if (pPacket == NULL)
 			return true;
 		//放入消息队列
-		shared_ptr<CMessage> message(new CMessage(pPacket, iPacketLen));
+		auto message = std::make_shared<CMessage>(pPacket, iPacketLen);
 		m_QueueMessage.push(message);
 		//移除缓存
 		m_pRecvBuffer->RemoveFirstPacket(iPacketLen);
@@ -427,8 +438,47 @@ bool Session::DecodeMsgToQueue()
 }
 //解码websocket消息到队列
 bool Session::DecodeWebSocketToQueue(){
-	
+		uint8_t* pPacket;
+		if(!shake_hands_){
+			pPacket = m_pRecvBuffer->GetFirstPacketPtr(m_pRecvBuffer->GetRecvDataLen());
+			ShakeHandsHandle((const char*)pPacket,m_pRecvBuffer->GetRecvDataLen());
+			if(shake_hands_){
+				m_pRecvBuffer->Clear();
+				return true;
+			}else{
+				LOG_DEBUG("握手失败，等待或者断开");
+				return true;
+			}
+		}
+		while (m_pRecvBuffer->GetRecvDataLen() >= 2 && (m_QueueMessage.size() < m_pNetworkObject->MaxTickPacket()))
+		{
+			pPacket = m_pRecvBuffer->GetFirstPacketPtr(2);
+			int32_t iPacketLen = GetWebSocketPacketLen(pPacket, m_pNetworkObject->GetHeadLen());
+			if(iPacketLen < 0)break;
 
+			if (iPacketLen >= m_wMaxPacketSize)
+			{
+				LOG_ERROR("max packet is big than:{},ip:{}", iPacketLen, GetIP());
+				return false;
+			}
+			pPacket = m_pRecvBuffer->GetFirstPacketPtr(iPacketLen);
+			if (pPacket == NULL)
+				return true;
+			//解码webSocket
+			string outMsg;
+			auto iRet = wsDecodeFrame(string((const char*)pPacket,iPacketLen),outMsg);
+			if(WS_ERROR_FRAME != iRet){
+				//放入消息队列
+				auto message = std::make_shared<CMessage>(outMsg.c_str(),outMsg.length());
+				m_QueueMessage.push(message);
+			}else{
+				LOG_DEBUG("websocket 解码错误:{}",iRet);
+				return false;
+			}
+			//移除缓存
+			m_pRecvBuffer->RemoveFirstPacket(iPacketLen);
+			ResetTimeOut();
+		}
 
 	return true;
 }

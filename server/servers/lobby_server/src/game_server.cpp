@@ -62,10 +62,11 @@ bool CApplication::Initialize() {
         desc[0].dwMaxConnectBuffSize = SERVER_SOCKET_BUFF_SIZE;
         desc[0].dwSendBufferSize = PACKET_MAX_SIZE * 2;
         desc[0].dwRecvBufferSize = 1024 * 4;
-        desc[0].dwTimeOut = 20;
+        desc[0].dwTimeOut = 2000;
         desc[0].dwMaxPacketSize = 1024 * 2;
         desc[0].pool = new CClientNetObj();
         desc[0].openMsgQueue = false;
+        desc[0].webSocket = true;
 
         desc[1].dwIoHandlerKey = 1;
         desc[1].dwMaxAcceptSession = 0;

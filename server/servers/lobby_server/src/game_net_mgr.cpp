@@ -48,7 +48,7 @@ void CClientNetObj::OnAccept(uint32_t dwNetworkIndex)
 
 void CClientNetObj::OnDisconnect()
 {
-	//LOG_ERROR("client ondisconnect:{}--{}", GetUID(), GetIP().c_str());
+	LOG_ERROR("client ondisconnect:{}--{}", GetUID(), GetIP().c_str());
 	uint32_t uid = GetUID();
 	CPlayer* pPlayer = (CPlayer*) CPlayerMgr::Instance().GetPlayer(uid);
 	if (pPlayer != NULL)
@@ -61,10 +61,18 @@ void CClientNetObj::OnDisconnect()
 
 int CClientNetObj::OnRecv(uint8_t* pMsg, uint16_t wSize)
 {
+	//test
+	packet_header_t* head = (packet_header_t*) pMsg;
+	LOG_DEBUG("recv data:cmd {},datalen {}",head->cmd,head->datalen,head->uin,wSize);
+	LOG_DEBUG("data:{}",string((char*)(pMsg + PACKET_HEADER_SIZE),head->datalen));
+	string rep = "how are you?";
+	//Send((uint8_t*)rep.c_str(),rep.length());
+	return 0;
+
 	if (pMsg == NULL)
 		return -1;
-	if (IsCanHandle(pMsg, wSize) == false)
-		return -1;
+	//if (IsCanHandle(pMsg, wSize) == false)
+	//	return -1;
 
 	return CHandleClientMsg::Instance().OnHandleClientMsg(this, pMsg, wSize);
 }

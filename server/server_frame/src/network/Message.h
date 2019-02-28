@@ -17,7 +17,7 @@ namespace Network
 class CMessage
 {
 public:
-	CMessage(uint8_t* pMsg, uint16_t wSize)
+	CMessage(const void* pMsg, uint16_t wSize)
 	{
 		m_pMsg  = new uint8_t[wSize];
 		m_wSize = wSize;
