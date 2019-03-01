@@ -235,7 +235,7 @@ bool Session::DecodeMsgToQueue()
 {
 	if(m_webSocket)return DecodeWebSocketToQueue();
 
-	uint8_t* pPacket;
+	uint8_t* pPacket = nullptr;
 	while (m_pRecvBuffer->GetRecvDataLen() >= m_pNetworkObject->GetHeadLen() && (m_QueueMessage.size() < m_pNetworkObject->MaxTickPacket()))
 	{
 		pPacket = m_pRecvBuffer->GetFirstPacketPtr(m_pNetworkObject->GetHeadLen());
@@ -273,7 +273,7 @@ bool Session::DecodeWebSocketToQueue(){
 				return true;
 			}
 		}
-		while (m_pRecvBuffer->GetRecvDataLen() >= 2 && (m_QueueMessage.size() < m_pNetworkObject->MaxTickPacket())) {
+		while (m_QueueMessage.size() < m_pNetworkObject->MaxTickPacket()) {
 			//读取websocket固定包头
 			if (!ws_head_.rh) {
 				//这个包不够一个头部的大小
