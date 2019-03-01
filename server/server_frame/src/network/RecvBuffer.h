@@ -47,6 +47,19 @@ public:
 
     inline void RemoveFirstPacket(uint16_t wSize) { m_pQueue->Dequeue(NULL, wSize); }
 
+    inline size_t ReadBuf(void* buf, size_t size)
+    {
+        if (size > GetRecvDataLen())
+            size = GetRecvDataLen();
+        if (size > 0)
+        {
+            auto pPacket = GetFirstPacketPtr(size);
+            memcpy(buf, pPacket, size);
+            RemoveFirstPacket(size);
+        }
+        return size;
+    }
+
 private:
     CircuitQueue<uint8_t>* m_pQueue;
 };

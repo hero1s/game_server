@@ -62,11 +62,8 @@ void CClientNetObj::OnDisconnect()
 int CClientNetObj::OnRecv(uint8_t* pMsg, uint16_t wSize)
 {
 	//test
-	packet_header_t* head = (packet_header_t*) pMsg;
-	LOG_DEBUG("recv data:cmd {},datalen {}",head->cmd,head->datalen,head->uin,wSize);
-	LOG_DEBUG("data:{}",string((char*)(pMsg + PACKET_HEADER_SIZE),head->datalen));
-	string rep = "how are you?";
-	//Send((uint8_t*)rep.c_str(),rep.length());
+	LOG_DEBUG("data:{}",string((char*)(pMsg),wSize));
+	Send(pMsg,wSize);
 	return 0;
 
 	if (pMsg == NULL)

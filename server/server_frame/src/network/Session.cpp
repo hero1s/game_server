@@ -9,6 +9,7 @@
 #include "svrlib.h"
 #include "crypt/base64.hpp"
 #include "crypt/sha1.h"
+#include "helper/bufferStream.h"
 #include <istream>
 #include <iostream>
 #include <arpa/inet.h>
@@ -53,14 +54,13 @@ namespace Network
 		for (int i = 0; i < 5; i++) {
 			message_digest[i] = htonl(message_digest[i]);
 		}
-
+		shake_hands_ = true;
 		memset(key, 0, 512);
 		base64::encode(key, reinterpret_cast<const char *>(message_digest), 20);
 		char http_res[512] = "";
 		sprintf(http_res, WEB_SOCKET_HANDS_RE, key);
 		Send((uint8_t*)http_res, strlen(http_res));
 		LOG_DEBUG("shake hand success,res:{}...",http_res);//fkYTdNEVkParesYkrM4S
-		shake_hands_ = true;
 	}
 	bool Session::FindHttpParam(const char * param, const char * buf) {
 		while (*param == *buf) {
@@ -68,196 +68,6 @@ namespace Network
 			++param; ++buf;
 		}
 		return false;
-	}
-	int Session::wsDecodeFrame(std::string inFrame, std::string &outMessage)
-	{
-		LOG_DEBUG("解包:{}--len:{}",inFrame,inFrame.length());
-		int ret = WS_OPENING_FRAME;
-		const char *frameData = inFrame.c_str();
-		const int frameLength = inFrame.size();
-		if (frameLength < 2)
-		{
-			ret = WS_ERROR_FRAME;
-			LOG_DEBUG("长度小于2");
-		}
-
-		// 检查扩展位并忽略
-		if ((frameData[0] & 0x70) != 0x0)
-		{
-			ret = WS_ERROR_FRAME;
-			LOG_DEBUG("扩展位错误");
-		}
-
-		// fin位: 为1表示已接收完整报文, 为0表示继续监听后续报文
-		ret = (frameData[0] & 0x80);
-		if ((frameData[0] & 0x80) != 0x80)
-		{
-			ret = WS_ERROR_FRAME;
-			LOG_DEBUG("未完整报文或继续监听");
-		}
-
-		// mask位, 为1表示数据被加密
-		if ((frameData[1] & 0x80) != 0x80)
-		{
-			ret = WS_ERROR_FRAME;
-			LOG_DEBUG("是否加密");
-		}
-
-		// 操作码
-		uint16_t payloadLength = 0;
-		uint8_t payloadFieldExtraBytes = 0;
-		uint8_t opcode = static_cast<uint8_t >(frameData[0] & 0x0f);
-		if (opcode == WS_TEXT_FRAME)
-		{
-			// 处理utf-8编码的文本帧
-			payloadLength = static_cast<uint16_t >(frameData[1] & 0x7f);
-			if (payloadLength == 0x7e)
-			{
-				uint16_t payloadLength16b = 0;
-				payloadFieldExtraBytes = 2;
-				memcpy(&payloadLength16b, &frameData[2], payloadFieldExtraBytes);
-				payloadLength = ntohs(payloadLength16b);
-			}
-			else if (payloadLength == 0x7f)
-			{
-				// 数据过长,暂不支持
-				ret = WS_ERROR_FRAME;
-				LOG_DEBUG("数据长度过长");
-			}
-		}
-		else if (opcode == WS_BINARY_FRAME || opcode == WS_PING_FRAME || opcode == WS_PONG_FRAME)
-		{
-			// 二进制/ping/pong帧暂不处理
-			LOG_DEBUG("二进制ping/pong");
-		}
-		else if (opcode == WS_CLOSING_FRAME)
-		{
-			ret = WS_CLOSING_FRAME;
-			LOG_DEBUG("socket已关闭");
-		}
-		else
-		{
-			ret = WS_ERROR_FRAME;
-			LOG_DEBUG("其它错误");
-		}
-
-		// 数据解码
-		if ((ret != WS_ERROR_FRAME) && (payloadLength > 0))
-		{
-			// header: 2字节, masking key: 4字节
-			const char *maskingKey = &frameData[2 + payloadFieldExtraBytes];
-			char *payloadData = new char[payloadLength + 1];
-			memset(payloadData, 0, payloadLength + 1);
-			memcpy(payloadData, &frameData[2 + payloadFieldExtraBytes + 4], payloadLength);
-			for (int i = 0; i < payloadLength; i++)
-			{
-				payloadData[i] = payloadData[i] ^ maskingKey[i % 4];
-			}
-
-			outMessage = payloadData;
-			delete[] payloadData;
-		}
-
-		return ret;
-	}
-	int Session::wsEncodeFrame(std::string inMessage, std::string &outFrame, enum WS_FrameType frameType)
-	{
-		int ret = WS_EMPTY_FRAME;
-		const uint32_t messageLength = inMessage.size();
-		if (messageLength > 32767)
-		{
-			// 暂不支持这么长的数据
-			return WS_ERROR_FRAME;
-		}
-
-		uint8_t payloadFieldExtraBytes = (messageLength <= 0x7d) ? 0 : 2;
-		// header: 2字节, mask位设置为0(不加密), 则后面的masking key无须填写, 省略4字节
-		uint8_t frameHeaderSize = 2 + payloadFieldExtraBytes;
-		uint8_t *frameHeader = new uint8_t[frameHeaderSize];
-		memset(frameHeader, 0, frameHeaderSize);
-		// fin位为1, 扩展位为0, 操作位为frameType
-		frameHeader[0] = static_cast<uint8_t>(0x80 | frameType);
-
-		// 填充数据长度
-		if (messageLength <= 0x7d)
-		{
-			frameHeader[1] = static_cast<uint8_t>(messageLength);
-		}
-		else
-		{
-			frameHeader[1] = 0x7e;
-			uint16_t len = htons(messageLength);
-			memcpy(&frameHeader[2], &len, payloadFieldExtraBytes);
-		}
-
-		// 填充数据
-		uint32_t frameSize = frameHeaderSize + messageLength;
-		char *frame = new char[frameSize + 1];
-		memcpy(frame, frameHeader, frameHeaderSize);
-		memcpy(frame + frameHeaderSize, inMessage.c_str(), messageLength);
-		frame[frameSize] = '\0';
-		outFrame = frame;
-
-		delete[] frame;
-		delete[] frameHeader;
-		return ret;
-	}
-	int32_t Session::GetWebSocketPacketLen(const uint8_t* pData, uint16_t wLen){
-		if(shake_hands_){
-			// 检查扩展位并忽略
-			if ((pData[0] & 0x70) != 0x0)
-			{
-				return -1;
-			}
-			// fin位: 为1表示已接收完整报文, 为0表示继续监听后续报文
-			if ((pData[0] & 0x80) != 0x80)
-			{
-				return -1;
-			}
-			// mask位, 为1表示数据被加密
-			if ((pData[1] & 0x80) != 0x80)
-			{
-				return -1;
-			}
-
-			// 操作码
-			uint16_t payloadLength = 0;
-			uint8_t payloadFieldExtraBytes = 0;
-			uint8_t opcode = static_cast<uint8_t >(pData[0] & 0x0f);
-			if (opcode == WS_TEXT_FRAME)
-			{
-				// 处理utf-8编码的文本帧
-				payloadLength = static_cast<uint16_t >(pData[1] & 0x7f);
-				if (payloadLength == 0x7e)
-				{
-					uint16_t payloadLength16b = 0;
-					payloadFieldExtraBytes = 2;
-					memcpy(&payloadLength16b, &pData[2], payloadFieldExtraBytes);
-					payloadLength = ntohs(payloadLength16b);
-				}
-				else if (payloadLength == 0x7f)
-				{
-					// 数据过长,暂不支持
-					return -1;
-				}
-				return 2+payloadFieldExtraBytes+payloadLength;
-			}
-			else if (opcode == WS_BINARY_FRAME || opcode == WS_PING_FRAME || opcode == WS_PONG_FRAME)
-			{
-				// 二进制/ping/pong帧暂不处理
-				return 2+payloadFieldExtraBytes+payloadLength;
-			}
-			else if (opcode == WS_CLOSING_FRAME)
-			{
-				return -1;
-			}
-			else
-			{
-				return -1;
-			}
-		}else{
-			return wLen;
-		}
 	}
 
 //=============================================================================================================================
@@ -336,11 +146,23 @@ bool Session::Send(uint8_t* pMsg, uint16_t wSize)
 {
 	if(m_webSocket){
 		if(!shake_hands_)return false;
-		string smsg((const char*)pMsg,wSize);
-		string outMsg;
-		wsEncodeFrame(smsg,outMsg,WS_TEXT_FRAME);
-		LOG_DEBUG("wsSendMsg {} --> {}",smsg,outMsg);
-		if (m_pSendBuffer->Write(pMsg, wSize) == false)
+		auto stream = CBufferStream::buildStream();
+		stream.write_((uint8_t)0x82);//写头部
+		//写长度
+		if (wSize >= 126) {//7位放不下
+			if (wSize <= 0xFFFF) {//16位放
+				stream.write_((uint8_t)126);
+				stream.write_((uint16_t)htons((u_short)wSize));
+			} else {//64位放
+				stream.write_((uint8_t)127);
+				//stream.write_((uint64_t)OrderSwap64(wSize));
+			}
+		} else {
+			stream.write_((uint8_t)wSize);
+		}
+		//写数据
+		stream.write(wSize,pMsg);
+		if (m_pSendBuffer->Write((uint8_t*)stream.getBuffer(), stream.getPosition()) == false)
 		{
 			LOG_ERROR("m_pSendBuffer->Write fail. data length = {}, {},ip:{}", m_pSendBuffer->GetLength(), wSize, GetIP());
 			Remove();
@@ -438,48 +260,92 @@ bool Session::DecodeMsgToQueue()
 }
 //解码websocket消息到队列
 bool Session::DecodeWebSocketToQueue(){
-		uint8_t* pPacket;
+		uint8_t* pPacket = nullptr;
 		if(!shake_hands_){
 			pPacket = m_pRecvBuffer->GetFirstPacketPtr(m_pRecvBuffer->GetRecvDataLen());
 			ShakeHandsHandle((const char*)pPacket,m_pRecvBuffer->GetRecvDataLen());
 			if(shake_hands_){
 				m_pRecvBuffer->Clear();
+				LOG_DEBUG("握手成功，开始接受数据");
 				return true;
 			}else{
 				LOG_DEBUG("握手失败，等待或者断开");
 				return true;
 			}
 		}
-		while (m_pRecvBuffer->GetRecvDataLen() >= 2 && (m_QueueMessage.size() < m_pNetworkObject->MaxTickPacket()))
-		{
-			pPacket = m_pRecvBuffer->GetFirstPacketPtr(2);
-			int32_t iPacketLen = GetWebSocketPacketLen(pPacket, m_pNetworkObject->GetHeadLen());
-			if(iPacketLen < 0)break;
-
-			if (iPacketLen >= m_wMaxPacketSize)
-			{
-				LOG_ERROR("max packet is big than:{},ip:{}", iPacketLen, GetIP());
-				return false;
+		while (m_pRecvBuffer->GetRecvDataLen() >= 2 && (m_QueueMessage.size() < m_pNetworkObject->MaxTickPacket())) {
+			//读取websocket固定包头
+			if (!ws_head_.rh) {
+				//这个包不够一个头部的大小
+				if (m_pRecvBuffer->GetRecvDataLen() < 2) {
+					break;
+				}
+				//读取
+				uint8_t head = 0;
+				m_pRecvBuffer->ReadBuf(&head,1);
+				ws_head_.fin = head >> 7;
+				ws_head_.opcode = head & 0xF;
+				m_pRecvBuffer->ReadBuf(&head,1);
+				ws_head_.len = head & 0x7F;
+				ws_head_.mask = head >> 7;
+				ws_head_.rh = 1;//标记头部读取完成
 			}
-			pPacket = m_pRecvBuffer->GetFirstPacketPtr(iPacketLen);
-			if (pPacket == NULL)
-				return true;
-			//解码webSocket
-			string outMsg;
-			auto iRet = wsDecodeFrame(string((const char*)pPacket,iPacketLen),outMsg);
-			if(WS_ERROR_FRAME != iRet){
-				//放入消息队列
-				auto message = std::make_shared<CMessage>(outMsg.c_str(),outMsg.length());
-				m_QueueMessage.push(message);
-			}else{
-				LOG_DEBUG("websocket 解码错误:{}",iRet);
-				return false;
+			//读取长度
+			if (!ws_head_.rl) {
+				uint8_t nsize = ws_head_.GetLenNeedByte();
+				if (nsize) {
+					//这个包不够一个长度
+					if (m_pRecvBuffer->GetRecvDataLen() < nsize) {
+						break;
+					}
+					if (nsize == 2) {
+						m_pRecvBuffer->ReadBuf(&ws_head_.ex_len.v16, sizeof(ws_head_.ex_len.v16));
+						ws_head_.ex_len.v16 = ntohs(ws_head_.ex_len.v16);
+					} else {
+						m_pRecvBuffer->ReadBuf(&ws_head_.ex_len.v64, sizeof(ws_head_.ex_len.v64));
+						ws_head_.ex_len.v64 = ntohl((u_long)ws_head_.ex_len.v64);
+					}
+				}
+				ws_head_.rl = 1;
 			}
+			//读取MKEY
+			if (!ws_head_.rk) {
+				if (ws_head_.mask) {
+					//这个包不够一个key
+					if (m_pRecvBuffer->GetRecvDataLen() < 4) {
+						break;
+					}
+					m_pRecvBuffer->ReadBuf(&ws_head_.mkey[0],1);
+					m_pRecvBuffer->ReadBuf(&ws_head_.mkey[1],1);
+					m_pRecvBuffer->ReadBuf(&ws_head_.mkey[2],1);
+					m_pRecvBuffer->ReadBuf(&ws_head_.mkey[3],1);
+				}
+				ws_head_.rk = 1;
+			}
+			//读取数据段
+			uint64_t data_len = ws_head_.GetLen();
+			if (m_pRecvBuffer->GetRecvDataLen() < data_len) {
+				break;
+			}
+			if (ws_head_.mask) {
+				pPacket = m_pRecvBuffer->GetFirstPacketPtr(data_len);
+				for (size_t i = 0; i < data_len; ++i) {
+					pPacket[i] = pPacket[i] ^ ws_head_.mkey[i % 4];
+				}
+			}
+			//放入消息队列
+			auto message = std::make_shared<CMessage>(pPacket, data_len);
+			m_QueueMessage.push(message);
 			//移除缓存
-			m_pRecvBuffer->RemoveFirstPacket(iPacketLen);
+			m_pRecvBuffer->RemoveFirstPacket(data_len);
+			LOG_DEBUG("收到web消息:{}--len:{}",string((char*)(message->Data()),message->Length()),data_len);
+			ws_head_.reset();
 			ResetTimeOut();
 		}
-
+		if (ws_head_.opcode == OPCODE_CLR) {
+			LOG_DEBUG("websocket closed");
+			return false;
+		}
 	return true;
 }
 
