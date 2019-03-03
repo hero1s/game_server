@@ -29,18 +29,18 @@ int GetInnerPacketLen(const uint8_t *pData, uint16_t wLen) {
 }
 
 bool SendInnerMsg(NetworkObject *pNetObj, const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin,
-                  uint8_t route, uint32_t routeMain, uint32_t routeSub) {
+                  uint8_t route, uint32_t routeID) {
     if (pNetObj == NULL) {
         return false;
     }
     string sstr;
     msg->SerializeToString(&sstr);
-    return SendInnerMsg(pNetObj, sstr.c_str(), sstr.length(), msg_type, uin, route, routeMain, routeSub);
+    return SendInnerMsg(pNetObj, sstr.c_str(), sstr.length(), msg_type, uin, route, routeID);
 }
 
 bool
 SendInnerMsg(NetworkObject *pNetObj, const void *msg, uint16_t msg_len, uint16_t msg_type, uint32_t uin,
-             uint8_t route, uint32_t routeMain, uint32_t routeSub) {
+             uint8_t route, uint32_t routeID) {
     if (pNetObj == NULL) {
         return false;
     }
@@ -49,8 +49,7 @@ SendInnerMsg(NetworkObject *pNetObj, const void *msg, uint16_t msg_len, uint16_t
     pkt.header.cmd = msg_type;
     pkt.header.uin = uin;
     pkt.header.route = route;
-    pkt.header.routeMain = routeMain;
-    pkt.header.routeSub = routeSub;
+    pkt.header.routeID = routeID;
 
     if (msg_len >= INNER_MAX_DATA_SIZE) {
         LOG_ERROR("msg length more than max length:{}", msg_len);

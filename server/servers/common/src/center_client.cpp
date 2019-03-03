@@ -114,10 +114,10 @@ bool CCenterClientMgr::IsRun()
 {
 	return m_isRun;
 }
-void CCenterClientMgr::SendMsg2Center(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin, uint8_t route, uint32_t routeMain, uint32_t routeSub)
+void CCenterClientMgr::SendMsg2Center(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin, uint8_t route, uint32_t routeID)
 {
 	if (!m_isRun || m_pNetObj == NULL)return;
-	SendInnerMsg(m_pNetObj, msg, msg_type, uin, route, routeMain, routeSub);
+	SendInnerMsg(m_pNetObj, msg, msg_type, uin, route, routeID);
 }
 //ЗўЮёЦїзЂВс
 int CCenterClientMgr::handle_msg_register_svr_rep()

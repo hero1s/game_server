@@ -71,7 +71,7 @@ public:
 
 public:
     void SendMsg2Center(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin, uint8_t route = 0,
-                        uint32_t routeMain = 0, uint32_t routeSub = 0);
+                        uint32_t routeID = 0);
 
 protected:
     //ЗўЮёЦїзЂВс

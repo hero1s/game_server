@@ -213,13 +213,13 @@ int CCenterMgr::OnRouteDispMsg() {
         case emROUTE_TYPE_ALL_GAME:
         {
             //LOG_DEBUG("转发全部游戏服{}", head->cmd);
-            SendMsg2AllGameServer(_head->routeMain, _pkt_buf, _buf_len, _head->cmd, _head->uin);
+            SendMsg2AllGameServer(_head->routeID, _pkt_buf, _buf_len, _head->cmd, _head->uin);
             break;
         }
         case emROUTE_TYPE_ONE_GAME:
         {
             //LOG_DEBUG("转发单个游戏服{}--{}--{}", head->cmd, head->routeMain, head->routeSub);
-            SendMsg2Server(_head->routeMain, _pkt_buf, _buf_len, _head->cmd, _head->uin);
+            SendMsg2Server(_head->routeID, _pkt_buf, _buf_len, _head->cmd, _head->uin);
             break;
         }
         default:
@@ -247,7 +247,7 @@ int CCenterMgr::handle_msg_register_svr() {
     }
     repmsg.set_result(bRet);
 
-    SendInnerMsg(_pNetObj, &repmsg, net::CS2S_MSG_REGISTER_CENTER_REP, 0);
+    SendInnerMsg(_pNetObj, &repmsg, net::CS2S_MSG_REGISTER_CENTER_REP);
 
     return 0;
 }
