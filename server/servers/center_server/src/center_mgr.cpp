@@ -247,7 +247,7 @@ int CCenterMgr::handle_msg_register_svr() {
     }
     repmsg.set_result(bRet);
 
-    SendInnerMsg(_pNetObj, &repmsg, net::CS2S_MSG_REGISTER_CENTER_REP);
+    SendInnerMsg(_pNetObj, &repmsg, net::CS2S_MSG_REGISTER_CENTER_REP,0);
 
     return 0;
 }
