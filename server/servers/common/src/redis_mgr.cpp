@@ -75,39 +75,6 @@ bool CRedisMgr::Init(stRedisConf &conf) {
     {
         LOG_ERROR("redis error : {}",e.what());
     }
-
-    /*m_client = std::make_shared<Redis>(CApplication::Instance().GetAsioContext());
-
-    m_client->connect(conf.redisHost, conf.redisPort, [&](bool result, const std::string &v) {
-        if (result) {
-            m_client->link->errorHandler = [&](const std::string &v) {
-                std::cout << v << std::endl;
-                LOG_ERROR("redis error : {}", v);
-            };
-            LOG_DEBUG("redis connect success {}", v);
-            m_client->auth(conf.redisPasswd, [&](const RedisValue &v) {
-                LOG_DEBUG("redis auth reply: passwd {} {} {} {}", conf.redisPasswd, (int) v.type, v.integer,
-                          std::string(v.str.data(), v.str.size()));
-
-                m_client->link->sendCommand({
-                                                    "SET", "hello", "100"
-                                            }, [](const RedisValue &v) {
-                    std::cout << "set " << std::string(v.str.data(), v.str.size()) << std::endl;
-                });
-                m_client->link->sendCommand({
-                                                    "GET", "hello"
-                                            }, [](const RedisValue &v) {
-                    std::cout << "get2 " << std::string(v.str.data(), v.str.size()) << std::endl;
-                });
-
-                m_client->link->commit();
-            });
-            m_client->link->commit();
-        } else {
-            LOG_ERROR("redis client connect faild : {}", v);
-        }
-    });
-*/
     return true;
 }
 

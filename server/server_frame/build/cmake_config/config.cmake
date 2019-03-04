@@ -32,8 +32,8 @@ add_definitions(-Wl,--no-as-needed)
 add_definitions(-DASIO_STANDALONE)
 
 if (CMAKE_COMPILER_IS_GNUCXX)
-    set(CMAKE_CXX_FLAGS "-std=c++14 ${CMAKE_CXX_FLAGS}")
-    message(STATUS "optional:-std=c++14")
+    set(CMAKE_CXX_FLAGS "-std=c++17 ${CMAKE_CXX_FLAGS}")
+    message(STATUS "optional:-std=c++17")
 endif (CMAKE_COMPILER_IS_GNUCXX)
 
 # set default configuration directory
