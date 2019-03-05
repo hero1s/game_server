@@ -4,6 +4,8 @@
 #include "game_define.h"
 #include <stdlib.h>
 #include "data_cfg_mgr.h"
+#include <boost/asio/io_service.hpp>
+#include <boost/asio/ip/address.hpp>
 
 using namespace std;
 using namespace svrlib;
@@ -28,6 +30,41 @@ void CRedisMgr::OnTimer() {
 
 bool CRedisMgr::Init(stRedisConf &conf) {
     CApplication::Instance().schedule(&m_timer, 5000);
+
+    boost::asio::ip::address address = boost::asio::ip::address::from_string(conf.redisHost);
+    const unsigned short port = conf.redisPort;
+    boost::asio::ip::tcp::endpoint endpoint(address, port);
+
+    m_syncClient = std::make_shared<redisclient::RedisSyncClient>(CApplication::Instance().GetAsioContext());
+    boost::system::error_code ec;
+
+    m_syncClient->connect(endpoint, ec);
+
+    if(ec){
+        LOG_ERROR("Can't connect to redis: {}",ec.message());
+        return false;
+    }
+    redisclient::RedisValue result;
+    result = m_syncClient->command("AUTH",{conf.redisPasswd});
+    if(result.isOk()){
+        LOG_DEBUG("AUTH reply:{}",result.toString());
+    }
+    result = m_syncClient->command("SET", {"key", "value"});
+    if( result.isError() ){
+        LOG_ERROR("SET error: {}",result.toString());
+        return false;
+    }
+    result = m_syncClient->command("GET", {"key"});
+    if( result.isOk() ){
+        LOG_DEBUG("GET: {}",result.toString());
+    }else{
+        LOG_ERROR("GET error: {}",result.toString());
+        return false;
+    }
+
+
+
+
 
     try
     {

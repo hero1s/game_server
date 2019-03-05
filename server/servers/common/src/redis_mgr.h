@@ -5,6 +5,7 @@
 #include "config/config.h"
 #include <string>
 #include <cpp_redis/cpp_redis>
+#include "redis/redisclient.h"
 
 using namespace std;
 using namespace svrlib;
@@ -25,6 +26,8 @@ private:
     MemberTimerEvent<CRedisMgr, &CRedisMgr::OnTimer> m_timer;
     std::shared_ptr<cpp_redis::client> m_client;
 
+    std::shared_ptr<redisclient::RedisAsyncClient> m_asyncClient;//异步客户端
+    std::shared_ptr<redisclient::RedisSyncClient>  m_syncClient; //同步客户端
 };
 
 
