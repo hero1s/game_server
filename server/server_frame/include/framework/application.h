@@ -10,7 +10,7 @@
 #include "modern/sol/sol.hpp"
 #include <memory>
 #include <map>
-#include "asio.hpp"
+#include "boost/asio.hpp"
 #include "cmdline.h"
 
 using namespace svrlib;
@@ -52,7 +52,7 @@ public:
     //获得sol模块
     sol::state &GetSolLuaState();
 
-    asio::io_context &GetAsioContext();
+    boost::asio::io_context &GetAsioContext();
 
 public:
 //具体实例去实现
@@ -73,7 +73,7 @@ private:
     TimerWheel m_timers;            // wheel定时器
     IOCPServer m_iocpServer;        // 网络服务模块
     sol::state m_solLua;            // sol lua模块
-    asio::io_context m_ioContext;
+    boost::asio::io_context m_ioContext;
 
 };
 

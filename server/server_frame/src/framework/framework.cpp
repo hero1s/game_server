@@ -14,7 +14,7 @@
 #include<sys/stat.h>
 #include<sys/ioctl.h>
 #include<stdlib.h>
-#include "asio.hpp"
+#include "boost/asio.hpp"
 #include <chrono>
 #include <ctime>
 
@@ -39,7 +39,7 @@ CFrameWork::~CFrameWork()
 void CFrameWork::Run()
 {
 
-    m_pTimer = make_shared<asio::system_timer>(CApplication::Instance().GetAsioContext());
+    m_pTimer = make_shared<boost::asio::system_timer>(CApplication::Instance().GetAsioContext());
     m_pTimer->expires_from_now(std::chrono::milliseconds(m_sleepTime));
     m_pTimer->async_wait(std::bind(&CFrameWork::TimerTick, this, std::placeholders::_1));
 
@@ -76,7 +76,7 @@ void CFrameWork::TimerTick(const std::error_code& err)
 void CFrameWork::InitializeEnvironment(int argc, char* argv[])
 {
     ParseInputParam(argc, argv);
-    asio::signal_set sigset(CApplication::Instance().GetAsioContext(), SIGUSR2, SIGUSR1);
+    boost::asio::signal_set sigset(CApplication::Instance().GetAsioContext(), SIGUSR2, SIGUSR1);
     sigset.async_wait(std::bind(&CFrameWork::SignalHandler, this, std::placeholders::_1, std::placeholders::_2));
 
     LoadConfig();

@@ -646,7 +646,6 @@ add_executable(server
         server_frame/include/utility/timeutility.h
         server_frame/include/zlib/zconf.h
         server_frame/include/zlib/zlib.h
-        server_frame/include/asio.hpp
         server_frame/include/svrlib.h
         server_frame/src/config/config.cpp
         server_frame/src/config/csvreader.cpp

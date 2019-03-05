@@ -119,7 +119,7 @@ sol::state &CApplication::GetSolLuaState() {
     return m_solLua;
 }
 
-asio::io_context &CApplication::GetAsioContext() {
+boost::asio::io_context &CApplication::GetAsioContext() {
 	return m_ioContext;
 }
 

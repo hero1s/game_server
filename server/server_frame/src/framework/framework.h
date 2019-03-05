@@ -3,7 +3,7 @@
 
 #include "framework/application.h"
 #include "utility/singleton.h"
-#include "asio.hpp"
+#include "boost/asio.hpp"
 #include <memory>
 #include "config/config.h"
 
@@ -31,7 +31,7 @@ private:
 	void WritePidToFile();
 
 	uint64_t       m_sleepTime;
-	std::shared_ptr<asio::system_timer> m_pTimer;
+	std::shared_ptr<boost::asio::system_timer> m_pTimer;
 	stServerCfg m_serverCfg;
 };
 

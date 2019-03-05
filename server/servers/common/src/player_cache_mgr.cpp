@@ -33,7 +33,7 @@ bool CPlayerCacheMgr::Init(uint32_t shmKey, bool bReset)
         m_hpPlayerCache.Clear();// ÖØÖÃ¹²ÏíÄÚ´æ
     }
 
-    m_pTimer = make_shared<asio::system_timer>(CApplication::Instance().GetAsioContext());
+    m_pTimer = make_shared<boost::asio::system_timer>(CApplication::Instance().GetAsioContext());
     m_pTimer->expires_from_now(std::chrono::milliseconds(s_CHECK_DATA_TIME*1000));
     m_pTimer->async_wait(std::bind(&CPlayerCacheMgr::TimerCheck, this, std::placeholders::_1));
 
