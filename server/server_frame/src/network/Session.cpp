@@ -96,7 +96,7 @@ Session::Session(uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t 
 	m_wMaxPacketSize = dwMaxPacketSize;
 	m_webSocket		 = false;
 	shake_hands_ 	 = false;
-
+	ws_head_.reset();
 	ResetTimeOut();
 }
 
@@ -114,6 +114,8 @@ void Session::SetOpenMsgQueue(bool openMsgQueue)
 void Session::SetWebSocket(bool webSocket){
     m_webSocket = webSocket;
     if(m_webSocket)m_openMsgQueue = true;
+	shake_hands_ 	 = false;
+	ws_head_.reset();
 }
 //=============================================================================================================================
 /**
@@ -133,6 +135,10 @@ void Session::Init()
 	m_bDisconnectOrdered = false;
 	m_bCanSend           = true;
 	ResetTimeOut();
+
+	shake_hands_ 	 = false;
+	ws_head_.reset();
+
 }
 //=============================================================================================================================
 /**
