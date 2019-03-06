@@ -4,14 +4,15 @@
 #include "game_define.h"
 #include <stdlib.h>
 #include "data_cfg_mgr.h"
-#include <boost/asio/io_service.hpp>
-#include <boost/asio/ip/address.hpp>
+
 
 using namespace std;
 using namespace svrlib;
 
 namespace {
-
+    //异步
+    static const std::string redisKey = "unique-redis-key-example";
+    static const std::string redisValue = "unique-redis-value";
 };
 
 CRedisMgr::CRedisMgr()
@@ -25,10 +26,16 @@ CRedisMgr::~CRedisMgr() {
 
 void CRedisMgr::OnTimer() {
     CApplication::Instance().schedule(&m_timer, 5000);
+    if(!m_asyncClient->isConnected()){//重连
 
+    }
+    if(!m_syncClient->isConnected()){//重连
+
+    }
 }
 
 bool CRedisMgr::Init(stRedisConf &conf) {
+    m_conf = conf;
     CApplication::Instance().schedule(&m_timer, 5000);
 
     boost::asio::ip::address address = boost::asio::ip::address::from_string(conf.redisHost);
@@ -36,10 +43,10 @@ bool CRedisMgr::Init(stRedisConf &conf) {
     boost::asio::ip::tcp::endpoint endpoint(address, port);
 
     m_syncClient = std::make_shared<redisclient::RedisSyncClient>(CApplication::Instance().GetAsioContext());
+    m_asyncClient = std::make_shared<redisclient::RedisAsyncClient>(CApplication::Instance().GetAsioContext());
     boost::system::error_code ec;
 
     m_syncClient->connect(endpoint, ec);
-
     if(ec){
         LOG_ERROR("Can't connect to redis: {}",ec.message());
         return false;
@@ -61,65 +68,45 @@ bool CRedisMgr::Init(stRedisConf &conf) {
         LOG_ERROR("GET error: {}",result.toString());
         return false;
     }
+    m_asyncClient->connect(endpoint,std::bind(&CRedisMgr::onConnect,this,std::placeholders::_1));
 
-
-
-
-
-    try
-    {
-        // Enable logging
-        //cpp_redis::active_logger = std::unique_ptr<cpp_redis::logger>(new cpp_redis::logger);
-
-        m_client = std::make_shared<cpp_redis::client>();
-        m_client->connect(conf.redisHost, conf.redisPort,
-                          [&](const std::string &host, std::size_t port, cpp_redis::connect_state status) {
-                              if (status == cpp_redis::connect_state::dropped) {
-                                  LOG_ERROR("client disconnected from {}:{} ", host, port);
-                              } else {
-                                  m_client->auth(conf.redisPasswd, [&](const cpp_redis::reply &reply) {
-                                      LOG_DEBUG("redis auth reply: passwd {} {}", conf.redisPasswd, reply.as_string());
-                                  });
-                              }
-                          });
-
-        // same as client.send({ "SET", "hello", "42" }, ...)
-        m_client->set("hello", "42", [](cpp_redis::reply &reply) {
-            LOG_DEBUG("set hello 42: {}", reply.as_string());
-        });
-
-        // same as client.send({ "DECRBY", "hello", 12 }, ...)
-        m_client->decrby("hello", 12, [](cpp_redis::reply &reply) {
-            LOG_DEBUG("decrby hello 12: {}", reply.as_integer());
-        });
-
-        // same as client.send({ "GET", "hello" }, ...)
-        m_client->get("hello", [](cpp_redis::reply &reply) {
-            LOG_DEBUG("get hello: {}", reply.as_string());
-        });
-
-        // commands are pipelined and only sent when client.commit() is called
-        // client.commit();
-
-        // synchronous commit, no timeout
-        m_client->sync_commit();
-
-        // synchronous commit, timeout
-        // client.sync_commit(std::chrono::milliseconds(100));
-
-    }
-    catch(cpp_redis::redis_error e)
-    {
-        LOG_ERROR("redis error : {}",e.what());
-    }
     return true;
 }
 
 void CRedisMgr::ShutDown() {
     m_timer.cancel();
 }
+void CRedisMgr::onConnect(boost::system::error_code ec){
+    if(ec){
+        LOG_ERROR("Can't connect to redis: {}",ec.message());
+    }else{
+        m_asyncClient->command("AUTH",{m_conf.redisPasswd},[this](const redisclient::RedisValue &value){
+            if(value.toString() == "OK"){
+                m_asyncClient->command("SET",  {redisKey, redisValue},
+                                       std::bind(&CRedisMgr::onSet, this, std::placeholders::_1));
+            }
+        });
+    }
+}
+void CRedisMgr::onSet(const redisclient::RedisValue &value)
+{
+    LOG_DEBUG("SET: {}",value.toString());
+    if( value.toString() == "OK" ){
+       m_asyncClient->command("GET",  {redisKey},
+                            std::bind(&CRedisMgr::onGet, this, std::placeholders::_1));
+    }else{
+        LOG_ERROR("Invalid value from redis: {}" , value.toString());
+    }
+}
+void CRedisMgr::onGet(const redisclient::RedisValue &value)
+{
+    LOG_DEBUG("GET {}",value.toString());
+    if( value.toString() != redisValue ){
+        LOG_ERROR("Invalid value from redis: {}",value.toString());
+    }
 
-
+    m_asyncClient->command("DEL", {redisKey});
+}
 
 
 
