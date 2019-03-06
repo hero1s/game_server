@@ -24,6 +24,9 @@ public:
     void ShutDown();
 
 protected:
+    bool SyncConnect();
+    void AsyncConnect();
+
     void onConnect(boost::system::error_code ec);
     void onSet(const redisclient::RedisValue &value);
     void onGet(const redisclient::RedisValue &value);

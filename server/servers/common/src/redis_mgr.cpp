@@ -27,10 +27,10 @@ CRedisMgr::~CRedisMgr() {
 void CRedisMgr::OnTimer() {
     CApplication::Instance().schedule(&m_timer, 5000);
     if(!m_asyncClient->isConnected()){//重连
-
+        AsyncConnect();
     }
     if(!m_syncClient->isConnected()){//重连
-
+        SyncConnect();
     }
 }
 
@@ -46,16 +46,11 @@ bool CRedisMgr::Init(stRedisConf &conf) {
     m_asyncClient = std::make_shared<redisclient::RedisAsyncClient>(CApplication::Instance().GetAsioContext());
     boost::system::error_code ec;
 
-    m_syncClient->connect(endpoint, ec);
-    if(ec){
-        LOG_ERROR("Can't connect to redis: {}",ec.message());
+    if(!SyncConnect()){
+        LOG_ERROR("Sync Redis Connect fail:{}--{}",m_conf.redisHost,m_conf.redisPort);
         return false;
     }
     redisclient::RedisValue result;
-    result = m_syncClient->command("AUTH",{conf.redisPasswd});
-    if(result.isOk()){
-        LOG_DEBUG("AUTH reply:{}",result.toString());
-    }
     result = m_syncClient->command("SET", {"key", "value"});
     if( result.isError() ){
         LOG_ERROR("SET error: {}",result.toString());
@@ -68,14 +63,40 @@ bool CRedisMgr::Init(stRedisConf &conf) {
         LOG_ERROR("GET error: {}",result.toString());
         return false;
     }
-    m_asyncClient->connect(endpoint,std::bind(&CRedisMgr::onConnect,this,std::placeholders::_1));
+    AsyncConnect();
 
     return true;
 }
 
 void CRedisMgr::ShutDown() {
     m_timer.cancel();
+    m_syncClient->disconnect();
+    m_asyncClient->disconnect();
 }
+bool CRedisMgr::SyncConnect(){
+    boost::asio::ip::address address = boost::asio::ip::address::from_string(m_conf.redisHost);
+    boost::asio::ip::tcp::endpoint endpoint(address, m_conf.redisPort);
+    boost::system::error_code ec;
+
+    m_syncClient->connect(endpoint, ec);
+    if(ec){
+        LOG_ERROR("Can't connect to redis: {}",ec.message());
+        return false;
+    }
+    redisclient::RedisValue result;
+    result = m_syncClient->command("AUTH",{m_conf.redisPasswd});
+    if(result.toString() == "OK"){
+        return true;
+    }
+    LOG_ERROR("AUTH reply:{}",result.toString());
+    return false;
+}
+void CRedisMgr::AsyncConnect(){
+    boost::asio::ip::address address = boost::asio::ip::address::from_string(m_conf.redisHost);
+    boost::asio::ip::tcp::endpoint endpoint(address, m_conf.redisPort);
+    m_asyncClient->connect(endpoint,std::bind(&CRedisMgr::onConnect,this,std::placeholders::_1));
+}
+
 void CRedisMgr::onConnect(boost::system::error_code ec){
     if(ec){
         LOG_ERROR("Can't connect to redis: {}",ec.message());
