@@ -42,9 +42,9 @@ namespace Network
 				break;
 			}
 		}
-		LOG_DEBUG("key:{}...", key);
+		//LOG_DEBUG("key:{}...", key);
 		memcpy(key + strlen(key), MAGIC_KEY, sizeof(MAGIC_KEY));
-		LOG_DEBUG("megerkey:{}...", key);
+		//LOG_DEBUG("megerkey:{}...", key);
 		//求哈希1
 		SHA1 sha;
 		unsigned int message_digest[5];
@@ -60,7 +60,7 @@ namespace Network
 		sprintf(http_res, WEB_SOCKET_HANDS_RE, key);
 		m_pSendBuffer->Write((uint8_t*)http_res, strlen(http_res));
 		shake_hands_ = true;
-		LOG_DEBUG("shake hand success,res:{}...",http_res);//fkYTdNEVkParesYkrM4S
+		//LOG_DEBUG("shake hand success");//fkYTdNEVkParesYkrM4S
 	}
 	bool Session::FindHttpParam(const char * param, const char * buf) {
 		while (*param == *buf) {
@@ -272,10 +272,10 @@ bool Session::DecodeWebSocketToQueue(){
 			ShakeHandsHandle((const char*)pPacket,m_pRecvBuffer->GetRecvDataLen());
 			if(shake_hands_){
 				m_pRecvBuffer->Clear();
-				LOG_DEBUG("握手成功，开始接受数据");
+				LOG_DEBUG("shake hand success,begin recv data");
 				return true;
 			}else{
-				LOG_DEBUG("握手失败，等待或者断开");
+				LOG_DEBUG("shake hand fail");
 				return true;
 			}
 		}
@@ -344,7 +344,7 @@ bool Session::DecodeWebSocketToQueue(){
 			m_QueueMessage.push(message);
 			//移除缓存
 			m_pRecvBuffer->RemoveFirstPacket(data_len);
-			LOG_DEBUG("收到web消息:{}--len:{}",string((char*)(message->Data()),message->Length()),data_len);
+			//LOG_DEBUG("收到web消息:{}--len:{}",string((char*)(message->Data()),message->Length()),data_len);
 			if (ws_head_.opcode == OPCODE_CLR) {
 				LOG_DEBUG("websocket closed");
 				return false;
