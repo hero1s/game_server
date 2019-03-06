@@ -32,7 +32,7 @@ private:
 
 	uint64_t       m_sleepTime;
 	std::shared_ptr<boost::asio::system_timer> m_pTimer;
-	stServerCfg m_serverCfg;
+	svrlib::stServerCfg m_serverCfg;
 };
 
 extern string g_strConfFilename;

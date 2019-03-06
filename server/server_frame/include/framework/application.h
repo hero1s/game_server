@@ -1,7 +1,6 @@
 
 #pragma once
 
-#include "fundamental/noncopyable.h"
 #include "utility/time_function.h"
 #include "utility/singleton.h"
 #include "modern/timer_wheel.h"
@@ -13,7 +12,6 @@
 #include "boost/asio.hpp"
 #include "cmdline.h"
 
-using namespace svrlib;
 using namespace std;
 using namespace Network;
 

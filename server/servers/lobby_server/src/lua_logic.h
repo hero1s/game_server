@@ -2,7 +2,6 @@
 #pragma once
 
 #include <string>
-#include "fundamental/noncopyable.h"
 #include "modern/sol/sol.hpp"
 #include "svrlib.h"
 #include <string.h>

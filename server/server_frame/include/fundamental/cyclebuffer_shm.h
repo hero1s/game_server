@@ -7,7 +7,7 @@
 
 namespace svrlib {
 template<typename DATA>
-class CycleBufferShm : private noncopyable {
+class CycleBufferShm : boost::noncopyable {
 public:
     CycleBufferShm(int iKey, uint32_t uiMaxCount)
             :

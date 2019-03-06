@@ -69,7 +69,6 @@ add_executable(server
         server_frame/include/fundamental/hashval.h
         server_frame/include/fundamental/linkcache.h
         server_frame/include/fundamental/multiprocesshashtable.h
-        server_frame/include/fundamental/noncopyable.h
         server_frame/include/fundamental/ring_buff.h
         server_frame/include/fundamental/variablehashtable.h
         server_frame/include/fundamental/variablelengthhashtable.h

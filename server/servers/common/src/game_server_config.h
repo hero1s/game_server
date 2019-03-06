@@ -3,7 +3,6 @@
 #pragma once
 
 #include <string>
-#include "fundamental/noncopyable.h"
 #include "svrlib.h"
 #include <string.h>
 #include "config/config.h"

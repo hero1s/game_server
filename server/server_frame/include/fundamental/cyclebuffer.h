@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "fundamental/common.h"
-#include "fundamental/noncopyable.h"
+#include <boost/noncopyable.hpp>
 
 namespace svrlib {
 #pragma pack(1)
@@ -29,7 +29,7 @@ struct CycleBufferNode {
  * 内部支撑类，不希望用户直接使用
  */
 template<typename DATA>
-class CInternalCycleBufferShm : private noncopyable {
+class CInternalCycleBufferShm : boost::noncopyable {
 public:
     typedef CycleBufferNode<DATA> NODE;
 
@@ -153,7 +153,7 @@ private:
 };
 
 template<typename DATA>
-class CycleBuffer : private noncopyable {
+class CycleBuffer : boost::noncopyable {
 public:
 
     CycleBuffer(int32_t uiMaxCount = 1024)

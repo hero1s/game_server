@@ -2,7 +2,6 @@
 #pragma once
 
 #include <string>
-#include "fundamental/noncopyable.h"
 #include "svrlib.h"
 #include "dbmysql/dbmysql.h"
 #include "dbmysql/db_wrap.h"

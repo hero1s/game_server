@@ -9,7 +9,6 @@
 #include "network/IOCPServer.h"
 #include "protobuf_handle.h"
 
-using namespace svrlib;
 using namespace Network;
 
 #pragma  pack(1)
