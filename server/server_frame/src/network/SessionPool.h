@@ -7,8 +7,6 @@ namespace Network {
 
     class SessionList;
 
-    class CMessageDecode;
-
     class SessionPool {
     public:
         SessionPool(uint32_t dwSize, uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t dwMaxPacketSize,

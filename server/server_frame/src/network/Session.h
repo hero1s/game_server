@@ -16,7 +16,6 @@ class SessionPool;
 class NetworkObject;
 class Session;
 class IoHandler;
-class CMessageDecode;
 
 //=============================================================================================================================
 /**

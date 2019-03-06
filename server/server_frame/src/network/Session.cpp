@@ -54,12 +54,12 @@ namespace Network
 		for (int i = 0; i < 5; i++) {
 			message_digest[i] = htonl(message_digest[i]);
 		}
-		shake_hands_ = true;
 		memset(key, 0, 512);
 		svrlib::base64::encode(key, reinterpret_cast<const char *>(message_digest), 20);
 		char http_res[512] = "";
 		sprintf(http_res, WEB_SOCKET_HANDS_RE, key);
-		Send((uint8_t*)http_res, strlen(http_res));
+		m_pSendBuffer->Write((uint8_t*)http_res, strlen(http_res));
+		shake_hands_ = true;
 		LOG_DEBUG("shake hand success,res:{}...",http_res);//fkYTdNEVkParesYkrM4S
 	}
 	bool Session::FindHttpParam(const char * param, const char * buf) {
@@ -339,13 +339,14 @@ bool Session::DecodeWebSocketToQueue(){
 			//移除缓存
 			m_pRecvBuffer->RemoveFirstPacket(data_len);
 			LOG_DEBUG("收到web消息:{}--len:{}",string((char*)(message->Data()),message->Length()),data_len);
+			if (ws_head_.opcode == OPCODE_CLR) {
+				LOG_DEBUG("websocket closed");
+				return false;
+			}
 			ws_head_.reset();
 			ResetTimeOut();
 		}
-		if (ws_head_.opcode == OPCODE_CLR) {
-			LOG_DEBUG("websocket closed");
-			return false;
-		}
+
 	return true;
 }
 
