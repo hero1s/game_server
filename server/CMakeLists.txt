@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.0)
 project(server)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -152,7 +152,6 @@ add_executable(server
         server_frame/include/packet/inner_protobuf_pkg.h
         server_frame/include/packet/protobuf_handle.h
         server_frame/include/packet/protobuf_pkg.h
-        server_frame/include/redis/redisclient.h
         server_frame/include/utility/basic_functions.h
         server_frame/include/utility/basic_types.h
         server_frame/include/utility/comm_macro.h
@@ -285,7 +284,6 @@ add_executable(server
         server_frame/src/network/TLock.h
         server_frame/src/packet/inner_protobuf_pkg.cpp
         server_frame/src/packet/protobuf_pkg.cpp
-        server_frame/src/redis/redisclient.cpp
         server_frame/src/utility/basic_functions.cpp
         server_frame/src/utility/cooling.cpp
         server_frame/src/utility/ipcutility.cpp
