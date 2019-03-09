@@ -28,7 +28,7 @@ add_source_files(../src/*.*)
 add_link_path(../../../server_frame/lib)
 add_link_path(${COMMON_LIBPATH})
 
-add_link_lib(boost_system.a)
+
 add_link_lib(common)
 add_link_lib(pb)
 add_link_lib(svrlib)
