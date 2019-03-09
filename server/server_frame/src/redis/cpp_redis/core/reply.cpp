@@ -22,185 +22,192 @@
 
 #include <cpp_redis/core/reply.hpp>
 #include <cpp_redis/misc/error.hpp>
+#include <cpp_redis/misc/logger.hpp>
 
 namespace cpp_redis {
 
-reply::reply(void)
-: m_type(type::null) {}
+	reply::reply()
+			: m_type(type::null) {}
 
-reply::reply(const std::string& value, string_type reply_type)
-: m_type(static_cast<type>(reply_type))
-, m_strval(value) {}
+	reply::reply(const std::string &value, string_type reply_type)
+			: m_type(static_cast<type>(reply_type)), m_str_val(value) {
+	}
 
-reply::reply(int64_t value)
-: m_type(type::integer)
-, m_intval(value) {}
+	reply::reply(int64_t value)
+			: m_type(type::integer), m_int_val(value) {}
 
-reply::reply(const std::vector<reply>& rows)
-: m_type(type::array)
-, m_rows(rows) {}
+	reply::reply(const std::vector<reply> &rows)
+			: m_type(type::array), m_rows(rows) {}
 
-reply::reply(reply&& other) {
-  m_type   = other.m_type;
-  m_rows   = std::move(other.m_rows);
-  m_strval = std::move(other.m_strval);
-  m_intval = other.m_intval;
-}
+	reply::reply(reply &&other) noexcept {
+		m_type = other.m_type;
+		m_rows = std::move(other.m_rows);
+		m_str_val = std::move(other.m_str_val);
+		m_int_val = other.m_int_val;
+	}
 
-reply&
-reply::operator=(reply&& other) {
-  if (this != &other) {
-    m_type   = other.m_type;
-    m_rows   = std::move(other.m_rows);
-    m_strval = std::move(other.m_strval);
-    m_intval = other.m_intval;
-  }
+	optional_t<int64_t> reply::try_get_int() const {
+		if (is_integer())
+			return optional_t<int64_t>(m_int_val);
 
-  return *this;
-}
+		__CPP_REDIS_LOG(1, "Reply is not an integer");
+		return {0};
+	}
 
-bool
-reply::ok(void) const {
-  return !is_error();
-}
+	reply &
+	reply::operator=(reply &&other) noexcept {
+		if (this != &other) {
+			m_type = other.m_type;
+			m_rows = std::move(other.m_rows);
+			m_str_val = std::move(other.m_str_val);
+			m_int_val = other.m_int_val;
+		}
 
-bool
-reply::ko(void) const {
-  return !ok();
-}
+		return *this;
+	}
 
-const std::string&
-reply::error(void) const {
-  if (!is_error())
-    throw cpp_redis::redis_error("Reply is not an error");
+	bool
+	reply::ok() const {
+		return !is_error();
+	}
 
-  return as_string();
-}
+	bool
+	reply::ko() const {
+		return !ok();
+	}
 
-reply::operator bool(void) const {
-  return !is_error() && !is_null();
-}
+	const std::string &
+	reply::error() const {
+		if (!is_error())
+			throw cpp_redis::redis_error("Reply is not an error");
 
-void
-reply::set(void) {
-  m_type = type::null;
-}
+		return as_string();
+	}
 
-void
-reply::set(const std::string& value, string_type reply_type) {
-  m_type   = static_cast<type>(reply_type);
-  m_strval = value;
-}
+	reply::operator bool() const {
+		return !is_error() && !is_null();
+	}
 
-void
-reply::set(int64_t value) {
-  m_type   = type::integer;
-  m_intval = value;
-}
+	void
+	reply::set() {
+		m_type = type::null;
+	}
 
-void
-reply::set(const std::vector<reply>& rows) {
-  m_type = type::array;
-  m_rows = rows;
-}
+	void
+	reply::set(const std::string &value, string_type reply_type) {
+		m_type = static_cast<type>(reply_type);
+		m_str_val = value;
+	}
 
-reply&
-reply::operator<<(const reply& reply) {
-  m_type = type::array;
-  m_rows.push_back(reply);
+	void
+	reply::set(int64_t value) {
+		m_type = type::integer;
+		m_int_val = value;
+	}
 
-  return *this;
-}
+	void
+	reply::set(const std::vector<reply> &rows) {
+		m_type = type::array;
+		m_rows = rows;
+	}
 
-bool
-reply::is_array(void) const {
-  return m_type == type::array;
-}
+	reply &
+	reply::operator<<(const reply &reply) {
+		m_type = type::array;
+		m_rows.push_back(reply);
 
-bool
-reply::is_string(void) const {
-  return is_simple_string() || is_bulk_string() || is_error();
-}
+		return *this;
+	}
 
-bool
-reply::is_simple_string(void) const {
-  return m_type == type::simple_string;
-}
+	bool
+	reply::is_array() const {
+		return m_type == type::array;
+	}
 
-bool
-reply::is_bulk_string(void) const {
-  return m_type == type::bulk_string;
-}
+	bool
+	reply::is_string() const {
+		return is_simple_string() || is_bulk_string() || is_error();
+	}
 
-bool
-reply::is_error(void) const {
-  return m_type == type::error;
-}
+	bool
+	reply::is_simple_string() const {
+		return m_type == type::simple_string;
+	}
 
-bool
-reply::is_integer(void) const {
-  return m_type == type::integer;
-}
+	bool
+	reply::is_bulk_string() const {
+		return m_type == type::bulk_string;
+	}
 
-bool
-reply::is_null(void) const {
-  return m_type == type::null;
-}
+	bool
+	reply::is_error() const {
+		return m_type == type::error;
+	}
 
-const std::vector<reply>&
-reply::as_array(void) const {
-  if (!is_array())
-    throw cpp_redis::redis_error("Reply is not an array");
+	bool
+	reply::is_integer() const {
+		return m_type == type::integer;
+	}
 
-  return m_rows;
-}
+	bool
+	reply::is_null() const {
+		return m_type == type::null;
+	}
 
-const std::string&
-reply::as_string(void) const {
-  if (!is_string())
-    throw cpp_redis::redis_error("Reply is not a string");
+	const std::vector<reply> &
+	reply::as_array() const {
+		if (!is_array())
+			throw cpp_redis::redis_error("Reply is not an array");
 
-  return m_strval;
-}
+		return m_rows;
+	}
 
-int64_t
-reply::as_integer(void) const {
-  if (!is_integer())
-    throw cpp_redis::redis_error("Reply is not an integer");
+	const std::string &
+	reply::as_string() const {
+		if (!is_string())
+			throw cpp_redis::redis_error("Reply is not a string");
 
-  return m_intval;
-}
+		return m_str_val;
+	}
 
-reply::type
-reply::get_type(void) const {
-  return m_type;
-}
+	int64_t
+	reply::as_integer() const {
+		if (!is_integer())
+			throw cpp_redis::redis_error("Reply is not an integer");
+
+		return m_int_val;
+	}
+
+	reply::type
+	reply::get_type() const {
+		return m_type;
+	}
 
 } // namespace cpp_redis
 
-std::ostream&
-operator<<(std::ostream& os, const cpp_redis::reply& reply) {
-  switch (reply.get_type()) {
-  case cpp_redis::reply::type::error:
-    os << reply.error();
-    break;
-  case cpp_redis::reply::type::bulk_string:
-    os << reply.as_string();
-    break;
-  case cpp_redis::reply::type::simple_string:
-    os << reply.as_string();
-    break;
-  case cpp_redis::reply::type::null:
-    os << std::string("(nil)");
-    break;
-  case cpp_redis::reply::type::integer:
-    os << reply.as_integer();
-    break;
-  case cpp_redis::reply::type::array:
-    for (const auto& item : reply.as_array())
-      os << item;
-    break;
-  }
+std::ostream &
+operator<<(std::ostream &os, const cpp_redis::reply &reply) {
+	switch (reply.get_type()) {
+		case cpp_redis::reply::type::error:
+			os << reply.error();
+			break;
+		case cpp_redis::reply::type::bulk_string:
+			os << reply.as_string();
+			break;
+		case cpp_redis::reply::type::simple_string:
+			os << reply.as_string();
+			break;
+		case cpp_redis::reply::type::null:
+			os << std::string("(nil)");
+			break;
+		case cpp_redis::reply::type::integer:
+			os << reply.as_integer();
+			break;
+		case cpp_redis::reply::type::array:
+			for (const auto &item : reply.as_array())
+				os << item;
+			break;
+	}
 
-  return os;
+	return os;
 }

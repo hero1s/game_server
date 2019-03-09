@@ -1,3 +1,6 @@
+//
+// Created by nick on 11/22/18.
+//
 // The MIT License (MIT)
 //
 // Copyright (c) 2015-2017 Simon Ninon <simon.ninon@gmail.com>
@@ -20,12 +23,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#pragma once
+#ifndef CPP_REDIS_GENERATE_RAND_HPP
+#define CPP_REDIS_GENERATE_RAND_HPP
 
-#if _WIN32
-#define __CPP_REDIS_LENGTH(size) static_cast<unsigned int>(size) // for Windows, convert size to `unsigned int`
-#else                                                            /* _WIN32 */
-#define __CPP_REDIS_LENGTH(size) size                            // for Unix, keep size as `size_t`
-#endif                                                           /* _WIN32 */
+#include <random>
+#include <string>
 
-#define __CPP_REDIS_PRINT(...) printf(__VA_ARGS__)
+namespace cpp_redis {
+	inline std::string generate_rand() {
+		std::mt19937 rng;
+		rng.seed(std::random_device()());
+		std::uniform_int_distribution<std::mt19937::result_type> dist6(1,6); // distribution in range [1, 6]
+		return std::to_string(dist6(rng));
+	}
+}
+
+#endif //CPP_REDIS_GENERATE_RAND_HPP

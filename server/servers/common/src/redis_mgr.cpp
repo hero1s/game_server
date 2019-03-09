@@ -38,8 +38,8 @@ bool CRedisMgr::Init(stRedisConf &conf) {
 
         m_client = std::make_shared<cpp_redis::client>();
         m_client->connect(conf.redisHost, conf.redisPort,
-                [&](const std::string &host, std::size_t port, cpp_redis::client::connect_state status) {
-                    if (status == cpp_redis::client::connect_state::dropped) {
+                [&](const std::string &host, std::size_t port, cpp_redis::connect_state status) {
+                    if (status == cpp_redis::connect_state::dropped) {
                         LOG_ERROR("client disconnected from {}:{} ", host, port);
                     } else {
                         m_client->auth(conf.redisPasswd, [&](const cpp_redis::reply &reply) {

@@ -29,7 +29,7 @@
 namespace cpp_redis {
 
 #ifndef __CPP_REDIS_USE_CUSTOM_TCP_CLIENT
-subscriber::subscriber(void)
+subscriber::subscriber()
 : m_reconnecting(false)
 , m_cancel(false)
 , m_auth_reply_callback(nullptr) {
@@ -46,7 +46,7 @@ subscriber::subscriber(const std::shared_ptr<network::tcp_client_iface>& tcp_cli
   __CPP_REDIS_LOG(debug, "cpp_redis::subscriber created");
 }
 
-subscriber::~subscriber(void) {
+subscriber::~subscriber() {
   //! ensure we stopped reconnection attempts
   if (!m_cancel) {
     cancel_reconnect();
@@ -70,18 +70,18 @@ void
 subscriber::connect(
   const std::string& name,
   const connect_callback_t& connect_callback,
-  std::uint32_t timeout_msecs,
+  std::uint32_t timeout_ms,
   std::int32_t max_reconnects,
-  std::uint32_t reconnect_interval_msecs) {
+  std::uint32_t reconnect_interval_ms) {
   //! Save for auto reconnects
   m_master_name = name;
 
   //! We rely on the sentinel to tell us which redis server is currently the master.
   if (m_sentinel.get_master_addr_by_name(name, m_redis_server, m_redis_port, true)) {
-    connect(m_redis_server, m_redis_port, connect_callback, timeout_msecs, max_reconnects, reconnect_interval_msecs);
+    connect(m_redis_server, m_redis_port, connect_callback, timeout_ms, max_reconnects, reconnect_interval_ms);
   }
   else {
-    throw redis_error("cpp_redis::subscriber::connect() could not find master for name " + name);
+    throw redis_error("cpp_redis::subscriber::connect() could not find master for m_name " + name);
   }
 }
 
@@ -90,9 +90,9 @@ void
 subscriber::connect(
   const std::string& host, std::size_t port,
   const connect_callback_t& connect_callback,
-  std::uint32_t timeout_msecs,
+  std::uint32_t timeout_ms,
   std::int32_t max_reconnects,
-  std::uint32_t reconnect_interval_msecs) {
+  std::uint32_t reconnect_interval_ms) {
   __CPP_REDIS_LOG(debug, "cpp_redis::subscriber attempts to connect");
 
   //! Save for auto reconnects
@@ -100,7 +100,7 @@ subscriber::connect(
   m_redis_port               = port;
   m_connect_callback         = connect_callback;
   m_max_reconnects           = max_reconnects;
-  m_reconnect_interval_msecs = reconnect_interval_msecs;
+  m_reconnect_interval_ms = reconnect_interval_ms;
 
   //! notify start
   if (m_connect_callback) {
@@ -109,7 +109,7 @@ subscriber::connect(
 
   auto disconnection_handler = std::bind(&subscriber::connection_disconnection_handler, this, std::placeholders::_1);
   auto receive_handler       = std::bind(&subscriber::connection_receive_handler, this, std::placeholders::_1, std::placeholders::_2);
-  m_client.connect(host, port, disconnection_handler, receive_handler, timeout_msecs);
+  m_client.connect(host, port, disconnection_handler, receive_handler, timeout_ms);
 
   //! notify end
   if (m_connect_callback) {
@@ -120,27 +120,27 @@ subscriber::connect(
 }
 
 void
-subscriber::add_sentinel(const std::string& host, std::size_t port, std::uint32_t timeout_msecs) {
-  m_sentinel.add_sentinel(host, port, timeout_msecs);
+subscriber::add_sentinel(const std::string& host, std::size_t port, std::uint32_t timeout_ms) {
+  m_sentinel.add_sentinel(host, port, timeout_ms);
 }
 
 const sentinel&
-subscriber::get_sentinel(void) const {
+subscriber::get_sentinel() const {
   return m_sentinel;
 }
 
 sentinel&
-subscriber::get_sentinel(void) {
+subscriber::get_sentinel() {
   return m_sentinel;
 }
 
 void
-subscriber::clear_sentinels(void) {
+subscriber::clear_sentinels() {
   m_sentinel.clear_sentinels();
 }
 
 void
-subscriber::cancel_reconnect(void) {
+subscriber::cancel_reconnect() {
   m_cancel = true;
 }
 
@@ -166,12 +166,12 @@ subscriber::disconnect(bool wait_for_removal) {
 }
 
 bool
-subscriber::is_connected(void) const {
+subscriber::is_connected() const {
   return m_client.is_connected();
 }
 
 bool
-subscriber::is_reconnecting(void) const {
+subscriber::is_reconnecting() const {
   return m_reconnecting;
 }
 
@@ -246,7 +246,7 @@ subscriber::punsubscribe(const std::string& pattern) {
 }
 
 subscriber&
-subscriber::commit(void) {
+subscriber::commit() {
   try {
     __CPP_REDIS_LOG(debug, "cpp_redis::subscriber attempts to send pipelined commands");
     m_client.commit();
@@ -422,14 +422,14 @@ subscriber::connection_disconnection_handler(network::redis_connection&) {
 }
 
 void
-subscriber::clear_subscriptions(void) {
+subscriber::clear_subscriptions() {
   m_subscribed_channels.clear();
   m_psubscribed_channels.clear();
 }
 
 void
-subscriber::sleep_before_next_reconnect_attempt(void) {
-  if (m_reconnect_interval_msecs <= 0) {
+subscriber::sleep_before_next_reconnect_attempt() {
+  if (m_reconnect_interval_ms <= 0) {
     return;
   }
 
@@ -437,16 +437,16 @@ subscriber::sleep_before_next_reconnect_attempt(void) {
     m_connect_callback(m_redis_server, m_redis_port, connect_state::sleeping);
   }
 
-  std::this_thread::sleep_for(std::chrono::milliseconds(m_reconnect_interval_msecs));
+  std::this_thread::sleep_for(std::chrono::milliseconds(m_reconnect_interval_ms));
 }
 
 bool
-subscriber::should_reconnect(void) const {
+subscriber::should_reconnect() const {
   return !is_connected() && !m_cancel && (m_max_reconnects == -1 || m_current_reconnect_attempts < m_max_reconnects);
 }
 
 void
-subscriber::reconnect(void) {
+subscriber::reconnect() {
   //! increase the number of attempts to reconnect
   ++m_current_reconnect_attempts;
 
@@ -460,7 +460,7 @@ subscriber::reconnect(void) {
 
   //! Try catch block because the redis subscriber throws an error if connection cannot be made.
   try {
-    connect(m_redis_server, m_redis_port, m_connect_callback, m_connect_timeout_msecs, m_max_reconnects, m_reconnect_interval_msecs);
+    connect(m_redis_server, m_redis_port, m_connect_callback, m_connect_timeout_ms, m_max_reconnects, m_reconnect_interval_ms);
   }
   catch (...) {
   }
@@ -485,7 +485,7 @@ subscriber::reconnect(void) {
 }
 
 void
-subscriber::re_subscribe(void) {
+subscriber::re_subscribe() {
   std::map<std::string, callback_holder> sub_chans = std::move(m_subscribed_channels);
   for (const auto& chan : sub_chans) {
     unprotected_subscribe(chan.first, chan.second.subscribe_callback, chan.second.acknowledgement_callback);
@@ -499,7 +499,7 @@ subscriber::re_subscribe(void) {
 
 
 void
-subscriber::re_auth(void) {
+subscriber::re_auth() {
   if (m_password.empty()) {
     return;
   }

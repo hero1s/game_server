@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2015-2017 Simon Ninon <simon.ninon@gmail.com>
+// Copyright (c) 11/27/18 nick. <nbatkins@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,25 +18,59 @@
 // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
+// SOFTWARE.#ifndef CPP_REDIS_OPTIONAL_HPP
+#ifndef CPP_REDIS_OPTIONAL_HPP
+#define CPP_REDIS_OPTIONAL_HPP
 
-#ifndef __CPP_REDIS_
-#define __CPP_REDIS_
+#include <string>
 
-#ifdef _WIN32
-#pragma comment( lib, "ws2_32.lib")
-#endif /* _WIN32 */
+// Prefer std optional
+#if __cplusplus >= 201703L
+#include <optional>
 
-#include <cpp_redis/core/client.hpp>
-#include <cpp_redis/core/consumer.hpp>
-#include <cpp_redis/core/subscriber.hpp>
-#include <cpp_redis/core/reply.hpp>
-#include <cpp_redis/misc/error.hpp>
+namespace cpp_redis {
+template <class T>
+using optional_t = std::optional<T>;
+
+template <int I, class T>
+using enableIf = typename std::enable_if<I, T>::type;
+#else
+
 #include <cpp_redis/misc/logger.hpp>
-#include <cpp_redis/core/types.hpp>
 
+namespace cpp_redis {
+template <int I, class T>
+using enableIf = typename std::enable_if<I, T>::type;
+
+template <class T>
+struct optional {
+  optional(T value) : m_value(value) {}
+//  optional<T>&
+//  operator()(T value) {
+//    m_value = value;
+//    return *this;
+//  }
+
+  T m_value;
+
+  template <class U>
+  enableIf<std::is_convertible<U, T>::value, T>
+  value_or(U&& v) const {
+    __CPP_REDIS_LOG(1, "value_or(U&& v)\n")
+    return std::forward<U>(v);
+  }
+
+  template <class F>
+  auto
+  value_or(F&& action) const -> decltype(action()) {
+    return action();
+  }
+};
+
+template <class T>
+using optional_t = optional<T>;
 #endif
 
-#ifndef __CPP_REDIS_USE_CUSTOM_TCP_CLIENT
-#include <cpp_redis/network/tcp_client.hpp>
-#endif /* __CPP_REDIS_USE_CUSTOM_TCP_CLIENT */
+} // namespace cpp_redis
+
+#endif //CPP_REDIS_OPTIONAL_HPP
