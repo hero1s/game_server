@@ -28,6 +28,8 @@ set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O2 -ggdb -static-libstdc++ -static-libgcc")
 # add_definitions( -D_BUILD_DIRECTIVE = '"${CMAKE_BUILD_TYPE}"' )
 add_definitions(-fno-delete-null-pointer-checks)
 add_definitions(-Wl,--no-as-needed)
+#  π”√asioø‚
+add_definitions(-DASIO_STANDALONE)
 
 if (CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "-std=c++17 ${CMAKE_CXX_FLAGS}")

@@ -1,12 +1,12 @@
 
 #pragma once
 
-#include <boost/noncopyable.hpp>
+#include "fundamental/noncopyable.h"
 
 // 自动释放
 // 谨慎使用，不当的使用会在释放析构顺序上产生问题
 template<typename TYPE, typename REFTYPE = TYPE>
-class AutoDeleteSingleton : boost::noncopyable {
+class AutoDeleteSingleton : public svrlib::noncopyable {
 public:
     static REFTYPE&
     Instance()

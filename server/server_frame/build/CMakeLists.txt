@@ -6,10 +6,9 @@
 
 cmake_minimum_required(VERSION 2.8.3)
 
-include(./cmake_config/config.cmake)
-include(./cmake_config/macros.cmake)
-include(./cmake_config/common_path.cmake)
-
+include(../../cmake_config/config_lib.cmake)
+include(../../cmake_config/macros.cmake)
+include(../../cmake_config/common_path.cmake)
 
 clear_all_list()
 

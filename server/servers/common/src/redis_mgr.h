@@ -4,9 +4,7 @@
 #include "svrlib.h"
 #include "config/config.h"
 #include <string>
-#include "redis/redisclient.h"
-#include <boost/asio/io_service.hpp>
-#include <boost/asio/ip/address.hpp>
+#include <cpp_redis/cpp_redis>
 
 using namespace std;
 using namespace svrlib;
@@ -24,17 +22,10 @@ public:
     void ShutDown();
 
 protected:
-    bool SyncConnect();
-    void AsyncConnect();
 
-    void onConnect(boost::system::error_code ec);
-    void onSet(const redisclient::RedisValue &value);
-    void onGet(const redisclient::RedisValue &value);
 private:
     MemberTimerEvent<CRedisMgr, &CRedisMgr::OnTimer> m_timer;
-
-    std::shared_ptr<redisclient::RedisAsyncClient> m_asyncClient;//异步客户端
-    std::shared_ptr<redisclient::RedisSyncClient>  m_syncClient; //同步客户端
+    std::shared_ptr<cpp_redis::client> m_client;
     stRedisConf m_conf;
 };
 

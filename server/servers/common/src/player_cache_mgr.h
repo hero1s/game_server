@@ -4,7 +4,7 @@
 #include "svrlib.h"
 #include "fundamental/multiprocesshashtable.h"
 #include <unordered_map>
-#include "boost/asio.hpp"
+#include "asio.hpp"
 
 using namespace svrlib;
 using namespace std;
@@ -90,7 +90,7 @@ private:
 
     CACHE_HASH m_hpPlayerCache;
     std::unordered_map<uint64_t, uint32_t> m_mapOnlines;// 更新玩家数据key
-    std::shared_ptr<boost::asio::system_timer> m_pTimer;
+    std::shared_ptr<asio::system_timer> m_pTimer;
 };
 
 
