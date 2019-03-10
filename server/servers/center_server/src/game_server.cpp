@@ -39,16 +39,16 @@ bool CApplication::Initialize()
 	{
 
 		stIOHANDLER_DESC desc;
-		desc.dwIoHandlerKey       = 0;
-		desc.dwMaxAcceptSession   = 1000;
-		desc.dwMaxConnectSession  = 0;
-		desc.dwMaxConnectBuffSize = 1024*1024;
-		desc.dwSendBufferSize     = SERVER_SOCKET_BUFF_SIZE;
-		desc.dwRecvBufferSize     = SERVER_SOCKET_BUFF_SIZE;
-		desc.dwTimeOut            = 60*60*24;
-		desc.dwMaxPacketSize      = INNER_MAX_SIZE;
-		desc.pool                 = new CCenterNetObj();
-		desc.openMsgQueue         = true;
+		desc.ioHandlerKey       = 0;
+		desc.maxAcceptSession   = 1000;
+		desc.maxConnectSession  = 0;
+		desc.maxConnectBuffSize = 1024*1024;
+		desc.sendBufferSize     = SERVER_SOCKET_BUFF_SIZE;
+		desc.recvBufferSize     = SERVER_SOCKET_BUFF_SIZE;
+		desc.timeOut            = 60*60*24;
+		desc.maxPacketSize      = INNER_MAX_SIZE;
+		desc.pool               = new CCenterNetObj();
+		desc.openMsgQueue       = true;
 
 		if (!m_iocpServer.AddIoHandler(desc))
 		{

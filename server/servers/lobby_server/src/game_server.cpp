@@ -56,26 +56,26 @@ bool CApplication::Initialize() {
 
         // client´¦Àí¶Ë¿Ú
         stIOHANDLER_DESC desc[2];
-        desc[0].dwIoHandlerKey = 0;
-        desc[0].dwMaxAcceptSession = 5000;
-        desc[0].dwMaxConnectSession = 0;
-        desc[0].dwMaxConnectBuffSize = SERVER_SOCKET_BUFF_SIZE;
-        desc[0].dwSendBufferSize = PACKET_MAX_SIZE * 2;
-        desc[0].dwRecvBufferSize = 1024 * 4;
-        desc[0].dwTimeOut = 2000;
-        desc[0].dwMaxPacketSize = 1024 * 2;
+        desc[0].ioHandlerKey = 0;
+        desc[0].maxAcceptSession = 5000;
+        desc[0].maxConnectSession = 0;
+        desc[0].maxConnectBuffSize = SERVER_SOCKET_BUFF_SIZE;
+        desc[0].sendBufferSize = PACKET_MAX_SIZE * 2;
+        desc[0].recvBufferSize = 1024 * 4;
+        desc[0].timeOut = 2000;
+        desc[0].maxPacketSize = 1024 * 2;
         desc[0].pool = new CClientNetObj();
         desc[0].openMsgQueue = false;
         desc[0].webSocket = true;
 
-        desc[1].dwIoHandlerKey = 1;
-        desc[1].dwMaxAcceptSession = 0;
-        desc[1].dwMaxConnectSession = 100;
-        desc[1].dwMaxConnectBuffSize = 1024 * 1024;
-        desc[1].dwSendBufferSize = SERVER_SOCKET_BUFF_SIZE;
-        desc[1].dwRecvBufferSize = SERVER_SOCKET_BUFF_SIZE;
-        desc[1].dwTimeOut = 60 * 60 * 24;
-        desc[1].dwMaxPacketSize = INNER_MAX_SIZE;
+        desc[1].ioHandlerKey = 1;
+        desc[1].maxAcceptSession = 0;
+        desc[1].maxConnectSession = 100;
+        desc[1].maxConnectBuffSize = 1024 * 1024;
+        desc[1].sendBufferSize = SERVER_SOCKET_BUFF_SIZE;
+        desc[1].recvBufferSize = SERVER_SOCKET_BUFF_SIZE;
+        desc[1].timeOut = 60 * 60 * 24;
+        desc[1].maxPacketSize = INNER_MAX_SIZE;
         desc[1].pool = NULL;
         desc[1].openMsgQueue = true;
 

@@ -9,8 +9,9 @@
 
 using namespace std;
 
-#define EXTRA_ACCEPTEX_NUM        10
-#define SOCKET_HOLDER_SIZE    1024
+#define MAX_IO_WORKER_THREAD	16
+#define EXTRA_ACCEPTEX_NUM      10
+#define SOCKET_HOLDER_SIZE      1024
 
 namespace Network
 {
@@ -91,7 +92,8 @@ private:
 	uint32_t m_dwKey;
 	int      m_epoll;                            // epoll fd
 
-	pthread_t m_hIoThread;  // IO
+	uint32_t  m_numIoThreads;					  // IO
+	pthread_t m_hIoThread[MAX_IO_WORKER_THREAD];  // IO
 	pthread_t m_hEpollThread;
 
 	CircuitQueue<struct epoll_event>* m_pEvents;
@@ -103,7 +105,7 @@ private:
 
 	CNetworkObjPool* m_pNetworkPool;
 	unordered_map<uint32_t, uint32_t> m_mpWhiteListIp;
-	bool                              m_openMsgQueue;
+
 };
 
 }

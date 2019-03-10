@@ -43,7 +43,7 @@ IOCPServer::~IOCPServer()
 
 bool IOCPServer::AddIoHandler(stIOHANDLER_DESC& lpDesc)
 {
-    if(m_mapIoHandlers.find(lpDesc.dwIoHandlerKey) != m_mapIoHandlers.end())
+    if(m_mapIoHandlers.find(lpDesc.ioHandlerKey) != m_mapIoHandlers.end())
     {
         LOG_ERROR("error io key is exist");
         return false;

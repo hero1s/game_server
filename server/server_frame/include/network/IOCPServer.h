@@ -43,14 +43,15 @@ public:
 //-------------------------------------------------------------------------------------------------
 struct stIOHANDLER_DESC
 {
-  uint32_t dwIoHandlerKey;
-  uint32_t dwMaxAcceptSession;      // 最大接受连接数
-  uint32_t dwMaxConnectSession;     // 最大主动连接数
-  uint32_t dwMaxConnectBuffSize;    // 主动连接BuffSize
-  uint32_t dwSendBufferSize;        // 发送缓存
-  uint32_t dwRecvBufferSize;        // 接受缓存
-  uint32_t dwTimeOut;               // 超时断开(秒)
-  uint32_t dwMaxPacketSize;         // 最大包长
+  uint32_t ioHandlerKey;
+  uint32_t maxAcceptSession;      // 最大接受连接数
+  uint32_t maxConnectSession;     // 最大主动连接数
+  uint32_t maxConnectBuffSize;    // 主动连接BuffSize
+  uint32_t sendBufferSize;        // 发送缓存
+  uint32_t recvBufferSize;        // 接受缓存
+  uint32_t timeOut;               // 超时断开(秒)
+  uint32_t maxPacketSize;         // 最大包长
+  uint8_t  ioThreadNum;				// IO线程数(最大16)
   CNetworkObjPool* pool;            // 对象池
   bool openMsgQueue;                // 是否开启消息队列(防止服务器突发阻塞爆掉缓存)
   bool webSocket;					// 是否websocket
@@ -58,6 +59,9 @@ struct stIOHANDLER_DESC
   stIOHANDLER_DESC()
   {
 	  memset(this, 0, sizeof(stIOHANDLER_DESC));
+	  ioThreadNum  = 4;
+	  openMsgQueue = false;
+	  webSocket	   = false;
   }
 };
 

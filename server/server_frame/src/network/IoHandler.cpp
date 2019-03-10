@@ -107,7 +107,8 @@ namespace Network {
         m_numActiveSessions = 0;
         m_bShutdown = FALSE;
         m_pEvents = NULL;
-        m_hIoThread = 0;
+        for( int i = 0; i < MAX_IO_WORKER_THREAD; ++i )
+            m_hIoThread[i] = 0;
 
         m_pNetworkPool = NULL;
     }
@@ -132,7 +133,7 @@ namespace Network {
     void IoHandler::Init(IOCPServer *pIOCPServer, stIOHANDLER_DESC &lpDesc) {
         m_pIOCPServer = pIOCPServer;
         m_pNetworkPool = lpDesc.pool;
-        m_dwKey = lpDesc.dwIoHandlerKey;
+        m_dwKey = lpDesc.ioHandlerKey;
 
         m_pActiveSessionList = new SessionList;
         m_pAcceptedSessionList = new SessionList;
@@ -140,22 +141,22 @@ namespace Network {
         m_pConnectFailList = new SessionList;
         m_pTempList = new SessionList;
 
-        m_dwMaxAcceptSession = lpDesc.dwMaxAcceptSession;
-        m_pAcceptSessionPool = new SessionPool(lpDesc.dwMaxAcceptSession + EXTRA_ACCEPTEX_NUM,
-                                               lpDesc.dwSendBufferSize,
-                                               lpDesc.dwRecvBufferSize,
-                                               lpDesc.dwMaxPacketSize,
-                                               lpDesc.dwTimeOut,
+        m_dwMaxAcceptSession = lpDesc.maxAcceptSession;
+        m_pAcceptSessionPool = new SessionPool(lpDesc.maxAcceptSession + EXTRA_ACCEPTEX_NUM,
+                                               lpDesc.sendBufferSize,
+                                               lpDesc.recvBufferSize,
+                                               lpDesc.maxPacketSize,
+                                               lpDesc.timeOut,
                                                1,
                                                true,
                                                lpDesc.openMsgQueue,
                                                lpDesc.webSocket);
 
-        m_pConnectSessionPool = new SessionPool(lpDesc.dwMaxConnectSession,
-                                                lpDesc.dwMaxConnectBuffSize,
-                                                lpDesc.dwMaxConnectBuffSize,
-                                                lpDesc.dwMaxPacketSize,
-                                                lpDesc.dwTimeOut,
+        m_pConnectSessionPool = new SessionPool(lpDesc.maxConnectSession,
+                                                lpDesc.maxConnectBuffSize,
+                                                lpDesc.maxConnectBuffSize,
+                                                lpDesc.maxPacketSize,
+                                                lpDesc.timeOut,
                                                 m_pAcceptSessionPool->GetMaxSize() + 1,
                                                 false,
                                                 lpDesc.openMsgQueue,
@@ -165,8 +166,11 @@ namespace Network {
         m_pEvents->Create(SOCKET_HOLDER_SIZE * 2, SOCKET_HOLDER_SIZE);
 
         pthread_create(&m_hEpollThread, NULL, epoll_thread, (void *) this);
-        pthread_create(&m_hIoThread, NULL, io_thread, (void *) this);
-
+        m_numIoThreads = MIN(lpDesc.ioThreadNum,MAX_IO_WORKER_THREAD);
+        for(uint32_t i = 0; i < m_numIoThreads; ++i )
+        {
+            pthread_create(&m_hIoThread[i], NULL, io_thread, (void*)this);
+        }
     }
 
     uint32_t IoHandler::Connect(NetworkObject *pNetworkObject, const char *pszIP, uint16_t wPort) {
@@ -542,9 +546,11 @@ namespace Network {
         // wake up io_thread to exit
         m_condEvents.Broadcast();
 
-        pthread_cancel(m_hIoThread);
-        pthread_join(m_hIoThread, NULL);
-
+        for(uint32_t i = 0; i < m_numIoThreads; i ++ )
+        {
+            pthread_cancel(m_hIoThread[i]);
+            pthread_join(m_hIoThread[i], NULL);
+        }
     }
 
     bool IoHandler::ModEpollEvent(Session *pSession, uint32_t nEvent) {
