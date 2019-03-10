@@ -47,8 +47,6 @@ add_executable(server
         server_frame/include/config/csvreader.h
         server_frame/include/crypt/aes.h
         server_frame/include/crypt/base64.hpp
-        server_frame/include/crypt/blowfish.h
-        server_frame/include/crypt/crypt.h
         server_frame/include/crypt/mars.h
         server_frame/include/crypt/md5.h
         server_frame/include/crypt/net_encrypt.h
@@ -170,7 +168,6 @@ add_executable(server
         server_frame/src/config/csvreader.cpp
         server_frame/src/crypt/aes.cpp
         server_frame/src/crypt/blowFish.cpp
-        server_frame/src/crypt/crypt.cpp
         server_frame/src/crypt/mars.cpp
         server_frame/src/crypt/md5.cpp
         server_frame/src/crypt/net_encrypt.cpp
