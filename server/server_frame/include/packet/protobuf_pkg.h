@@ -45,25 +45,13 @@ void SetEncryptKey(string key);
 class CProtobufMsgHanlde : public CProtobufHandleBase {
 public:
     int OnHandleClientMsg(NetworkObject *pNetObj, uint8_t *pData, size_t uiDataLen);
+    int OnDispatchMsg(NetworkObject *pNetObj, const uint8_t *pkt_buf,uint16_t buf_len,PACKETHEAD * head);
 
 protected:
     PACKETHEAD * _head;
 };
 
-#define DUMP_PROTO_MSG_INFO(msg) \
-do { \
-    LOG_INFO("Dump {}{}{}", (msg).GetTypeName(), ":\n", (msg).DebugString()); \
-} while (0)
 
-#define DUMP_PROTO_MSG_WARNING(msg) \
-do { \
-    LOG_WARNING("Dump {}{}{}", (msg).GetTypeName(), ":\n", (msg).DebugString()); \
-} while (0)
-
-#define DUMP_PROTO_MSG_ERROR(msg) \
-do { \
-    LOG_ERROR("Dump {}{}{}", (msg).GetTypeName(), ":\n", (msg).DebugString()); \
-} while (0)
 
 
 
