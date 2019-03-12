@@ -120,7 +120,15 @@ int CProtobufMsgHanlde::OnHandleClientMsg(NetworkObject *pNetObj, uint8_t *pData
 
     return OnRecvClientMsg();
 }
+int CProtobufMsgHanlde::OnDispatchMsg(NetworkObject *pNetObj, const uint8_t *pkt_buf,uint16_t buf_len,PACKETHEAD * head){
+    _pNetObj = pNetObj;
+    _head = head;
+    _pkt_buf = pkt_buf;
+    _buf_len = buf_len;
+    _cmd = head->cmd;
 
+    return OnRecvClientMsg();
+}
 
 
 

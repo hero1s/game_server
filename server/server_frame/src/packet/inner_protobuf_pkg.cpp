@@ -78,7 +78,14 @@ int CInnerMsgHanlde::OnHandleClientMsg(NetworkObject *pNetObj, uint8_t *pData, s
     return OnRecvClientMsg();
 
 }
-
+int CInnerMsgHanlde::OnDispatchMsg(NetworkObject *pNetObj, const uint8_t *pkt_buf,uint16_t buf_len,INNERHEAD * head){
+    _pNetObj = pNetObj;
+    _head = head;
+    _pkt_buf = pkt_buf;
+    _buf_len = buf_len;
+    _cmd = head->cmd;
+    return OnRecvClientMsg();
+}
 
 
 
