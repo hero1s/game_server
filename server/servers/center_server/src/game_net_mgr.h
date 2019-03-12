@@ -36,8 +36,6 @@ protected:
 
     virtual void OnConnect(bool bSuccess, uint32_t dwNetworkIndex);
 
-    virtual void OnLogString(const char *pszLog);
-
 };
 
 

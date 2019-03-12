@@ -39,10 +39,7 @@ void CCenterNetObj::OnConnect(bool bSuccess, uint32_t dwNetworkIndex)
 {
 	LOG_DEBUG("center server OnConnect,{},{}", bSuccess, dwNetworkIndex);
 }
-void CCenterNetObj::OnLogString(const char* pszLog)
-{
-	LOG_DEBUG("{}", pszLog);
-}
+
 
 
 

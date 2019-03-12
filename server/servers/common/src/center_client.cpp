@@ -38,10 +38,6 @@ void CCenterNetObj::ConnectorOnConnect(bool bSuccess, uint32_t dwNetworkIndex)
 	LOG_DEBUG("center server OnConnect :{},{}", bSuccess, dwNetworkIndex);
 	CCenterClientMgr::Instance().OnConnect(bSuccess, this);
 }
-void CCenterNetObj::OnLogString(const char* pszLog)
-{
-	LOG_DEBUG("{}", pszLog);
-}
 
 //----------------------------------------------------------------------------------------------------------------------------
 

@@ -78,10 +78,7 @@ void CClientNetObj::OnConnect(bool bSuccess, uint32_t dwNetworkIndex)
 {
 	LOG_DEBUG("OnConnect,{},{}", bSuccess, dwNetworkIndex);
 }
-void CClientNetObj::OnLogString(const char* pszLog)
-{
-	LOG_DEBUG("{}", pszLog);
-}
+
 
 
 

@@ -1,2 +1,3 @@
 _gsdata_/
 server/cmake-build-debug/
+server/server_frame/lib/libsvrlib.a

@@ -42,8 +42,6 @@ protected:
 
     virtual void ConnectorOnConnect(bool bSuccess, uint32_t dwNetworkIndex);
 
-    virtual void OnLogString(const char *pszLog);
-
 };
 
 /******************中心服管理器****************************/
