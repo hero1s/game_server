@@ -42,13 +42,10 @@ bool SendProtobufMsg(NetworkObject *pNetObj, const void *msg, uint16_t msg_len, 
 void SetEncryptKey(string key);
 
 // 消息处理
-class CProtobufMsgHanlde : public CProtobufHandleBase {
+class CProtobufMsgHanlde : public CProtobufHandleBase<PACKETHEAD> {
 public:
     int OnHandleClientMsg(NetworkObject *pNetObj, uint8_t *pData, size_t uiDataLen);
-    int OnDispatchMsg(NetworkObject *pNetObj, const uint8_t *pkt_buf,uint16_t buf_len,PACKETHEAD * head);
 
-protected:
-    PACKETHEAD * _head;
 };
 
 

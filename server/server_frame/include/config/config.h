@@ -35,17 +35,13 @@ struct stDBConf {
 struct stRedisConf {
   std::string redisHost;
   uint32_t      redisPort;
-  uint8_t       redisIndex;
   std::string redisPasswd;
-  uint8_t       redisRole;
 
-  void SetRedisHost(const char* host, uint32_t port, uint32_t index, const char* passwd, uint32_t role)
+  void SetRedisHost(const char* host, uint32_t port, const char* passwd)
   {
       redisHost   = host;
       redisPort   = port;
-      redisIndex  = index;
       redisPasswd = passwd;
-      redisRole   = role;
   }
 };
 

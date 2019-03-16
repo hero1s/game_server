@@ -17,7 +17,7 @@ database_dbname[2] = "chess_center";
 database_dbname[3] = "chess_log";
 
 --redis配置
-local redis_config = { host = "139.199.209.147",port = 13000,passwd="e2345",role=1 };
+local redis_config = { host = "139.199.209.147",port = 14000,passwd="e2345" };
 --全局配置信息
 server_config =
 {
@@ -49,7 +49,7 @@ end
 -- 加载redis
 function load_redis_config(serverID,serviceConfig)
     local cfg = serviceConfig:GetRedisConf();
-    cfg:SetRedisHost(redis_config.host, redis_config.port, 0, redis_config.passwd,1);
+    cfg:SetRedisHost(redis_config.host, redis_config.port,redis_config.passwd);
 end
 -- 设置服务器基础信息
 function set_server_cfg(sid,serverCfg)

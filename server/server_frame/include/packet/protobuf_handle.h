@@ -31,6 +31,7 @@ do { \
 } while (0)
 
 // 消息处理
+template<typename Head>
 class CProtobufHandleBase {
 public:
     //  收到客户端消息时回调
@@ -56,6 +57,14 @@ public:
         }
         return 0;
     }
+    int OnDispatchMsg(NetworkObject *pNetObj, const uint8_t *pkt_buf,uint16_t buf_len,Head * head){
+        _pNetObj = pNetObj;
+        _head = head;
+        _pkt_buf = pkt_buf;
+        _buf_len = buf_len;
+        _cmd = head->cmd;
+        return OnRecvClientMsg();
+    }
 
 protected:
     std::unordered_map<uint32_t, handFunc> m_handlers;
@@ -63,6 +72,6 @@ protected:
     const uint8_t *_pkt_buf;
     uint16_t _buf_len;
     uint32_t _cmd;
-
+    Head * _head;
 };
 

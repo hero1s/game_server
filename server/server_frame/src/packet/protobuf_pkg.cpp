@@ -39,10 +39,8 @@ bool SendProtobufMsg(NetworkObject *pNetObj, const google::protobuf::Message *ms
     return SendProtobufMsg(pNetObj, sstr.c_str(), sstr.length(), msg_type, uin, compress, crypt);
 }
 
-bool
-SendProtobufMsg(NetworkObject *pNetObj, const void *msg, uint16_t msg_len, uint16_t msg_type, uint32_t uin,
-                uint8_t compress,
-                uint8_t crypt) {
+bool SendProtobufMsg(NetworkObject *pNetObj, const void *msg, uint16_t msg_len, uint16_t msg_type, uint32_t uin,
+                uint8_t compress, uint8_t crypt) {
     if (pNetObj == NULL) {
         return false;
     }
@@ -120,15 +118,7 @@ int CProtobufMsgHanlde::OnHandleClientMsg(NetworkObject *pNetObj, uint8_t *pData
 
     return OnRecvClientMsg();
 }
-int CProtobufMsgHanlde::OnDispatchMsg(NetworkObject *pNetObj, const uint8_t *pkt_buf,uint16_t buf_len,PACKETHEAD * head){
-    _pNetObj = pNetObj;
-    _head = head;
-    _pkt_buf = pkt_buf;
-    _buf_len = buf_len;
-    _cmd = head->cmd;
 
-    return OnRecvClientMsg();
-}
 
 
 

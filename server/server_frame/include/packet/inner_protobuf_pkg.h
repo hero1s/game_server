@@ -42,13 +42,10 @@ bool SendInnerMsg(NetworkObject *pNetObj, const void *msg, uint16_t msg_len, uin
                   uint8_t route = 0, uint32_t routeID = 0);
 
 // 消息处理
-class CInnerMsgHanlde : public CProtobufHandleBase {
+class CInnerMsgHanlde : public CProtobufHandleBase<INNERHEAD> {
 public:
     int OnHandleClientMsg(NetworkObject *pNetObj, uint8_t *pData, size_t uiDataLen);
-    int OnDispatchMsg(NetworkObject *pNetObj, const uint8_t *pkt_buf,uint16_t buf_len,INNERHEAD * head);
 
-protected:
-    INNERHEAD * _head;
 };
 
 
