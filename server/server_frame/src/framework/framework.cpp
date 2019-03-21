@@ -43,7 +43,12 @@ void CFrameWork::Run()
     m_pTimer->expires_from_now(std::chrono::milliseconds(m_sleepTime));
     m_pTimer->async_wait(std::bind(&CFrameWork::TimerTick, this, std::placeholders::_1));
 
-    CApplication::Instance().GetAsioContext().run();
+    try {
+        CApplication::Instance().GetAsioContext().run();
+    }catch (std::exception& e){
+        std::cout << "asio error " << e.what() << std::endl;
+        LOG_ERROR("asio error:{}", e.what());
+    }
 
 }
 
