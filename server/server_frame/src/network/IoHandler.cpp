@@ -167,6 +167,7 @@ namespace Network {
 
         pthread_create(&m_hEpollThread, NULL, epoll_thread, (void *) this);
         m_numIoThreads = MIN(lpDesc.ioThreadNum,MAX_IO_WORKER_THREAD);
+        LOG_DEBUG("开启IO线程数:{}",m_numIoThreads);
         for(uint32_t i = 0; i < m_numIoThreads; ++i )
         {
             pthread_create(&m_hIoThread[i], NULL, io_thread, (void*)this);

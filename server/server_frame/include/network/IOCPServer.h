@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <pthread.h>
 #include <string.h>
+#include "unistd.h"
+#include "sys/sysinfo.h"
 
 namespace Network
 {
@@ -59,7 +61,7 @@ struct stIOHANDLER_DESC
   stIOHANDLER_DESC()
   {
 	  memset(this, 0, sizeof(stIOHANDLER_DESC));
-	  ioThreadNum  = 4;
+	  ioThreadNum  = get_nprocs();
 	  openMsgQueue = false;
 	  webSocket	   = false;
   }
