@@ -1151,9 +1151,9 @@ namespace cpp_redis {
 			std::future<reply> ping(const std::string &message);
 
 			client &
-			psetex(const std::string &key, int ms, const std::string &val, const reply_callback_t &reply_callback);
+			psetex(const std::string &key, int64_t ms, const std::string &val, const reply_callback_t &reply_callback);
 
-			std::future<reply> psetex(const std::string &key, int ms, const std::string &val);
+			std::future<reply> psetex(const std::string &key, int64_t ms, const std::string &val);
 
 			client &publish(const std::string &channel, const std::string &message, const reply_callback_t &reply_callback);
 
@@ -1307,9 +1307,9 @@ namespace cpp_redis {
 			std::future<reply> setbit_(const std::string &key, int offset, const std::string &value);
 
 			client &
-			setex(const std::string &key, int seconds, const std::string &value, const reply_callback_t &reply_callback);
+			setex(const std::string &key, int64_t seconds, const std::string &value, const reply_callback_t &reply_callback);
 
-			std::future<reply> setex(const std::string &key, int seconds, const std::string &value);
+			std::future<reply> setex(const std::string &key, int64_t seconds, const std::string &value);
 
 			client &setnx(const std::string &key, const std::string &value, const reply_callback_t &reply_callback);
 
