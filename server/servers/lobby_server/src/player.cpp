@@ -3,7 +3,7 @@
 #include "helper/bufferStream.h"
 #include "stdafx.h"
 #include <time.h>
-#include "player_cache_mgr.h"
+#include "player_mgr.h"
 
 using namespace svrlib;
 using namespace std;

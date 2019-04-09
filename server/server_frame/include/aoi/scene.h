@@ -74,10 +74,10 @@ protected:
             if (otherid==uid) {
                 continue;
             }
-            auto res = p.view.try_emplace(otherid, p.version);//新进入玩家
-            if (!res.second)//玩家已经在视野内
+            auto [iter,success] = p.view.try_emplace(otherid, p.version);//新进入玩家
+            if (!success)//玩家已经在视野内
             {
-                res.first->second = p.version-1;//更新已经在视野内玩家的版本号,比当前版本号小1
+                iter->second = p.version-1;//更新已经在视野内玩家的版本号,比当前版本号小1
             }
         }
     }

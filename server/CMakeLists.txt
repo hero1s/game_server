@@ -93,7 +93,6 @@ add_executable(server
         server_frame/include/modern/nlohmann/json.hpp
         server_frame/include/modern/nlohmann/json_wrap.h
         server_frame/include/modern/sol/sol.hpp
-        server_frame/include/modern/sol/sol_forward.hpp
         server_frame/include/modern/spdlog/contrib/sinks/step_file_sink.h
         server_frame/include/modern/spdlog/details/async_log_helper.h
         server_frame/include/modern/spdlog/details/async_logger_impl.h
@@ -334,8 +333,6 @@ add_executable(server
         servers/common/src/game_server_config.h
         servers/common/src/player_base.cpp
         servers/common/src/player_base.h
-        servers/common/src/player_cache_mgr.cpp
-        servers/common/src/player_cache_mgr.h
         servers/common/src/player_mgr.cpp
         servers/common/src/player_mgr.h
         servers/common/src/redis_mgr.cpp
@@ -361,4 +358,4 @@ add_executable(server
         servers/pb/src/msg_define.pb.cc
         servers/pb/src/msg_define.pb.h
         servers/pb/src/servers_msg.pb.cc
-        servers/pb/src/servers_msg.pb.h)
+        servers/pb/src/servers_msg.pb.h server_frame/include/utility/shm_cache_mgr.h)
