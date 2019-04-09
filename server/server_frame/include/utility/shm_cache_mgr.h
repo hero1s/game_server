@@ -239,6 +239,6 @@ private:
     typedef CHashItem<uint64_t, stCacheData<data_len>, true> HASH_ITEM;
     CACHE_HASH m_hpPlayerCache;
     std::unordered_map<uint64_t, uint32_t> m_mapOnlines;// 更新玩家数据key
-    std::shared_ptr<asio::system_timer> m_pTimer;
-    handSaveFunc m_handSaveFunc;
+    std::shared_ptr<asio::system_timer> m_pTimer = nullptr;
+    handSaveFunc m_handSaveFunc = nullptr;
 };

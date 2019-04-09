@@ -73,6 +73,12 @@ private:
     sol::state m_solLua;            // sol lua模块
     asio::io_context m_ioContext;
 
+protected:
+    using handTimeFunc = function<void()>;
+    handTimeFunc m_OnNewDay = nullptr;
+    handTimeFunc m_OnNewWeek = nullptr;
+    handTimeFunc m_OnNewMonth = nullptr;
+
 };
 
 

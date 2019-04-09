@@ -103,11 +103,7 @@ bool CApplication::Initialize() {
         LOG_ERROR("playermgr init fail");
         return false;
     }
-    if (!CGobalEventMgr::Instance().Init())
-    {
-        LOG_ERROR("global mgr init fail");
-        return false;
-    }
+
     net::server_info info;
     info.set_svrid(GetServerID());
 
@@ -158,7 +154,7 @@ void CApplication::ConfigurationChanged() {
 }
 
 void CApplication::Tick() {
-    CGobalEventMgr::Instance().ProcessTime();
+    
 }
 
 void CApplication::ExceptionHandle() {

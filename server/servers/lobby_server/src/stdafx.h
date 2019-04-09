@@ -13,7 +13,6 @@
 #include "game_net_mgr.h"
 #include "player_mgr.h"
 #include "redis_mgr.h"
-#include "gobal_event_mgr.h"
 #include "dbmysql_mgr.h"
 #include "data_cfg_mgr.h"
 

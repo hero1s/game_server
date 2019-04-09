@@ -340,8 +340,6 @@ add_executable(server
         servers/lobby_server/src/game_net_mgr.cpp
         servers/lobby_server/src/game_net_mgr.h
         servers/lobby_server/src/game_server.cpp
-        servers/lobby_server/src/gobal_event_mgr.cpp
-        servers/lobby_server/src/gobal_event_mgr.h
         servers/lobby_server/src/lua_logic.cpp
         servers/lobby_server/src/lua_logic.h
         servers/lobby_server/src/msg_client_handle.cpp

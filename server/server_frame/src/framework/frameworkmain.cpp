@@ -14,14 +14,12 @@
 using namespace svrlib;
 
 int FrameworkMain(int argc, char *argv[]) {
-    if (argc <= 0 || argv == NULL)
-    {
+    if (argc <= 0 || argv == NULL) {
         throw "The input argument for FrameworkMain is illegal!";
     }
     mallopt(M_ARENA_MAX, 1);
 
-    try
-    {
+    try {
         CFrameWork &frameWork = CFrameWork::Instance();
         frameWork.InitializeEnvironment(argc, argv);
 
@@ -32,13 +30,11 @@ int FrameworkMain(int argc, char *argv[]) {
         CApplication::Instance().OverShutDown();
         //
     }
-    catch (char const *what)
-    {
+    catch (char const *what) {
         std::cout << what << std::endl;
         LOG_ERROR("process exit {}", what);
     }
-    catch (sol::error &e)
-    {
+    catch (sol::error &e) {
         std::cout << "sol error " << e.what() << std::endl;
         LOG_ERROR("sol error:{}", e.what());
     }
@@ -73,18 +69,53 @@ void CApplication::PreTick() {
     setSysTime();
     std::srand(getSysTime());
     g_RandGen.Reset(getSysTime());
-    if (m_lastTick == 0)
-    {
+    if (m_lastTick == 0) {
         m_lastTick = getSystemTick64();
     }
     uint64_t curTime = getSystemTick64();
     int64_t delta = curTime - m_lastTick;
-    if (delta > 0)
-    {
+    if (delta > 0) {
         m_timers.advance(delta);
         m_lastTick = curTime;
     }
     m_iocpServer.Update();
+
+    //----检测日期变更---
+    static uint64_t uProcessTime = 0;
+    uint64_t uTime = getSysTime();
+    uint64_t uTick = getSystemTick64();
+    if (!uProcessTime)
+        uProcessTime = uTime;
+    if (uTime == uProcessTime)
+        return;// 一秒一次
+
+    bool bNewDay = (diffTimeDay(uProcessTime, uTime) != 0);
+    if (bNewDay) {
+        if (m_OnNewDay) {
+            m_OnNewDay();
+        }
+        // 新的一天
+        tm     local_time;
+        uint64_t uTime   = getTime();
+        getLocalTime(&local_time, uTime);
+        // 跨周        0-6
+        if (local_time.tm_wday == 0)
+        {
+            if(m_OnNewWeek) {
+                m_OnNewWeek();
+            }
+        }
+        // 跨月        1-31
+        if (local_time.tm_mday == 1)
+        {
+            if(m_OnNewMonth) {
+                m_OnNewMonth();
+            }
+        }
+    }
+    uProcessTime = uTime;
+    //------end------
+
 }
 
 void CApplication::SetServerID(unsigned int svrid) {
@@ -107,19 +138,22 @@ uint8_t CApplication::GetStatus() {
 void CApplication::schedule(TimerEventInterface *event, uint64_t delta) {
     m_timers.schedule(event, delta);
 }
+
 void CApplication::schedule_in_range(TimerEventInterface *event, uint64_t start, uint64_t end) {
     m_timers.schedule_in_range(event, start, end);
 }
+
 //网络模块
-IOCPServer& CApplication::GetIOCPServer() {
+IOCPServer &CApplication::GetIOCPServer() {
     return m_iocpServer;
 }
+
 //获得sol模块
 sol::state &CApplication::GetSolLuaState() {
     return m_solLua;
 }
 
 asio::io_context &CApplication::GetAsioContext() {
-	return m_ioContext;
+    return m_ioContext;
 }
 
