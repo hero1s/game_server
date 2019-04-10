@@ -34,9 +34,6 @@ struct stCacheData {
     stCacheData() {
         Reset();
     }
-
-    static uint32_t MaxDataLen() { return data_len; }
-
     void SetValue(uint32_t _uid, uint8_t _cacheType, const string &data) {
         uid = _uid;
         cacheType = _cacheType;
@@ -45,12 +42,10 @@ struct stCacheData {
         lastUpdateTime = getSysTime();
         lastSaveTime = 0;
     }
-
     void GetValue(string &data) const {
         data.resize(dateLen);
         memcpy((char *) data.data(), szData, dateLen);
     }
-
     void Reset() {
         memset(this, 0, sizeof(stCacheData));
     }
@@ -61,7 +56,7 @@ struct stCacheData {
 
 using handSaveFunc = function<void(uint32_t uid, uint8_t cacheType, const string &data)>;
 
-template<uint32_t data_len, uint32_t save_time>
+template<uint32_t data_len, uint32_t save_time_sec>
 class CDataCacheMgr {
 public:
     CDataCacheMgr() {};
@@ -184,7 +179,7 @@ protected:
         for (; it != m_mapOnlines.end(); ++it) {
             uint64_t key = it->first;
             uint32_t updateTime = it->second;
-            if (curTick - updateTime < save_time)
+            if (curTick - updateTime < save_time_sec)
                 continue;
 
             stCacheData<data_len> *pData = m_hpPlayerCache.GetValuePtr(key);
@@ -193,7 +188,7 @@ protected:
                 vecDels.push_back(key);
                 continue;
             }
-            if (pData->lastUpdateTime > pData->lastSaveTime && curTick - pData->lastSaveTime > save_time) {
+            if (pData->lastUpdateTime > pData->lastSaveTime && curTick - pData->lastSaveTime > save_time_sec) {
                 //to do 保存数据到数据库
                 string data;
                 pData->GetValue(data);
@@ -230,8 +225,8 @@ private:
         }
     }
 
-    typedef CMultiProcessHashTable<uint64_t, stCacheData<data_len>, true> CACHE_HASH;
-    typedef CHashItem<uint64_t, stCacheData<data_len>, true> HASH_ITEM;
+    using CACHE_HASH = CMultiProcessHashTable<uint64_t, stCacheData<data_len>, true>;
+    using HASH_ITEM = CHashItem<uint64_t, stCacheData<data_len>, true>;
     CACHE_HASH m_hpPlayerCache;
     std::unordered_map<uint64_t, uint32_t> m_mapOnlines;// 更新玩家数据key
     std::shared_ptr<asio::system_timer> m_pTimer = nullptr;

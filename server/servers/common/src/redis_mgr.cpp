@@ -25,6 +25,7 @@ CRedisMgr::~CRedisMgr() {
 void CRedisMgr::OnTimer() {
     CApplication::Instance().schedule(&m_timer, 5000);
     m_client->ping();
+    m_client->sync_commit();
 }
 
 bool CRedisMgr::Init(stRedisConf &conf) {
@@ -46,7 +47,7 @@ bool CRedisMgr::Init(stRedisConf &conf) {
                             LOG_DEBUG("redis auth reply: passwd {} {}", conf.redisPasswd, reply.as_string());
                         });
                     }
-                });
+                },5000,1000,1000);
 
         // same as client.send({ "SET", "hello", "42" }, ...)
         m_client->set("hello", "42", [](cpp_redis::reply &reply) {

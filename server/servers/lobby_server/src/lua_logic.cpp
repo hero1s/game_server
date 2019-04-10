@@ -15,7 +15,7 @@ void defLuaLogic(sol::state& lua)
 					   "GetUID", &CPlayer::GetUID
 			   );
 
-	LOG_DEBUG("µ¼³öLuaÂß¼­º¯Êý");
+	LOG_DEBUG("export lua logic function ");
 }
 
 
