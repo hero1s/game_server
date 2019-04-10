@@ -66,7 +66,7 @@ void CCenterMgr::OnTimer() {
     {
         m_msgMaxCount = MAX(m_msgMaxCount, m_msgMinCount);
 
-        LOG_DEBUG("中转消息计数:msg {},峰值消息 {}", m_msgMinCount, m_msgMaxCount);
+        LOG_DEBUG("route msg count :msg {},max msg {}", m_msgMinCount, m_msgMaxCount);
         m_msgMinCount = 0;
         m_lastCountTime = getSysTime();
     }
@@ -126,7 +126,7 @@ void CCenterMgr::SendMsg2Server(uint16_t svrID, const google::protobuf::Message 
     auto pServer = GetServerBySvrID(svrID);
     if (pServer == nullptr)
     {
-        LOG_DEBUG("发送的消息服务器不存在：{}", svrID);
+        LOG_DEBUG("send msg svr is not exist ：{}", svrID);
         return;
     }
     pServer->SendMsg(msg, msg_type, uin);
@@ -136,7 +136,7 @@ void CCenterMgr::SendMsg2Server(uint16_t svrID, const uint8_t *pkt_buf, uint16_t
     auto pServer = GetServerBySvrID(svrID);
     if (pServer == nullptr)
     {
-        LOG_DEBUG("发送的消息服务器不存在：{}", svrID);
+        LOG_DEBUG("send msg svr is not exist：{}", svrID);
         return;
     }
     pServer->SendMsg(pkt_buf, buf_len, msg_type, uin);
@@ -224,7 +224,7 @@ int CCenterMgr::OnRouteDispMsg() {
         }
         default:
         {
-            LOG_ERROR("路由类型错误:{}", _head->route);
+            LOG_ERROR("route type error :{}", _head->route);
             break;
         }
     }

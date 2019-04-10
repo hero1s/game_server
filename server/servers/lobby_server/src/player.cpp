@@ -75,13 +75,13 @@ void CPlayer::OnLogin()
 	// test
 	string testData;
 	if(CPlayerCacheMgr::Instance().GetPlayerCacheData(uid,emACCDATA_TYPE_BASE,testData)){
-		LOG_DEBUG("缓存获取数据成功:{}",uid);
+		LOG_DEBUG("cache get player data success :{}",uid);
 		net::base_info baseInfo;//基础数据
 		if(baseInfo.ParseFromString(testData)){
-			LOG_DEBUG("缓存加载基础信息成功:{},datalen:{}",uid,testData.length());
+			LOG_DEBUG("cache load base info parase successs :{},datalen:{}",uid,testData.length());
 			DUMP_PROTO_MSG_INFO(baseInfo);
 		}else{
-			LOG_ERROR("缓存基础信息解析错误:{} {}",uid,testData.length());
+			LOG_ERROR("cache load base info parase fail:{} {}",uid,testData.length());
 		}
 	}
 
@@ -95,10 +95,10 @@ void CPlayer::OnLogin()
 		  net::base_info baseInfo;//基础数据
 		  string baseData = refRows["Base"].as<string>();
 		  if(baseInfo.ParseFromString(baseData)){
-			  LOG_DEBUG("加载基础信息成功:{},datalen:{}",uid,baseData.length());
+			  LOG_DEBUG("load base info success :{},datalen:{}",uid,baseData.length());
               DUMP_PROTO_MSG_INFO(baseInfo);
 		  }else{
-			  LOG_ERROR("基础信息解析错误:{} {}",uid,baseData.length());
+			  LOG_ERROR("base info parase error :{} {}",uid,baseData.length());
 		  }
 		  uint32_t offlinetime  = refRows["OfflineTime"];
 
@@ -133,7 +133,7 @@ void CPlayer::OnLogin()
 
 void CPlayer::OnGetAllData()
 {
-	LOG_DEBUG("全部数据加载完成:{}",GetUID());
+	LOG_DEBUG("all data loaded over :{}",GetUID());
 	SetPlayerState(PLAYER_STATE_PLAYING);
 	BuildInit();
 
@@ -208,7 +208,7 @@ bool CPlayer::NeedRecover()
 	{
 		if (1)
 		{
-			LOG_ERROR("服务器维护状态，非在玩玩家踢出下线");
+			LOG_ERROR("server is repair status,not playing killed loginout");
 			return true;
 		}
 	}
@@ -218,7 +218,7 @@ bool CPlayer::NeedRecover()
 	}
 	if (GetPlayerState() == PLAYER_STATE_LOAD_DATA && (getSysTime() - m_loadTime) > SECONDS_IN_MIN)
 	{
-		LOG_ERROR("加载数据超时下线:{}", GetUID());
+		LOG_ERROR("load player data time out :{}", GetUID());
 		return true;
 	}
 	if (GetPlayerState() == PLAYER_STATE_LOAD_DATA)
@@ -228,7 +228,7 @@ bool CPlayer::NeedRecover()
 	{
 		if ((getSysTime() - m_disconnectTime) > s_OfflineTime)// 不在游戏中，或者超时下线
 		{
-			LOG_DEBUG("不在游戏中,超时下线{} time {}", GetUID(), s_OfflineTime);
+			LOG_DEBUG("not playing,time out loginout {} time {}", GetUID(), s_OfflineTime);
 			return true;
 		}
 	}
@@ -246,7 +246,7 @@ bool CPlayer::CanModifyData()
 //--- 每日清理
 void CPlayer::DailyCleanup(int32_t iOfflineDay)
 {
-	LOG_DEBUG("每日清理:{}",GetUID());
+	LOG_DEBUG("daily cleanup:{}",GetUID());
 	if (iOfflineDay > 1)
 	{
 		m_baseInfo.set_clogin(1);
@@ -292,7 +292,7 @@ void CPlayer::NotifyEnterGame()
 
 void CPlayer::NotifyLoginOut(uint32_t code, string deviceid)
 {
-	LOG_DEBUG("通知离开游戏:{}--{}", GetUID(), code);
+	LOG_DEBUG("notify leave game :{}--{}", GetUID(), code);
 	net::msg_loginout_rep loginoutmsg;
 	loginoutmsg.set_reason(code);
 	loginoutmsg.set_deviceid(deviceid);
@@ -308,7 +308,7 @@ bool CPlayer::SendAllPlayerData2Client()
 
 bool CPlayer::SendAccData2Client()
 {
-	LOG_DEBUG("发送账号数据:{}",GetUID());
+	LOG_DEBUG("send player account data:{}",GetUID());
 
 	net::msg_player_data_rep msg;
 	GetPlayerBaseData(msg.mutable_base_data());
@@ -320,7 +320,7 @@ bool CPlayer::SendAccData2Client()
 // 构建初始化
 void CPlayer::BuildInit()
 {
-	LOG_DEBUG("构建初始化:{}",GetUID());
+	LOG_DEBUG("player build init :{}",GetUID());
 
 	// 检测日常
 	uint32_t uBuildTime     = getSysTime();
@@ -399,7 +399,7 @@ void CPlayer::SavePlayerBaseInfo()
 	string baseData;
 	m_baseInfo.SerializeToString(&baseData);
 	CDBMysqlMgr::Instance().SavePlayerBaseInfo(GetUID(),baseData,m_offlinetime);
-	LOG_DEBUG("保存玩家数据:{},datalen:{},{}",GetUID(),baseData.length(),m_offlinetime);
+	LOG_DEBUG("save player data uid:{},datalen:{},{}",GetUID(),baseData.length(),m_offlinetime);
 
 	//test
 	CPlayerCacheMgr::Instance().SetPlayerCacheData(GetUID(),emACCDATA_TYPE_BASE,baseData);

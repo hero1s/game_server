@@ -154,7 +154,7 @@ void CApplication::ConfigurationChanged() {
 }
 
 void CApplication::Tick() {
-    
+
 }
 
 void CApplication::ExceptionHandle() {

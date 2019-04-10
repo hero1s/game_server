@@ -24,7 +24,7 @@ CRedisMgr::~CRedisMgr() {
 
 void CRedisMgr::OnTimer() {
     CApplication::Instance().schedule(&m_timer, 5000);
-
+    m_client->ping();
 }
 
 bool CRedisMgr::Init(stRedisConf &conf) {

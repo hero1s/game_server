@@ -83,11 +83,11 @@ void CCenterClientMgr::Register()
 	*info = m_curSvrInfo;
 
 	SendMsg2Center(&msg, net::S2CS_MSG_REGISTER_CENTER, 0);
-	LOG_DEBUG("注册中心服 svrid:{} svrtype:{}--gameType:{}", msg.info().svrid(), msg.info().svr_type(), msg.info().game_type());
+	LOG_DEBUG("register center server svrid:{} svrtype:{}--gameType:{}", msg.info().svrid(), msg.info().svr_type(), msg.info().game_type());
 }
 void CCenterClientMgr::RegisterRep(uint16_t svrid, bool rep)
 {
-	LOG_DEBUG("注册中心服返回 Rep svrid:{}--res:{}", svrid, rep);
+	LOG_DEBUG("register center server Rep svrid:{}--res:{}", svrid, rep);
 
 	m_isRun = rep;
 }
@@ -121,7 +121,7 @@ int CCenterClientMgr::handle_msg_register_svr_rep()
 	net::msg_register_center_svr_rep msg;
 	PARSE_MSG(msg);
 
-	LOG_DEBUG("中心服注册返回 :{}", msg.result());
+	LOG_DEBUG("center server register result :{}", msg.result());
 	if (msg.result() == 1)
 	{
 		CCenterClientMgr::Instance().RegisterRep(_pNetObj->GetUID(), true);
@@ -129,7 +129,7 @@ int CCenterClientMgr::handle_msg_register_svr_rep()
 	else
 	{
 		CCenterClientMgr::Instance().RegisterRep(_pNetObj->GetUID(), false);
-		LOG_ERROR("中心服注册失败 {} -->:{}", _pNetObj->GetUID(), CApplication::Instance().GetServerID());
+		LOG_ERROR("center server register fail {} -->:{}", _pNetObj->GetUID(), CApplication::Instance().GetServerID());
 	}
 	return 0;
 }
@@ -139,7 +139,7 @@ int CCenterClientMgr::handle_msg_server_list_rep()
 	net::msg_server_list_rep msg;
 	PARSE_MSG(msg);
 
-	LOG_DEBUG("中心服服务器列表返回 :{}", msg.server_list_size());
+	LOG_DEBUG("center server rep svrlist :{}", msg.server_list_size());
 
 
 	return 0;

@@ -61,7 +61,7 @@ private:
 
 };
 
-class CPlayerCacheMgr : public CDataCacheMgr<4096>, public AutoDeleteSingleton<CPlayerCacheMgr> {
+class CPlayerCacheMgr : public CDataCacheMgr<4096,60>, public AutoDeleteSingleton<CPlayerCacheMgr> {
 public:
 	CPlayerCacheMgr(){};
 	virtual ~CPlayerCacheMgr(){};
