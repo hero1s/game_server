@@ -34,6 +34,7 @@ struct stCacheData {
     stCacheData() {
         Reset();
     }
+
     void SetValue(uint32_t _uid, uint8_t _cacheType, const string &data) {
         uid = _uid;
         cacheType = _cacheType;
@@ -42,10 +43,12 @@ struct stCacheData {
         lastUpdateTime = getSysTime();
         lastSaveTime = 0;
     }
+
     void GetValue(string &data) const {
         data.resize(dateLen);
         memcpy((char *) data.data(), szData, dateLen);
     }
+
     void Reset() {
         memset(this, 0, sizeof(stCacheData));
     }
@@ -114,7 +117,7 @@ public:
             }
         }
         // 记录更新时间
-        m_mapOnlines.insert(make_pair(key, getSysTime()));
+        m_mapOnlines[key] = getSysTime();
         return true;
     }
 
@@ -164,9 +167,10 @@ protected:
         while (pItem) {
             // 清理长时间未更新的数据,后期可以加入容量控制toney
             if (curTick - pItem->m_oValue.lastUpdateTime > s_LAST_CLEAR_TIME) {
-                LOG_DEBUG("clear time out cache node ：key {},uid:{},cacheType:{}", pItem->m_oKey, pItem->m_oValue.uid,
+                LOG_DEBUG("clear time out cache node key {},uid:{},cacheType:{}", pItem->m_oKey, pItem->m_oValue.uid,
                           pItem->m_oValue.cacheType);
                 m_hpPlayerCache.Delete(pItem->m_oKey);
+                m_mapOnlines.erase(pItem->m_oKey);
             }
             pItem = m_hpPlayerCache.GetNext();
         }
@@ -175,10 +179,7 @@ protected:
     void CheckSaveData() {
         uint32_t curTick = getSysTime();
         vector<uint64_t> vecDels;
-        auto it = m_mapOnlines.begin();
-        for (; it != m_mapOnlines.end(); ++it) {
-            uint64_t key = it->first;
-            uint32_t updateTime = it->second;
+        for (auto[key, updateTime] : m_mapOnlines) {
             if (curTick - updateTime < save_time_sec)
                 continue;
 
@@ -199,8 +200,8 @@ protected:
                 vecDels.push_back(key);
             }
         }
-        for (uint32_t i = 0; i < vecDels.size(); ++i) {
-            m_mapOnlines.erase(vecDels[i]);
+        for (auto &id:vecDels) {
+            m_mapOnlines.erase(id);
         }
     }
 
