@@ -18,6 +18,9 @@
 #include "center_client.h"
 #include "player_mgr.h"
 
+#include "astar/astar.h"
+#include "astar/blockallocator.h"
+
 using namespace svrlib;
 using namespace std;
 
@@ -123,6 +126,39 @@ bool CApplication::Initialize() {
     CPlayerMgr::Instance().AddPlayer(pPlayer);
     pPlayer->OnLogin();
 
+    //test a-star
+    char maps[10][10] =
+            {
+                    { 0, 1, 0, 0, 0, 1, 0, 0, 0, 0 },
+                    { 0, 0, 0, 1, 0, 1, 0, 1, 0, 1 },
+                    { 1, 1, 1, 1, 0, 1, 0, 1, 0, 1 },
+                    { 0, 0, 0, 1, 0, 0, 0, 1, 0, 1 },
+                    { 0, 1, 0, 1, 1, 1, 1, 1, 0, 1 },
+                    { 0, 1, 0, 0, 0, 0, 0, 0, 0, 1 },
+                    { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+                    { 0, 0, 0, 0, 1, 0, 0, 0, 1, 0 },
+                    { 1, 1, 0, 0, 1, 0, 1, 0, 0, 0 },
+                    { 0, 0, 0, 0, 0, 0, 1, 0, 1, 0 },
+            };
+    // ËÑË÷²ÎÊý
+    AStar::Params param;
+    param.width = 10;
+    param.height = 10;
+    param.corner = false;
+    param.start = AStar::Vec2(0, 0);
+    param.end = AStar::Vec2(9, 9);
+    param.can_pass = [&](const AStar::Vec2 &pos)->bool
+    {
+        return maps[pos.y][pos.x] == 0;
+    };
+    // Ö´ÐÐËÑË÷
+    AStar algorithm(&g_SmallBlockAllocator);
+    auto curTick = getTickCount64();
+    auto path = algorithm.find(param);
+    for(auto pos:path){
+        //LOG_DEBUG("path pos:{}:{}",pos.x,pos.y);
+    }
+    LOG_DEBUG("a-star find path cost time:{}",getTickCount64()-curTick);
     return true;
 }
 

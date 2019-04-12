@@ -15,7 +15,7 @@ using namespace std;
 namespace {
     static const uint32_t s_CACHE_MAX_COUNT = 500 * 100;             // Cache 大小
     static const uint32_t s_LAST_CLEAR_TIME = 24 * 60 * 60 / 1000;   // 清除时间 24小时
-    static const uint32_t s_CHECK_DATA_TIME = 10 * 60;               // 检测数据时间
+    static const uint32_t s_CHECK_DATA_TIME = 60;                    // 检测数据时间
 }
 
 // 缓存数据最大长度4K(单字段),超过的不缓存
@@ -153,8 +153,8 @@ public:
 
 protected:
     void TimerCheck(const std::error_code &err) {
-        CheckClearData();
         CheckSaveData();
+        CheckClearData();
 
         m_pTimer->expires_from_now(std::chrono::milliseconds(s_CHECK_DATA_TIME * 1000));
         m_pTimer->async_wait(std::bind(&CDataCacheMgr::TimerCheck, this, std::placeholders::_1));
