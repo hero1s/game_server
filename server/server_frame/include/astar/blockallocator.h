@@ -50,6 +50,4 @@ private:
     static bool     s_block_size_lookup_initialized_;
 };
 
-inline BlockAllocator g_SmallBlockAllocator;
-
 #endif

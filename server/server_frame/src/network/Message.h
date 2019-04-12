@@ -5,7 +5,6 @@
 #pragma once
 
 #include "modern/locked_queue.h"
-#include "astar/blockallocator.h"
 
 #include <stdlib.h>
 #include <memory>
@@ -20,13 +19,13 @@ class CMessage
 public:
 	CMessage(const void* pMsg, uint16_t wSize)
 	{
-		m_pMsg  = (uint8_t*)g_SmallBlockAllocator.allocate(wSize);
+		m_pMsg  = new uint8_t[wSize];
 		m_wSize = wSize;
 		memcpy(m_pMsg,pMsg,wSize);
 	}
 	~CMessage()
 	{
-		g_SmallBlockAllocator.free(m_pMsg, m_wSize);
+		delete[](m_pMsg);
 		m_pMsg  = NULL;
 		m_wSize = 0;
 	}

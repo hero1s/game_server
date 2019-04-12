@@ -152,13 +152,14 @@ bool CApplication::Initialize() {
         return maps[pos.y][pos.x] == 0;
     };
     // Ö´ÐÐËÑË÷
-    AStar algorithm(&g_SmallBlockAllocator);
+    BlockAllocator aaa;
+    AStar algorithm(&aaa);
     auto curTick = getTickCount64();
     auto path = algorithm.find(param);
     for(auto pos:path){
-        //LOG_DEBUG("path pos:{}:{}",pos.x,pos.y);
+        LOG_DEBUG("path pos:{}:{}",pos.x,pos.y);
     }
-    LOG_DEBUG("a-star find path cost time:{}",getTickCount64()-curTick);
+
     return true;
 }
 
