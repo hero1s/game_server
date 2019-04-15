@@ -1,0 +1,143 @@
+package conf;
+
+// ------------------------
+//  res: 奖励信息
+// ------------------------
+
+message ResDes
+{
+    required sint32  resID   = 1; //资源ID
+	required sint32  resNum  = 2; //资源数量
+}
+
+// ------------------------
+//  res: 角色表
+// ------------------------
+
+message Role
+{
+	required sint32 id					= 1; //角色id	
+	required string name				= 2; //角色名字
+	required sint32 icon				= 3; //图标id	
+	required sint32 starLv				= 4; //评级	
+	required sint32 job					= 5; //职业	
+	required sint32 level				= 6; //等级	
+	required sint32 attack				= 7; //攻击	
+	required sint32 defense				= 8; //防御	
+	required sint32 hp					= 9; //生命
+	required sint32 silverPlus			= 10; //游戏币加成	
+	required sint32 unlock				= 11; //解锁条件	
+	required sint32 buyMaterial			= 12; //购买消耗材料	
+	required sint32 upgradeMaterial		= 13; //升阶消耗游戏币	
+	required sint32 bulletEffect		= 14; //子弹特效	
+	required sint32 skill				= 15; //技能	
+	required sint32 model				= 16; //模型	
+	required sint32 hpFactor			= 17; //生命系数
+	required sint32 atFactor			= 18; //攻击系数		
+	required sint32 deFactor			= 19; //防御系数
+	required sint32 hpGrow			    = 20; //生命成长值	
+	required sint32 atGrow              = 21; //攻击成长值
+	required sint32 deGrow              = 22; //防御成长值
+	required sint32 star1ItemID         = 23; //升星道具1
+	required sint32 star1ItemNum        = 24; //数量1	
+	required sint32 star2ItemID         = 25; //升星道具2	
+	required sint32 star2ItemNum        = 26; //数量2	
+	required sint32 star3ItemID         = 27; //升星道具3	
+	required sint32 star3ItemNum        = 28; //数量3
+	required sint32 moveSpeed           = 29; //移动速度
+	required sint32 moveRange           = 30; //移动范围
+	required sint32 type                = 31; //类型
+}
+
+message Roles
+{
+    repeated Role list = 1;
+}
+
+// ------------------------
+//  res: 奖励信息
+// ------------------------
+
+message Award
+{
+    required sint32  itemID  = 1; //道具ID
+	required sint32  count   = 2; //道具数量
+	required sint32  weight  = 3; //道具权重
+}
+
+// ------------------------
+//  res: 玩家等级表
+// ------------------------
+
+message PlayerLevel
+{
+    required sint32  id  = 1; //等级
+	required sint32  exp = 2; //经验
+}
+
+message PlayerLevels
+{
+    repeated PlayerLevel list = 1;
+}
+
+// ------------------------
+//  res: 副本表
+// ------------------------
+
+message CopyInfo
+{
+    required sint32  id                = 1;  //关卡标识
+	required sint32  chapterID         = 2;  //章节编号
+	required string  chapterName       = 3;  //章节名称
+	required string  missionName       = 4;  //关卡名称
+	required sint32  missionType       = 5;  //关卡类型
+	required string  missionDesc       = 6;  //关卡描述
+	required sint32  playerLevel       = 7;  //玩家等级
+	required sint32  preMission        = 8;  //前置关卡
+	required sint32  roleIDLimit       = 9;  //指定角色
+	required sint32  taskLimit         = 10; //解锁条件4
+	required sint32  silverAward       = 11; //游戏币奖励
+	required sint32  expAward          = 12; //经验奖励
+	repeated Award   awardList         = 13; //关卡奖励
+}
+
+message CopyInfos
+{
+    repeated CopyInfo list = 1;
+}
+
+// ------------------------
+//  res: 角色升级表
+// ------------------------
+
+message RoleLevel
+{
+	required sint32 id					= 1; //等级	
+	required sint32 silver				= 2; //游戏币
+	required sint32 gold				= 3; //人民币
+}
+
+message RoleLevels
+{
+    repeated RoleLevel list = 1;
+}
+
+// ------------------------
+//  res: 用户初始表
+// ------------------------
+
+message PlayerBirth
+{
+    required sint32 id         = 1; //默认id
+    required sint32 roleID     = 2; //默认角色
+    required sint32 passID     = 3; //默认关卡
+    repeated ResDes res        = 4; //默认资源
+}
+
+message PlayerBirths
+{
+    repeated PlayerBirth list = 1;
+}
+
+
+

@@ -1,0 +1,12 @@
+环境配置：
+1. 安装python-2.7.6.amd64.exe
+2. 进入cmd.exe
+   1) d:
+   2) cd projects\tools\xlrd-0.9.3
+   3) python setup.py install
+
+
+表格输出：
+1. 双击gen.py
+2. 或者进入cmd.exe
+   1) python gen.py
