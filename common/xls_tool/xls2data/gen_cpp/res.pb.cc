@@ -378,7 +378,7 @@ void protobuf_AddDesc_res_2eproto() {
     "k\030\007 \002(\021\022\017\n\007defense\030\010 \002(\021\022\n\n\002hp\030\t \002(\021\022\022\n\n"
     "silverPlus\030\n \002(\021\022\016\n\006unlock\030\013 \002(\021\022\023\n\013buyM"
     "aterial\030\014 \002(\021\022\027\n\017upgradeMaterial\030\r \002(\021\022\024"
-    "\n\014bulletEffect\030\016 \002(\021\022\r\n\005skill\030\017 \002(\021\022\r\n\005m"
+    "\n\014bulletEffect\030\016 \001(\021\022\r\n\005skill\030\017 \002(\021\022\r\n\005m"
     "odel\030\020 \002(\021\022\020\n\010hpFactor\030\021 \002(\021\022\020\n\010atFactor"
     "\030\022 \002(\021\022\020\n\010deFactor\030\023 \002(\021\022\016\n\006hpGrow\030\024 \002(\021"
     "\022\016\n\006atGrow\030\025 \002(\021\022\016\n\006deGrow\030\026 \002(\021\022\023\n\013star"
@@ -1071,7 +1071,7 @@ bool Role::MergePartialFromCodedStream(
         break;
       }
 
-      // required sint32 bulletEffect = 14;
+      // optional sint32 bulletEffect = 14;
       case 14: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
@@ -1446,7 +1446,7 @@ void Role::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteSInt32(13, this->upgradematerial(), output);
   }
 
-  // required sint32 bulletEffect = 14;
+  // optional sint32 bulletEffect = 14;
   if (has_bulleteffect()) {
     ::google::protobuf::internal::WireFormatLite::WriteSInt32(14, this->bulleteffect(), output);
   }
@@ -1614,7 +1614,7 @@ void Role::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteSInt32ToArray(13, this->upgradematerial(), target);
   }
 
-  // required sint32 bulletEffect = 14;
+  // optional sint32 bulletEffect = 14;
   if (has_bulleteffect()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteSInt32ToArray(14, this->bulleteffect(), target);
   }
@@ -1808,7 +1808,7 @@ int Role::ByteSize() const {
           this->upgradematerial());
     }
 
-    // required sint32 bulletEffect = 14;
+    // optional sint32 bulletEffect = 14;
     if (has_bulleteffect()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::SInt32Size(
@@ -2081,7 +2081,7 @@ void Role::CopyFrom(const Role& from) {
 }
 
 bool Role::IsInitialized() const {
-  if ((_has_bits_[0] & 0x7fffffff) != 0x7fffffff) return false;
+  if ((_has_bits_[0] & 0x7fffdfff) != 0x7fffdfff) return false;
 
   return true;
 }

@@ -14,7 +14,7 @@ void defLuaConfig(sol::state& lua)
 					   "GetDBConf", &GameServerConfig::GetDBConf,
 					   "GetRedisConf",&GameServerConfig::GetRedisConf
 			   );
-	LOG_DEBUG("µ¼³ösol lua º¯Êý");
+	LOG_DEBUG("export sol lua function");
 }
 
 

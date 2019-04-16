@@ -7,7 +7,7 @@ package conf;
 message ResDes
 {
     required sint32  resID   = 1; //资源ID
-	required sint32  resNum  = 2; //资源数量
+    required sint32  resNum  = 2; //资源数量
 }
 
 // ------------------------
@@ -16,20 +16,20 @@ message ResDes
 
 message Role
 {
-	required sint32 id					= 1; //角色id	
+	required sint32 id				= 1; //角色id	
 	required string name				= 2; //角色名字
 	required sint32 icon				= 3; //图标id	
 	required sint32 starLv				= 4; //评级	
-	required sint32 job					= 5; //职业	
+	required sint32 job				= 5; //职业	
 	required sint32 level				= 6; //等级	
 	required sint32 attack				= 7; //攻击	
 	required sint32 defense				= 8; //防御	
-	required sint32 hp					= 9; //生命
+	required sint32 hp				= 9; //生命
 	required sint32 silverPlus			= 10; //游戏币加成	
 	required sint32 unlock				= 11; //解锁条件	
 	required sint32 buyMaterial			= 12; //购买消耗材料	
-	required sint32 upgradeMaterial		= 13; //升阶消耗游戏币	
-	required sint32 bulletEffect		= 14; //子弹特效	
+	required sint32 upgradeMaterial			= 13; //升阶消耗游戏币	
+	optional sint32 bulletEffect			= 14; //子弹特效	
 	required sint32 skill				= 15; //技能	
 	required sint32 model				= 16; //模型	
 	required sint32 hpFactor			= 17; //生命系数
@@ -86,7 +86,7 @@ message PlayerLevels
 
 message CopyInfo
 {
-    required sint32  id                = 1;  //关卡标识
+    required sint32  id                	   = 1;  //关卡标识
 	required sint32  chapterID         = 2;  //章节编号
 	required string  chapterName       = 3;  //章节名称
 	required string  missionName       = 4;  //关卡名称
@@ -112,7 +112,7 @@ message CopyInfos
 
 message RoleLevel
 {
-	required sint32 id					= 1; //等级	
+	required sint32 id				= 1; //等级	
 	required sint32 silver				= 2; //游戏币
 	required sint32 gold				= 3; //人民币
 }

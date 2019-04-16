@@ -290,7 +290,7 @@ class Role : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 upgradematerial() const;
   inline void set_upgradematerial(::google::protobuf::int32 value);
 
-  // required sint32 bulletEffect = 14;
+  // optional sint32 bulletEffect = 14;
   inline bool has_bulleteffect() const;
   inline void clear_bulleteffect();
   static const int kBulletEffectFieldNumber = 14;
@@ -1970,7 +1970,7 @@ inline void Role::set_upgradematerial(::google::protobuf::int32 value) {
   upgradematerial_ = value;
 }
 
-// required sint32 bulletEffect = 14;
+// optional sint32 bulletEffect = 14;
 inline bool Role::has_bulleteffect() const {
   return (_has_bits_[0] & 0x00002000u) != 0;
 }

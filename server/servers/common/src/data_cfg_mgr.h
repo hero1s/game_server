@@ -9,6 +9,7 @@
 #include "game_define.h"
 #include <unordered_map>
 #include <unordered_set>
+#include "res.pb.h"
 
 using namespace std;
 using namespace svrlib;
