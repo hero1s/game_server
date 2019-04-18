@@ -13,10 +13,6 @@ lua_service::lua_service(sol::state* p)
 lua_service::~lua_service()
 {
 }
-void lua_service::set_init(sol_function_t f)
-{
-    init_ = f;
-}
 void lua_service::set_start(sol_function_t f)
 {
     start_ = f;
@@ -28,10 +24,6 @@ void lua_service::set_dispatch(sol_function_t f)
 void lua_service::set_exit(sol_function_t f)
 {
     exit_ = f;
-}
-void lua_service::set_destroy(sol_function_t f)
-{
-    destroy_ = f;
 }
 void lua_service::start()
 {
@@ -94,30 +86,6 @@ void lua_service::exit()
         catch (std::exception& e)
         {
             LOG_ERROR("lua_service::exit :{}", e.what());
-            error();
-        }
-    }
-}
-
-void lua_service::destroy()
-{
-    if (!error_)
-    {
-        try
-        {
-            if (destroy_.valid())
-            {
-                auto result = destroy_();
-                if (!result.valid())
-                {
-                    sol::error err = result;
-                    LOG_ERROR("{}", err.what());
-                }
-            }
-        }
-        catch (std::exception& e)
-        {
-            LOG_ERROR("lua_service::destroy :{}", e.what());
             error();
         }
     }
