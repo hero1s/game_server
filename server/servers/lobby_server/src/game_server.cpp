@@ -18,9 +18,6 @@
 #include "center_client.h"
 #include "player_mgr.h"
 
-#include "asio_network/message.hpp"
-#include "asio_network/tcp.h"
-
 using namespace svrlib;
 using namespace std;
 
@@ -125,38 +122,6 @@ bool CApplication::Initialize() {
     pPlayer->SetUID(110);
     CPlayerMgr::Instance().AddPlayer(pPlayer);
     pPlayer->OnLogin();
-
-    //²âÊÔĞÂÍøÂç¿â
-    auto tcp = std::make_shared<moon::tcp>(m_ioContext);
-    tcp->init({});
-    tcp->listen("127.0.0.1", "12345");
-    tcp->on_message = [](const moon::message_ptr_t& msg) {
-        switch (static_cast<moon::socket_data_type>(msg->subtype()))
-        {
-            case moon::socket_data_type::socket_accept:
-            {
-                std::cout << "network accept " << msg->bytes() << std::endl;
-                break;
-            }
-            case moon::socket_data_type::socket_recv:
-            {
-                std::cout << "network recv " << msg->bytes() << std::endl;
-                break;
-            }
-            case moon::socket_data_type::socket_error:
-            {
-                std::cout << "network error " << msg->bytes() << std::endl;
-                break;
-            }
-            case moon::socket_data_type::socket_close:
-            {
-                std::cout << "network close " << msg->bytes() << std::endl;
-                break;
-            }
-            default:
-                break;
-        }
-    };
 
 
     return true;
