@@ -26,7 +26,7 @@ bool CApplication::Initialize() {
     defLuaLogic(m_solLua);
 
     // º”‘ÿlua ≈‰÷√
-    m_solLua["load_logic_script"]();
+    SOL_CALL_LUA(m_solLua["load_logic_script"]());
     bool bRet = m_solLua["lobby_config"](m_uiServerID, &GameServerConfig::Instance());
     if (bRet == false)
     {
@@ -144,14 +144,7 @@ void CApplication::ConfigurationChanged() {
     LOG_INFO("configuration changed");
     CDataCfgMgr::Instance().Reload();
 
-    try
-    {
-        m_solLua["load_logic_script"]();
-    }
-    catch (sol::error &e)
-    {
-        LOG_ERROR("sol error:{}", e.what());
-    }
+    SOL_CALL_LUA(m_solLua["load_logic_script"]());
 }
 
 void CApplication::Tick() {

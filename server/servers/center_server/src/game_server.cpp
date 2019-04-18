@@ -87,7 +87,7 @@ void CApplication::ConfigurationChanged()
 	// ÷ÿº”‘ÿ≈‰÷√
 	LOG_INFO("configuration changed");
 	CDataCfgMgr::Instance().Reload();
-	m_solLua["load_logic_script"]();
+	SOL_CALL_LUA(m_solLua["load_logic_script"]());
 
 
 
