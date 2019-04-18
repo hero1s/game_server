@@ -2,6 +2,7 @@
 #pragma once
 
 #include <stdint.h>
+#include "modern/spdlog/spdlog.h"
 
 //@brief  条件检测
 #define CHECK_RET(EXPR, RET)\

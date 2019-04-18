@@ -19,6 +19,7 @@ add_include_path(../include/lua)
 add_include_path(../include/zlib)
 add_include_path(../include/redis)
 add_include_path(../include/modern)
+add_include_path(../include/asio_network)
 
 add_source_files(../src/*.*)
 

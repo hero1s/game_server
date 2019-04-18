@@ -18,8 +18,8 @@
 #include "center_client.h"
 #include "player_mgr.h"
 
-#include "astar/astar.h"
-#include "astar/blockallocator.h"
+#include "asio_network/message.hpp"
+#include "asio_network/tcp.h"
 
 using namespace svrlib;
 using namespace std;
@@ -126,39 +126,38 @@ bool CApplication::Initialize() {
     CPlayerMgr::Instance().AddPlayer(pPlayer);
     pPlayer->OnLogin();
 
-    //test a-star
-    char maps[10][10] =
+    //²âÊÔĞÂÍøÂç¿â
+    auto tcp = std::make_shared<moon::tcp>(m_ioContext);
+    tcp->init({});
+    tcp->listen("127.0.0.1", "12345");
+    tcp->on_message = [](const moon::message_ptr_t& msg) {
+        switch (static_cast<moon::socket_data_type>(msg->subtype()))
+        {
+            case moon::socket_data_type::socket_accept:
             {
-                    { 0, 1, 0, 0, 0, 1, 0, 0, 0, 0 },
-                    { 0, 0, 0, 1, 0, 1, 0, 1, 0, 1 },
-                    { 1, 1, 1, 1, 0, 1, 0, 1, 0, 1 },
-                    { 0, 0, 0, 1, 0, 0, 0, 1, 0, 1 },
-                    { 0, 1, 0, 1, 1, 1, 1, 1, 0, 1 },
-                    { 0, 1, 0, 0, 0, 0, 0, 0, 0, 1 },
-                    { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-                    { 0, 0, 0, 0, 1, 0, 0, 0, 1, 0 },
-                    { 1, 1, 0, 0, 1, 0, 1, 0, 0, 0 },
-                    { 0, 0, 0, 0, 0, 0, 1, 0, 1, 0 },
-            };
-    // ËÑË÷²ÎÊı
-    AStar::Params param;
-    param.width = 10;
-    param.height = 10;
-    param.corner = false;
-    param.start = AStar::Vec2(0, 0);
-    param.end = AStar::Vec2(9, 9);
-    param.can_pass = [&](const AStar::Vec2 &pos)->bool
-    {
-        return maps[pos.y][pos.x] == 0;
+                std::cout << "network accept " << msg->bytes() << std::endl;
+                break;
+            }
+            case moon::socket_data_type::socket_recv:
+            {
+                std::cout << "network recv " << msg->bytes() << std::endl;
+                break;
+            }
+            case moon::socket_data_type::socket_error:
+            {
+                std::cout << "network error " << msg->bytes() << std::endl;
+                break;
+            }
+            case moon::socket_data_type::socket_close:
+            {
+                std::cout << "network close " << msg->bytes() << std::endl;
+                break;
+            }
+            default:
+                break;
+        }
     };
-    // Ö´ĞĞËÑË÷
-    BlockAllocator aaa;
-    AStar algorithm(&aaa);
-    auto curTick = getTickCount64();
-    auto path = algorithm.find(param);
-    for(auto pos:path){
-        LOG_DEBUG("path pos:{}:{}",pos.x,pos.y);
-    }
+
 
     return true;
 }
