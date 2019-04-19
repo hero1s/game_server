@@ -536,7 +536,7 @@ void Session::OnAccept()
 
 	ResetTimeOut();
 
-	m_pNetworkObject->OnAccept(GetIndex());
+	m_pNetworkObject->OnConnect(true,GetIndex());
 }
 
 void Session::OnConnect(bool bSuccess)

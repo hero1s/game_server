@@ -17,11 +17,6 @@ CCenterNetObj::~CCenterNetObj()
 
 }
 
-void CCenterNetObj::OnAccept(uint32_t dwNetworkIndex)
-{
-	LOG_DEBUG("center onaccept {}", dwNetworkIndex);
-}
-
 void CCenterNetObj::ConnectorOnDisconnect()
 {
 	LOG_DEBUG("center ondisconnect");

@@ -34,8 +34,6 @@ public:
     }
 
 protected:
-    virtual void OnAccept(uint32_t dwNetworkIndex);
-
     virtual void ConnectorOnDisconnect();
 
     virtual int OnRecv(uint8_t *pMsg, uint16_t wSize);

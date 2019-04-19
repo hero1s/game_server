@@ -282,14 +282,14 @@ namespace Network {
             pSession = m_pTempList->pop_front();
 
             if (AddEpollEvent(pSession)) {
-                pSession->OnConnect(TRUE);
+                pSession->OnConnect(true);
                 activeList.push_back(pSession);
             } else {
 
                 //
                 FreeSession(pSession);
 
-                pSession->OnConnect(FALSE);
+                pSession->OnConnect(false);
             }
         }
 
@@ -319,7 +319,7 @@ namespace Network {
 
             FreeSession(pSession);
 
-            pSession->OnConnect(FALSE);
+            pSession->OnConnect(false);
         }
 
         m_pConnectFailList->Unlock();

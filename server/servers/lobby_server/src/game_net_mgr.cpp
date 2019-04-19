@@ -40,12 +40,6 @@ bool CClientNetObj::IsCanHandle(const uint8_t* pMsg, uint16_t wSize)
 	return true;
 }
 
-void CClientNetObj::OnAccept(uint32_t dwNetworkIndex)
-{
-	LOG_ERROR("client onaccept {}--{}", dwNetworkIndex, GetIP());
-
-}
-
 void CClientNetObj::OnDisconnect()
 {
 	LOG_ERROR("client ondisconnect:{}--{}", GetUID(), GetIP().c_str());
@@ -76,7 +70,7 @@ int CClientNetObj::OnRecv(uint8_t* pMsg, uint16_t wSize)
 
 void CClientNetObj::OnConnect(bool bSuccess, uint32_t dwNetworkIndex)
 {
-	LOG_DEBUG("OnConnect,{},{}", bSuccess, dwNetworkIndex);
+	LOG_DEBUG("Client OnConnect,{},{},{}", bSuccess, dwNetworkIndex,GetIP());
 }
 
 

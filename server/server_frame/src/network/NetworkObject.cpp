@@ -77,10 +77,6 @@ void NetworkObject::SetUID(uint32_t uid)
 {
 	m_uid = uid;
 }
-void NetworkObject::OnAccept(uint32_t dwNetworkIndex)
-{
-
-}
 void NetworkObject::OnDisconnect()
 {
 

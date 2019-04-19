@@ -7,11 +7,7 @@ namespace Network
 {
 
 class Session;
-//-------------------------------------------------------------------------------------------------
-/// NetworkObject
-//	- fnCreateAcceptedObject 
-//	- (OnAccept, OnDisconnect, OnRecv, OnConnect)
-//-------------------------------------------------------------------------------------------------
+
 class NetworkObject
 {
 	friend class Session;
@@ -35,11 +31,9 @@ public:
 	virtual uint16_t GetPacketLen(const uint8_t* pData, uint16_t wLen) = 0;
 	virtual uint16_t MaxTickPacket() = 0;
 protected:
-	virtual void OnAccept(uint32_t dwNetworkIndex);
 	virtual void OnDisconnect();
 	virtual int OnRecv(uint8_t* pMsg, uint16_t wSize);
 	virtual void OnConnect(bool bSuccess, uint32_t dwNetworkIndex);
-
 
 	void SetSession(Session* pSession);
 

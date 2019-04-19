@@ -11,10 +11,6 @@
 
 namespace Network {
 
-//-------------------------------------------------------------------------------------------------
-/// tcpConnector
-//	- (OnAccept, OnDisconnect, OnRecv, OnConnect)
-//-------------------------------------------------------------------------------------------------
 class CTcpConnector : public NetworkObject{
     enum{
       emNet_NULL       = 0,// ¿Õ×´Ì¬

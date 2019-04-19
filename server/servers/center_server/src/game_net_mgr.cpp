@@ -17,13 +17,6 @@ CCenterNetObj::~CCenterNetObj()
 {
 
 }
-
-void CCenterNetObj::OnAccept(uint32_t dwNetworkIndex)
-{
-	LOG_DEBUG("server onaccept {}--{}", dwNetworkIndex, this->GetIP());
-
-}
-
 void CCenterNetObj::OnDisconnect()
 {
 	LOG_ERROR("center server on disconnect:{}--{}", GetUID(), this->GetIP());
@@ -37,7 +30,7 @@ int CCenterNetObj::OnRecv(uint8_t* pMsg, uint16_t wSize)
 
 void CCenterNetObj::OnConnect(bool bSuccess, uint32_t dwNetworkIndex)
 {
-	LOG_DEBUG("center server OnConnect,{},{}", bSuccess, dwNetworkIndex);
+	LOG_DEBUG("center server OnConnect,{},{},{}", bSuccess, dwNetworkIndex,this->GetIP());
 }
 
 
