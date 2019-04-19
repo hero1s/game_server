@@ -21,8 +21,6 @@
 using namespace svrlib;
 using std::vector;
 
-string g_strConfFilename = "";
-
 #define TICK_MAX_INTERVAL 100
 #define TICK_MIN_INTERVAL 10
 
@@ -147,16 +145,6 @@ void CFrameWork::InitMysqlSpdlog()
     }
 }
 
-void CFrameWork::SetServerID(uint32_t svrID)
-{
-    m_application.SetServerID(svrID);
-}
-
-uint32_t CFrameWork::GetServerID()
-{
-    return m_application.GetServerID();
-}
-
 void CFrameWork::SetTickTime(unsigned int tick)
 {
     m_sleepTime = tick;
@@ -176,16 +164,16 @@ void CFrameWork::ParseInputParam(int argc, char* argv[])
         exit(1);
         return;
     }
-    SetServerID(a.get<int>("sid"));
+    m_application.SetServerID(a.get<int>("sid"));
     SetTickTime(a.get<int>("tick"));
     string cfgName = a.get<string>("cfg");
 
-    g_strConfFilename = cfgName;
+    m_confFilename = cfgName;
 }
 
 void CFrameWork::LoadConfig()
 {
-    m_application.GetSolLuaState().do_file(g_strConfFilename);
+    m_application.GetSolLuaState().do_file(m_confFilename);
 }
 
 void CFrameWork::SignalHandler(const std::error_code& err, int signal)
@@ -199,7 +187,7 @@ void CFrameWork::SignalHandler(const std::error_code& err, int signal)
     case SIGUSR2: {
         LOG_DEBUG("program reload config...");
         m_application.GetAsioContext().post([this]() {
-            m_application.GetSolLuaState().do_file(g_strConfFilename);
+            m_application.GetSolLuaState().do_file(m_confFilename);
             m_application.ConfigurationChanged();
         });
     }
@@ -214,7 +202,7 @@ void CFrameWork::WritePidToFile()
     std::ostringstream oss;
     oss << getpid();
     std::string strShFileName = CHelper::GetExeDir();
-    strShFileName = CStringUtility::FormatToString("pid_%d.txt", GetServerID());
+    strShFileName = CStringUtility::FormatToString("pid_%d.txt", m_application.GetServerID());
 
     CFileHelper oFile(strShFileName.c_str(), CFileHelper::MOD_WRONLY_TRUNC);
     oFile.Write(0, oss.str().c_str(), oss.str().length());

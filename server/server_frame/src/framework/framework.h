@@ -20,10 +20,7 @@ public:
 
 	void SignalHandler(const std::error_code& err, int signal);
 
-	void SetServerID(uint32_t svrID);
-	uint32_t GetServerID();
 	void SetTickTime(unsigned int tick);
-
 private:
 	void ParseInputParam(int argc, char* argv[]);
 	void LoadConfig();
@@ -32,9 +29,9 @@ private:
 	uint64_t       m_sleepTime;
 	std::shared_ptr<asio::system_timer> m_pTimer;
 	svrlib::stServerCfg m_serverCfg;
+	string m_confFilename = "";
 	CApplication& m_application;
 };
 
-extern string g_strConfFilename;
 
 
