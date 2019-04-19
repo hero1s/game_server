@@ -20,7 +20,7 @@ int FrameworkMain(int argc, char *argv[]) {
     mallopt(M_ARENA_MAX, 1);
 
     try {
-        CFrameWork &frameWork = CFrameWork::Instance();
+        CFrameWork frameWork(CApplication::Instance());
         frameWork.InitializeEnvironment(argc, argv);
 
         frameWork.Run();

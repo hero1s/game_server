@@ -2,15 +2,14 @@
 #pragma once
 
 #include "framework/application.h"
-#include "utility/singleton.h"
 #include "asio.hpp"
 #include <memory>
 #include "config/config.h"
 
-class CFrameWork : public AutoDeleteSingleton<CFrameWork>
+class CFrameWork
 {
 public:
-	CFrameWork();
+	CFrameWork(CApplication& app);
 	~CFrameWork();
 
 	void Run();
@@ -33,6 +32,7 @@ private:
 	uint64_t       m_sleepTime;
 	std::shared_ptr<asio::system_timer> m_pTimer;
 	svrlib::stServerCfg m_serverCfg;
+	CApplication& m_application;
 };
 
 extern string g_strConfFilename;

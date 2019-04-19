@@ -26,10 +26,10 @@ string g_strConfFilename = "";
 #define TICK_MAX_INTERVAL 100
 #define TICK_MIN_INTERVAL 10
 
-CFrameWork::CFrameWork()
+CFrameWork::CFrameWork(CApplication& app)
+:m_application(app)
 {
     m_sleepTime = TICK_MIN_INTERVAL;
-
 }
 
 CFrameWork::~CFrameWork()
@@ -39,12 +39,12 @@ CFrameWork::~CFrameWork()
 void CFrameWork::Run()
 {
 
-    m_pTimer = make_shared<asio::system_timer>(CApplication::Instance().GetAsioContext());
+    m_pTimer = make_shared<asio::system_timer>(m_application.GetAsioContext());
     m_pTimer->expires_from_now(std::chrono::milliseconds(m_sleepTime));
     m_pTimer->async_wait(std::bind(&CFrameWork::TimerTick, this, std::placeholders::_1));
 
     try {
-        CApplication::Instance().GetAsioContext().run();
+        m_application.GetAsioContext().run();
     }catch (std::exception& e){
         std::cout << "asio error " << e.what() << std::endl;
         LOG_ERROR("asio error:{}", e.what());
@@ -59,8 +59,8 @@ void CFrameWork::TimerTick(const std::error_code& err)
     uint64_t sleepTime = 0;
     if (!err) {
         startTime = getTickCount64();
-        CApplication::Instance().PreTick();
-        CApplication::Instance().Tick();
+        m_application.PreTick();
+        m_application.Tick();
 
         endTime = getTickCount64();
         sleepTime = endTime-startTime;
@@ -73,7 +73,7 @@ void CFrameWork::TimerTick(const std::error_code& err)
     }
     else {
         LOG_ERROR("asio timer is error,shutdown");
-        CApplication::Instance().GetAsioContext().stop();
+        m_application.GetAsioContext().stop();
     }
 
 }
@@ -81,19 +81,19 @@ void CFrameWork::TimerTick(const std::error_code& err)
 void CFrameWork::InitializeEnvironment(int argc, char* argv[])
 {
     ParseInputParam(argc, argv);
-    asio::signal_set sigset(CApplication::Instance().GetAsioContext(), SIGUSR2, SIGUSR1);
+    asio::signal_set sigset(m_application.GetAsioContext(), SIGUSR2, SIGUSR1);
     sigset.async_wait(std::bind(&CFrameWork::SignalHandler, this, std::placeholders::_1, std::placeholders::_2));
 
     LoadConfig();
     //提前写入进程id,防止多次启动
     WritePidToFile();
 
-    CApplication::Instance().PreInit();
-    CApplication::Instance().GetSolLuaState()["set_server_cfg"](CApplication::Instance().GetServerID(), &m_serverCfg);
+    m_application.PreInit();
+    m_application.GetSolLuaState()["set_server_cfg"](m_application.GetServerID(), &m_serverCfg);
     InitSpdlog();
     InitMysqlSpdlog();
 
-    bool bRet = CApplication::Instance().Initialize();
+    bool bRet = m_application.Initialize();
     if (bRet==false) {
         exit(1);
     }
@@ -149,12 +149,12 @@ void CFrameWork::InitMysqlSpdlog()
 
 void CFrameWork::SetServerID(uint32_t svrID)
 {
-    CApplication::Instance().SetServerID(svrID);
+    m_application.SetServerID(svrID);
 }
 
 uint32_t CFrameWork::GetServerID()
 {
-    return CApplication::Instance().GetServerID();
+    return m_application.GetServerID();
 }
 
 void CFrameWork::SetTickTime(unsigned int tick)
@@ -185,22 +185,22 @@ void CFrameWork::ParseInputParam(int argc, char* argv[])
 
 void CFrameWork::LoadConfig()
 {
-    CApplication::Instance().GetSolLuaState().do_file(g_strConfFilename);
+    m_application.GetSolLuaState().do_file(g_strConfFilename);
 }
 
 void CFrameWork::SignalHandler(const std::error_code& err, int signal)
 {
     switch (signal) {
     case SIGUSR1: {
-        CApplication::Instance().GetAsioContext().stop();
+        m_application.GetAsioContext().stop();
         LOG_DEBUG("program exiting...");
     }
         break;
     case SIGUSR2: {
         LOG_DEBUG("program reload config...");
-        CApplication::Instance().GetAsioContext().post([]() {
-            CApplication::Instance().GetSolLuaState().do_file(g_strConfFilename);
-            CApplication::Instance().ConfigurationChanged();
+        m_application.GetAsioContext().post([this]() {
+            m_application.GetSolLuaState().do_file(g_strConfFilename);
+            m_application.ConfigurationChanged();
         });
     }
         break;
