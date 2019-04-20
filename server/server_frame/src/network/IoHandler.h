@@ -9,7 +9,6 @@
 
 using namespace std;
 
-#define MAX_IO_WORKER_THREAD	16
 #define EXTRA_ACCEPTEX_NUM      10
 #define SOCKET_HOLDER_SIZE      1024
 
@@ -92,8 +91,7 @@ private:
 	uint32_t m_dwKey;
 	int      m_epoll;                            // epoll fd
 
-	uint32_t  m_numIoThreads;					  // IO
-	pthread_t m_hIoThread[MAX_IO_WORKER_THREAD];  // IO
+	std::vector<pthread_t> m_hIoThread;  		  // IO
 	pthread_t m_hEpollThread;
 
 	CircuitQueue<struct epoll_event>* m_pEvents;

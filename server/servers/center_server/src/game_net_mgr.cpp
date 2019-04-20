@@ -1,7 +1,8 @@
 
-#include "stdafx.h"
+
 #include "game_net_mgr.h"
 #include "msg_define.pb.h"
+#include "center_mgr.h"
 
 using namespace svrlib;
 using namespace std;

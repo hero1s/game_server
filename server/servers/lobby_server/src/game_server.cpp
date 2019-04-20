@@ -11,12 +11,12 @@
 #include "data_cfg_mgr.h"
 #include "svrlib.h"
 #include <iostream>
-#include "stdafx.h"
 #include "game_server_config.h"
 #include "utility/time_function.h"
 #include "lua_logic.h"
 #include "center_client.h"
 #include "player_mgr.h"
+#include "redis_mgr.h"
 
 using namespace svrlib;
 using namespace std;
@@ -47,10 +47,10 @@ bool CApplication::Initialize() {
         return false;
     }
     // 初始化共享内存缓存
-    if(CPlayerCacheMgr::Instance().Init(110, false,[](uint32_t uid, uint8_t cacheType, const string& data){}) == false){
+    /*if(CPlayerCacheMgr::Instance().Init(110, false,[](uint32_t uid, uint8_t cacheType, const string& data){}) == false){
         LOG_ERROR("init player cache mgr fail ");
         return false;
-    }
+    }*/
     do
     {
 

@@ -1,9 +1,10 @@
 
 #include "player.h"
 #include "helper/bufferStream.h"
-#include "stdafx.h"
 #include <time.h>
 #include "player_mgr.h"
+#include "dbmysql_mgr.h"
+#include "common_logic.h"
 
 using namespace svrlib;
 using namespace std;

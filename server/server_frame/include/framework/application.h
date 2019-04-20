@@ -10,7 +10,6 @@
 #include <memory>
 #include <map>
 #include "asio.hpp"
-#include "cmdline.h"
 #include "lua_service/lua_service.h"
 
 using namespace std;

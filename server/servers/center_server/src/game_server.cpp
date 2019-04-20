@@ -8,11 +8,12 @@
 #include "framework/application.h"
 #include "game_server_config.h"
 #include "game_net_mgr.h"
-
+#include "data_cfg_mgr.h"
+#include "center_mgr.h"
 #include "svrlib.h"
 #include <iostream>
-#include "stdafx.h"
 #include "utility/time_function.h"
+#include "msg_define.pb.h"
 
 using namespace svrlib;
 using namespace std;
@@ -78,7 +79,7 @@ bool CApplication::Initialize()
 
 void CApplication::ShutDown()
 {
-
+	m_luaService->exit();
 }
 
 /**

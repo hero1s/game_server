@@ -315,7 +315,6 @@ add_executable(server
         servers/center_server/src/game_net_mgr.cpp
         servers/center_server/src/game_net_mgr.h
         servers/center_server/src/game_server.cpp
-        servers/center_server/src/stdafx.h
         servers/common/src/center_client.cpp
         servers/common/src/center_client.h
         servers/common/src/common_logic.cpp
@@ -345,7 +344,6 @@ add_executable(server
         servers/lobby_server/src/msg_client_handle.h
         servers/lobby_server/src/player.cpp
         servers/lobby_server/src/player.h
-        servers/lobby_server/src/stdafx.h
         servers/pb/src/base_msg_struct.pb.cc
         servers/pb/src/base_msg_struct.pb.h
         servers/pb/src/client_logic_msg.pb.cc

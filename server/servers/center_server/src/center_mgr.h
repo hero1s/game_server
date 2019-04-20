@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <memory>
 #include "packet/inner_protobuf_pkg.h"
+#include "msg_define.pb.h"
 
 using namespace std;
 using namespace svrlib;

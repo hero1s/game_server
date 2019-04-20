@@ -2,9 +2,10 @@
 
 #include "msg_client_handle.h"
 #include "data_cfg_mgr.h"
-#include "stdafx.h"
 #include "game_server_config.h"
 #include "player.h"
+#include "player_mgr.h"
+#include "common_logic.h"
 
 using namespace Network;
 using namespace svrlib;

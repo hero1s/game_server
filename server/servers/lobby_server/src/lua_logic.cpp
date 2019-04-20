@@ -1,6 +1,6 @@
 
 #include "lua_logic.h"
-#include "stdafx.h"
+#include "player.h"
 
 using namespace svrlib;
 using namespace std;

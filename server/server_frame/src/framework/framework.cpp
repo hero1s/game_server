@@ -4,7 +4,7 @@
 #include <iostream>
 #include "helper/filehelper.h"
 #include "helper/helper.h"
-#include "framework/cmdline.h"
+#include "cmdline.h"
 #include "modern/spdlog/spdlog.h"
 #include "utility/comm_macro.h"
 #include "utility/timeutility.h"
@@ -156,7 +156,7 @@ void CFrameWork::ParseInputParam(int argc, char* argv[])
 {
     cmdline::parser a;
     a.add<int>("sid", '\0', "server id", false, 1, cmdline::range(1, 100000));
-    a.add<int>("tick", '\0', "tick time", false, 20, cmdline::range(10, 100));
+    a.add<int>("tick", '\0', "tick time", false, 10, cmdline::range(10, 100));
     a.add<string>("cfg", '\0', "cfg file name", false, "");
 
     bool ok = a.parse(argc, argv);

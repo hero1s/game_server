@@ -12,6 +12,7 @@
 #include "network/IOCPServer.h"
 #include "network/NetworkObject.h"
 #include "svrlib.h"
+#include "sys/sysinfo.h"
 
 namespace Network {
     void *epoll_thread(void *param) {
@@ -107,8 +108,8 @@ namespace Network {
         m_numActiveSessions = 0;
         m_bShutdown = FALSE;
         m_pEvents = NULL;
-        for( int i = 0; i < MAX_IO_WORKER_THREAD; ++i )
-            m_hIoThread[i] = 0;
+
+        m_hIoThread.clear();
 
         m_pNetworkPool = NULL;
     }
@@ -166,11 +167,14 @@ namespace Network {
         m_pEvents->Create(SOCKET_HOLDER_SIZE * 2, SOCKET_HOLDER_SIZE);
 
         pthread_create(&m_hEpollThread, NULL, epoll_thread, (void *) this);
-        m_numIoThreads = MIN(lpDesc.ioThreadNum,MAX_IO_WORKER_THREAD);
-        LOG_DEBUG("open IO thread num:{}",m_numIoThreads);
-        for(uint32_t i = 0; i < m_numIoThreads; ++i )
+        uint16_t numIoThreads = MIN(lpDesc.ioThreadNum,get_nprocs());
+        numIoThreads = MAX(numIoThreads,1);
+        LOG_DEBUG("{} open IO thread num:{}",m_dwKey,numIoThreads);
+        for(uint32_t i = 0; i < numIoThreads; ++i )
         {
-            pthread_create(&m_hIoThread[i], NULL, io_thread, (void*)this);
+            pthread_t t;
+            pthread_create(&t, NULL, io_thread, (void*)this);
+            m_hIoThread.push_back(t);
         }
     }
 
@@ -547,7 +551,7 @@ namespace Network {
         // wake up io_thread to exit
         m_condEvents.Broadcast();
 
-        for(uint32_t i = 0; i < m_numIoThreads; i ++ )
+        for(uint32_t i = 0; i < m_hIoThread.size(); i++ )
         {
             pthread_cancel(m_hIoThread[i]);
             pthread_join(m_hIoThread[i], NULL);
