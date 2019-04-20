@@ -45,7 +45,7 @@ function create_folder(sFold)
     end
     local bSuc,err = lfs.mkdir(sFold)
     if not bSuc then
-        c_log("mkdir err "..sFold.." Msg: "..err)
+        log_debug("mkdir err "..sFold.." Msg: "..err)
     end
     return bSuc
 end

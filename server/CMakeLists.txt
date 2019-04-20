@@ -163,7 +163,6 @@ add_executable(server
         server_frame/include/zlib/zconf.h
         server_frame/include/zlib/zlib.h
         server_frame/include/svrlib.h
-        server_frame/src/config/config.cpp
         server_frame/src/config/csvreader.cpp
         server_frame/src/crypt/aes.cpp
         server_frame/src/crypt/blowFish.cpp
@@ -356,4 +355,4 @@ add_executable(server
         servers/pb/src/msg_define.pb.cc
         servers/pb/src/msg_define.pb.h
         servers/pb/src/servers_msg.pb.cc
-        servers/pb/src/servers_msg.pb.h server_frame/include/utility/shm_cache_mgr.h)
+        servers/pb/src/servers_msg.pb.h server_frame/include/utility/shm_cache_mgr.h server_frame/include/lua_service/lua_bind.h server_frame/src/lua_service/lua_bind.cpp)

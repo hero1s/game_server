@@ -26,7 +26,7 @@ print = function ( ... )
             table.insert(lResult, lInfo[i])
         end
     end
-    c_log(table.unpack(lResult))
+    log_debug(table.unpack(lResult))
 end
 
 lualib_path = function (sPath)
@@ -54,7 +54,7 @@ super = function (child)
 end
 
 local function Trace(sMsg)
-    c_log(debug.traceback(sMsg))
+    log_debug(debug.traceback(sMsg))
 end
 
 safe_call = function (func, ...)

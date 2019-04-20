@@ -1,6 +1,6 @@
 -- 加载服务器逻辑脚本
 function load_logic_script()
-    c_log("load_logic_script");
+    log_debug("load_logic_script");
 
     -- 全局设置随机数
     math.randomseed(os.time())
@@ -22,8 +22,9 @@ function reload_file(filename)
     package.loaded[filename] = nil
     --装载新文件
     require(filename);
-    c_log("load lua file:" .. filename .. ".lua");
+    log_debug("load lua file:" .. filename .. ".lua");
     return true;
 end
+
 
 

@@ -3,113 +3,109 @@
 //
 
 #include "lua_service/lua_service.h"
+#include "svrlib.h"
 
-lua_service::lua_service(sol::state* p)
-        :error_(true)
-        , lua_(p)
-{
-}
+namespace svrlib {
 
-lua_service::~lua_service()
-{
-}
-void lua_service::set_start(sol_function_t f)
-{
-    start_ = f;
-}
-void lua_service::set_dispatch(sol_function_t f)
-{
-    dispatch_ = f;
-}
-void lua_service::set_exit(sol_function_t f)
-{
-    exit_ = f;
-}
-void lua_service::start()
-{
-    if (error_) return;
-    try
+    lua_service::lua_service(sol::state* p)
+            :error_(false), lua_(p)
     {
-        if (start_.valid())
-        {
-            auto result = start_();
-            if (!result.valid())
-            {
-                sol::error err = result;
-                LOG_ERROR("{}", err.what());
-            }
-        }
     }
-    catch (std::exception& e)
-    {
-        LOG_ERROR("lua_service::start :{}", e.what());
-        error();
-    }
-}
 
-void lua_service::dispatch(uint16_t cmd,string msg)
-{
-    if (error_) return;
-    try
+    lua_service::~lua_service()
     {
-        auto result = dispatch_(cmd, msg);
-        if (!result.valid())
-        {
-            sol::error err = result;
-            LOG_ERROR("dispatch msg error {}",err.what());
-        }
     }
-    catch (std::exception& e)
-    {
-        LOG_ERROR("lua_service::dispatch:{}", e.what());
-        error();
-    }
-}
 
-void lua_service::exit()
-{
-    if (!error_)
+    void lua_service::set_start(sol_function_t f)
     {
-        try
-        {
-            if (exit_.valid())
-            {
-                auto result = exit_();
-                if (!result.valid())
-                {
+        LOG_DEBUG("set lua service start function");
+        start_ = f;
+    }
+
+    void lua_service::set_dispatch(sol_function_t f)
+    {
+        LOG_DEBUG("set lua service dispatch function");
+        dispatch_ = f;
+    }
+
+    void lua_service::set_exit(sol_function_t f)
+    {
+        LOG_DEBUG("set lua service exit function");
+        exit_ = f;
+    }
+
+    void lua_service::start()
+    {
+        if (error_) return;
+        try {
+            if (start_.valid()) {
+                auto result = start_();
+                if (!result.valid()) {
                     sol::error err = result;
                     LOG_ERROR("{}", err.what());
                 }
-                return;
             }
         }
-        catch (std::exception& e)
-        {
-            LOG_ERROR("lua_service::exit :{}", e.what());
+        catch (std::exception& e) {
+            LOG_ERROR("lua_service::start :{}", e.what());
             error();
         }
     }
-}
 
-void lua_service::error()
-{
-    error_ = true;
-    std::string backtrace = lua_traceback(lua_->lua_state());
-    LOG_ERROR("{}", backtrace);
-}
-
-const char* lua_service::lua_traceback(lua_State * L)
-{
-    luaL_traceback(L, L, NULL, 1);
-    auto s = lua_tostring(L, -1);
-    if (nullptr != s)
+    void lua_service::dispatch(uint16_t cmd, std::string msg)
     {
-        return "";
+        if (error_) return;
+        try {
+            auto result = dispatch_(cmd, msg);
+            if (!result.valid()) {
+                sol::error err = result;
+                LOG_ERROR("dispatch msg error {}", err.what());
+            }
+        }
+        catch (std::exception& e) {
+            LOG_ERROR("lua_service::dispatch:{}", e.what());
+            error();
+        }
     }
-    return s;
-}
 
+    void lua_service::exit()
+    {
+        if (!error_) {
+            try {
+                if (exit_.valid()) {
+                    auto result = exit_();
+                    if (!result.valid()) {
+                        sol::error err = result;
+                        LOG_ERROR("{}", err.what());
+                    }
+                    return;
+                }
+            }
+            catch (std::exception& e) {
+                LOG_ERROR("lua_service::exit :{}", e.what());
+                error();
+            }
+        }
+    }
 
+    void lua_service::error()
+    {
+        error_ = true;
+        std::string backtrace = lua_traceback(lua_->lua_state());
+        LOG_ERROR("{}", backtrace);
+    }
+
+    const char* lua_service::lua_traceback(lua_State* L)
+    {
+        luaL_traceback(L, L, NULL, 1);
+        auto s = lua_tostring(L, -1);
+        if (nullptr!=s) {
+            return "";
+        }
+        return s;
+    }
+
+};
 
 
 

@@ -91,6 +91,7 @@ void CFrameWork::InitializeEnvironment(int argc, char* argv[])
     InitSpdlog();
     InitMysqlSpdlog();
 
+    m_application.OverPreInit();
     bool bRet = m_application.Initialize();
     if (bRet==false) {
         exit(1);

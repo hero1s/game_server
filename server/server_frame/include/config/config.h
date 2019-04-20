@@ -71,9 +71,4 @@ struct stServerCfg {
 
 };
 
-// 打印日志
-extern void c2l_Log(const char* logStr);
-
-// 导出Lua函数
-extern void defLuaBaseConfig(sol::state& lua);
 

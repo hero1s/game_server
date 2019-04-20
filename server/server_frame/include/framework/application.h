@@ -11,11 +11,12 @@
 #include <map>
 #include "asio.hpp"
 #include "cmdline.h"
+#include "lua_service/lua_service.h"
 
 using namespace std;
 using namespace Network;
 
-extern int FrameworkMain(int argc, char *argv[]);
+extern int FrameworkMain(int argc, char* argv[]);
 
 class CApplication : public AutoDeleteSingleton<CApplication> {
 public:
@@ -25,6 +26,8 @@ public:
 
 public:
     bool PreInit();
+
+    bool OverPreInit();
 
     void OverShutDown();
 
@@ -40,17 +43,20 @@ public:
     uint8_t GetStatus();
 
     //定时器
-    void schedule(TimerEventInterface *event, uint64_t delta);
+    void schedule(TimerEventInterface* event, uint64_t delta);
 
-    void schedule_in_range(TimerEventInterface *event, uint64_t start, uint64_t end);
+    void schedule_in_range(TimerEventInterface* event, uint64_t start, uint64_t end);
 
     //网络模块
     IOCPServer& GetIOCPServer();
 
     //获得sol模块
-    sol::state &GetSolLuaState();
+    sol::state& GetSolLuaState();
 
-    asio::io_context &GetAsioContext();
+    asio::io_context& GetAsioContext();
+
+    //获取lua_service
+    svrlib::lua_service* GetLuaService();
 
 public:
 //具体实例去实现
@@ -65,13 +71,14 @@ public:
     void ExceptionHandle();
 
 private:
-    unsigned int m_uiServerID;
+    uint32_t m_uiServerID;
     uint8_t m_status;                 // 服务器状态
     uint64_t m_lastTick;              // 上次tick时间
-    TimerWheel m_timers;            // wheel定时器
-    IOCPServer m_iocpServer;        // 网络服务模块
-    sol::state m_solLua;            // sol lua模块
+    TimerWheel m_timers;              // wheel定时器
+    IOCPServer m_iocpServer;          // 网络服务模块
+    sol::state m_solLua;              // sol lua模块
     asio::io_context m_ioContext;
+    svrlib::lua_service* m_luaService;         // lua server
 
 protected:
     using handTimeFunc = function<void()>;

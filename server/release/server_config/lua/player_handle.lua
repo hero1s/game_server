@@ -5,25 +5,25 @@ pb.register_file("../server_config/lua/cs_msg.pb")
 
 -- 新的一天回调
 function new_day(player)
-    c_log("new day call back "..player:GetUID());
+    log_debug("new day call back "..player:GetUID());
 
     return true;
 end
 -- 新的一周回调
 function new_week(player)
-    c_log("new week call back "..player:GetUID());
+    log_debug("new week call back "..player:GetUID());
 
     return true;
 end
 -- 新的一月回调
 function new_month(player)
-    c_log("new month call back "..player:GetUID());
+    log_debug("new month call back "..player:GetUID());
 
     return true;
 end
 -- 登录回调
 function login_on(player)
-    c_log("login on call back "..player:GetUID());
+    log_debug("login on call back "..player:GetUID());
 
     stringbuffer = pb.encode("net.server_info",
     {
@@ -33,13 +33,13 @@ function login_on(player)
         game_subtype = 4;		-- 游戏子类型
     })
     result = pb.decode("net.server_info", stringbuffer)
-    c_log("test protobuf:svrid "..result.svrid);
+    log_debug("test protobuf:svrid "..result.svrid);
 
     return true;
 end
 -- 登出回调
 function login_out(player)
-    c_log("login out call back "..player:GetUID());
+    log_debug("login out call back "..player:GetUID());
 
     return true;
 end

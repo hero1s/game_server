@@ -123,6 +123,7 @@ bool CApplication::Initialize() {
     CPlayerMgr::Instance().AddPlayer(pPlayer);
     pPlayer->OnLogin();
 
+    m_luaService->start();
 
     return true;
 }
@@ -133,6 +134,8 @@ void CApplication::ShutDown() {
     CRedisMgr::Instance().ShutDown();
 
     CDBMysqlMgr::Instance().ShutDown();
+
+    m_luaService->exit();
 }
 
 /**

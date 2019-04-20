@@ -10,6 +10,7 @@
 #include "utility/stringutility.h"
 #include "utility/comm_macro.h"
 #include "config/config.h"
+#include "lua_service/lua_bind.h"
 
 using namespace svrlib;
 
@@ -46,15 +47,23 @@ CApplication::CApplication() {
     m_status = 0;
     m_lastTick = 0;
     m_solLua.open_libraries();
+    m_luaService = new svrlib::lua_service(&m_solLua);
 }
 
 CApplication::~CApplication() {
     m_status = 0;
+    SAFE_DELETE(m_luaService);
 }
 
 bool CApplication::PreInit() {
-    defLuaBaseConfig(m_solLua);
+    lua_bind bind(m_solLua);
+    bind.export_lua_bind();
+    
+    return true;
+}
 
+bool CApplication::OverPreInit(){
+    SOL_CALL_LUA(m_solLua["init_lua_service"](m_luaService));
     return true;
 }
 
@@ -156,4 +165,7 @@ sol::state &CApplication::GetSolLuaState() {
 asio::io_context &CApplication::GetAsioContext() {
     return m_ioContext;
 }
-
+//ªÒ»°lua_service
+svrlib::lua_service* CApplication::GetLuaService(){
+    return m_luaService;
+}

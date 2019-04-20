@@ -3,41 +3,45 @@
 //
 #pragma  once
 
-#include "svrlib.h"
+#include "modern/sol/sol.hpp"
+#include <string>
 
-class lua_service
-{
-public:
-    using lua_state_ptr_t = std::unique_ptr<lua_State, void(*)(lua_State*)>;
-    using sol_function_t = sol::function;
+namespace svrlib {
 
-    lua_service(sol::state* p);
+    class lua_service {
+    public:
+        using lua_state_ptr_t = std::unique_ptr<lua_State, void (*)(lua_State*)>;
+        using sol_function_t = sol::function;
 
-    ~lua_service();
+        explicit lua_service(sol::state* p);
 
-    void set_start(sol_function_t f);
+        ~lua_service();
 
-    void set_dispatch(sol_function_t f);
+        void set_start(sol_function_t f);
 
-    void set_exit(sol_function_t f);
+        void set_dispatch(sol_function_t f);
 
-public:
-    void start();
+        void set_exit(sol_function_t f);
 
-    void exit();
+    public:
+        void start();
 
-    void dispatch(uint16_t cmd,string msg);
+        void exit();
 
-protected:
-    void error();
+        void dispatch(uint16_t cmd, std::string msg);
 
-    const char* lua_traceback(lua_State* _state);
-private:
-    bool error_;
-    sol::state* lua_;
-    sol_function_t start_;
-    sol_function_t dispatch_;
-    sol_function_t exit_;
+    protected:
+        void error();
+
+        const char* lua_traceback(lua_State* _state);
+
+    private:
+        bool error_;
+        sol::state* lua_;
+        sol_function_t start_;
+        sol_function_t dispatch_;
+        sol_function_t exit_;
+
+    };
 
 };
-
