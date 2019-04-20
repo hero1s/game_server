@@ -22,13 +22,13 @@ end
 function init_lua_service(lua_svr)
     log_debug("init lua service");
     lua_svr:set_start(function()
-        log_debug(curTimeStr().." lua_service start call back");
+        log_debug(" lua_service start call back " .. curTimeStr());
     end);
     lua_svr:set_exit(function()
-        log_debug(curTimeStr().." lua_service exit call back");
+        log_debug(" lua_service exit call back " .. curTimeStr());
     end);
     lua_svr:set_dispatch(function(cmd,msg)
-        log_debug("lua_service dispatch msg "..cmd..msg);
+        log_debug("lua_service dispatch msg " .. cmd .. msg);
     end);
 
 end

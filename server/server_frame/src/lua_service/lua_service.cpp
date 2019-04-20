@@ -42,8 +42,10 @@ namespace svrlib {
                 auto result = start_();
                 if (!result.valid()) {
                     sol::error err = result;
-                    LOG_ERROR("{}", err.what());
+                    LOG_ERROR("lua start error {}", err.what());
                 }
+            }else{
+                LOG_ERROR("start function is error");
             }
         }
         catch (std::exception& e) {
@@ -60,6 +62,8 @@ namespace svrlib {
             if (!result.valid()) {
                 sol::error err = result;
                 LOG_ERROR("dispatch msg error {}", err.what());
+            }else{
+                LOG_ERROR("dispatch function is error");
             }
         }
         catch (std::exception& e) {
@@ -76,9 +80,11 @@ namespace svrlib {
                     auto result = exit_();
                     if (!result.valid()) {
                         sol::error err = result;
-                        LOG_ERROR("{}", err.what());
+                        LOG_ERROR("lua exit error {}", err.what());
                     }
                     return;
+                }else{
+                    LOG_ERROR("exit function is error");
                 }
             }
             catch (std::exception& e) {
@@ -92,7 +98,7 @@ namespace svrlib {
     {
         error_ = true;
         std::string backtrace = lua_traceback(lua_->lua_state());
-        LOG_ERROR("{}", backtrace);
+        LOG_ERROR("lua error {}", backtrace);
     }
 
     const char* lua_service::lua_traceback(lua_State* L)

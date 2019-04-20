@@ -118,11 +118,11 @@ bool CApplication::Initialize() {
     CDBMysqlMgr::Instance().ReportStartServer(true);
 
     //test toney
-    CPlayer* pPlayer = new CPlayer(PLAYER_TYPE_ONLINE);
+    /*CPlayer* pPlayer = new CPlayer(PLAYER_TYPE_ONLINE);
     pPlayer->SetUID(110);
     CPlayerMgr::Instance().AddPlayer(pPlayer);
     pPlayer->OnLogin();
-
+    */
     m_luaService->start();
 
     return true;
