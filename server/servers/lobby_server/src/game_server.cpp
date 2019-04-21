@@ -35,11 +35,11 @@ bool CApplication::Initialize() {
     }
     LOG_INFO("load config is:id:{}", m_uiServerID);
     // db
-    if (CDBMysqlMgr::Instance().Init(GameServerConfig::Instance().DBConf) == false)
+    /*if (CDBMysqlMgr::Instance().Init(GameServerConfig::Instance().DBConf) == false)
     {
         LOG_ERROR("init mysqlmgr fail ");
         return false;
-    }
+    }*/
     // ∂¡»°≈‰÷√–≈œ¢
     if (CDataCfgMgr::Instance().Init() == false)
     {
@@ -115,7 +115,7 @@ bool CApplication::Initialize() {
         return false;
     }
 
-    CDBMysqlMgr::Instance().ReportStartServer(true);
+    //CDBMysqlMgr::Instance().ReportStartServer(true);
 
     //test toney
     /*CPlayer* pPlayer = new CPlayer(PLAYER_TYPE_ONLINE);

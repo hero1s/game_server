@@ -59,7 +59,6 @@ add_executable(server
         server_frame/include/dbmysql/dbmysql.h
         server_frame/include/dbmysql/sql_join.h
         server_frame/include/framework/application.h
-        server_frame/include/framework/cmdline.h
         server_frame/include/fundamental/common.h
         server_frame/include/fundamental/cyclebuffer.h
         server_frame/include/fundamental/cyclebuffer_shm.h

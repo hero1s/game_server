@@ -4,7 +4,7 @@
 #include "game_define.h"
 #include <stdlib.h>
 #include "data_cfg_mgr.h"
-
+#include "asio.hpp"
 
 using namespace std;
 using namespace svrlib;
@@ -79,6 +79,8 @@ bool CRedisMgr::Init(stRedisConf &conf) {
         LOG_ERROR("redis error : {}",e.what());
     }
 
+    test_client();
+
     return true;
 }
 
@@ -86,4 +88,52 @@ void CRedisMgr::ShutDown() {
     m_timer.cancel();
 
 }
+void CRedisMgr::test_client(){
+    m_syncClient = std::make_shared<redisclient::RedisSyncClient>(CApplication::Instance().GetAsioContext());
 
+    asio::ip::address address = asio::ip::address::from_string(m_conf.redisHost);
+    const unsigned short port = m_conf.redisPort;
+    asio::ip::tcp::endpoint endpoint(address, port);
+
+    asio::error_code ec;
+    redisclient::RedisValue result;
+
+    m_syncClient->connect(endpoint, ec);
+
+
+    if(ec)
+    {
+        std::cerr << "Can't connect to redis: " << ec.message() << std::endl;
+        return;
+    }else{
+        result = m_syncClient->command("AUTH",{"e2345"});
+        if(result.isOk() && result.toString() == "OK"){
+            LOG_DEBUG("auth is ok");
+        }
+    }
+
+    result = m_syncClient->command("SET", {"key", "value"});
+
+    if( result.isError() )
+    {
+        LOG_ERROR("SET error: {}",result.toString());
+        return;
+    }
+
+    result = m_syncClient->command("GET", {"key"});
+
+    if( result.isOk() )
+    {
+        LOG_DEBUG("GET: {}",result.toString());
+    }
+    else
+    {
+        LOG_ERROR("GET error: {}",result.toString());
+        return;
+    }
+
+    m_asyncClient = std::make_shared<redisclient::RedisAsyncClient>(CApplication::Instance().GetAsioContext());
+
+
+
+}
