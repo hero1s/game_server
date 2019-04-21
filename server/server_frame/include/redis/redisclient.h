@@ -296,9 +296,7 @@ namespace redisclient {
 
         ~RedisClientImpl();
 
-        void handleAsyncConnect(
-                const asio::error_code& ec,
-                std::function<void(asio::error_code)> handler);
+        void handleAsyncConnect(const asio::error_code& ec, std::function<void(asio::error_code)> handler);
 
         size_t subscribe(const std::string& command,
                 const std::string& channel,
@@ -320,21 +318,13 @@ namespace redisclient {
 
         static std::vector<char> makeCommand(const std::deque<RedisBuffer>& items);
 
-        RedisValue doSyncCommand(const std::deque<RedisBuffer>& command,
-                const uint32_t& timeout,
-                asio::error_code& ec);
+        RedisValue doSyncCommand(const std::deque<RedisBuffer>& command, const uint32_t& timeout, asio::error_code& ec);
 
-        RedisValue doSyncCommand(const std::deque<std::deque<RedisBuffer>>& commands,
-                const uint32_t& timeout,
-                asio::error_code& ec);
+        RedisValue doSyncCommand(const std::deque<std::deque<RedisBuffer>>& commands, const uint32_t& timeout, asio::error_code& ec);
 
-        RedisValue syncReadResponse(
-                const uint32_t& timeout,
-                asio::error_code& ec);
+        RedisValue syncReadResponse(const uint32_t& timeout, asio::error_code& ec);
 
-        void doAsyncCommand(
-                std::vector<char> buff,
-                std::function<void(RedisValue)> handler);
+        void doAsyncCommand(std::vector<char> buff, std::function<void(RedisValue)> handler);
 
         void sendNextCommand();
 
@@ -461,13 +451,9 @@ namespace redisclient {
         ~RedisAsyncClient();
 
         // Connect to redis server
-        void connect(
-                const asio::ip::tcp::endpoint& endpoint,
-                std::function<void(asio::error_code)> handler);
+        void connect(const asio::ip::tcp::endpoint& endpoint, std::function<void(asio::error_code)> handler);
 
-        void connect(
-                const asio::local::stream_protocol::endpoint& endpoint,
-                std::function<void(asio::error_code)> handler);
+        void connect(const asio::local::stream_protocol::endpoint& endpoint, std::function<void(asio::error_code)> handler);
 
         // Return true if is connected to redis.
         bool isConnected() const;
@@ -479,13 +465,10 @@ namespace redisclient {
         void disconnect();
 
         // Set custom error handler.
-        void installErrorHandler(
-                std::function<void(const std::string&)> handler);
+        void installErrorHandler(std::function<void(const std::string&)> handler);
 
         // Execute command on Redis server with the list of arguments.
-        void command(
-                const std::string& cmd, std::deque<RedisBuffer> args,
-                std::function<void(RedisValue)> handler = dummyHandler);
+        void command(const std::string& cmd, std::deque<RedisBuffer> args, std::function<void(RedisValue)> handler = dummyHandler);
 
         // Subscribe to channel. Handler msgHandler will be called
         // when someone publish message on channel. Call unsubscribe
@@ -517,8 +500,7 @@ namespace redisclient {
                 std::function<void(RedisValue)> handler = &dummyHandler);
 
         // Publish message on channel.
-        void publish(
-                const std::string& channel, const RedisBuffer& msg,
+        void publish(const std::string& channel, const RedisBuffer& msg,
                 std::function<void(RedisValue)> handler = &dummyHandler);
 
         static void dummyHandler(RedisValue) { }
@@ -559,20 +541,14 @@ namespace redisclient {
         ~RedisSyncClient();
 
         // Connect to redis server
-        void connect(
-                const asio::ip::tcp::endpoint& endpoint,
-                asio::error_code& ec);
+        void connect(const asio::ip::tcp::endpoint& endpoint, asio::error_code& ec);
 
         // Connect to redis server
-        void connect(
-                const asio::ip::tcp::endpoint& endpoint);
+        void connect(const asio::ip::tcp::endpoint& endpoint);
 
-        void connect(
-                const asio::local::stream_protocol::endpoint& endpoint,
-                asio::error_code& ec);
+        void connect(const asio::local::stream_protocol::endpoint& endpoint, asio::error_code& ec);
 
-        void connect(
-                const asio::local::stream_protocol::endpoint& endpoint);
+        void connect(const asio::local::stream_protocol::endpoint& endpoint);
 
         // Return true if is connected to redis.
         bool isConnected() const;
@@ -581,27 +557,20 @@ namespace redisclient {
         void disconnect();
 
         // Set custom error handler.
-        void installErrorHandler(
-                std::function<void(const std::string&)> handler);
+        void installErrorHandler(std::function<void(const std::string&)> handler);
 
         // Execute command on Redis server with the list of arguments.
-        RedisValue command(
-                std::string cmd, std::deque<RedisBuffer> args);
+        RedisValue command(std::string cmd, std::deque<RedisBuffer> args);
 
         // Execute command on Redis server with the list of arguments.
-        RedisValue command(
-                std::string cmd, std::deque<RedisBuffer> args,
-                asio::error_code& ec);
+        RedisValue command(std::string cmd, std::deque<RedisBuffer> args, asio::error_code& ec);
 
         // Create pipeline (see Pipeline)
         Pipeline pipelined();
 
-        RedisValue pipelined(
-                std::deque<std::deque<RedisBuffer>> commands,
-                asio::error_code& ec);
+        RedisValue pipelined(std::deque<std::deque<RedisBuffer>> commands, asio::error_code& ec);
 
-        RedisValue pipelined(
-                std::deque<std::deque<RedisBuffer>> commands);
+        RedisValue pipelined(std::deque<std::deque<RedisBuffer>> commands);
 
         // Return connection state. See RedisClientImpl::State.
         State state() const;

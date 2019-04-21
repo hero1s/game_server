@@ -72,29 +72,6 @@ namespace redisclient {
         }
     }
 
-#ifdef BOOST_ASIO_HAS_LOCAL_SOCKETS
-
-    void RedisAsyncClient::connect(const asio::local::stream_protocol::endpoint &endpoint,
-                                   std::function<void(asio::error_code)> handler)
-    {
-        if( pimpl->state == State::Unconnected || pimpl->state == State::Closed )
-        {
-            pimpl->state = State::Connecting;
-            pimpl->socket.async_connect(endpoint, std::bind(&RedisClientImpl::handleAsyncConnect,
-                        pimpl, std::placeholders::_1, std::move(handler)));
-        }
-        else
-        {
-            // FIXME: add correct error message
-            //std::stringstream ss;
-            //ss << "RedisAsyncClient::connect called on socket with state " << to_string(pimpl->state);
-            //handler(false, ss.str());
-            handler(asio::error_code());
-        }
-    }
-
-#endif
-
     bool RedisAsyncClient::isConnected() const
     {
         return pimpl->getState()==State::Connected || pimpl->getState()==State::Subscribed;
@@ -573,8 +550,7 @@ namespace redisclient {
     }
 
     RedisValue RedisClientImpl::doSyncCommand(const std::deque<RedisBuffer>& command,
-            const uint32_t& timeout,
-            asio::error_code& ec)
+            const uint32_t& timeout, asio::error_code& ec)
     {
         std::vector<char> data = makeCommand(command);
         socketWrite(socket.native_handle(), asio::buffer(data), timeout, ec);
@@ -587,8 +563,7 @@ namespace redisclient {
     }
 
     RedisValue RedisClientImpl::doSyncCommand(const std::deque<std::deque<RedisBuffer>>& commands,
-            const uint32_t& timeout,
-            asio::error_code& ec)
+            const uint32_t& timeout, asio::error_code& ec)
     {
         std::vector<std::vector<char>> data;
         std::vector<asio::const_buffer> buffers;
@@ -620,9 +595,7 @@ namespace redisclient {
         return RedisValue(std::move(responses));
     }
 
-    RedisValue RedisClientImpl::syncReadResponse(
-            const uint32_t& timeout,
-            asio::error_code& ec)
+    RedisValue RedisClientImpl::syncReadResponse(const uint32_t& timeout, asio::error_code& ec)
     {
         for (;;) {
             if (bufSize==0) {
@@ -656,8 +629,7 @@ namespace redisclient {
         }
     }
 
-    void RedisClientImpl::doAsyncCommand(std::vector<char> buff,
-            std::function<void(RedisValue)> handler)
+    void RedisClientImpl::doAsyncCommand(std::vector<char> buff, std::function<void(RedisValue)> handler)
     {
         handlers.push(std::move(handler));
         dataQueued.push_back(std::move(buff));
@@ -1330,30 +1302,6 @@ namespace redisclient {
         if (!ec)
             pimpl->state = State::Connected;
     }
-
-#ifdef BOOST_ASIO_HAS_LOCAL_SOCKETS
-
-    void RedisSyncClient::connect(const asio::local::stream_protocol::endpoint &endpoint)
-    {
-        asio::error_code ec;
-
-        connect(endpoint, ec);
-        detail::throwIfError(ec);
-    }
-
-    void RedisSyncClient::connect(const asio::local::stream_protocol::endpoint &endpoint,
-            asio::error_code &ec)
-    {
-        pimpl->socket.open(endpoint.protocol(), ec);
-
-        if (!ec)
-            pimpl->socket.connect(endpoint, ec);
-
-        if (!ec)
-            pimpl->state = State::Connected;
-    }
-
-#endif
 
     bool RedisSyncClient::isConnected() const
     {
