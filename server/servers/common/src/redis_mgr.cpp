@@ -134,6 +134,25 @@ void CRedisMgr::test_client(){
 
     m_asyncClient = std::make_shared<redisclient::RedisAsyncClient>(CApplication::Instance().GetAsioContext());
 
-
+    m_asyncClient->connect(endpoint,[this](asio::error_code ec){
+        if( !ec )
+        {
+            m_asyncClient->command("AUTH",{"e2345"},[this](const redisclient::RedisValue &v)
+            {
+                if(v.isOk() && v.toString() == "OK") {
+                    m_asyncClient->command("SET", {"key", "value"}, [this](const redisclient::RedisValue& v) {
+                        LOG_DEBUG("SET: {}", v.toString());
+                        m_asyncClient->command("GET", {"key"}, [this](const redisclient::RedisValue& v) {
+                            LOG_DEBUG("GET: {}", v.toString());
+                        });
+                    });
+                }
+            });
+        }
+        else
+        {
+            std::cerr << "Can't connect to redis: " << ec.message() << std::endl;
+        }
+    });
 
 }
