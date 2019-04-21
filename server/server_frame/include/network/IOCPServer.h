@@ -5,6 +5,7 @@
 #include <pthread.h>
 #include <string.h>
 #include "unistd.h"
+#include "sys/sysinfo.h"
 
 namespace Network
 {
@@ -52,15 +53,15 @@ struct stIOHANDLER_DESC
   uint32_t recvBufferSize;        // 接受缓存
   uint32_t timeOut;               // 超时断开(秒)
   uint32_t maxPacketSize;         // 最大包长
-  uint8_t  ioThreadNum;				// IO线程数(最大16)
-  CNetworkObjPool* pool;            // 对象池
-  bool openMsgQueue;                // 是否开启消息队列(防止服务器突发阻塞爆掉缓存)
-  bool webSocket;					// 是否websocket
+  uint8_t  ioThreadNum;			  // IO线程数
+  CNetworkObjPool* pool;          // 对象池
+  bool openMsgQueue;              // 是否开启消息队列(防止服务器突发阻塞爆掉缓存)
+  bool webSocket;				  // 是否websocket
 
   stIOHANDLER_DESC()
   {
 	  memset(this, 0, sizeof(stIOHANDLER_DESC));
-	  ioThreadNum  = 1;
+	  ioThreadNum  = get_nprocs();
 	  openMsgQueue = false;
 	  webSocket	   = false;
   }

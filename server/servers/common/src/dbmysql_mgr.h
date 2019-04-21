@@ -76,7 +76,7 @@ private:
 
 	stDBConf m_DBConf[DB_INDEX_TYPE_MAX];               // 数据库配置信息
 
-	uint16_t                                               m_svrID;
+	uint16_t                                             m_svrID;
 	string                                               m_strSql;
 	MemberTimerEvent<CDBMysqlMgr, &CDBMysqlMgr::OnTimer> m_reportTimer;
 

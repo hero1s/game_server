@@ -35,11 +35,11 @@ bool CApplication::Initialize() {
     }
     LOG_INFO("load config is:id:{}", m_uiServerID);
     // db
-    /*if (CDBMysqlMgr::Instance().Init(GameServerConfig::Instance().DBConf) == false)
+    if (CDBMysqlMgr::Instance().Init(GameServerConfig::Instance().DBConf) == false)
     {
         LOG_ERROR("init mysqlmgr fail ");
         return false;
-    }*/
+    }
     // 读取配置信息
     if (CDataCfgMgr::Instance().Init() == false)
     {
@@ -47,10 +47,10 @@ bool CApplication::Initialize() {
         return false;
     }
     // 初始化共享内存缓存
-    /*if(CPlayerCacheMgr::Instance().Init(110, false,[](uint32_t uid, uint8_t cacheType, const string& data){}) == false){
+    if(CPlayerCacheMgr::Instance().Init(110, false,[](uint32_t uid, uint8_t cacheType, const string& data){}) == false){
         LOG_ERROR("init player cache mgr fail ");
         return false;
-    }*/
+    }
     do
     {
 
@@ -115,7 +115,7 @@ bool CApplication::Initialize() {
         return false;
     }
 
-    //CDBMysqlMgr::Instance().ReportStartServer(true);
+    CDBMysqlMgr::Instance().ReportStartServer(true);
 
     //test toney
     /*CPlayer* pPlayer = new CPlayer(PLAYER_TYPE_ONLINE);
