@@ -1,9 +1,4 @@
 
-
-#define REDISCLIENT_VERSION_H
-
-#define REDIS_CLIENT_VERSION 10002 // 1.0.2
-
 #define REDISSYNCCLIENT_REDISBUFFER_H
 
 #include <variant>
@@ -58,14 +53,6 @@ namespace redisclient {
     }
 
 }
-
-
-
-/*
- * Copyright (C) Alex Nekipelov (alex@nekipelov.net)
- * License: MIT
- */
-
 
 #define REDISCLIENT_REDISVALUE_H
 
@@ -196,17 +183,6 @@ namespace redisclient {
 
 }
 
-
-
-
-
-
-/*
- * Copyright (C) Alex Nekipelov (alex@nekipelov.net)
- * License: MIT
- */
-
-
 #define REDISCLIENT_REDISPARSER_H
 
 #include <stack>
@@ -286,17 +262,6 @@ namespace redisclient {
     };
 
 }
-
-
-
-
-
-
-/*
- * Copyright (C) Alex Nekipelov (alex@nekipelov.net)
- * License: MIT
- */
-
 
 #define REDISCLIENT_REDISCLIENTIMPL_H
 
@@ -466,11 +431,6 @@ namespace redisclient {
     }
 
 }
-/*
- * Copyright (C) Alex Nekipelov (alex@nekipelov.net)
- * License: MIT
- */
-
 
 #define REDISASYNCCLIENT_REDISCLIENT_H
 
@@ -573,16 +533,6 @@ namespace redisclient {
 }
 
 
-
-
-
-
-/*
- * Copyright (C) Alex Nekipelov (alex@nekipelov.net)
- * License: MIT
- */
-
-
 #define REDISSYNCCLIENT_REDISCLIENT_H
 
 #include <asio/io_service.hpp>
@@ -656,11 +606,9 @@ namespace redisclient {
         // Return connection state. See RedisClientImpl::State.
         State state() const;
 
-        RedisSyncClient& setConnectTimeout(
-                const uint32_t& timeout);
+        RedisSyncClient& setConnectTimeout(const uint32_t& timeout);
 
-        RedisSyncClient& setCommandTimeout(
-                const uint32_t& timeout);
+        RedisSyncClient& setCommandTimeout(const uint32_t& timeout);
 
         RedisSyncClient& setTcpNoDelay(bool enable);
 
@@ -678,16 +626,6 @@ namespace redisclient {
     };
 
 }
-
-
-
-
-
-
-/*
- * Copyright (C) Alex Nekipelov (alex@nekipelov.net)
- * License: MIT
- */
 
 #pragma once
 
