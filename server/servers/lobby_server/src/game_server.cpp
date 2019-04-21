@@ -93,7 +93,7 @@ bool CApplication::Initialize() {
     }
     while (false);
 
-    if (!CRedisMgr::Instance().Init(GameServerConfig::Instance().redisConf))
+    if (!CRedisMgr::Instance().Init(m_ioContext,GameServerConfig::Instance().redisConf))
     {
         LOG_ERROR("init redis fail");
         return false;

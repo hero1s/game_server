@@ -4,8 +4,8 @@
 #include "svrlib.h"
 #include "config/config.h"
 #include <string>
-#include <cpp_redis/cpp_redis>
 #include "redisclient.h"
+#include "asio.hpp"
 
 using namespace std;
 using namespace svrlib;
@@ -18,7 +18,7 @@ public:
 
     void OnTimer();
 
-    bool Init(stRedisConf& conf);
+    bool Init(asio::io_context& context, stRedisConf& conf);
 
     void ShutDown();
 
@@ -28,7 +28,6 @@ protected:
 
 private:
     MemberTimerEvent<CRedisMgr, &CRedisMgr::OnTimer> m_timer;
-    std::shared_ptr<cpp_redis::client> m_client;
     stRedisConf m_conf;
 
     std::shared_ptr<redisclient::RedisSyncClient>   m_syncClient;
