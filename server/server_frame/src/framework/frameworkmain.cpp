@@ -27,9 +27,7 @@ int FrameworkMain(int argc, char *argv[]) {
         frameWork.Run();
         LOG_DEBUG("application shutdown");
 
-        CApplication::Instance().ShutDown();
-        CApplication::Instance().OverShutDown();
-        //
+        frameWork.ShutDown();
     }
     catch (char const *what) {
         std::cout << what << std::endl;

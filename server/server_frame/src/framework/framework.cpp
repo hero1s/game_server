@@ -50,6 +50,11 @@ void CFrameWork::Run()
 
 }
 
+void CFrameWork::ShutDown(){
+    m_application.ShutDown();
+    m_application.OverShutDown();
+}
+
 void CFrameWork::TimerTick(const std::error_code& err)
 {
     uint64_t startTime = 0;

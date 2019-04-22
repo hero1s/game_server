@@ -13,6 +13,7 @@ public:
 	~CFrameWork();
 
 	void Run();
+	void ShutDown();
 	void TimerTick(const std::error_code& err);
 	void InitializeEnvironment(int argc, char* argv[]);
 	void InitSpdlog();

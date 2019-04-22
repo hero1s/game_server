@@ -17,7 +17,6 @@
 
 #include "utility/stringutility.h"
 #include "utility/timeutility.h"
-#include "utility/singleton.h"
 
 #include <memory>
 #include <vector>
