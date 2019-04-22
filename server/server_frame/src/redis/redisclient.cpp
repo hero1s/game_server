@@ -1,4 +1,4 @@
-#include "redisclient.h"
+#include "redis/redisclient.h"
 
 #ifndef REDISCLIENT_PIPELINE_CPP
 #define REDISCLIENT_PIPELINE_CPP

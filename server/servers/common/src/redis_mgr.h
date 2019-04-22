@@ -4,7 +4,7 @@
 #include "svrlib.h"
 #include "config/config.h"
 #include <string>
-#include "redisclient.h"
+#include "redis/redisclient.h"
 #include "asio.hpp"
 
 using namespace std;

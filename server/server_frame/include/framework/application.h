@@ -6,7 +6,7 @@
 #include "modern/timer_wheel.h"
 #include "math/rand_table.h"
 #include "network/IOCPServer.h"
-#include "modern/sol/sol.hpp"
+#include "sol/sol.hpp"
 #include <memory>
 #include <map>
 #include "asio.hpp"

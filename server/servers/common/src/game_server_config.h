@@ -7,7 +7,7 @@
 #include <string.h>
 #include "config/config.h"
 #include "game_define.h"
-#include "modern/sol/sol.hpp"
+#include "sol/sol.hpp"
 
 using namespace std;
 using namespace svrlib;

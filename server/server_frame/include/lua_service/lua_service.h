@@ -3,7 +3,7 @@
 //
 #pragma  once
 
-#include "modern/sol/sol.hpp"
+#include "sol/sol.hpp"
 #include <string>
 
 namespace svrlib {

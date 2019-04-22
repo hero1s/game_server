@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "modern/sol/sol.hpp"
+#include "sol/sol.hpp"
 #include "fundamental/noncopyable.h"
 
 namespace svrlib {

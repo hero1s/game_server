@@ -16,14 +16,12 @@ add_include_path(${COMMON_INCLUDE})
 add_include_path(${MYSQL_INCLUDE})
 
 add_include_path(../../../server_frame/include)
-add_include_path(../../../server_frame/include/luatinker)
 
 add_include_path(../src/)
 
 add_source_files(../src/*.*)
 
 add_link_path(../../../server_frame/lib)
-add_link_path(../../../tdr_auto)
 add_link_path(${COMMON_LIBPATH})
 add_link_path(${MYSQL_LIBPATH})
 

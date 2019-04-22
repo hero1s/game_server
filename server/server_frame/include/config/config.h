@@ -3,7 +3,7 @@
 
 #include <string>
 #include "utility/basic_types.h"
-#include "modern/sol/sol.hpp"
+#include "sol/sol.hpp"
 
 namespace svrlib {
 struct stDBConf {

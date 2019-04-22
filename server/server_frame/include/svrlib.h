@@ -9,8 +9,8 @@
 #include "utility/basic_functions.h"
 
 #include "framework/application.h"
-#include "modern/spdlog/spdlog.h"
-#include "modern/sol/sol.hpp"
+#include "spdlog/spdlog.h"
+#include "sol/sol.hpp"
 
 #include "packet/protobuf_pkg.h"
 #include "packet/inner_protobuf_pkg.h"

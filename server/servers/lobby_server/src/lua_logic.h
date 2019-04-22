@@ -2,7 +2,7 @@
 #pragma once
 
 #include <string>
-#include "modern/sol/sol.hpp"
+#include "sol/sol.hpp"
 #include "svrlib.h"
 #include <string.h>
 

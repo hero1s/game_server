@@ -9,7 +9,7 @@
 *------------------------------------------------------------*/
 
 #include "utility/comm_macro.h"
-#include "modern/spdlog/spdlog.h"
+#include "spdlog/spdlog.h"
 #include <my_global.h>
 #include "dbmysql/dbmysql.h"
 

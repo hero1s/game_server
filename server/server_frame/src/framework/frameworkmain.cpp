@@ -3,10 +3,10 @@
 #include "framework.h"
 #include "framework/application.h"
 #include <malloc.h>
-#include "modern/sol/sol.hpp"
+#include "sol/sol.hpp"
 #include "helper/helper.h"
 #include "lua/lua.h"
-#include "modern/spdlog/spdlog.h"
+#include "spdlog/spdlog.h"
 #include "utility/stringutility.h"
 #include "utility/comm_macro.h"
 #include "config/config.h"

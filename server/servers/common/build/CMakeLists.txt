@@ -16,8 +16,8 @@ add_include_path(${COMMON_INCLUDE})
 add_include_path(${MYSQL_INCLUDE})
 
 add_include_path(../../../server_frame/include)
-add_include_path(../../../server_frame/include/lua)
-add_include_path(../../../server_frame/include/redis)
+add_include_path(../../../server_frame/include/third)
+add_include_path(../../../server_frame/include/third/lua)
 add_include_path(../../pb/src)
 
 add_include_path(../src/)
