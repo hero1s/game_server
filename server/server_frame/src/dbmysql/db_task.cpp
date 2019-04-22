@@ -7,7 +7,8 @@
 using namespace std;
 using namespace svrlib;
 
-CDBTask::CDBTask() {
+CDBTask::CDBTask(asio::io_context& context)
+:m_context(context){
     m_bRun = false;
 }
 
@@ -137,7 +138,7 @@ void CDBTask::AddDBReqEvent(shared_ptr<CDBEventReq> pReqEvent) {
 
 // 添加数据库返回事件
 void CDBTask::AddDBRepEvent(shared_ptr<CDBEventRep> pRepEvent,std::function<void(shared_ptr<CDBEventRep>& pRep)> callBack) {
-    CApplication::Instance().GetAsioContext().post(std::bind(callBack, pRepEvent));
+    m_context.post(std::bind(callBack, pRepEvent));
 }
 
 // 处理请求事件

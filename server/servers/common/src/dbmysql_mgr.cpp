@@ -68,7 +68,7 @@ void CDBMysqlMgr::ShutDown()
 // 启动异步线程
 bool CDBMysqlMgr::StartAsyncDB()
 {
-	m_pAsyncTask = new CDBTask();
+	m_pAsyncTask = new CDBTask(CApplication::Instance().GetAsioContext());
 	m_pAsyncTask->SetDBName(m_DBConf[DB_INDEX_TYPE_ACC].sDBName);
 	m_pAsyncTask->Init(m_DBConf[DB_INDEX_TYPE_ACC]);
 	m_pAsyncTask->Start();

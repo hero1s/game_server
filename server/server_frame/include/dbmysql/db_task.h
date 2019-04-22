@@ -15,6 +15,7 @@
 #include <thread>
 #include <chrono>
 #include "modern/locked_queue.h"
+#include "third/asio.hpp"
 
 using namespace std;
 using namespace svrlib;
@@ -85,7 +86,7 @@ public:
 class CDBTask : public CDBWrap
 {
 public:
-	CDBTask();
+	explicit CDBTask(asio::io_context& context);
 
 	virtual ~CDBTask();
 
@@ -137,7 +138,8 @@ private:
 	int64_t  m_lastCountTime;
 	int32_t  m_Counts;    // µ±Ç°
 	int32_t  m_maxCounts; // ·åÖµ
-	string m_dbName;
+	string   m_dbName;
+	asio::io_context& m_context;
 };
 
 

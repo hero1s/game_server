@@ -47,7 +47,7 @@ bool CApplication::Initialize() {
         return false;
     }
     // 初始化共享内存缓存
-    if(CPlayerCacheMgr::Instance().Init(110, false,[](uint32_t uid, uint8_t cacheType, const string& data){}) == false){
+    if(CPlayerCacheMgr::Instance().Init(m_ioContext,110, false,[](uint32_t uid, uint8_t cacheType, const string& data){}) == false){
         LOG_ERROR("init player cache mgr fail ");
         return false;
     }

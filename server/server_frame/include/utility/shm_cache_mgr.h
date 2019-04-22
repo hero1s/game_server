@@ -66,7 +66,7 @@ public:
 
     virtual ~CDataCacheMgr() {};
 
-    bool Init(uint32_t shmKey, bool bReset, handSaveFunc func) {
+    bool Init(asio::io_context& context,uint32_t shmKey, bool bReset, handSaveFunc func) {
         if (false == m_hpPlayerCache.InitShm(shmKey, s_CACHE_MAX_COUNT)) {
             LOG_ERROR("init player cach fail");
             return false;
@@ -77,7 +77,7 @@ public:
         }
         m_handSaveFunc = func;
 
-        m_pTimer = make_shared<asio::system_timer>(CApplication::Instance().GetAsioContext());
+        m_pTimer = make_shared<asio::system_timer>(context);
         m_pTimer->expires_from_now(std::chrono::milliseconds(s_CHECK_DATA_TIME * 1000));
         m_pTimer->async_wait(std::bind(&CDataCacheMgr::TimerCheck, this, std::placeholders::_1));
 
