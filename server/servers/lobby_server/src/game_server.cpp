@@ -17,6 +17,7 @@
 #include "center_client.h"
 #include "player_mgr.h"
 #include "redis_mgr.h"
+#include "player.h"
 
 using namespace svrlib;
 using namespace std;
@@ -118,11 +119,11 @@ bool CApplication::Initialize() {
     CDBMysqlMgr::Instance().ReportStartServer(true);
 
     //test toney
-    /*CPlayer* pPlayer = new CPlayer(PLAYER_TYPE_ONLINE);
+    CPlayer* pPlayer = new CPlayer(PLAYER_TYPE_ONLINE);
     pPlayer->SetUID(110);
     CPlayerMgr::Instance().AddPlayer(pPlayer);
     pPlayer->OnLogin();
-    */
+
     m_luaService->start();
 
     return true;
