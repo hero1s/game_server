@@ -10,7 +10,12 @@
 #include "utility/comm_macro.h"
 
 namespace aoi {
-    struct CSceneObj {
+    class CScene;
+
+    class CSceneObj {
+        friend CScene;
+
+    protected:
         //uid-version, version用于优化差异比较计算，通过2次遍历即可得出进出视野结果
         using entity_view_t = std::unordered_map<math::objectid_t, uint8_t>;
         uint8_t version = 1;
