@@ -54,6 +54,7 @@ namespace aoi {
         void check_aoi() {
             if (is_need_check) {
                 for (auto &p : scene_objs) {
+                    if(!p.second.need_check_view)continue;
                     query_result.clear();
                     qtree->query(p.first, p.second.view_w, p.second.view_h, query_result);
                     compare_view(p.first, p.second, query_result);//第一次遍历，更新版本号
