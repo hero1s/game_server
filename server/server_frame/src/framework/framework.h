@@ -21,7 +21,7 @@ public:
 
 	void SignalHandler(const std::error_code& err, int signal);
 
-	void SetTickTime(unsigned int tick);
+	void SetTickTime(uint32_t tick);
 private:
 	void ParseInputParam(int argc, char* argv[]);
 	void LoadConfig();

@@ -12,20 +12,6 @@
 #ifndef NULL
 #define NULL	0
 #endif//NULL
-//------------------------------------------------------
-//------------------------------- min/max Operate...
-//最小值
-#ifndef MIN
-#define MIN(a, b)    (a > b ? b: a)
-#endif//MIN
-//最大值
-#ifndef MAX
-#define MAX(a, b)    (a > b ? a: b)
-#endif//MAX
-//范围值
-#ifndef RANGE
-#define RANGE(a, mina, maxa)  (a = MAX(mina,MIN(a,maxa)))
-#endif//
 
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(p)                { if ( p) { delete ( p); ( p) = NULL; } }

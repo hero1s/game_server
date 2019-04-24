@@ -21,8 +21,8 @@
 using namespace svrlib;
 using std::vector;
 
-#define TICK_MAX_INTERVAL 100
-#define TICK_MIN_INTERVAL 10
+static uint32_t TICK_MAX_INTERVAL = 100;
+static uint32_t TICK_MIN_INTERVAL = 10;
 
 CFrameWork::CFrameWork(CApplication& app)
 :m_application(app)
@@ -151,10 +151,9 @@ void CFrameWork::InitMysqlSpdlog()
     }
 }
 
-void CFrameWork::SetTickTime(unsigned int tick)
+void CFrameWork::SetTickTime(uint32_t tick)
 {
-    m_sleepTime = tick;
-    RANGE(m_sleepTime, TICK_MIN_INTERVAL, TICK_MAX_INTERVAL);
+    m_sleepTime = std::clamp(tick, TICK_MIN_INTERVAL, TICK_MAX_INTERVAL);
 }
 
 void CFrameWork::ParseInputParam(int argc, char* argv[])

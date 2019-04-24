@@ -76,7 +76,7 @@ CCenterMgr::~CCenterMgr()
 void CCenterMgr::OnTimer()
 {
     if (getSysTime()-m_lastCountTime>SECONDS_IN_MIN) {
-        m_msgMaxCount = MAX(m_msgMaxCount, m_msgMinCount);
+        m_msgMaxCount = std::max(m_msgMaxCount, m_msgMinCount);
         if (m_msgMinCount>0) {
             LOG_DEBUG("route msg count :msg {},max msg {}", m_msgMinCount, m_msgMaxCount);
             m_msgMinCount = 0;

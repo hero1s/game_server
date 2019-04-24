@@ -19,6 +19,8 @@
 #include "redis_mgr.h"
 #include "player.h"
 
+#include "aoi/scene.h"
+
 using namespace svrlib;
 using namespace std;
 
@@ -125,6 +127,11 @@ bool CApplication::Initialize() {
     pPlayer->OnLogin();
 
     m_luaService->start();
+
+    //test aoi
+    aoi::CScene scene(0,0,8000,8000);
+
+
 
     return true;
 }

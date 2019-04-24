@@ -167,8 +167,9 @@ namespace Network {
         m_pEvents->Create(SOCKET_HOLDER_SIZE * 2, SOCKET_HOLDER_SIZE);
 
         pthread_create(&m_hEpollThread, NULL, epoll_thread, (void *) this);
-        uint16_t numIoThreads = MIN(lpDesc.ioThreadNum,get_nprocs());
-        numIoThreads = MAX(numIoThreads,1);
+        uint8_t cpu_num = get_nprocs();
+        uint8_t min_num = 1;
+        uint8_t numIoThreads = std::clamp(lpDesc.ioThreadNum,min_num,cpu_num);
         LOG_DEBUG("{} open IO thread num:{}",m_dwKey,numIoThreads);
         for(uint32_t i = 0; i < numIoThreads; ++i )
         {
