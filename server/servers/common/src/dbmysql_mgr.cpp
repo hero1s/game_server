@@ -98,7 +98,7 @@ bool CDBMysqlMgr::ConnectSyncDB()
 		LOG_ERROR("connect config database fail :");
 		return false;
 	}
-	LOG_ERROR("connect config database successful ");
+	LOG_DEBUG("connect config database successful ");
 	return true;
 }
 

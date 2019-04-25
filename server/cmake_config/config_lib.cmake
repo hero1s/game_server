@@ -33,7 +33,8 @@ add_definitions(-DASIO_STANDALONE)
 
 if (CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "-std=c++17 ${CMAKE_CXX_FLAGS}")
-    message(STATUS "optional:-std=c++17")
+    message(STATUS ${CMAKE_CXX_FLAGS})
+    message(STATUS ${CMAKE_EXE_LINKER_FLAGS})
 endif (CMAKE_COMPILER_IS_GNUCXX)
 
 # set default configuration directory

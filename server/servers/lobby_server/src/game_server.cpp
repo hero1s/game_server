@@ -129,7 +129,7 @@ bool CApplication::Initialize() {
     m_luaService->start();
 
     //test aoi
-    aoi::CScene scene(0,0,8000,8000);
+    aoi::CScene<64> scene(0,0,8000,8000);
 
 
 

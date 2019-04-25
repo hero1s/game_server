@@ -11,35 +11,40 @@
 #include "utility/comm_macro.h"
 
 namespace aoi {
-    class CScene;
 
     class CSceneObj {
-        friend CScene;
 
-    protected:
+
+    public:
         //uid-version, version用于优化差异比较计算，通过2次遍历即可得出进出视野结果
         using entity_view_t = std::unordered_map<math::objectid_t, uint8_t>;
         uint8_t version = 1;
-        float view_w = 20.0f;//视野长宽
-        float view_h = 20.0f;
+        float view_w = 100.0f;//视野长宽
+        float view_h = 100.0f;
         entity_view_t view;
         bool need_check_view = true;//是否需要视野检测(静态物品不需要)
         math::objectid_t view_uid;
 
         virtual void view_event(std::vector<math::objectid_t> &enter_list, std::vector<math::objectid_t> &leave_list) {}
     };
-
+    template<size_t min_raduis>
     class CScene {
     public:
-        CScene(float x_, float y_, float width_, float height_) {
+        using qtree_t = math::quad_tree<min_raduis>;
+
+        explicit CScene(float x_, float y_, float width_, float height_) {
             math::rect rc(x_, y_, width_, height_);
-            qtree = std::make_shared<math::quad_tree<36>>(rc);
+            scene_rc = rc;
+            qtree = std::make_shared<qtree_t>(rc);
             is_need_check = true;
+            LOG_DEBUG("CScene init x {}, y {}, width {}, height {}",x_,y_,width_,height_);
         }
 
-        virtual ~CScene() {}
-
         void insert(CSceneObj* pObj, float x, float y) {
+            if(!scene_rc.contains(x,y)){
+                LOG_ERROR("插入坐标越界:{} {} {} {}-->{} {}",scene_rc.x,scene_rc.y,scene_rc.width,scene_rc.height,x,y);
+                return;
+            }
             qtree->insert(pObj->view_uid, x, y);
             scene_objs.try_emplace(pObj->view_uid,pObj);
             is_need_check = true;
@@ -47,6 +52,10 @@ namespace aoi {
         }
 
         void update(math::objectid_t uid, float x, float y) {
+            if(!scene_rc.contains(x,y)){
+                LOG_ERROR("插入坐标越界:{} {} {} {}-->{} {}",scene_rc.x,scene_rc.y,scene_rc.width,scene_rc.height,x,y);
+                return;
+            }
             qtree->update(uid, x, y);
             is_need_check = true;
         }
@@ -92,11 +101,11 @@ namespace aoi {
             for (auto &v : pObj->view) {
                 if (v.second == pObj->version) {
                     //进入视野
-                    LOG_DEBUG("player {} enter {} view", v.first, uid);
+                    //LOG_DEBUG("player {} enter {} view", v.first, uid);
                     enter_list.emplace_back(v.first);
                 } else if (v.second != (pObj->version - 1))//出视野
                 {
-                    LOG_DEBUG("player {} leave {} view", v.first, uid);
+                    //LOG_DEBUG("player {} leave {} view", v.first, uid);
                     //注意这里要从 p.view 删除已经出视野的玩家
                     leave_list.emplace_back(v.first);
                 }
@@ -110,7 +119,8 @@ namespace aoi {
         }
 
     protected:
-        std::shared_ptr<math::quad_tree<36>> qtree;
+        math::rect scene_rc;
+        std::shared_ptr<qtree_t> qtree;
         std::unordered_map<math::objectid_t, CSceneObj*> scene_objs;
         std::vector<math::objectid_t> query_result;
         std::vector<math::objectid_t> enter_list;

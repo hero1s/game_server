@@ -17,12 +17,17 @@ set(CMAKE_CXX_COMPILER "g++")
 set(LESS_WARNINGS 1)
 #set( WITH_COREDEBUG 1)
 
+set( WITH_GPROF 0)
+
 #set( CMAKE_BUILD_TYPE "Debug" )
 #set( CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb" )
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O2 -ggdb -static-libstdc++ -static-libgcc")
-#set( CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O3" )
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O2 -g -static-libstdc++ -static-libgcc")
 
-#set( CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O3 -Wall" )
+if (WITH_GPROF)
+    set(CMAKE_CXX_FLAGS " -pg ${CMAKE_CXX_FLAGS}")
+    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pg")
+    SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -pg")
+endif ()
 
 # setting build macro
 # add_definitions( -D_BUILD_DIRECTIVE = '"${CMAKE_BUILD_TYPE}"' )
@@ -33,7 +38,8 @@ add_definitions(-DASIO_STANDALONE)
 
 if (CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "-std=c++17 ${CMAKE_CXX_FLAGS}")
-    message(STATUS "optional:-std=c++17")
+    message(STATUS ${CMAKE_CXX_FLAGS})
+    message(STATUS ${CMAKE_EXE_LINKER_FLAGS})
 endif (CMAKE_COMPILER_IS_GNUCXX)
 
 # set default configuration directory
