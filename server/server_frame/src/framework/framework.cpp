@@ -56,9 +56,9 @@ void CFrameWork::Run()
 void CFrameWork::ShutDown(){
     LOG_DEBUG("FrameWork ShutDown:{}",CApplication::Instance().GetServerID());
     PROFILE_SHUTDOWN("profile",CApplication::Instance().GetServerID());
-
     CApplication::Instance().ShutDown();
     CApplication::Instance().OverShutDown();
+
 }
 
 void CFrameWork::TimerTick(const std::error_code& err)

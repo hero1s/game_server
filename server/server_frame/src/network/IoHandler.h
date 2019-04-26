@@ -91,7 +91,7 @@ private:
 	uint32_t m_dwKey;
 	int      m_epoll;                            // epoll fd
 
-	std::vector<pthread_t> m_hIoThread;  		  // IO
+	pthread_t m_hIoThread;  		  // IO
 	pthread_t m_hEpollThread;
 
 	CircuitQueue<struct epoll_event>* m_pEvents;

@@ -38,7 +38,6 @@ int FrameworkMain(int argc, char *argv[]) {
         std::cout << "sol error " << e.what() << std::endl;
         LOG_ERROR("sol error:{}", e.what());
     }
-    LOG_DEBUG("exit over:{}",CApplication::Instance().GetServerID());
     return 0;
 }
 

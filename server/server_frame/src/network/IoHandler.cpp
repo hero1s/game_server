@@ -12,7 +12,6 @@
 #include "network/IOCPServer.h"
 #include "network/NetworkObject.h"
 #include "svrlib.h"
-#include "sys/sysinfo.h"
 
 namespace Network {
     void *epoll_thread(void *param) {
@@ -109,8 +108,6 @@ namespace Network {
         m_bShutdown = FALSE;
         m_pEvents = NULL;
 
-        m_hIoThread.clear();
-
         m_pNetworkPool = NULL;
     }
 
@@ -167,16 +164,7 @@ namespace Network {
         m_pEvents->Create(SOCKET_HOLDER_SIZE * 2, SOCKET_HOLDER_SIZE);
 
         pthread_create(&m_hEpollThread, NULL, epoll_thread, (void *) this);
-        uint8_t cpu_num = get_nprocs();
-        uint8_t min_num = 1;
-        uint8_t numIoThreads = std::clamp(lpDesc.ioThreadNum,min_num,cpu_num);
-        LOG_DEBUG("{} open IO thread num:{}",m_dwKey,numIoThreads);
-        for(uint32_t i = 0; i < numIoThreads; ++i )
-        {
-            pthread_t t;
-            pthread_create(&t, NULL, io_thread, (void*)this);
-            m_hIoThread.push_back(t);
-        }
+        pthread_create(&m_hIoThread, NULL, io_thread, (void*)this);
     }
 
     uint32_t IoHandler::Connect(NetworkObject *pNetworkObject, const char *pszIP, uint16_t wPort) {
@@ -552,11 +540,9 @@ namespace Network {
         // wake up io_thread to exit
         m_condEvents.Broadcast();
 
-        for(uint32_t i = 0; i < m_hIoThread.size(); i++ )
-        {
-            pthread_cancel(m_hIoThread[i]);
-            pthread_join(m_hIoThread[i], NULL);
-        }
+        pthread_cancel(m_hIoThread);
+        pthread_join(m_hIoThread, NULL);
+
     }
 
     bool IoHandler::ModEpollEvent(Session *pSession, uint32_t nEvent) {
