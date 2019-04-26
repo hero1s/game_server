@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "fundamental/noncopyable.h"
+#include "modern/noncopyable.hpp"
 
 // 自动释放
 // 谨慎使用，不当的使用会在释放析构顺序上产生问题

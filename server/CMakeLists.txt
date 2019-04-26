@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.10)
+cmake_minimum_required(VERSION 3.10)
 project(server)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -19,6 +19,7 @@ include_directories(server_frame/include/network)
 include_directories(server_frame/include/packet)
 include_directories(server_frame/include/redis)
 include_directories(server_frame/include/utility)
+include_directories(server_frame/include/third)
 include_directories(server_frame/src/framework)
 include_directories(server_frame/src/network)
 include_directories(servers/center_server/src)
@@ -57,7 +58,6 @@ add_executable(server
         server_frame/include/fundamental/hashval.h
         server_frame/include/fundamental/linkcache.h
         server_frame/include/fundamental/multiprocesshashtable.h
-        server_frame/include/fundamental/noncopyable.h
         server_frame/include/fundamental/ring_buff.h
         server_frame/include/fundamental/variablehashtable.h
         server_frame/include/fundamental/variablelengthhashtable.h
@@ -82,7 +82,9 @@ add_executable(server
         server_frame/include/modern/file.hpp
         server_frame/include/modern/httplib.h
         server_frame/include/modern/locked_queue.h
-        server_frame/include/modern/read_write_lock.h
+        server_frame/include/modern/noncopyable.hpp
+        server_frame/include/modern/rwlock.hpp
+        server_frame/include/modern/spinlock.hpp
         server_frame/include/modern/thread_pool.h
         server_frame/include/modern/timer_wheel.h
         server_frame/include/modern/tinyxml2.h
@@ -99,6 +101,7 @@ add_executable(server
         server_frame/include/utility/cooling.h
         server_frame/include/utility/ipcutility.h
         server_frame/include/utility/object_pool.hpp
+        server_frame/include/utility/profile_manager.h
         server_frame/include/utility/shm_cache_mgr.h
         server_frame/include/utility/singleton.h
         server_frame/include/utility/string_functions.h
@@ -174,6 +177,7 @@ add_executable(server
         server_frame/src/utility/basic_functions.cpp
         server_frame/src/utility/cooling.cpp
         server_frame/src/utility/ipcutility.cpp
+        server_frame/src/utility/profile_manager.cpp
         server_frame/src/utility/string_functions.cpp
         server_frame/src/utility/stringutility.cpp
         server_frame/src/utility/time_function.cpp

@@ -17,6 +17,7 @@
 
 #include "utility/stringutility.h"
 #include "utility/timeutility.h"
+#include "utility/profile_manager.h"
 
 #include <memory>
 #include <vector>

@@ -1,5 +1,6 @@
 
 #include "framework.h"
+#include "framework/application.h"
 #include <signal.h>
 #include <iostream>
 #include "helper/filehelper.h"
@@ -8,6 +9,7 @@
 #include "spdlog/spdlog.h"
 #include "utility/comm_macro.h"
 #include "utility/timeutility.h"
+#include "utility/profile_manager.h"
 
 #include<unistd.h>
 #include<fcntl.h>
@@ -24,8 +26,9 @@ using std::vector;
 static uint32_t TICK_MAX_INTERVAL = 100;
 static uint32_t TICK_MIN_INTERVAL = 10;
 
-CFrameWork::CFrameWork(CApplication& app)
-:m_application(app)
+string CFrameWork::m_confFilename = "";
+
+CFrameWork::CFrameWork()
 {
     m_sleepTime = TICK_MIN_INTERVAL;
 }
@@ -37,12 +40,12 @@ CFrameWork::~CFrameWork()
 void CFrameWork::Run()
 {
 
-    m_pTimer = make_shared<asio::system_timer>(m_application.GetAsioContext());
+    m_pTimer = make_shared<asio::system_timer>(CApplication::Instance().GetAsioContext());
     m_pTimer->expires_from_now(std::chrono::milliseconds(m_sleepTime));
     m_pTimer->async_wait(std::bind(&CFrameWork::TimerTick, this, std::placeholders::_1));
 
     try {
-        m_application.GetAsioContext().run();
+        CApplication::Instance().GetAsioContext().run();
     }catch (std::exception& e){
         std::cout << "asio error " << e.what() << std::endl;
         LOG_ERROR("asio error:{}", e.what());
@@ -51,8 +54,11 @@ void CFrameWork::Run()
 }
 
 void CFrameWork::ShutDown(){
-    m_application.ShutDown();
-    m_application.OverShutDown();
+    LOG_DEBUG("FrameWork ShutDown:{}",CApplication::Instance().GetServerID());
+    PROFILE_SHUTDOWN("profile",CApplication::Instance().GetServerID());
+
+    CApplication::Instance().ShutDown();
+    CApplication::Instance().OverShutDown();
 }
 
 void CFrameWork::TimerTick(const std::error_code& err)
@@ -62,8 +68,8 @@ void CFrameWork::TimerTick(const std::error_code& err)
     uint64_t sleepTime = 0;
     if (!err) {
         startTime = getTickCount64();
-        m_application.PreTick();
-        m_application.Tick();
+        CApplication::Instance().PreTick();
+        CApplication::Instance().Tick();
 
         endTime = getTickCount64();
         sleepTime = endTime-startTime;
@@ -76,28 +82,31 @@ void CFrameWork::TimerTick(const std::error_code& err)
     }
     else {
         LOG_ERROR("asio timer is error,shutdown");
-        m_application.GetAsioContext().stop();
+        CApplication::Instance().GetAsioContext().stop();
     }
 
 }
 
 void CFrameWork::InitializeEnvironment(int argc, char* argv[])
 {
+    PROFILE_INIT();
+
     ParseInputParam(argc, argv);
-    asio::signal_set sigset(m_application.GetAsioContext(), SIGUSR2, SIGUSR1);
-    sigset.async_wait(std::bind(&CFrameWork::SignalHandler, this, std::placeholders::_1, std::placeholders::_2));
+
+    signal(SIGUSR2, ReloadConfig);
+    signal(SIGUSR1, StopRun);
 
     LoadConfig();
     //提前写入进程id,防止多次启动
     WritePidToFile();
 
-    m_application.PreInit();
-    m_application.GetSolLuaState()["set_server_cfg"](m_application.GetServerID(), &m_serverCfg);
+    CApplication::Instance().PreInit();
+    CApplication::Instance().GetSolLuaState()["set_server_cfg"](CApplication::Instance().GetServerID(), &m_serverCfg);
     InitSpdlog();
     InitMysqlSpdlog();
 
-    m_application.OverPreInit();
-    bool bRet = m_application.Initialize();
+    CApplication::Instance().OverPreInit();
+    bool bRet = CApplication::Instance().Initialize();
     if (bRet==false) {
         exit(1);
     }
@@ -169,7 +178,7 @@ void CFrameWork::ParseInputParam(int argc, char* argv[])
         exit(1);
         return;
     }
-    m_application.SetServerID(a.get<int>("sid"));
+    CApplication::Instance().SetServerID(a.get<int>("sid"));
     SetTickTime(a.get<int>("tick"));
     string cfgName = a.get<string>("cfg");
 
@@ -178,27 +187,26 @@ void CFrameWork::ParseInputParam(int argc, char* argv[])
 
 void CFrameWork::LoadConfig()
 {
-    m_application.GetSolLuaState().do_file(m_confFilename);
+    CApplication::Instance().GetSolLuaState().do_file(m_confFilename);
 }
-
-void CFrameWork::SignalHandler(const std::error_code& err, int signal)
+void CFrameWork::ReloadConfig(int iSig)
 {
-    switch (signal) {
-    case SIGUSR1: {
-        m_application.GetAsioContext().stop();
-        LOG_DEBUG("program exiting...");
-    }
-        break;
-    case SIGUSR2: {
+    if (iSig == SIGUSR2)
+    {
         LOG_DEBUG("program reload config...");
-        m_application.GetAsioContext().post([this]() {
-            m_application.GetSolLuaState().do_file(m_confFilename);
-            m_application.ConfigurationChanged();
+        CApplication::Instance().GetAsioContext().post([]() {
+            CApplication::Instance().GetSolLuaState().do_file(m_confFilename);
+            CApplication::Instance().ConfigurationChanged();
         });
     }
-        break;
-    default:
-        break;
+}
+
+void CFrameWork::StopRun(int iSig)
+{
+    if (iSig == SIGUSR1)
+    {
+        LOG_DEBUG("signal program exiting...");
+        CApplication::Instance().GetAsioContext().stop();
     }
 }
 
@@ -207,7 +215,7 @@ void CFrameWork::WritePidToFile()
     std::ostringstream oss;
     oss << getpid();
     std::string strShFileName = CHelper::GetExeDir();
-    strShFileName = CStringUtility::FormatToString("pid_%d.txt", m_application.GetServerID());
+    strShFileName = CStringUtility::FormatToString("pid_%d.txt", CApplication::Instance().GetServerID());
 
     CFileHelper oFile(strShFileName.c_str(), CFileHelper::MOD_WRONLY_TRUNC);
     oFile.Write(0, oss.str().c_str(), oss.str().length());

@@ -2,7 +2,7 @@
 
 #include <string>
 #include "sol/sol.hpp"
-#include "fundamental/noncopyable.h"
+#include "modern/noncopyable.hpp"
 
 namespace svrlib {
 

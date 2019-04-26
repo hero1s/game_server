@@ -3,10 +3,11 @@
 #include <atomic>
 #include <cstdint>
 #include "noncopyable.hpp"
+#include <thread>
 /* read write lock */
 namespace svrlib
 {
-    class rwlock : public moon::noncopyable
+    class rwlock : public noncopyable
     {
     public:
         rwlock()

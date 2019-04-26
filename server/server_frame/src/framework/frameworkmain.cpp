@@ -11,6 +11,7 @@
 #include "utility/comm_macro.h"
 #include "config/config.h"
 #include "lua_service/lua_bind.h"
+#include <memory>
 
 using namespace svrlib;
 
@@ -21,13 +22,13 @@ int FrameworkMain(int argc, char *argv[]) {
     mallopt(M_ARENA_MAX, 1);
 
     try {
-        CFrameWork frameWork(CApplication::Instance());
-        frameWork.InitializeEnvironment(argc, argv);
 
-        frameWork.Run();
+        CFrameWork::Instance().InitializeEnvironment(argc, argv);
+
+        CFrameWork::Instance().Run();
         LOG_DEBUG("application shutdown");
 
-        frameWork.ShutDown();
+        CFrameWork::Instance().ShutDown();
     }
     catch (char const *what) {
         std::cout << what << std::endl;
@@ -37,7 +38,7 @@ int FrameworkMain(int argc, char *argv[]) {
         std::cout << "sol error " << e.what() << std::endl;
         LOG_ERROR("sol error:{}", e.what());
     }
-
+    LOG_DEBUG("exit over:{}",CApplication::Instance().GetServerID());
     return 0;
 }
 
