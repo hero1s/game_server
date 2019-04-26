@@ -14,6 +14,8 @@
 #include <iostream>
 #include "utility/time_function.h"
 #include "msg_define.pb.h"
+#include "network_asio/tcp.h"
+#include "network_asio/message.hpp"
 
 using namespace svrlib;
 using namespace std;
@@ -73,6 +75,39 @@ bool CApplication::Initialize()
 	LOG_INFO("center server start is successed {}", m_uiServerID);
 
 	m_luaService->start();
+
+	auto tcp = std::make_shared<moon::tcp>(m_ioContext);
+	tcp->init({});
+	tcp->listen("127.0.0.1","12345");
+	tcp->on_message = [](const moon::message_ptr_t& msg){
+		switch (static_cast<moon::socket_data_type>(msg->subtype())){
+			case moon::socket_data_type::socket_accept :
+			{
+				LOG_DEBUG("network accept {}",msg->bytes());
+				break;
+			}
+			case moon::socket_data_type::socket_recv:
+			{
+				LOG_DEBUG("network recv:{}",msg->bytes());
+				break;
+			}
+			case moon::socket_data_type::socket_error:
+			{
+				LOG_DEBUG("network error:{}",msg->bytes());
+				break;
+			}
+			case moon::socket_data_type::socket_close:
+			{
+				LOG_DEBUG("network close:{}",msg->bytes());
+				break;
+			}
+			case moon::socket_data_type::socket_connect:
+			{
+				LOG_DEBUG("network connect:{}",msg->bytes());
+				break;
+			}
+		}
+	};
 
 	return true;
 }
