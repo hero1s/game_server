@@ -23,10 +23,6 @@ public:
 
 	virtual ~CPlayer();
 
-	virtual bool SendMsgToClient(const google::protobuf::Message* msg, uint16_t msg_type, uint8_t compress = 0, uint8_t encrypt = 0);
-
-	virtual bool SendMsgToClient(const void* msg, uint16_t msg_len, uint16_t msg_type, uint8_t compress = 0, uint8_t encrypt = 0);
-
 	virtual void OnLoginOut();
 
 	virtual void OnLogin();

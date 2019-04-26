@@ -29,23 +29,6 @@ CPlayer::~CPlayer()
 {
 
 }
-bool CPlayer::SendMsgToClient(const google::protobuf::Message* msg, uint16_t msg_type, uint8_t compress, uint8_t encrypt)
-{
-	if (msg->ByteSize() > 500)
-	{
-		return CPlayerBase::SendMsgToClient(msg, msg_type, 1, encrypt);
-	}
-	return CPlayerBase::SendMsgToClient(msg, msg_type, compress, encrypt);
-}
-
-bool CPlayer::SendMsgToClient(const void* msg, uint16_t msg_len, uint16_t msg_type, uint8_t compress, uint8_t encrypt)
-{
-	if (msg_len > 500)
-	{
-		return CPlayerBase::SendMsgToClient(msg, msg_len, msg_type, 1, encrypt);
-	}
-	return CPlayerBase::SendMsgToClient(msg, msg_len, msg_type, compress, encrypt);
-}
 
 void CPlayer::OnLoginOut()
 {

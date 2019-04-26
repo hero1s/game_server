@@ -38,7 +38,7 @@ int CHandleClientMsg::handle_msg_heart()
 {
 	net::msg_heart_test msg;
 	msg.set_svr_time(getSysTime());
-	SendProtobufMsg(_pNetObj, &msg, net::C2S_MSG_HEART, 0);
+	pkg_client::SendProtobufMsg(_pNetObj, &msg, net::C2S_MSG_HEART, 0);
 	return 0;
 }
 
@@ -66,7 +66,7 @@ int CHandleClientMsg::handle_msg_login()
 			LOG_ERROR("check passwd error {}-PHP:{}--c++:{}", uid, strDecyPHP, strDecy);
 			LOG_ERROR("the ip is:{},svrtime:{},sendtime:{}", _pNetObj->GetIP(), getSysTime(), msg.check_time());
 			repmsg.set_result(-1);
-			SendProtobufMsg(_pNetObj, &repmsg, net::S2C_MSG_LOGIN_REP, 0);
+			pkg_client::SendProtobufMsg(_pNetObj, &repmsg, net::S2C_MSG_LOGIN_REP, 0);
 			return -1;
 		}
 	}
@@ -77,7 +77,7 @@ int CHandleClientMsg::handle_msg_login()
 		if (pPlayerUid == NULL)
 		{
 			repmsg.set_result(0);
-			SendProtobufMsg(_pNetObj, &repmsg, net::S2C_MSG_LOGIN_REP, 0);
+			pkg_client::SendProtobufMsg(_pNetObj, &repmsg, net::S2C_MSG_LOGIN_REP, 0);
 			LOG_ERROR("服务器维护状态，只有在玩玩家能进入");
 			_pNetObj->Disconnect(false);
 			return 0;

@@ -99,20 +99,19 @@ string CPlayerBase::GetIPStr() {
     return CHelper::ValueToIP(m_baseInfo.login_ip());
 }
 
-bool CPlayerBase::SendMsgToClient(const google::protobuf::Message *msg, uint16_t msg_type, uint8_t compress,
-                                  uint8_t encrypt) {
+bool CPlayerBase::SendMsgToClient(const google::protobuf::Message *msg, uint16_t msg_type) {
     if (m_pSession) {
         //LOG_DEBUG("{} 发送消息:{}--len:{}",GetUID(),msg_type,msg->ByteSize());
-        return SendProtobufMsg(m_pSession, msg, msg_type, GetUID(), compress, encrypt);
+        return pkg_client::SendProtobufMsg(m_pSession, msg, msg_type, GetUID());
     }
     return false;
 }
 
 bool
-CPlayerBase::SendMsgToClient(const void *msg, uint16_t msg_len, uint16_t msg_type, uint8_t compress, uint8_t encrypt) {
+CPlayerBase::SendMsgToClient(const void *msg, uint16_t msg_len, uint16_t msg_type) {
     if (m_pSession) {
         //LOG_DEBUG("{} 发送消息:{}--len:{}",GetUID(),msg_type,msg_len);
-        return SendProtobufMsg(m_pSession, msg, msg_len, msg_type, GetUID(), compress, encrypt);
+        return pkg_client::SendBuffMsg(m_pSession, msg, msg_len, msg_type, GetUID());
     }
     return false;
 }

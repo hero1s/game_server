@@ -25,7 +25,7 @@ private:
 	};
 
 	virtual uint16_t GetPacketLen(const uint8_t *pData, uint16_t wLen) {
-		return GetProtobufPacketLen(pData, wLen);
+		return pkg_client::GetProtobufPacketLen(pData, wLen);
 	};
 
 	virtual uint16_t MaxTickPacket() {
