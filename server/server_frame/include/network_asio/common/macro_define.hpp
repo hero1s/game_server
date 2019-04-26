@@ -39,16 +39,12 @@ namespace moon
     using wstring_view_t = std::wstring_view;
 }
 
-#define BREAK_IF(x) if(x) break;
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(x) if(nullptr != x) {delete x; x = nullptr;}
 #endif
 #ifndef SAFE_DELETE_ARRAY
 #define SAFE_DELETE_ARRAY(x) if(nullptr != x) {delete []x; x = nullptr;}
 #endif
-
-#define VA_ARGS_NUM(...) std::tuple_size<decltype(std::make_tuple(__VA_ARGS__))>::value
-
 
 #define DECLARE_SHARED_PTR(classname)\
 class classname;\
@@ -64,8 +60,6 @@ using classname##_wptr_t = std::weak_ptr<classname>;
 
 #define thread_sleep(x)  std::this_thread::sleep_for(std::chrono::milliseconds(x));
 
-#define SHARED_LOCK_GURAD(lock) std::shared_lock<decltype(lock)> lk(lock);
-#define UNIQUE_LOCK_GURAD(lock) std::unique_lock<decltype(lock)> lk(lock);
 
 
 

@@ -15,8 +15,8 @@ using namespace Network;
 #pragma  pack(1)
 //内部数据包头------------------------------------------------------------------------------------------------------------
 typedef struct inner_header_t {
-    uint8_t route;         // 路由类型
-    uint32_t routeID;     // 路由ID
+    uint8_t route;          // 路由类型
+    uint32_t routeID;       // 路由ID
     uint32_t uin;           // uin(服务器内部转发用)
     uint16_t cmd;           // 消息id
     uint16_t datalen;       // 消息数据长度(不包括包头)
