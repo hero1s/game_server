@@ -26,7 +26,7 @@ public:
     };
 
     virtual uint16_t GetPacketLen(const uint8_t *pData, uint16_t wLen) {
-        return pkg_inner::GetInnerPacketLen(pData, wLen);
+        return pkg_inner::GetPacketLen(pData, wLen);
     };
 
     virtual uint16_t MaxTickPacket() {

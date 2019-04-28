@@ -25,12 +25,12 @@ CServerClient::~CServerClient()
 
 void CServerClient::SendMsg(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin)
 {
-    pkg_inner::SendInnerMsg(m_pNetObj, msg, msg_type, uin,0,0);
+    pkg_inner::SendProtobufMsg(m_pNetObj, msg, msg_type, uin,0,0);
 }
 
 void CServerClient::SendMsg(const uint8_t* pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin)
 {
-    pkg_inner::SendInnerBuffMsg(m_pNetObj, pkt_buf, buf_len, msg_type, uin,0,0);
+    pkg_inner::SendBuffMsg(m_pNetObj, pkt_buf, buf_len, msg_type, uin,0,0);
 }
 
 NetworkObject* CServerClient::GetNetObj()
@@ -262,7 +262,7 @@ int CCenterMgr::handle_msg_register_svr()
     }
     repmsg.set_result(bRet);
 
-    pkg_inner::SendInnerMsg(_pNetObj, &repmsg, net::CS2S_MSG_REGISTER_CENTER_REP, 0,0,0);
+    pkg_inner::SendProtobufMsg(_pNetObj, &repmsg, net::CS2S_MSG_REGISTER_CENTER_REP, 0,0,0);
 
     return 0;
 }

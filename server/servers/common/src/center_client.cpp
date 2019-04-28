@@ -108,7 +108,7 @@ bool CCenterClientMgr::IsRun()
 void CCenterClientMgr::SendMsg2Center(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin, uint8_t route, uint32_t routeID)
 {
 	if (!m_isRun || m_pNetObj == NULL)return;
-	pkg_inner::SendInnerMsg(m_pNetObj, msg, msg_type, uin, route, routeID);
+	pkg_inner::SendProtobufMsg(m_pNetObj, msg, msg_type, uin, route, routeID);
 }
 //ЗўЮёЦїзЂВс
 int CCenterClientMgr::handle_msg_register_svr_rep()

@@ -35,7 +35,7 @@ typedef struct {
 
 class pkg_inner {
 public:
-    static int GetInnerPacketLen(const uint8_t *pData, uint16_t wLen) {
+    static int GetPacketLen(const uint8_t *pData, uint16_t wLen) {
         if (pData == NULL) {
             return -1;
         }
@@ -51,18 +51,18 @@ public:
     }
 
     static bool
-    SendInnerMsg(NetworkObject *pNetObj, const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin,
+    SendProtobufMsg(NetworkObject *pNetObj, const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin,
                  uint8_t route, uint32_t routeID) {
         if (pNetObj == NULL) {
             return false;
         }
         string sstr;
         msg->SerializeToString(&sstr);
-        return SendInnerBuffMsg(pNetObj, sstr.c_str(), sstr.length(), msg_type, uin, route, routeID);
+        return SendBuffMsg(pNetObj, sstr.c_str(), sstr.length(), msg_type, uin, route, routeID);
     }
 
     static bool
-    SendInnerBuffMsg(NetworkObject *pNetObj, const void *msg, uint16_t msg_len, uint16_t msg_type, uint32_t uin,
+    SendBuffMsg(NetworkObject *pNetObj, const void *msg, uint16_t msg_len, uint16_t msg_type, uint32_t uin,
                      uint8_t route, uint32_t routeID) {
         if (pNetObj == NULL) {
             return false;
