@@ -125,5 +125,29 @@ catch (sol::error& e)\
 
 #endif
 
+#ifndef DUMP_PROTO_MSG_INFO
+
+#define DUMP_PROTO_MSG_INFO(msg) \
+do { \
+    LOG_INFO("Dump {}{}{}", (msg).GetTypeName(), ":\n", (msg).DebugString()); \
+} while (0)
+
+#define DUMP_PROTO_MSG_WARNING(msg) \
+do { \
+    LOG_WARNING("Dump {}{}{}", (msg).GetTypeName(), ":\n", (msg).DebugString()); \
+} while (0)
+
+#define DUMP_PROTO_MSG_ERROR(msg) \
+do { \
+    LOG_ERROR("Dump {}{}{}", (msg).GetTypeName(), ":\n", (msg).DebugString()); \
+} while (0)
+
+#endif
+
+
+
+
+
+
 
 
