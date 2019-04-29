@@ -76,6 +76,7 @@ bool CApplication::Initialize()
 
 	m_luaService->start();
 
+	//test tcp asio
 	auto tcp = std::make_shared<moon::tcp>(m_ioContext);
 	tcp->init({});
 	tcp->listen("127.0.0.1","12345");

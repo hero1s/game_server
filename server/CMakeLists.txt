@@ -195,8 +195,6 @@ add_executable(server
         server_frame/src/network/TLock.cpp
         server_frame/src/network/TLock.h
         server_frame/src/network_asio/tcp.cpp
-        server_frame/src/packet/inner_protobuf_pkg.cpp
-        server_frame/src/packet/protobuf_pkg.cpp
         server_frame/src/redis/redisclient.cpp
         server_frame/src/utility/basic_functions.cpp
         server_frame/src/utility/cooling.cpp
@@ -251,4 +249,4 @@ add_executable(server
         servers/pb/src/res.pb.cc
         servers/pb/src/res.pb.h
         servers/pb/src/servers_msg.pb.cc
-        servers/pb/src/servers_msg.pb.h)
+        servers/pb/src/servers_msg.pb.h server_frame/include/utility/shm_buff_queue.h server_frame/src/utility/shm_buff_queue.cpp)
