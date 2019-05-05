@@ -51,7 +51,7 @@ bool CRedisMgr::Init(asio::io_context & context, stRedisConf & conf) {
                 LOG_ERROR("redis auth is error:{}", result.toString());
             }
         }
-    } catch (asio::system_error e) {
+    } catch (const asio::system_error& e) {
         LOG_ERROR("redis throw error:{}", e.what());
         return false;
     }
@@ -73,7 +73,7 @@ bool CRedisMgr::Init(asio::io_context & context, stRedisConf & conf) {
                 LOG_ERROR("Can't connect to redis: {}", ec.message());
             }
         });
-    } catch (asio::system_error e) {
+    } catch (const asio::system_error& e) {
         LOG_ERROR("redis throw error:{}", e.what());
         return false;
     }
