@@ -56,7 +56,7 @@ namespace Network
 		}
 		memset(key, 0, 512);
 		svrlib::base64::encode(key, reinterpret_cast<const char *>(message_digest), 20);
-		char http_res[512] = "";
+		char http_res[640] = "";
 		sprintf(http_res, WEB_SOCKET_HANDS_RE, key);
 		m_pSendBuffer->Write((uint8_t*)http_res, strlen(http_res));
 		shake_hands_ = true;
