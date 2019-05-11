@@ -11,7 +11,7 @@ namespace detail
 
 inline void throwError(const asio::error_code &ec)
 {
-    boost::system::system_error error(ec);
+    asio::system_error error(ec);
     throw error;
 }
 

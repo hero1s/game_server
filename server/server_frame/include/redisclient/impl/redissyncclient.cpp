@@ -17,8 +17,8 @@ namespace redisclient {
 
 RedisSyncClient::RedisSyncClient(asio::io_service &ioService)
     : pimpl(std::make_shared<RedisClientImpl>(ioService)),
-    connectTimeout(boost::posix_time::hours(365 * 24)),
-    commandTimeout(boost::posix_time::hours(365 * 24)),
+    connectTimeout(365*24*60*60),
+    commandTimeout(365*24*60*60),
     tcpNoDelay(true), tcpKeepAlive(false)
 {
     pimpl->errorHandler = std::bind(&RedisClientImpl::defaulErrorHandler, std::placeholders::_1);
@@ -97,7 +97,7 @@ void RedisSyncClient::connect(const asio::ip::tcp::endpoint &endpoint,
                 pfd.fd = socket;
                 pfd.events = POLLOUT;
 
-                result = ::poll(&pfd, 1, connectTimeout.total_milliseconds());
+                result = ::poll(&pfd, 1, connectTimeout.count()*1000);
 
                 if (result < 0)
                 {
@@ -290,7 +290,7 @@ bool RedisSyncClient::stateValid() const
 }
 
 RedisSyncClient &RedisSyncClient::setConnectTimeout(
-        const boost::posix_time::time_duration &timeout)
+        const std::chrono::duration<int> &timeout)
 {
     connectTimeout = timeout;
     return *this;
@@ -298,7 +298,7 @@ RedisSyncClient &RedisSyncClient::setConnectTimeout(
 
 
 RedisSyncClient &RedisSyncClient::setCommandTimeout(
-        const boost::posix_time::time_duration &timeout)
+        const std::chrono::duration<int> &timeout)
 {
     commandTimeout = timeout;
     return *this;

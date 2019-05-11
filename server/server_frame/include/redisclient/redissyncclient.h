@@ -23,7 +23,7 @@ namespace redisclient {
 class RedisClientImpl;
 class Pipeline;
 
-class RedisSyncClient : boost::noncopyable {
+class RedisSyncClient : asio::detail::noncopyable {
 public:
     typedef RedisClientImpl::State State;
 
@@ -82,9 +82,9 @@ public:
     REDIS_CLIENT_DECL State state() const;
 
     REDIS_CLIENT_DECL RedisSyncClient &setConnectTimeout(
-            const boost::posix_time::time_duration &timeout);
+            const std::chrono::duration<int> &timeout);
     REDIS_CLIENT_DECL RedisSyncClient &setCommandTimeout(
-            const boost::posix_time::time_duration &timeout);
+            const std::chrono::duration<int> &timeout);
 
     REDIS_CLIENT_DECL RedisSyncClient &setTcpNoDelay(bool enable);
     REDIS_CLIENT_DECL RedisSyncClient &setTcpKeepAlive(bool enable);
@@ -94,8 +94,8 @@ protected:
 
 private:
     std::shared_ptr<RedisClientImpl> pimpl;
-    boost::posix_time::time_duration connectTimeout;
-    boost::posix_time::time_duration commandTimeout;
+    std::chrono::duration<int> connectTimeout;
+    std::chrono::duration<int> commandTimeout;
     bool tcpNoDelay;
     bool tcpKeepAlive;
 };

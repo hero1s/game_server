@@ -23,7 +23,7 @@ namespace redisclient {
 
 class RedisClientImpl;
 
-class RedisAsyncClient : boost::noncopyable {
+class RedisAsyncClient : asio::detail::noncopyable {
 public:
     // Subscribe handle.
     struct Handle {
