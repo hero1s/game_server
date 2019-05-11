@@ -6,7 +6,7 @@
 #ifndef REDISCLIENT_REDISCLIENTIMPL_CPP
 #define REDISCLIENT_REDISCLIENTIMPL_CPP
 
-#include <boost/asio/write.hpp>
+#include <asio/write.hpp>
 
 #include <algorithm>
 
@@ -25,9 +25,9 @@ namespace
     inline void bufferAppend(std::vector<char> &vec, const redisclient::RedisBuffer &buf)
     {
         if (buf.data.type() == typeid(std::string))
-            bufferAppend(vec, boost::get<std::string>(buf.data));
+            bufferAppend(vec, std::get<std::string>(buf.data));
         else
-            bufferAppend(vec, boost::get<std::vector<char>>(buf.data));
+            bufferAppend(vec, std::get<std::vector<char>>(buf.data));
     }
 
     inline void bufferAppend(std::vector<char> &vec, const std::string &s)
@@ -85,9 +85,9 @@ namespace
         }
     }
 
-    size_t socketReadSome(int socket, boost::asio::mutable_buffer buffer,
+    size_t socketReadSome(int socket, asio::mutable_buffer buffer,
             const boost::posix_time::time_duration &timeout,
-            boost::system::error_code &ec)
+            asio::error_code &ec)
     {
         size_t bytesRecv = 0;
         size_t timeoutMsec = timeout.total_milliseconds();
@@ -95,8 +95,8 @@ namespace
         for(;;)
         {
             ssize_t result = socketReadSomeImpl(socket,
-                    boost::asio::buffer_cast<char *>(buffer) + bytesRecv,
-                    boost::asio::buffer_size(buffer) - bytesRecv, timeoutMsec);
+                    asio::buffer_cast<char *>(buffer) + bytesRecv,
+                    asio::buffer_size(buffer) - bytesRecv, timeoutMsec);
 
             if (result < 0)
             {
@@ -106,16 +106,16 @@ namespace
                 }
                 else
                 {
-                    ec = boost::system::error_code(errno,
-                            boost::asio::error::get_system_category());
+                    ec = asio::error_code(errno,
+                            asio::error::get_system_category());
                     break;
                 }
             }
             else if (result == 0)
             {
-                // boost::asio::error::connection_reset();
-                // boost::asio::error::eof
-                ec = boost::asio::error::eof;
+                // asio::error::connection_reset();
+                // asio::error::eof
+                ec = asio::error::eof;
                 break;
             }
             else
@@ -157,18 +157,18 @@ namespace
         }
     }
 
-    size_t socketWrite(int socket, boost::asio::const_buffer buffer,
+    size_t socketWrite(int socket, asio::const_buffer buffer,
             const boost::posix_time::time_duration &timeout,
-            boost::system::error_code &ec)
+            asio::error_code &ec)
     {
         size_t bytesSend = 0;
         size_t timeoutMsec = timeout.total_milliseconds();
 
-        while(bytesSend < boost::asio::buffer_size(buffer))
+        while(bytesSend < asio::buffer_size(buffer))
         {
             ssize_t result = socketWriteImpl(socket,
-                    boost::asio::buffer_cast<const char *>(buffer) + bytesSend,
-                    boost::asio::buffer_size(buffer) - bytesSend, timeoutMsec);
+                    asio::buffer_cast<const char *>(buffer) + bytesSend,
+                    asio::buffer_size(buffer) - bytesSend, timeoutMsec);
 
             if (result < 0)
             {
@@ -178,16 +178,16 @@ namespace
                 }
                 else
                 {
-                    ec = boost::system::error_code(errno,
-                            boost::asio::error::get_system_category());
+                    ec = asio::error_code(errno,
+                            asio::error::get_system_category());
                     break;
                 }
             }
             else if (result == 0)
             {
-                    // boost::asio::error::connection_reset();
-                    // boost::asio::error::eof
-                    ec = boost::asio::error::eof;
+                    // asio::error::connection_reset();
+                    // asio::error::eof
+                    ec = asio::error::eof;
                     break;
             }
             else
@@ -199,9 +199,9 @@ namespace
         return bytesSend;
     }
 
-    size_t socketWrite(int socket, const std::vector<boost::asio::const_buffer> &buffers,
+    size_t socketWrite(int socket, const std::vector<asio::const_buffer> &buffers,
             const boost::posix_time::time_duration &timeout,
-            boost::system::error_code &ec)
+            asio::error_code &ec)
     {
         size_t bytesSend = 0;
         for(const auto &buffer: buffers)
@@ -218,7 +218,7 @@ namespace
 
 namespace redisclient {
 
-RedisClientImpl::RedisClientImpl(boost::asio::io_service &ioService_)
+RedisClientImpl::RedisClientImpl(asio::io_service &ioService_)
     : ioService(ioService_), strand(ioService), socket(ioService),
     bufSize(0),subscribeSeq(0), state(State::Unconnected)
 {
@@ -231,13 +231,13 @@ RedisClientImpl::~RedisClientImpl()
 
 void RedisClientImpl::close() noexcept
 {
-    boost::system::error_code ignored_ec;
+    asio::error_code ignored_ec;
 
     msgHandlers.clear();
     decltype(handlers)().swap(handlers);
 
     socket.cancel(ignored_ec);
-    socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, ignored_ec);
+    socket.shutdown(asio::ip::tcp::socket::shutdown_both, ignored_ec);
     socket.close(ignored_ec);
 
     state = State::Closed;
@@ -250,7 +250,7 @@ RedisClientImpl::State RedisClientImpl::getState() const
 
 void RedisClientImpl::processMessage()
 {
-    socket.async_read_some(boost::asio::buffer(buf),
+    socket.async_read_some(asio::buffer(buf),
                            std::bind(&RedisClientImpl::asyncRead,
                                        shared_from_this(), std::placeholders::_1, std::placeholders::_2));
 }
@@ -334,7 +334,7 @@ void RedisClientImpl::doProcessMessage(RedisValue v)
     }
 }
 
-void RedisClientImpl::asyncWrite(const boost::system::error_code &ec, size_t)
+void RedisClientImpl::asyncWrite(const asio::error_code &ec, size_t)
 {
     dataWrited.clear();
 
@@ -346,28 +346,28 @@ void RedisClientImpl::asyncWrite(const boost::system::error_code &ec, size_t)
 
     if( dataQueued.empty() == false )
     {
-        std::vector<boost::asio::const_buffer> buffers(dataQueued.size());
+        std::vector<asio::const_buffer> buffers(dataQueued.size());
 
         for(size_t i = 0; i < dataQueued.size(); ++i)
         {
-            buffers[i] = boost::asio::buffer(dataQueued[i]);
+            buffers[i] = asio::buffer(dataQueued[i]);
         }
 
         std::swap(dataQueued, dataWrited);
 
-        boost::asio::async_write(socket, buffers,
+        asio::async_write(socket, buffers,
                 std::bind(&RedisClientImpl::asyncWrite, shared_from_this(),
                     std::placeholders::_1, std::placeholders::_2));
     }
 }
 
-void RedisClientImpl::handleAsyncConnect(const boost::system::error_code &ec,
-            std::function<void(boost::system::error_code)> handler)
+void RedisClientImpl::handleAsyncConnect(const asio::error_code &ec,
+            std::function<void(asio::error_code)> handler)
 {
     if( !ec )
     {
-        boost::system::error_code ec2; // Ignore errors in set_option
-        socket.set_option(boost::asio::ip::tcp::no_delay(true), ec2);
+        asio::error_code ec2; // Ignore errors in set_option
+        socket.set_option(asio::ip::tcp::no_delay(true), ec2);
         state = State::Connected;
         handler(ec);
         processMessage();
@@ -400,10 +400,10 @@ std::vector<char> RedisClientImpl::makeCommand(const std::deque<RedisBuffer> &it
 }
 RedisValue RedisClientImpl::doSyncCommand(const std::deque<RedisBuffer> &command,
         const boost::posix_time::time_duration &timeout,
-        boost::system::error_code &ec)
+        asio::error_code &ec)
 {
     std::vector<char> data = makeCommand(command);
-    socketWrite(socket.native_handle(), boost::asio::buffer(data), timeout, ec);
+    socketWrite(socket.native_handle(), asio::buffer(data), timeout, ec);
 
     if( ec )
     {
@@ -415,10 +415,10 @@ RedisValue RedisClientImpl::doSyncCommand(const std::deque<RedisBuffer> &command
 
 RedisValue RedisClientImpl::doSyncCommand(const std::deque<std::deque<RedisBuffer>> &commands,
         const boost::posix_time::time_duration &timeout,
-        boost::system::error_code &ec)
+        asio::error_code &ec)
 {
     std::vector<std::vector<char>> data;
-    std::vector<boost::asio::const_buffer> buffers;
+    std::vector<asio::const_buffer> buffers;
 
     data.reserve(commands.size());
     buffers.reserve(commands.size());
@@ -426,7 +426,7 @@ RedisValue RedisClientImpl::doSyncCommand(const std::deque<std::deque<RedisBuffe
     for(const auto &command: commands)
     {
         data.push_back(makeCommand(command));
-        buffers.push_back(boost::asio::buffer(data.back()));
+        buffers.push_back(asio::buffer(data.back()));
     }
 
     socketWrite(socket.native_handle(), buffers, timeout, ec);
@@ -453,14 +453,14 @@ RedisValue RedisClientImpl::doSyncCommand(const std::deque<std::deque<RedisBuffe
 
 RedisValue RedisClientImpl::syncReadResponse(
         const boost::posix_time::time_duration &timeout,
-        boost::system::error_code &ec)
+        asio::error_code &ec)
 {
     for(;;)
     {
         if (bufSize == 0)
         {
             bufSize = socketReadSome(socket.native_handle(),
-                    boost::asio::buffer(buf), timeout, ec);
+                    asio::buffer(buf), timeout, ec);
 
             if (ec)
                 return RedisValue();
@@ -502,15 +502,15 @@ void RedisClientImpl::doAsyncCommand(std::vector<char> buff,
     if( dataWrited.empty() )
     {
         // start transmit process
-        asyncWrite(boost::system::error_code(), 0);
+        asyncWrite(asio::error_code(), 0);
     }
 }
 
-void RedisClientImpl::asyncRead(const boost::system::error_code &ec, const size_t size)
+void RedisClientImpl::asyncRead(const asio::error_code &ec, const size_t size)
 {
     if( ec || size == 0 )
     {
-        if (ec != boost::asio::error::operation_aborted)
+        if (ec != asio::error::operation_aborted)
         {
             errorHandler(ec.message());
         }

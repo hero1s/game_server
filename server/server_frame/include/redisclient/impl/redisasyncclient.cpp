@@ -14,7 +14,7 @@
 
 namespace redisclient {
 
-RedisAsyncClient::RedisAsyncClient(boost::asio::io_service &ioService)
+RedisAsyncClient::RedisAsyncClient(asio::io_service &ioService)
     : pimpl(std::make_shared<RedisClientImpl>(ioService))
 {
     pimpl->errorHandler = std::bind(&RedisClientImpl::defaulErrorHandler, std::placeholders::_1);
@@ -25,8 +25,8 @@ RedisAsyncClient::~RedisAsyncClient()
     pimpl->close();
 }
 
-void RedisAsyncClient::connect(const boost::asio::ip::tcp::endpoint &endpoint,
-                               std::function<void(boost::system::error_code)> handler)
+void RedisAsyncClient::connect(const asio::ip::tcp::endpoint &endpoint,
+                               std::function<void(asio::error_code)> handler)
 {
     if( pimpl->state == State::Closed )
     {
@@ -46,14 +46,14 @@ void RedisAsyncClient::connect(const boost::asio::ip::tcp::endpoint &endpoint,
         //std::stringstream ss;
         //ss << "RedisAsyncClient::connect called on socket with state " << to_string(pimpl->state);
         //handler(false, ss.str());
-        handler(boost::system::error_code());
+        handler(asio::error_code());
     }
 }
 
 #ifdef BOOST_ASIO_HAS_LOCAL_SOCKETS
 
-void RedisAsyncClient::connect(const boost::asio::local::stream_protocol::endpoint &endpoint,
-                               std::function<void(boost::system::error_code)> handler)
+void RedisAsyncClient::connect(const asio::local::stream_protocol::endpoint &endpoint,
+                               std::function<void(asio::error_code)> handler)
 {
     if( pimpl->state == State::Unconnected || pimpl->state == State::Closed )
     {
@@ -67,7 +67,7 @@ void RedisAsyncClient::connect(const boost::asio::local::stream_protocol::endpoi
         //std::stringstream ss;
         //ss << "RedisAsyncClient::connect called on socket with state " << to_string(pimpl->state);
         //handler(false, ss.str());
-        handler(boost::system::error_code());
+        handler(asio::error_code());
     }
 }
 

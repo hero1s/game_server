@@ -6,7 +6,7 @@
 #ifndef REDISCLIENT_REDISVALUE_H
 #define REDISCLIENT_REDISVALUE_H
 
-#include <boost/variant.hpp>
+#include <variant>
 #include <string>
 #include <vector>
 
@@ -94,7 +94,7 @@ private:
     };
 
 
-    boost::variant<NullTag, int64_t, std::vector<char>, std::vector<RedisValue> > value;
+    std::variant<NullTag, int64_t, std::vector<char>, std::vector<RedisValue> > value;
     bool error;
 };
 
@@ -102,8 +102,8 @@ private:
 template<typename T>
 T RedisValue::castTo() const
 {
-    if( value.type() == typeid(T) )
-        return boost::get<T>(value);
+    if (std::holds_alternative<T>(value))
+        return std::get<T>(value);
     else
         return T();
 }
@@ -111,7 +111,7 @@ T RedisValue::castTo() const
 template<typename T>
 bool RedisValue::typeEq() const
 {
-    if( value.type() == typeid(T) )
+    if (std::holds_alternative<T>(value))
         return true;
     else
         return false;

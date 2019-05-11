@@ -30,7 +30,7 @@ RedisValue Pipeline::finish()
     return client.pipelined(std::move(commands));
 }
 
-RedisValue Pipeline::finish(boost::system::error_code &ec)
+RedisValue Pipeline::finish(asio::error_code &ec)
 {
     return client.pipelined(std::move(commands), ec);
 }

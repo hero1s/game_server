@@ -6,13 +6,13 @@
 #ifndef REDISCLIENT_REDISCLIENTIMPL_H
 #define REDISCLIENT_REDISCLIENTIMPL_H
 
-#include <boost/array.hpp>
+#include <array>
 #include <asio/detail/noncopyable.hpp>
-#include <boost/asio/generic/stream_protocol.hpp>
-#include <boost/asio/ip/tcp.hpp>
-#include <boost/asio/local/stream_protocol.hpp>
-#include <boost/asio/strand.hpp>
-#include <boost/asio/io_service.hpp>
+#include <asio/generic/stream_protocol.hpp>
+#include <asio/ip/tcp.hpp>
+#include <asio/local/stream_protocol.hpp>
+#include <asio/strand.hpp>
+#include <asio/io_service.hpp>
 
 #include <string>
 #include <vector>
@@ -37,12 +37,12 @@ public:
         Closed
     };
 
-    REDIS_CLIENT_DECL RedisClientImpl(boost::asio::io_service &ioService);
+    REDIS_CLIENT_DECL RedisClientImpl(asio::io_service &ioService);
     REDIS_CLIENT_DECL ~RedisClientImpl();
 
     REDIS_CLIENT_DECL void handleAsyncConnect(
-            const boost::system::error_code &ec,
-            std::function<void(boost::system::error_code)> handler);
+            const asio::error_code &ec,
+            std::function<void(asio::error_code)> handler);
 
     REDIS_CLIENT_DECL size_t subscribe(const std::string &command,
         const std::string &channel,
@@ -66,13 +66,13 @@ public:
 
     REDIS_CLIENT_DECL RedisValue doSyncCommand(const std::deque<RedisBuffer> &command,
         const boost::posix_time::time_duration &timeout,
-        boost::system::error_code &ec);
+        asio::error_code &ec);
     REDIS_CLIENT_DECL RedisValue doSyncCommand(const std::deque<std::deque<RedisBuffer>> &commands,
         const boost::posix_time::time_duration &timeout,
-        boost::system::error_code &ec);
+        asio::error_code &ec);
     REDIS_CLIENT_DECL RedisValue syncReadResponse(
             const boost::posix_time::time_duration &timeout,
-            boost::system::error_code &ec);
+            asio::error_code &ec);
 
     REDIS_CLIENT_DECL void doAsyncCommand(
             std::vector<char> buff,
@@ -81,8 +81,8 @@ public:
     REDIS_CLIENT_DECL void sendNextCommand();
     REDIS_CLIENT_DECL void processMessage();
     REDIS_CLIENT_DECL void doProcessMessage(RedisValue v);
-    REDIS_CLIENT_DECL void asyncWrite(const boost::system::error_code &ec, const size_t);
-    REDIS_CLIENT_DECL void asyncRead(const boost::system::error_code &ec, const size_t);
+    REDIS_CLIENT_DECL void asyncWrite(const asio::error_code &ec, const size_t);
+    REDIS_CLIENT_DECL void asyncRead(const asio::error_code &ec, const size_t);
 
     REDIS_CLIENT_DECL void onRedisError(const RedisValue &);
     REDIS_CLIENT_DECL static void defaulErrorHandler(const std::string &s);
@@ -90,9 +90,9 @@ public:
     template<typename Handler>
     inline void post(const Handler &handler);
 
-    boost::asio::io_service &ioService;
-    boost::asio::io_service::strand strand;
-    boost::asio::generic::stream_protocol::socket socket;
+    asio::io_service &ioService;
+    asio::io_service::strand strand;
+    asio::generic::stream_protocol::socket socket;
     RedisParser redisParser;
     boost::array<char, 4096> buf;
     size_t bufSize; // only for sync

@@ -15,7 +15,7 @@
 
 namespace redisclient {
 
-RedisSyncClient::RedisSyncClient(boost::asio::io_service &ioService)
+RedisSyncClient::RedisSyncClient(asio::io_service &ioService)
     : pimpl(std::make_shared<RedisClientImpl>(ioService)),
     connectTimeout(boost::posix_time::hours(365 * 24)),
     commandTimeout(boost::posix_time::hours(365 * 24)),
@@ -40,21 +40,21 @@ RedisSyncClient::~RedisSyncClient()
         pimpl->close();
 }
 
-void RedisSyncClient::connect(const boost::asio::ip::tcp::endpoint &endpoint)
+void RedisSyncClient::connect(const asio::ip::tcp::endpoint &endpoint)
 {
-    boost::system::error_code ec;
+    asio::error_code ec;
 
     connect(endpoint, ec);
     detail::throwIfError(ec);
 }
 
-void RedisSyncClient::connect(const boost::asio::ip::tcp::endpoint &endpoint,
-    boost::system::error_code &ec)
+void RedisSyncClient::connect(const asio::ip::tcp::endpoint &endpoint,
+    asio::error_code &ec)
 {
     pimpl->socket.open(endpoint.protocol(), ec);
 
     if (!ec && tcpNoDelay)
-        pimpl->socket.set_option(boost::asio::ip::tcp::no_delay(true), ec);
+        pimpl->socket.set_option(asio::ip::tcp::no_delay(true), ec);
 
     // TODO keep alive option
 
@@ -70,8 +70,8 @@ void RedisSyncClient::connect(const boost::asio::ip::tcp::endpoint &endpoint,
     int arg = 0;
     if ((arg = fcntl(socket, F_GETFL, NULL)) < 0)
     {
-        ec = boost::system::error_code(errno,
-                boost::asio::error::get_system_category());
+        ec = asio::error_code(errno,
+                asio::error::get_system_category());
         return;
     }
 
@@ -79,8 +79,8 @@ void RedisSyncClient::connect(const boost::asio::ip::tcp::endpoint &endpoint,
 
     if (fcntl(socket, F_SETFL, arg) < 0)
     {
-        ec = boost::system::error_code(errno,
-                boost::asio::error::get_system_category());
+        ec = asio::error_code(errno,
+                asio::error::get_system_category());
         return;
     }
 
@@ -108,8 +108,8 @@ void RedisSyncClient::connect(const boost::asio::ip::tcp::endpoint &endpoint,
                     }
                     else
                     {
-                        ec = boost::system::error_code(errno,
-                                boost::asio::error::get_system_category());
+                        ec = asio::error_code(errno,
+                                asio::error::get_system_category());
                         return;
                     }
                 }
@@ -123,15 +123,15 @@ void RedisSyncClient::connect(const boost::asio::ip::tcp::endpoint &endpoint,
                     if (getsockopt(socket, SOL_SOCKET, SO_ERROR,
                                 reinterpret_cast<void *>(&valopt), &optlen ) < 0)
                     {
-                        ec = boost::system::error_code(errno,
-                                boost::asio::error::get_system_category());
+                        ec = asio::error_code(errno,
+                                asio::error::get_system_category());
                         return;
                     }
 
                     if (valopt)
                     {
-                        ec = boost::system::error_code(valopt,
-                                boost::asio::error::get_system_category());
+                        ec = asio::error_code(valopt,
+                                asio::error::get_system_category());
                         return;
                     }
 
@@ -140,24 +140,24 @@ void RedisSyncClient::connect(const boost::asio::ip::tcp::endpoint &endpoint,
                 else
                 {
                     // timeout
-                    ec = boost::system::error_code(ETIMEDOUT,
-                            boost::asio::error::get_system_category());
+                    ec = asio::error_code(ETIMEDOUT,
+                            asio::error::get_system_category());
                     return;
                 }
             }
         }
         else
         {
-            ec = boost::system::error_code(errno,
-                    boost::asio::error::get_system_category());
+            ec = asio::error_code(errno,
+                    asio::error::get_system_category());
             return;
         }
     }
 
     if ((arg = fcntl(socket, F_GETFL, NULL)) < 0)
     {
-        ec = boost::system::error_code(errno,
-                boost::asio::error::get_system_category());
+        ec = asio::error_code(errno,
+                asio::error::get_system_category());
         return;
     }
 
@@ -165,8 +165,8 @@ void RedisSyncClient::connect(const boost::asio::ip::tcp::endpoint &endpoint,
 
     if (fcntl(socket, F_SETFL, arg) < 0)
     {
-        ec = boost::system::error_code(errno,
-                boost::asio::error::get_system_category());
+        ec = asio::error_code(errno,
+                asio::error::get_system_category());
     }
 
     if (!ec)
@@ -175,16 +175,16 @@ void RedisSyncClient::connect(const boost::asio::ip::tcp::endpoint &endpoint,
 
 #ifdef BOOST_ASIO_HAS_LOCAL_SOCKETS
 
-void RedisSyncClient::connect(const boost::asio::local::stream_protocol::endpoint &endpoint)
+void RedisSyncClient::connect(const asio::local::stream_protocol::endpoint &endpoint)
 {
-    boost::system::error_code ec;
+    asio::error_code ec;
 
     connect(endpoint, ec);
     detail::throwIfError(ec);
 }
 
-void RedisSyncClient::connect(const boost::asio::local::stream_protocol::endpoint &endpoint,
-        boost::system::error_code &ec)
+void RedisSyncClient::connect(const asio::local::stream_protocol::endpoint &endpoint,
+        asio::error_code &ec)
 {
     pimpl->socket.open(endpoint.protocol(), ec);
 
@@ -216,7 +216,7 @@ void RedisSyncClient::installErrorHandler(
 
 RedisValue RedisSyncClient::command(std::string cmd, std::deque<RedisBuffer> args)
 {
-    boost::system::error_code ec;
+    asio::error_code ec;
     RedisValue result = command(std::move(cmd), std::move(args), ec);
 
     detail::throwIfError(ec);
@@ -224,7 +224,7 @@ RedisValue RedisSyncClient::command(std::string cmd, std::deque<RedisBuffer> arg
 }
 
 RedisValue RedisSyncClient::command(std::string cmd, std::deque<RedisBuffer> args,
-            boost::system::error_code &ec)
+            asio::error_code &ec)
 {
     if(stateValid())
     {
@@ -246,7 +246,7 @@ Pipeline RedisSyncClient::pipelined()
 
 RedisValue RedisSyncClient::pipelined(std::deque<std::deque<RedisBuffer>> commands)
 {
-    boost::system::error_code ec;
+    asio::error_code ec;
     RedisValue result = pipelined(std::move(commands), ec);
 
     detail::throwIfError(ec);
@@ -254,7 +254,7 @@ RedisValue RedisSyncClient::pipelined(std::deque<std::deque<RedisBuffer>> comman
 }
 
 RedisValue RedisSyncClient::pipelined(std::deque<std::deque<RedisBuffer>> commands,
-        boost::system::error_code &ec)
+        asio::error_code &ec)
 {
     if(stateValid())
     {

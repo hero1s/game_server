@@ -6,7 +6,7 @@
 #ifndef REDISASYNCCLIENT_REDISCLIENT_H
 #define REDISASYNCCLIENT_REDISCLIENT_H
 
-#include <boost/asio/io_service.hpp>
+#include <asio/io_service.hpp>
 #include <asio/detail/noncopyable.hpp>
 
 #include <string>
@@ -33,18 +33,18 @@ public:
 
     typedef RedisClientImpl::State State;
 
-    REDIS_CLIENT_DECL RedisAsyncClient(boost::asio::io_service &ioService);
+    REDIS_CLIENT_DECL RedisAsyncClient(asio::io_service &ioService);
     REDIS_CLIENT_DECL ~RedisAsyncClient();
 
     // Connect to redis server
     REDIS_CLIENT_DECL void connect(
-            const boost::asio::ip::tcp::endpoint &endpoint,
-            std::function<void(boost::system::error_code)> handler);
+            const asio::ip::tcp::endpoint &endpoint,
+            std::function<void(asio::error_code)> handler);
 
 #ifdef BOOST_ASIO_HAS_LOCAL_SOCKETS
     REDIS_CLIENT_DECL void connect(
-            const boost::asio::local::stream_protocol::endpoint &endpoint,
-            std::function<void(boost::system::error_code)> handler);
+            const asio::local::stream_protocol::endpoint &endpoint,
+            std::function<void(asio::error_code)> handler);
 #endif
 
     // Return true if is connected to redis.
