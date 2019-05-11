@@ -82,9 +82,9 @@ public:
     REDIS_CLIENT_DECL State state() const;
 
     REDIS_CLIENT_DECL RedisSyncClient &setConnectTimeout(
-            const std::chrono::duration<int> &timeout);
+            const std::chrono::seconds &timeout);
     REDIS_CLIENT_DECL RedisSyncClient &setCommandTimeout(
-            const std::chrono::duration<int> &timeout);
+            const std::chrono::seconds &timeout);
 
     REDIS_CLIENT_DECL RedisSyncClient &setTcpNoDelay(bool enable);
     REDIS_CLIENT_DECL RedisSyncClient &setTcpKeepAlive(bool enable);
@@ -94,8 +94,8 @@ protected:
 
 private:
     std::shared_ptr<RedisClientImpl> pimpl;
-    std::chrono::duration<int> connectTimeout;
-    std::chrono::duration<int> commandTimeout;
+    std::chrono::seconds connectTimeout;
+    std::chrono::seconds commandTimeout;
     bool tcpNoDelay;
     bool tcpKeepAlive;
 };

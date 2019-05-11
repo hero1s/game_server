@@ -65,13 +65,13 @@ public:
     REDIS_CLIENT_DECL static std::vector<char> makeCommand(const std::deque<RedisBuffer> &items);
 
     REDIS_CLIENT_DECL RedisValue doSyncCommand(const std::deque<RedisBuffer> &command,
-        const std::chrono::duration<int> &timeout,
+        const std::chrono::seconds &timeout,
         asio::error_code &ec);
     REDIS_CLIENT_DECL RedisValue doSyncCommand(const std::deque<std::deque<RedisBuffer>> &commands,
-        const std::chrono::duration<int> &timeout,
+        const std::chrono::seconds &timeout,
         asio::error_code &ec);
     REDIS_CLIENT_DECL RedisValue syncReadResponse(
-            const std::chrono::duration<int> &timeout,
+            const std::chrono::seconds &timeout,
             asio::error_code &ec);
 
     REDIS_CLIENT_DECL void doAsyncCommand(
