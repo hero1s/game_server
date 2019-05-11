@@ -19,7 +19,7 @@ include_directories(server_frame/include/network)
 include_directories(server_frame/include/network_asio)
 include_directories(server_frame/include/network_asio/common)
 include_directories(server_frame/include/packet)
-include_directories(server_frame/include/redis)
+include_directories(server_frame/include/redisclient)
 include_directories(server_frame/include/utility)
 include_directories(server_frame/src/framework)
 include_directories(server_frame/src/network)
@@ -117,7 +117,6 @@ add_executable(server
         server_frame/include/packet/inner_protobuf_pkg.h
         server_frame/include/packet/protobuf_handle.h
         server_frame/include/packet/protobuf_pkg.h
-        server_frame/include/redis/redisclient.h
         server_frame/include/utility/basic_functions.h
         server_frame/include/utility/basic_types.h
         server_frame/include/utility/comm_macro.h
@@ -195,7 +194,6 @@ add_executable(server
         server_frame/src/network/TLock.cpp
         server_frame/src/network/TLock.h
         server_frame/src/network_asio/tcp.cpp
-        server_frame/src/redis/redisclient.cpp
         server_frame/src/utility/basic_functions.cpp
         server_frame/src/utility/cooling.cpp
         server_frame/src/utility/ipcutility.cpp

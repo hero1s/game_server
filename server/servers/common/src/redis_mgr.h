@@ -4,7 +4,6 @@
 #include "svrlib.h"
 #include "config/config.h"
 #include <string>
-//#include "redis/redisclient.h"
 #include "redisclient/redisasyncclient.h"
 #include "redisclient/redissyncclient.h"
 #include "asio.hpp"
