@@ -14,7 +14,6 @@ namespace aoi {
 
     class CSceneObj {
 
-
     public:
         //uid-version, version用于优化差异比较计算，通过2次遍历即可得出进出视野结果
         using entity_view_t = std::unordered_map<math::objectid_t, uint8_t>;
@@ -67,6 +66,11 @@ namespace aoi {
             check_aoi();
         }
 
+        void get_object_ids(float x,float y, float w, float h, std::vector<math::objectid_t>& out){
+            math::rect rc(x,y,w,h);
+            qtree->query(rc,out);
+        }
+
         void check_aoi() {
             if (is_need_check) {
                 for (auto [uid,pObj] : scene_objs) {
@@ -101,11 +105,11 @@ namespace aoi {
             for (auto &v : pObj->view) {
                 if (v.second == pObj->version) {
                     //进入视野
-                    //LOG_DEBUG("player {} enter {} view", v.first, uid);
+                    //LOG_DEBUG("player {} enter {} view,version:{} --> version:{}", v.first, uid,v.second,pObj->version);
                     enter_list.emplace_back(v.first);
                 } else if (v.second != (pObj->version - 1))//出视野
                 {
-                    //LOG_DEBUG("player {} leave {} view", v.first, uid);
+                    //LOG_DEBUG("player {} leave {} view,version:{} --> version:{}", v.first, uid,v.second,pObj->version);
                     //注意这里要从 p.view 删除已经出视野的玩家
                     leave_list.emplace_back(v.first);
                 }
