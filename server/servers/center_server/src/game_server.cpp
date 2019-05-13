@@ -73,7 +73,7 @@ bool CApplication::Initialize()
 	LOG_INFO("center server start is successed {}", m_uiServerID);
 
 	m_luaService->start();
-	
+
 	return true;
 }
 
