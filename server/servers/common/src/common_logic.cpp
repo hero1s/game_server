@@ -62,9 +62,9 @@ bool CCommonLogic::IsNeedReset(uint32_t lastTime, uint32_t curTime)
 	{
 		diffDay = abs(tm_late.tm_yday - tm_early.tm_yday);
 	}
-	static uint32_t reset_time  = 6*SECONDS_IN_ONE_HOUR;// 早上6  点重置
-	uint32_t        lastDayTime = tm_early.tm_hour*SECONDS_IN_ONE_HOUR + tm_early.tm_min*60 + tm_early.tm_sec;
-	uint32_t        curDayTime  = tm_late.tm_hour*SECONDS_IN_ONE_HOUR + tm_late.tm_min*60 + tm_late.tm_sec;
+	static uint32_t reset_time  = 6*HOUR;// 早上6  点重置
+	uint32_t        lastDayTime = tm_early.tm_hour*HOUR + tm_early.tm_min*60 + tm_early.tm_sec;
+	uint32_t        curDayTime  = tm_late.tm_hour*HOUR + tm_late.tm_min*60 + tm_late.tm_sec;
 
 	if (diffDay >= 2)
 	{

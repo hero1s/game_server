@@ -6,21 +6,10 @@
 
 using namespace std;
 
-static const uint32_t SECONDS_IN_MIN      = 60;
-static const uint32_t SECONDS_IN_30_MIN   = 1800;         // 半小时
-static const uint32_t SECONDS_IN_ONE_HOUR = 3600;         // 一小时
-static const uint32_t SECONDS_IN_ONE_DAY  = 24*3600;      // 一天的秒数
-static const uint32_t SECONDS_IN_ONE_WEEK = 7*86400;      // 一周的秒数
-static const uint32_t SECONDS_IN_ONE_MON  = 30*86400;     // 一个月的秒数
-static const uint32_t SECONDS_IN_ONE_YEAR = 365*86400;    // 一年的秒数
-
 #define PRO_DENO_100w    1000000
 #define PRO_DENO_10w     100000
 #define PRO_DENO_10000   10000
 #define PRO_DENO_100     100
-
-#define ROUTE_MSG_ID     2000
-#define PLAT_HEAD_LEN    5
 
 #define SERVER_SOCKET_BUFF_SIZE 1024*1024*2
 

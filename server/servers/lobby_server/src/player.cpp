@@ -12,7 +12,7 @@ using namespace Network;
 
 namespace
 {
-static const uint32_t s_OfflineTime = SECONDS_IN_MIN*10; // 离线10分钟下线
+static const uint32_t s_OfflineTime = MINUTE*10; // 离线10分钟下线
 };
 
 CPlayer::CPlayer(uint8_t type)
@@ -200,7 +200,7 @@ bool CPlayer::NeedRecover()
 	{
 		return true;
 	}
-	if (GetPlayerState() == PLAYER_STATE_LOAD_DATA && (getSysTime() - m_loadTime) > SECONDS_IN_MIN)
+	if (GetPlayerState() == PLAYER_STATE_LOAD_DATA && (getSysTime() - m_loadTime) > MINUTE)
 	{
 		LOG_ERROR("load player data time out :{}", GetUID());
 		return true;
@@ -361,7 +361,7 @@ uint32_t CPlayer::GetNetDelay()
 bool CPlayer::SetNetDelay(uint32_t netDelay)
 {
 	m_netDelay = (m_netDelay + netDelay)/2;
-	if ((getSysTime() - m_limitTime[emLIMIT_TIME_NETDELAY]) > SECONDS_IN_MIN)
+	if ((getSysTime() - m_limitTime[emLIMIT_TIME_NETDELAY]) > MINUTE)
 	{
 		m_limitTime[emLIMIT_TIME_NETDELAY] = getSysTime();
 		return true;

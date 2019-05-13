@@ -16,8 +16,6 @@ include_directories(server_frame/include/lua_service)
 include_directories(server_frame/include/math)
 include_directories(server_frame/include/modern)
 include_directories(server_frame/include/network)
-include_directories(server_frame/include/network_asio)
-include_directories(server_frame/include/network_asio/common)
 include_directories(server_frame/include/packet)
 include_directories(server_frame/include/redisclient)
 include_directories(server_frame/include/redisclient/impl)
@@ -95,28 +93,6 @@ add_executable(server
     server_frame/include/network/IOCPServer.h
     server_frame/include/network/NetworkObject.h
     server_frame/include/network/tcp_connector.h
-    server_frame/include/network_asio/common/base64.hpp
-    server_frame/include/network_asio/common/buffer.hpp
-    server_frame/include/network_asio/common/buffer_view.hpp
-    server_frame/include/network_asio/common/buffer_writer.hpp
-    server_frame/include/network_asio/common/byte_convert.hpp
-    server_frame/include/network_asio/common/exception.hpp
-    server_frame/include/network_asio/common/hash.hpp
-    server_frame/include/network_asio/common/http_util.hpp
-    server_frame/include/network_asio/common/macro_define.hpp
-    server_frame/include/network_asio/common/sha1.hpp
-    server_frame/include/network_asio/common/string.hpp
-    server_frame/include/network_asio/common/time.hpp
-    server_frame/include/network_asio/common/utils.hpp
-    server_frame/include/network_asio/base_connection.hpp
-    server_frame/include/network_asio/config.h
-    server_frame/include/network_asio/const_buffers_holder.hpp
-    server_frame/include/network_asio/custom_connection.hpp
-    server_frame/include/network_asio/handler_alloc.hpp
-    server_frame/include/network_asio/message.hpp
-    server_frame/include/network_asio/moon_connection.hpp
-    server_frame/include/network_asio/tcp.h
-    server_frame/include/network_asio/ws_connection.hpp
     server_frame/include/packet/inner_protobuf_pkg.h
     server_frame/include/packet/protobuf_handle.h
     server_frame/include/packet/protobuf_pkg.h
@@ -213,7 +189,6 @@ add_executable(server
     server_frame/src/network/tcp_connector.cpp
     server_frame/src/network/TLock.cpp
     server_frame/src/network/TLock.h
-    server_frame/src/network_asio/tcp.cpp
     server_frame/src/third/lua/lapi.c
     server_frame/src/third/lua/lapi.h
     server_frame/src/third/lua/lauxlib.c

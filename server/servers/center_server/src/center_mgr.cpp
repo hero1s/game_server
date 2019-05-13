@@ -75,7 +75,7 @@ CCenterMgr::~CCenterMgr()
 
 void CCenterMgr::OnTimer()
 {
-    if (getSysTime()-m_lastCountTime>SECONDS_IN_MIN) {
+    if (getSysTime()-m_lastCountTime>MINUTE) {
         m_msgMaxCount = std::max(m_msgMaxCount, m_msgMinCount);
         if (m_msgMinCount>0) {
             LOG_DEBUG("route msg count :msg {},max msg {}", m_msgMinCount, m_msgMaxCount);
@@ -83,12 +83,12 @@ void CCenterMgr::OnTimer()
         }
         m_lastCountTime = getSysTime();
     }
-    CApplication::Instance().schedule(&m_timer, SECONDS_IN_MIN);
+    CApplication::Instance().schedule(&m_timer, MINUTE);
 }
 
 bool CCenterMgr::Init()
 {
-    CApplication::Instance().schedule(&m_timer, SECONDS_IN_MIN);
+    CApplication::Instance().schedule(&m_timer, MINUTE);
 
     return true;
 }

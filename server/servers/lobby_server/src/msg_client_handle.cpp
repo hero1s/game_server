@@ -61,7 +61,7 @@ int CHandleClientMsg::handle_msg_login()
 	if (pPlayerUid == NULL || pPlayerUid->GetLoginKey() != strDecyPHP)
 	{
 		string strDecy = CCommonLogic::VerifyPasswd(uid, msg.check_time());
-		if (strDecy != strDecyPHP || std::abs(int64_t(getSysTime()) - int64_t(msg.check_time())) > SECONDS_IN_ONE_DAY)
+		if (strDecy != strDecyPHP || std::abs(int64_t(getSysTime()) - int64_t(msg.check_time())) > DAY)
 		{
 			LOG_ERROR("check passwd error {}-PHP:{}--c++:{}", uid, strDecyPHP, strDecy);
 			LOG_ERROR("the ip is:{},svrtime:{},sendtime:{}", _pNetObj->GetIP(), getSysTime(), msg.check_time());

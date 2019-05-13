@@ -44,6 +44,19 @@
 #define FALSE   0
 #endif
 
+inline unsigned long atoul(char const* str) { return strtoul(str, nullptr, 10); }
+inline unsigned long long atoull(char const* str) { return strtoull(str, nullptr, 10); }
+
+enum TimeConstants
+{
+    MINUTE          = 60,
+    HOUR            = MINUTE*60,
+    DAY             = HOUR*24,
+    WEEK            = DAY*7,
+    MONTH           = DAY*30,
+    YEAR            = MONTH*12,
+    IN_MILLISECONDS = 1000
+};
 
 
 
