@@ -226,7 +226,7 @@ bool Session::HandleRecvMessage()
 	while (!m_QueueMessage.empty() && (msgNum++) < m_pNetworkObject->MaxTickPacket())
 	{
 		auto message = m_QueueMessage.pop();
-		int  iRet    = m_pNetworkObject->OnRecv(message->Data(), message->Length());
+		int  iRet    = m_pNetworkObject->OnRecv(message->GetReadPointer(), message->GetActiveSize());
 		if (iRet < 0)
 		{
 			LOG_ERROR("process msg return < 0,disconnect");
@@ -255,7 +255,7 @@ bool Session::DecodeMsgToQueue()
 		if (pPacket == NULL)
 			return true;
 		//放入消息队列
-		auto message = std::make_shared<CMessage>(pPacket, iPacketLen);
+		auto message = std::make_shared<MessageBuffer>(pPacket, iPacketLen);
 		m_QueueMessage.push(message);
 		//移除缓存
 		m_pRecvBuffer->RemoveFirstPacket(iPacketLen);
@@ -340,7 +340,7 @@ bool Session::DecodeWebSocketToQueue(){
 				}
 			}
 			//放入消息队列
-			auto message = std::make_shared<CMessage>(pPacket, data_len);
+			auto message = std::make_shared<MessageBuffer>(pPacket, data_len);
 			m_QueueMessage.push(message);
 			//移除缓存
 			m_pRecvBuffer->RemoveFirstPacket(data_len);

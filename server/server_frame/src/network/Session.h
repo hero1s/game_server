@@ -233,7 +233,7 @@ private:
 	TLock m_lockRecv;
 	TLock m_lockSend;
 	int   m_bCanSend;
-	svrlib::LockedQueue<std::shared_ptr<CMessage> > m_QueueMessage;//消息队列
+	svrlib::LockedQueue<std::shared_ptr<MessageBuffer> > m_QueueMessage;//消息队列
 	bool  m_openMsgQueue;//是否开启消息队列模式
 	bool  m_webSocket;	 // 是否websocket
 	WebSocketHead ws_head_;//包头

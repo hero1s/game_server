@@ -83,12 +83,13 @@ void CCenterMgr::OnTimer()
         }
         m_lastCountTime = getSysTime();
     }
-    CApplication::Instance().schedule(&m_timer, MINUTE);
+    CApplication::Instance().schedule(&m_timer, MINUTE*1000);
+    UpdateServerList();//test
 }
 
 bool CCenterMgr::Init()
 {
-    CApplication::Instance().schedule(&m_timer, MINUTE);
+    CApplication::Instance().schedule(&m_timer, MINUTE*1000);
 
     return true;
 }
