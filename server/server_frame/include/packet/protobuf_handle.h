@@ -19,12 +19,18 @@ using handFunc = function<int()>;
 template<typename Head>
 class CProtobufHandleBase {
 public:
+    using handBase = CProtobufHandleBase<Head>;
     //  收到客户端消息时回调
     virtual int OnRecvClientMsg() {
         auto it = m_handlers.find(_cmd);
         if (it != m_handlers.end()) {
             return it->second();
         }
+        for(auto p:m_subHands){
+            auto ret = p->OnDispatchMsg(_pNetObj,_pkt_buf,_buf_len,_head);
+            if(ret <= 0)return ret;
+        }
+
         return 1;
     }
 
@@ -42,6 +48,11 @@ public:
         }
         return 0;
     }
+    void RegisterSubHandle(shared_ptr<handBase> hand){
+        m_subHands.emplace_back(hand);
+    }
+
+
     int OnDispatchMsg(NetworkObject *pNetObj, const uint8_t *pkt_buf,uint16_t buf_len,Head * head){
         _pNetObj = pNetObj;
         _head = head;
@@ -58,5 +69,8 @@ protected:
     uint16_t _buf_len;
     uint32_t _cmd;
     Head * _head;
+private:
+    std::vector<shared_ptr<handBase>> m_subHands;
+
 };
 

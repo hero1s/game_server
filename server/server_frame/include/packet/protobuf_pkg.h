@@ -52,7 +52,7 @@ public:
         if (pNetObj == NULL) {
             return false;
         }
-        string sstr;
+        static string sstr;
         msg->SerializeToString(&sstr);
         return SendBuffMsg(pNetObj, sstr.c_str(), sstr.length(), msg_type, uin);
     }
