@@ -10,7 +10,6 @@ namespace svrlib {
 
     class lua_service {
     public:
-        using lua_state_ptr_t = std::unique_ptr<lua_State, void (*)(lua_State*)>;
         using sol_function_t = sol::function;
 
         explicit lua_service(sol::state* p);

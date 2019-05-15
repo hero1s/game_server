@@ -16,6 +16,9 @@ namespace svrlib {
 
         void export_lua_bind();
 
+        static void registerlib(lua_State *L, const char *name, lua_CFunction f);
+
+        static void registerlib(lua_State *L, const char *name, const sol::table&);
     protected:
         void bind_conf();
 

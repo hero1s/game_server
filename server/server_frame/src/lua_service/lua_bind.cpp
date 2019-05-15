@@ -24,6 +24,24 @@ namespace svrlib {
 
     }
 
+    void lua_bind::registerlib(lua_State * L, const char * name, lua_CFunction f)
+    {
+        lua_getglobal(L, "package");
+        lua_getfield(L, -1, "preload"); /* get 'package.preload' */
+        lua_pushcfunction(L, f);
+        lua_setfield(L, -2, name); /* package.preload[name] = f */
+        lua_pop(L, 2); /* pop 'package' and 'preload' tables */
+    }
+
+    void lua_bind::registerlib(lua_State * L, const char * name, const sol::table& module)
+    {
+        lua_getglobal(L, "package");
+        lua_getfield(L, -1, "loaded"); /* get 'package.preload' */
+        module.push();
+        lua_setfield(L, -2, name); /* package.preload[name] = f */
+        lua_pop(L, 2); /* pop 'package' and 'preload' tables */
+    }
+
     void lua_bind::bind_conf()
     {
         lua.new_usertype<stDBConf>
@@ -54,7 +72,6 @@ namespace svrlib {
         lua.set_function("curTimeStr", []() {
             return time_format(getSysTime());
         });
-
 
     }
 
