@@ -19,7 +19,7 @@ int FrameworkMain(int argc, char *argv[]) {
     if (argc <= 0 || argv == NULL) {
         throw "The input argument for FrameworkMain is illegal!";
     }
-    mallopt(M_ARENA_MAX, 1);
+    //mallopt(M_ARENA_MAX, 1);
 
     try {
 

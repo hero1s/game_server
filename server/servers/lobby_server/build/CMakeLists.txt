@@ -36,6 +36,7 @@ add_link_lib(protobuf)
 add_link_lib(rt)
 add_link_lib(pthread)
 add_link_lib(dl)
+add_link_lib(jemalloc)
 
 build_executable(lobbyServer ../../../release/lobby_server/)
 
