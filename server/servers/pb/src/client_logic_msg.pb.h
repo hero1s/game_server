@@ -25,10 +25,10 @@
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "base_msg_struct.pb.h"
-#include "error_code.pb.h"
 // @@protoc_insertion_point(includes)
 
 namespace net {
+namespace cli {
 
 // Internal implementation detail -- do not call these.
 void  protobuf_AddDesc_client_5flogic_5fmsg_2eproto();
@@ -106,7 +106,7 @@ class msg_heart_test : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 svr_time() const;
   inline void set_svr_time(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:net.msg_heart_test)
+  // @@protoc_insertion_point(class_scope:net.cli.msg_heart_test)
  private:
   inline void set_has_svr_time();
   inline void clear_has_svr_time();
@@ -231,7 +231,7 @@ class msg_login_req : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 check_time() const;
   inline void set_check_time(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:net.msg_login_req)
+  // @@protoc_insertion_point(class_scope:net.cli.msg_login_req)
  private:
   inline void set_has_uid();
   inline void clear_has_uid();
@@ -332,7 +332,7 @@ class msg_login_rep : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 server_time() const;
   inline void set_server_time(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:net.msg_login_rep)
+  // @@protoc_insertion_point(class_scope:net.cli.msg_login_rep)
  private:
   inline void set_has_result();
   inline void clear_has_result();
@@ -429,7 +429,7 @@ class msg_loginout_rep : public ::google::protobuf::Message {
   inline ::std::string* release_deviceid();
   inline void set_allocated_deviceid(::std::string* deviceid);
 
-  // @@protoc_insertion_point(class_scope:net.msg_loginout_rep)
+  // @@protoc_insertion_point(class_scope:net.cli.msg_loginout_rep)
  private:
   inline void set_has_reason();
   inline void clear_has_reason();
@@ -519,7 +519,7 @@ class msg_version_info_rep : public ::google::protobuf::Message {
   inline ::std::string* release_version();
   inline void set_allocated_version(::std::string* version);
 
-  // @@protoc_insertion_point(class_scope:net.msg_version_info_rep)
+  // @@protoc_insertion_point(class_scope:net.cli.msg_version_info_rep)
  private:
   inline void set_has_version();
   inline void clear_has_version();
@@ -601,7 +601,7 @@ class msg_enter_game_rep : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 result() const;
   inline void set_result(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:net.msg_enter_game_rep)
+  // @@protoc_insertion_point(class_scope:net.cli.msg_enter_game_rep)
  private:
   inline void set_has_result();
   inline void clear_has_result();
@@ -685,7 +685,7 @@ class msg_player_data_rep : public ::google::protobuf::Message {
   inline ::net::base_info* release_base_data();
   inline void set_allocated_base_data(::net::base_info* base_data);
 
-  // @@protoc_insertion_point(class_scope:net.msg_player_data_rep)
+  // @@protoc_insertion_point(class_scope:net.cli.msg_player_data_rep)
  private:
   inline void set_has_base_data();
   inline void clear_has_base_data();
@@ -1280,6 +1280,7 @@ inline void msg_player_data_rep::set_allocated_base_data(::net::base_info* base_
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace cli
 }  // namespace net
 
 #ifndef SWIG

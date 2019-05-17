@@ -25,10 +25,10 @@
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "base_msg_struct.pb.h"
-#include "error_code.pb.h"
 // @@protoc_insertion_point(includes)
 
 namespace net {
+namespace svr {
 
 // Internal implementation detail -- do not call these.
 void  protobuf_AddDesc_servers_5fmsg_2eproto();
@@ -124,7 +124,7 @@ class server_info : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 game_subtype() const;
   inline void set_game_subtype(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:net.server_info)
+  // @@protoc_insertion_point(class_scope:net.svr.server_info)
  private:
   inline void set_has_svrid();
   inline void clear_has_svrid();
@@ -208,23 +208,23 @@ class msg_register_center_svr_req : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .net.server_info info = 1;
+  // optional .net.svr.server_info info = 1;
   inline bool has_info() const;
   inline void clear_info();
   static const int kInfoFieldNumber = 1;
-  inline const ::net::server_info& info() const;
-  inline ::net::server_info* mutable_info();
-  inline ::net::server_info* release_info();
-  inline void set_allocated_info(::net::server_info* info);
+  inline const ::net::svr::server_info& info() const;
+  inline ::net::svr::server_info* mutable_info();
+  inline ::net::svr::server_info* release_info();
+  inline void set_allocated_info(::net::svr::server_info* info);
 
-  // @@protoc_insertion_point(class_scope:net.msg_register_center_svr_req)
+  // @@protoc_insertion_point(class_scope:net.svr.msg_register_center_svr_req)
  private:
   inline void set_has_info();
   inline void clear_has_info();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::net::server_info* info_;
+  ::net::svr::server_info* info_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
@@ -299,7 +299,7 @@ class msg_register_center_svr_rep : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 result() const;
   inline void set_result(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:net.msg_register_center_svr_rep)
+  // @@protoc_insertion_point(class_scope:net.svr.msg_register_center_svr_rep)
  private:
   inline void set_has_result();
   inline void clear_has_result();
@@ -374,24 +374,24 @@ class msg_server_list_rep : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // repeated .net.server_info server_list = 1;
+  // repeated .net.svr.server_info server_list = 1;
   inline int server_list_size() const;
   inline void clear_server_list();
   static const int kServerListFieldNumber = 1;
-  inline const ::net::server_info& server_list(int index) const;
-  inline ::net::server_info* mutable_server_list(int index);
-  inline ::net::server_info* add_server_list();
-  inline const ::google::protobuf::RepeatedPtrField< ::net::server_info >&
+  inline const ::net::svr::server_info& server_list(int index) const;
+  inline ::net::svr::server_info* mutable_server_list(int index);
+  inline ::net::svr::server_info* add_server_list();
+  inline const ::google::protobuf::RepeatedPtrField< ::net::svr::server_info >&
       server_list() const;
-  inline ::google::protobuf::RepeatedPtrField< ::net::server_info >*
+  inline ::google::protobuf::RepeatedPtrField< ::net::svr::server_info >*
       mutable_server_list();
 
-  // @@protoc_insertion_point(class_scope:net.msg_server_list_rep)
+  // @@protoc_insertion_point(class_scope:net.svr.msg_server_list_rep)
  private:
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::google::protobuf::RepeatedPtrField< ::net::server_info > server_list_;
+  ::google::protobuf::RepeatedPtrField< ::net::svr::server_info > server_list_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
@@ -502,7 +502,7 @@ inline void server_info::set_game_subtype(::google::protobuf::uint32 value) {
 
 // msg_register_center_svr_req
 
-// optional .net.server_info info = 1;
+// optional .net.svr.server_info info = 1;
 inline bool msg_register_center_svr_req::has_info() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -513,24 +513,24 @@ inline void msg_register_center_svr_req::clear_has_info() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void msg_register_center_svr_req::clear_info() {
-  if (info_ != NULL) info_->::net::server_info::Clear();
+  if (info_ != NULL) info_->::net::svr::server_info::Clear();
   clear_has_info();
 }
-inline const ::net::server_info& msg_register_center_svr_req::info() const {
+inline const ::net::svr::server_info& msg_register_center_svr_req::info() const {
   return info_ != NULL ? *info_ : *default_instance_->info_;
 }
-inline ::net::server_info* msg_register_center_svr_req::mutable_info() {
+inline ::net::svr::server_info* msg_register_center_svr_req::mutable_info() {
   set_has_info();
-  if (info_ == NULL) info_ = new ::net::server_info;
+  if (info_ == NULL) info_ = new ::net::svr::server_info;
   return info_;
 }
-inline ::net::server_info* msg_register_center_svr_req::release_info() {
+inline ::net::svr::server_info* msg_register_center_svr_req::release_info() {
   clear_has_info();
-  ::net::server_info* temp = info_;
+  ::net::svr::server_info* temp = info_;
   info_ = NULL;
   return temp;
 }
-inline void msg_register_center_svr_req::set_allocated_info(::net::server_info* info) {
+inline void msg_register_center_svr_req::set_allocated_info(::net::svr::server_info* info) {
   delete info_;
   info_ = info;
   if (info) {
@@ -570,27 +570,27 @@ inline void msg_register_center_svr_rep::set_result(::google::protobuf::uint32 v
 
 // msg_server_list_rep
 
-// repeated .net.server_info server_list = 1;
+// repeated .net.svr.server_info server_list = 1;
 inline int msg_server_list_rep::server_list_size() const {
   return server_list_.size();
 }
 inline void msg_server_list_rep::clear_server_list() {
   server_list_.Clear();
 }
-inline const ::net::server_info& msg_server_list_rep::server_list(int index) const {
+inline const ::net::svr::server_info& msg_server_list_rep::server_list(int index) const {
   return server_list_.Get(index);
 }
-inline ::net::server_info* msg_server_list_rep::mutable_server_list(int index) {
+inline ::net::svr::server_info* msg_server_list_rep::mutable_server_list(int index) {
   return server_list_.Mutable(index);
 }
-inline ::net::server_info* msg_server_list_rep::add_server_list() {
+inline ::net::svr::server_info* msg_server_list_rep::add_server_list() {
   return server_list_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::net::server_info >&
+inline const ::google::protobuf::RepeatedPtrField< ::net::svr::server_info >&
 msg_server_list_rep::server_list() const {
   return server_list_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::net::server_info >*
+inline ::google::protobuf::RepeatedPtrField< ::net::svr::server_info >*
 msg_server_list_rep::mutable_server_list() {
   return &server_list_;
 }
@@ -598,6 +598,7 @@ msg_server_list_rep::mutable_server_list() {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace svr
 }  // namespace net
 
 #ifndef SWIG

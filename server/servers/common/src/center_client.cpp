@@ -54,7 +54,7 @@ void CCenterClientMgr::OnTimer()
 	CApplication::Instance().schedule(&m_timer, 3000);
 }
 
-bool CCenterClientMgr::Init(int32_t ioKey,const net::server_info& info, string ip,uint32_t port)
+bool CCenterClientMgr::Init(int32_t ioKey,const net::svr::server_info& info, string ip,uint32_t port)
 {
 	IOCPServer& iocpServer = CApplication::Instance().GetIOCPServer();
 
@@ -73,8 +73,8 @@ bool CCenterClientMgr::Init(int32_t ioKey,const net::server_info& info, string i
 
 void CCenterClientMgr::Register()
 {
-	net::msg_register_center_svr_req msg;
-	net::server_info* info = msg.mutable_info();
+	net::svr::msg_register_center_svr_req msg;
+	net::svr::server_info* info = msg.mutable_info();
 	*info = m_curSvrInfo;
 
 	SendMsg2Center(&msg, net::S2CS_MSG_REGISTER_CENTER, 0);
@@ -113,7 +113,7 @@ void CCenterClientMgr::SendMsg2Center(const google::protobuf::Message* msg, uint
 //服务器注册
 int CCenterClientMgr::handle_msg_register_svr_rep()
 {
-	net::msg_register_center_svr_rep msg;
+	net::svr::msg_register_center_svr_rep msg;
 	PARSE_MSG(msg);
 
 	LOG_DEBUG("center server register result :{}", msg.result());
@@ -131,7 +131,7 @@ int CCenterClientMgr::handle_msg_register_svr_rep()
 //更新服务器列表
 int CCenterClientMgr::handle_msg_server_list_rep()
 {
-	net::msg_server_list_rep msg;
+	net::svr::msg_server_list_rep msg;
 	PARSE_MSG(msg);
 
 	LOG_DEBUG("center server rep svrlist :{}", msg.server_list_size());

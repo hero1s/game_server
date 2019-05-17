@@ -107,7 +107,7 @@ bool CApplication::Initialize() {
         return false;
     }
 
-    net::server_info info;
+    net::svr::server_info info;
     info.set_svrid(GetServerID());
 
     auto centerIp = m_solLua.get<sol::table>("server_config").get<sol::table>("center");

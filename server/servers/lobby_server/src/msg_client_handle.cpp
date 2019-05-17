@@ -36,7 +36,7 @@ CHandleClientMsg::~CHandleClientMsg()
 // ÐÄÌø°ü
 int CHandleClientMsg::handle_msg_heart()
 {
-	net::msg_heart_test msg;
+	net::cli::msg_heart_test msg;
 	msg.set_svr_time(getSysTime());
 	pkg_client::SendProtobufMsg(_pNetObj, &msg, net::C2S_MSG_HEART, 0);
 	return 0;
@@ -45,12 +45,12 @@ int CHandleClientMsg::handle_msg_heart()
 //µÇÂ¼
 int CHandleClientMsg::handle_msg_login()
 {
-	net::msg_login_req msg;
+	net::cli::msg_login_req msg;
 	PARSE_MSG(msg);
 
 	LOG_ERROR("recv player login msg:uid:{}-deviceid:{}-key:{}", msg.uid(), msg.deviceid(), msg.key());
 	uint32_t             uid = msg.uid();
-	net::msg_login_rep repmsg;
+	net::cli::msg_login_rep repmsg;
 	repmsg.set_server_time(getSysTime());
 
 	string strDecyPHP = msg.key();

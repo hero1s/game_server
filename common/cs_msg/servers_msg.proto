@@ -1,7 +1,7 @@
 
-package net;
+package net.svr;
 import "base_msg_struct.proto";
-import "error_code.proto";
+
 
 // --------------------------------中心服-----------------------------------------------------
 message server_info

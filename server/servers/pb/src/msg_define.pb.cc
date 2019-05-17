@@ -61,8 +61,8 @@ void protobuf_AddDesc_msg_5fdefine_2eproto() {
 
   ::net::protobuf_AddDesc_error_5fcode_2eproto();
   ::net::protobuf_AddDesc_base_5fmsg_5fstruct_2eproto();
-  ::net::protobuf_AddDesc_client_5flogic_5fmsg_2eproto();
-  ::net::protobuf_AddDesc_servers_5fmsg_2eproto();
+  ::net::cli::protobuf_AddDesc_client_5flogic_5fmsg_2eproto();
+  ::net::svr::protobuf_AddDesc_servers_5fmsg_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\020msg_define.proto\022\003net\032\020error_code.prot"
     "o\032\025base_msg_struct.proto\032\026client_logic_m"

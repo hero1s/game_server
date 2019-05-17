@@ -50,7 +50,7 @@ void CPlayer::OnLoginOut()
 void CPlayer::OnLogin()
 {
 	LOG_DEBUG("OnLogin:{}", GetUID());
-	net::msg_login_rep repmsg;
+	net::cli::msg_login_rep repmsg;
 	repmsg.set_result(net::RESULT_CODE_SUCCESS);
 	repmsg.set_server_time(getSysTime());
 	SendMsgToClient(&repmsg, net::S2C_MSG_LOGIN_REP);
@@ -133,7 +133,7 @@ void CPlayer::OnGetAllData()
 void CPlayer::ReLogin()
 {
 	LOG_DEBUG("player relogin:{}", GetUID());
-	net::msg_login_rep repmsg;
+	net::cli::msg_login_rep repmsg;
 	repmsg.set_result(net::RESULT_CODE_SUCCESS);
 	repmsg.set_server_time(getSysTime());
 	SendMsgToClient(&repmsg, net::S2C_MSG_LOGIN_REP);
@@ -267,7 +267,7 @@ void CPlayer::MonthlyCleanup()
 
 void CPlayer::NotifyEnterGame()
 {
-	net::msg_enter_game_rep msg;
+	net::cli::msg_enter_game_rep msg;
 	msg.set_result(0);
 
 	SendMsgToClient(&msg, net::S2C_MSG_ENTER_GAME);
@@ -277,7 +277,7 @@ void CPlayer::NotifyEnterGame()
 void CPlayer::NotifyLoginOut(uint32_t code, string deviceid)
 {
 	LOG_DEBUG("notify leave game :{}--{}", GetUID(), code);
-	net::msg_loginout_rep loginoutmsg;
+	net::cli::msg_loginout_rep loginoutmsg;
 	loginoutmsg.set_reason(code);
 	loginoutmsg.set_deviceid(deviceid);
 	SendMsgToClient(&loginoutmsg, net::S2C_MSG_LOGINOUT_REP);
@@ -294,7 +294,7 @@ bool CPlayer::SendAccData2Client()
 {
 	LOG_DEBUG("send player account data:{}",GetUID());
 
-	net::msg_player_data_rep msg;
+	net::cli::msg_player_data_rep msg;
 	GetPlayerBaseData(msg.mutable_base_data());
 	SendMsgToClient(&msg, net::S2C_MSG_PLAYER_INFO);
 

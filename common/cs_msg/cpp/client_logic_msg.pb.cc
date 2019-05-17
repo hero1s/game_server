@@ -17,6 +17,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace net {
+namespace cli {
 
 namespace {
 
@@ -216,20 +217,18 @@ void protobuf_AddDesc_client_5flogic_5fmsg_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::net::protobuf_AddDesc_base_5fmsg_5fstruct_2eproto();
-  ::net::protobuf_AddDesc_error_5fcode_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\026client_logic_msg.proto\022\003net\032\025base_msg_"
-    "struct.proto\032\020error_code.proto\"\"\n\016msg_he"
-    "art_test\022\020\n\010svr_time\030\001 \001(\r\"b\n\rmsg_login_"
-    "req\022\013\n\003uid\030\001 \001(\r\022\013\n\003key\030\002 \001(\014\022\020\n\010devicei"
-    "d\030\003 \001(\014\022\021\n\tversionid\030\004 \001(\014\022\022\n\ncheck_time"
-    "\030\005 \001(\r\"4\n\rmsg_login_rep\022\016\n\006result\030\001 \001(\r\022"
-    "\023\n\013server_time\030\002 \001(\r\"4\n\020msg_loginout_rep"
-    "\022\016\n\006reason\030\001 \001(\r\022\020\n\010deviceid\030\002 \001(\014\"\'\n\024ms"
-    "g_version_info_rep\022\017\n\007version\030\001 \001(\014\"$\n\022m"
-    "sg_enter_game_rep\022\016\n\006result\030\001 \001(\r\"8\n\023msg"
-    "_player_data_rep\022!\n\tbase_data\030\001 \001(\0132\016.ne"
-    "t.base_info", 451);
+    "\n\026client_logic_msg.proto\022\007net.cli\032\025base_"
+    "msg_struct.proto\"\"\n\016msg_heart_test\022\020\n\010sv"
+    "r_time\030\001 \001(\r\"b\n\rmsg_login_req\022\013\n\003uid\030\001 \001"
+    "(\r\022\013\n\003key\030\002 \001(\014\022\020\n\010deviceid\030\003 \001(\014\022\021\n\tver"
+    "sionid\030\004 \001(\014\022\022\n\ncheck_time\030\005 \001(\r\"4\n\rmsg_"
+    "login_rep\022\016\n\006result\030\001 \001(\r\022\023\n\013server_time"
+    "\030\002 \001(\r\"4\n\020msg_loginout_rep\022\016\n\006reason\030\001 \001"
+    "(\r\022\020\n\010deviceid\030\002 \001(\014\"\'\n\024msg_version_info"
+    "_rep\022\017\n\007version\030\001 \001(\014\"$\n\022msg_enter_game_"
+    "rep\022\016\n\006result\030\001 \001(\r\"8\n\023msg_player_data_r"
+    "ep\022!\n\tbase_data\030\001 \001(\0132\016.net.base_info", 437);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "client_logic_msg.proto", &protobuf_RegisterTypes);
   msg_heart_test::default_instance_ = new msg_heart_test();
@@ -1999,6 +1998,7 @@ void msg_player_data_rep::Swap(msg_player_data_rep* other) {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace cli
 }  // namespace net
 
 // @@protoc_insertion_point(global_scope)

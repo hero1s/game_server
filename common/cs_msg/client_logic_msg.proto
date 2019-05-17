@@ -1,7 +1,6 @@
-
-package net;
+package net.cli;
 import "base_msg_struct.proto";
-import "error_code.proto";
+
 
 //-----------------------------大厅服消息-------------------------------------------------------------------
 // 心跳包

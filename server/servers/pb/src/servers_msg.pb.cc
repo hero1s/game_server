@@ -17,6 +17,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace net {
+namespace svr {
 
 namespace {
 
@@ -147,17 +148,15 @@ void protobuf_AddDesc_servers_5fmsg_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::net::protobuf_AddDesc_base_5fmsg_5fstruct_2eproto();
-  ::net::protobuf_AddDesc_error_5fcode_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\021servers_msg.proto\022\003net\032\025base_msg_struc"
-    "t.proto\032\020error_code.proto\"W\n\013server_info"
-    "\022\r\n\005svrid\030\001 \001(\r\022\020\n\010svr_type\030\002 \001(\r\022\021\n\tgam"
-    "e_type\030\003 \001(\r\022\024\n\014game_subtype\030\004 \001(\r\"=\n\033ms"
-    "g_register_center_svr_req\022\036\n\004info\030\001 \001(\0132"
-    "\020.net.server_info\"-\n\033msg_register_center"
-    "_svr_rep\022\016\n\006result\030\001 \001(\r\"<\n\023msg_server_l"
-    "ist_rep\022%\n\013server_list\030\001 \003(\0132\020.net.serve"
-    "r_info", 326);
+    "\n\021servers_msg.proto\022\007net.svr\032\025base_msg_s"
+    "truct.proto\"W\n\013server_info\022\r\n\005svrid\030\001 \001("
+    "\r\022\020\n\010svr_type\030\002 \001(\r\022\021\n\tgame_type\030\003 \001(\r\022\024"
+    "\n\014game_subtype\030\004 \001(\r\"A\n\033msg_register_cen"
+    "ter_svr_req\022\"\n\004info\030\001 \001(\0132\024.net.svr.serv"
+    "er_info\"-\n\033msg_register_center_svr_rep\022\016"
+    "\n\006result\030\001 \001(\r\"@\n\023msg_server_list_rep\022)\n"
+    "\013server_list\030\001 \003(\0132\024.net.svr.server_info", 320);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "servers_msg.proto", &protobuf_RegisterTypes);
   server_info::default_instance_ = new server_info();
@@ -518,7 +517,7 @@ msg_register_center_svr_req::msg_register_center_svr_req()
 }
 
 void msg_register_center_svr_req::InitAsDefaultInstance() {
-  info_ = const_cast< ::net::server_info*>(&::net::server_info::default_instance());
+  info_ = const_cast< ::net::svr::server_info*>(&::net::svr::server_info::default_instance());
 }
 
 msg_register_center_svr_req::msg_register_center_svr_req(const msg_register_center_svr_req& from)
@@ -567,7 +566,7 @@ msg_register_center_svr_req* msg_register_center_svr_req::New() const {
 void msg_register_center_svr_req::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (has_info()) {
-      if (info_ != NULL) info_->::net::server_info::Clear();
+      if (info_ != NULL) info_->::net::svr::server_info::Clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -580,7 +579,7 @@ bool msg_register_center_svr_req::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .net.server_info info = 1;
+      // optional .net.svr.server_info info = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -611,7 +610,7 @@ bool msg_register_center_svr_req::MergePartialFromCodedStream(
 
 void msg_register_center_svr_req::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // optional .net.server_info info = 1;
+  // optional .net.svr.server_info info = 1;
   if (has_info()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->info(), output);
@@ -625,7 +624,7 @@ void msg_register_center_svr_req::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* msg_register_center_svr_req::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // optional .net.server_info info = 1;
+  // optional .net.svr.server_info info = 1;
   if (has_info()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -643,7 +642,7 @@ int msg_register_center_svr_req::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // optional .net.server_info info = 1;
+    // optional .net.svr.server_info info = 1;
     if (has_info()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -678,7 +677,7 @@ void msg_register_center_svr_req::MergeFrom(const msg_register_center_svr_req& f
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_info()) {
-      mutable_info()->::net::server_info::MergeFrom(from.info());
+      mutable_info()->::net::svr::server_info::MergeFrom(from.info());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -994,7 +993,7 @@ bool msg_server_list_rep::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .net.server_info server_list = 1;
+      // repeated .net.svr.server_info server_list = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -1027,7 +1026,7 @@ bool msg_server_list_rep::MergePartialFromCodedStream(
 
 void msg_server_list_rep::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // repeated .net.server_info server_list = 1;
+  // repeated .net.svr.server_info server_list = 1;
   for (int i = 0; i < this->server_list_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->server_list(i), output);
@@ -1041,7 +1040,7 @@ void msg_server_list_rep::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* msg_server_list_rep::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // repeated .net.server_info server_list = 1;
+  // repeated .net.svr.server_info server_list = 1;
   for (int i = 0; i < this->server_list_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -1058,7 +1057,7 @@ void msg_server_list_rep::SerializeWithCachedSizes(
 int msg_server_list_rep::ByteSize() const {
   int total_size = 0;
 
-  // repeated .net.server_info server_list = 1;
+  // repeated .net.svr.server_info server_list = 1;
   total_size += 1 * this->server_list_size();
   for (int i = 0; i < this->server_list_size(); i++) {
     total_size +=
@@ -1132,6 +1131,7 @@ void msg_server_list_rep::Swap(msg_server_list_rep* other) {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace svr
 }  // namespace net
 
 // @@protoc_insertion_point(global_scope)

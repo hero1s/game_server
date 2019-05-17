@@ -16,7 +16,7 @@ using namespace Network;
 class CServerClient
 {
 public:
-	CServerClient(const net::server_info& info, NetworkObject* pNetObj);
+	CServerClient(const net::svr::server_info& info, NetworkObject* pNetObj);
 	virtual ~CServerClient();
 
 	void SendMsg(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin);
@@ -29,7 +29,7 @@ public:
 	uint16_t GetGameSubType();
 
 public:
-    net::server_info m_info;
+    net::svr::server_info m_info;
 	NetworkObject* m_pNetObj;
 };
 // 中心服管理器
@@ -46,7 +46,7 @@ public:
 
 	void ShutDown();
 
-	bool AddServer(NetworkObject* pNetObj, const net::server_info& info);
+	bool AddServer(NetworkObject* pNetObj, const net::svr::server_info& info);
 	void RemoveServer(NetworkObject* pNetObj);
 
 	shared_ptr<CServerClient> GetServerBySocket(NetworkObject* pNetObj);

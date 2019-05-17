@@ -51,7 +51,7 @@ public:
 
     void OnTimer();
 
-    bool Init(int32_t ioKey, const net::server_info &info, string ip, uint32_t port);
+    bool Init(int32_t ioKey, const net::svr::server_info &info, string ip, uint32_t port);
 
     void Register();
 
@@ -81,7 +81,7 @@ private:
     MemberTimerEvent<CCenterClientMgr, &CCenterClientMgr::OnTimer> m_timer;
     CCenterNetObj *m_pNetObj;
     bool m_isRun;
-    net::server_info m_curSvrInfo;
+    net::svr::server_info m_curSvrInfo;
 
 };
 

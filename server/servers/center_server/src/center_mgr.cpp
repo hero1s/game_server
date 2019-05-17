@@ -11,7 +11,7 @@ namespace {
 
 }
 
-CServerClient::CServerClient(const net::server_info& info, NetworkObject* pNetObj)
+CServerClient::CServerClient(const net::svr::server_info& info, NetworkObject* pNetObj)
 {
     m_info = info;
     m_pNetObj = pNetObj;
@@ -99,7 +99,7 @@ void CCenterMgr::ShutDown()
     m_timer.cancel();
 }
 
-bool CCenterMgr::AddServer(NetworkObject* pNetObj, const net::server_info& info)
+bool CCenterMgr::AddServer(NetworkObject* pNetObj, const net::svr::server_info& info)
 {
     auto pClient = std::make_shared<CServerClient>(info, pNetObj);
     pNetObj->SetUID(info.svrid());
@@ -204,10 +204,10 @@ void CCenterMgr::SendMsg2All(const uint8_t* pkt_buf, uint16_t buf_len, uint16_t 
 // 更新服务器列表给全部服务器
 void CCenterMgr::UpdateServerList()
 {
-    net::msg_server_list_rep svrList;
+    net::svr::msg_server_list_rep svrList;
     for (auto& it : m_mpServers) {
         auto pServer = it.second;
-        net::server_info* info = svrList.add_server_list();
+        net::svr::server_info* info = svrList.add_server_list();
         *info = pServer->m_info;
     }
 
@@ -249,13 +249,13 @@ int CCenterMgr::OnRouteDispMsg()
 //服务器注册
 int CCenterMgr::handle_msg_register_svr()
 {
-    net::msg_register_center_svr_req msg;
+    net::svr::msg_register_center_svr_req msg;
     PARSE_MSG(msg);
 
     LOG_DEBUG("Server Register svrid:{}--svrType {}--gameType:{}--subType:{}", msg.info().svrid(),
             msg.info().svr_type(),
             msg.info().game_type(), msg.info().game_subtype());
-    net::msg_register_center_svr_rep repmsg;
+    net::svr::msg_register_center_svr_rep repmsg;
 
     bool bRet = CCenterMgr::Instance().AddServer(_pNetObj, msg.info());
     if (!bRet) {
