@@ -64,7 +64,7 @@ bool CApplication::Initialize()
 		}
 
 	} while (false);
-	if (CCenterMgr::Instance().Init() == false)
+	if (CServerMgr::Instance().Init() == false)
 	{
 		LOG_ERROR("CenterMgr init fail");
 		return false;

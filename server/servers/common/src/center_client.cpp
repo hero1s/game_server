@@ -98,7 +98,7 @@ void CCenterClientMgr::OnConnect(bool bSuccess, CCenterNetObj* pNetObj)
 
 void CCenterClientMgr::OnCloseClient(CCenterNetObj* pNetObj)
 {
-	LOG_ERROR("lobby OnClose:{}", pNetObj->GetUID());
+	LOG_ERROR("center OnClose:{}", pNetObj->GetUID());
 	m_isRun = false;
 }
 bool CCenterClientMgr::IsRun()

@@ -15,6 +15,7 @@
 #include "utility/time_function.h"
 #include "lua_logic.h"
 #include "center_client.h"
+#include "dbagent_client.h"
 #include "player_mgr.h"
 #include "redis_mgr.h"
 #include "player.h"
@@ -112,11 +113,18 @@ bool CApplication::Initialize() {
     net::svr::server_info info;
     info.set_svrid(GetServerID());
 
+    //连接中心服
     auto centerIp = m_solLua.get<sol::table>("server_config").get<sol::table>("center");
-
     if (CCenterClientMgr::Instance().Init(1, info,centerIp.get<string>("ip"),centerIp.get<int>("port")) == false)
     {
         LOG_ERROR("init center client mgr fail");
+        return false;
+    }
+    //连接DBAgent
+    auto dbagentIp = m_solLua.get<sol::table>("server_config").get<sol::table>("dbagent");
+    if (CDBAgentClientMgr::Instance().Init(1, info,dbagentIp.get<string>("ip"),dbagentIp.get<int>("port")) == false)
+    {
+        LOG_ERROR("init dbagent client mgr fail");
         return false;
     }
 
@@ -132,8 +140,6 @@ bool CApplication::Initialize() {
 
     //test aoi
     aoi::CScene<64> scene(0,0,8000,8000);
-
-
 
     return true;
 }

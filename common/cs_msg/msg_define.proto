@@ -14,6 +14,9 @@ enum  SERVER_MSG_ID
 	S2CS_MSG_REGISTER_CENTER			= 201;  // 注册中心服
 	CS2S_MSG_REGISTER_CENTER_REP		= 202;	// 注册中心服返回	
 	CS2S_MSG_SERVER_LIST_REP			= 203;	// 服务器列表
+//------------------------------DBAgent--------------------------------------------------
+	S2DBA_MSG_REGISTER_DBA				= 301;  // 注册DB服
+	DBA2S_MSG_REGISTER_DBA_REP			= 302;	// 注册DB返回	
 				
 }
 // 客户端消息ID

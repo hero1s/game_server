@@ -257,7 +257,7 @@ int CCenterMgr::handle_msg_register_svr()
             msg.info().game_type(), msg.info().game_subtype());
     net::svr::msg_register_center_svr_rep repmsg;
 
-    bool bRet = CCenterMgr::Instance().AddServer(_pNetObj, msg.info());
+    bool bRet = AddServer(_pNetObj, msg.info());
     if (!bRet) {
         LOG_ERROR("Register Server fail svrid:{}", msg.info().svrid());
     }

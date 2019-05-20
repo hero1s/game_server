@@ -26,6 +26,16 @@ message msg_server_list_rep
 	repeated server_info server_list = 1;	// 服务器列表信息 
 }
 
+// --------------------------------dbagent服-----------------------------------------------------
+// 注册dbagent服
+message msg_register_dbagent_svr_req
+{
+	optional server_info info 	 = 1;		// 服务器信息
+}
+message msg_register_dbagent_svr_rep
+{
+	optional uint32 result = 1;			// 返回结果
+}
 
 
 

@@ -59,21 +59,21 @@ uint16_t CServerClient::GetGameSubType()
 }
 
 //--------------------------------------------------------------------------------------------
-CCenterMgr::CCenterMgr()
+CServerMgr::CServerMgr()
         :m_timer(this)
 {
     m_mpServers.clear();
     m_msgMinCount = 0;
     m_lastCountTime = 0;
 
-    bind_handler(this, net::S2CS_MSG_REGISTER_CENTER, &CCenterMgr::handle_msg_register_svr);
+    bind_handler(this, net::S2DBA_MSG_REGISTER_DBA, &CServerMgr::handle_msg_register_svr);
 }
 
-CCenterMgr::~CCenterMgr()
+CServerMgr::~CServerMgr()
 {
 }
 
-void CCenterMgr::OnTimer()
+void CServerMgr::OnTimer()
 {
     if (getSysTime()-m_lastCountTime>MINUTE) {
         m_msgMaxCount = std::max(m_msgMaxCount, m_msgMinCount);
@@ -84,22 +84,21 @@ void CCenterMgr::OnTimer()
         m_lastCountTime = getSysTime();
     }
     CApplication::Instance().schedule(&m_timer, MINUTE*1000);
-    UpdateServerList();//test
 }
 
-bool CCenterMgr::Init()
+bool CServerMgr::Init()
 {
     CApplication::Instance().schedule(&m_timer, MINUTE*1000);
 
     return true;
 }
 
-void CCenterMgr::ShutDown()
+void CServerMgr::ShutDown()
 {
     m_timer.cancel();
 }
 
-bool CCenterMgr::AddServer(NetworkObject* pNetObj, const net::svr::server_info& info)
+bool CServerMgr::AddServer(NetworkObject* pNetObj, const net::svr::server_info& info)
 {
     auto pClient = std::make_shared<CServerClient>(info, pNetObj);
     pNetObj->SetUID(info.svrid());
@@ -107,11 +106,10 @@ bool CCenterMgr::AddServer(NetworkObject* pNetObj, const net::svr::server_info& 
     m_mpServers.insert(make_pair(info.svrid(), pClient));
 
     LOG_DEBUG("add server :svrid:{}--gameType:{},server size:{}", info.svrid(), info.game_type(), m_mpServers.size());
-    UpdateServerList();
     return true;
 }
 
-void CCenterMgr::RemoveServer(NetworkObject* pNetObj)
+void CServerMgr::RemoveServer(NetworkObject* pNetObj)
 {
     for (auto& it : m_mpServers) {
         auto pServer = it.second;
@@ -122,15 +120,14 @@ void CCenterMgr::RemoveServer(NetworkObject* pNetObj)
             break;
         }
     }
-    UpdateServerList();
 }
 
-shared_ptr<CServerClient> CCenterMgr::GetServerBySocket(NetworkObject* pNetObj)
+shared_ptr<CServerClient> CServerMgr::GetServerBySocket(NetworkObject* pNetObj)
 {
     return GetServerBySvrID(pNetObj->GetUID());
 }
 
-shared_ptr<CServerClient> CCenterMgr::GetServerBySvrID(uint16_t svrID)
+shared_ptr<CServerClient> CServerMgr::GetServerBySvrID(uint16_t svrID)
 {
     auto it = m_mpServers.find(svrID);
     if (it!=m_mpServers.end()) {
@@ -139,7 +136,7 @@ shared_ptr<CServerClient> CCenterMgr::GetServerBySvrID(uint16_t svrID)
     return nullptr;
 }
 
-void CCenterMgr::SendMsg2Server(uint16_t svrID, const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin)
+void CServerMgr::SendMsg2Server(uint16_t svrID, const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin)
 {
     auto pServer = GetServerBySvrID(svrID);
     if (pServer==nullptr) {
@@ -150,7 +147,7 @@ void CCenterMgr::SendMsg2Server(uint16_t svrID, const google::protobuf::Message*
 }
 
 void
-CCenterMgr::SendMsg2Server(uint16_t svrID, const uint8_t* pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin)
+CServerMgr::SendMsg2Server(uint16_t svrID, const uint8_t* pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin)
 {
     auto pServer = GetServerBySvrID(svrID);
     if (pServer==nullptr) {
@@ -160,110 +157,30 @@ CCenterMgr::SendMsg2Server(uint16_t svrID, const uint8_t* pkt_buf, uint16_t buf_
     pServer->SendMsg(pkt_buf, buf_len, msg_type, uin);
 }
 
-void
-CCenterMgr::SendMsg2AllGameServer(uint16_t gameType, const google::protobuf::Message* msg, uint16_t msg_type,
-        uint32_t uin)
-{
-    for (auto& it : m_mpServers) {
-        auto pServer = it.second;
-        if (pServer->GetSvrType()==gameType) {
-            pServer->SendMsg(msg, msg_type, uin);
-        }
-    }
-}
-
-void
-CCenterMgr::SendMsg2AllGameServer(uint16_t gameType, const uint8_t* pkt_buf, uint16_t buf_len, uint16_t msg_type,
-        uint32_t uin)
-{
-    for (auto& it : m_mpServers) {
-        auto pServer = it.second;
-        if (pServer->GetSvrType()==gameType) {
-            pServer->SendMsg(pkt_buf, buf_len, msg_type, uin);
-        }
-    }
-}
-
-// 全服广播
-void CCenterMgr::SendMsg2All(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin)
-{
-    for (auto& it : m_mpServers) {
-        auto pServer = it.second;
-        pServer->SendMsg(msg, msg_type, uin);
-    }
-}
-
-void CCenterMgr::SendMsg2All(const uint8_t* pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin)
-{
-    for (auto& it : m_mpServers) {
-        auto pServer = it.second;
-        pServer->SendMsg(pkt_buf, buf_len, msg_type, uin);
-    }
-}
-
-// 更新服务器列表给全部服务器
-void CCenterMgr::UpdateServerList()
-{
-    net::svr::msg_server_list_rep svrList;
-    for (auto& it : m_mpServers) {
-        auto pServer = it.second;
-        net::svr::server_info* info = svrList.add_server_list();
-        *info = pServer->m_info;
-    }
-
-    SendMsg2All(&svrList, net::CS2S_MSG_SERVER_LIST_REP, 0);
-}
-
-int CCenterMgr::OnRecvClientMsg()
+int CServerMgr::OnRecvClientMsg()
 {
     m_msgMinCount++;
-    if (_head->route>0) {
-        return OnRouteDispMsg();
-    }
-
     return CProtobufHandleBase::OnRecvClientMsg();
 }
 
-//路由分发消息
-int CCenterMgr::OnRouteDispMsg()
-{
-    switch (_head->route) {
-    case emROUTE_TYPE_ALL_GAME: {
-        //LOG_DEBUG("转发全部游戏服{}", head->cmd);
-        SendMsg2AllGameServer(_head->routeID, _pkt_buf, _buf_len, _head->cmd, _head->uin);
-        break;
-    }
-    case emROUTE_TYPE_ONE_GAME: {
-        //LOG_DEBUG("转发单个游戏服{}--{}--{}", head->cmd, head->routeMain, head->routeSub);
-        SendMsg2Server(_head->routeID, _pkt_buf, _buf_len, _head->cmd, _head->uin);
-        break;
-    }
-    default: {
-        LOG_ERROR("route type error :{}", _head->route);
-        break;
-    }
-    }
-    return 0;
-}
-
 //服务器注册
-int CCenterMgr::handle_msg_register_svr()
+int CServerMgr::handle_msg_register_svr()
 {
-    net::svr::msg_register_center_svr_req msg;
+    net::svr::msg_register_dbagent_svr_req msg;
     PARSE_MSG(msg);
 
     LOG_DEBUG("Server Register svrid:{}--svrType {}--gameType:{}--subType:{}", msg.info().svrid(),
             msg.info().svr_type(),
             msg.info().game_type(), msg.info().game_subtype());
-    net::svr::msg_register_center_svr_rep repmsg;
+    net::svr::msg_register_dbagent_svr_rep repmsg;
 
-    bool bRet = CCenterMgr::Instance().AddServer(_pNetObj, msg.info());
+    bool bRet = AddServer(_pNetObj, msg.info());
     if (!bRet) {
         LOG_ERROR("Register Server fail svrid:{}", msg.info().svrid());
     }
     repmsg.set_result(bRet);
 
-    pkg_inner::SendProtobufMsg(_pNetObj, &repmsg, net::CS2S_MSG_REGISTER_CENTER_REP, 0,0,0);
+    pkg_inner::SendProtobufMsg(_pNetObj, &repmsg, net::DBA2S_MSG_REGISTER_DBA_REP, 0,0,0);
 
     return 0;
 }

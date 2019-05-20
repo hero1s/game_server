@@ -22,10 +22,9 @@ include_directories(server_frame/include/redisclient/impl)
 include_directories(server_frame/include/utility)
 include_directories(server_frame/src/framework)
 include_directories(server_frame/src/network)
-include_directories(server_frame/src/third/lua)
-include_directories(server_frame/src/third/zlib)
 include_directories(servers/center_server/src)
 include_directories(servers/common/src)
+include_directories(servers/dbagent_server/src)
 include_directories(servers/lobby_server/src)
 include_directories(servers/pb/src)
 
@@ -189,86 +188,6 @@ add_executable(server
     server_frame/src/network/tcp_connector.cpp
     server_frame/src/network/TLock.cpp
     server_frame/src/network/TLock.h
-    server_frame/src/third/lua/lapi.c
-    server_frame/src/third/lua/lapi.h
-    server_frame/src/third/lua/lauxlib.c
-    server_frame/src/third/lua/lbaselib.c
-    server_frame/src/third/lua/lbitlib.c
-    server_frame/src/third/lua/lcode.c
-    server_frame/src/third/lua/lcode.h
-    server_frame/src/third/lua/lcorolib.c
-    server_frame/src/third/lua/lctype.c
-    server_frame/src/third/lua/lctype.h
-    server_frame/src/third/lua/ldblib.c
-    server_frame/src/third/lua/ldebug.c
-    server_frame/src/third/lua/ldebug.h
-    server_frame/src/third/lua/ldo.c
-    server_frame/src/third/lua/ldo.h
-    server_frame/src/third/lua/ldump.c
-    server_frame/src/third/lua/lfunc.c
-    server_frame/src/third/lua/lfunc.h
-    server_frame/src/third/lua/lgc.c
-    server_frame/src/third/lua/lgc.h
-    server_frame/src/third/lua/linit.c
-    server_frame/src/third/lua/liolib.c
-    server_frame/src/third/lua/llex.c
-    server_frame/src/third/lua/llex.h
-    server_frame/src/third/lua/llimits.h
-    server_frame/src/third/lua/lmathlib.c
-    server_frame/src/third/lua/lmem.c
-    server_frame/src/third/lua/lmem.h
-    server_frame/src/third/lua/loadlib.c
-    server_frame/src/third/lua/lobject.c
-    server_frame/src/third/lua/lobject.h
-    server_frame/src/third/lua/lopcodes.c
-    server_frame/src/third/lua/lopcodes.h
-    server_frame/src/third/lua/loslib.c
-    server_frame/src/third/lua/lparser.c
-    server_frame/src/third/lua/lparser.h
-    server_frame/src/third/lua/lprefix.h
-    server_frame/src/third/lua/lstate.c
-    server_frame/src/third/lua/lstate.h
-    server_frame/src/third/lua/lstring.c
-    server_frame/src/third/lua/lstring.h
-    server_frame/src/third/lua/lstrlib.c
-    server_frame/src/third/lua/ltable.c
-    server_frame/src/third/lua/ltable.h
-    server_frame/src/third/lua/ltablib.c
-    server_frame/src/third/lua/ltm.c
-    server_frame/src/third/lua/ltm.h
-    server_frame/src/third/lua/lua.c
-    server_frame/src/third/lua/luac.c
-    server_frame/src/third/lua/lundump.c
-    server_frame/src/third/lua/lundump.h
-    server_frame/src/third/lua/lutf8lib.c
-    server_frame/src/third/lua/lvm.c
-    server_frame/src/third/lua/lvm.h
-    server_frame/src/third/lua/lzio.c
-    server_frame/src/third/lua/lzio.h
-    server_frame/src/third/zlib/adler32.c
-    server_frame/src/third/zlib/compress.c
-    server_frame/src/third/zlib/crc32.c
-    server_frame/src/third/zlib/crc32.h
-    server_frame/src/third/zlib/deflate.c
-    server_frame/src/third/zlib/deflate.h
-    server_frame/src/third/zlib/gzclose.c
-    server_frame/src/third/zlib/gzguts.h
-    server_frame/src/third/zlib/gzlib.c
-    server_frame/src/third/zlib/gzread.c
-    server_frame/src/third/zlib/gzwrite.c
-    server_frame/src/third/zlib/infback.c
-    server_frame/src/third/zlib/inffast.c
-    server_frame/src/third/zlib/inffast.h
-    server_frame/src/third/zlib/inffixed.h
-    server_frame/src/third/zlib/inflate.c
-    server_frame/src/third/zlib/inflate.h
-    server_frame/src/third/zlib/inftrees.c
-    server_frame/src/third/zlib/inftrees.h
-    server_frame/src/third/zlib/trees.c
-    server_frame/src/third/zlib/trees.h
-    server_frame/src/third/zlib/uncompr.c
-    server_frame/src/third/zlib/zutil.c
-    server_frame/src/third/zlib/zutil.h
     server_frame/src/utility/basic_functions.cpp
     server_frame/src/utility/cooling.cpp
     server_frame/src/utility/ipcutility.cpp
@@ -292,6 +211,8 @@ add_executable(server
     servers/common/src/db_operator.cpp
     servers/common/src/db_operator.h
     servers/common/src/db_struct_define.h
+    servers/common/src/dbagent_client.cpp
+    servers/common/src/dbagent_client.h
     servers/common/src/dbmysql_mgr.cpp
     servers/common/src/dbmysql_mgr.h
     servers/common/src/game_define.h
@@ -303,6 +224,11 @@ add_executable(server
     servers/common/src/player_mgr.h
     servers/common/src/redis_mgr.cpp
     servers/common/src/redis_mgr.h
+    servers/dbagent_server/src/game_net_mgr.cpp
+    servers/dbagent_server/src/game_net_mgr.h
+    servers/dbagent_server/src/game_server.cpp
+    servers/dbagent_server/src/server_mgr.cpp
+    servers/dbagent_server/src/server_mgr.h
     servers/lobby_server/src/game_net_mgr.cpp
     servers/lobby_server/src/game_net_mgr.h
     servers/lobby_server/src/game_server.cpp

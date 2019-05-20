@@ -66,15 +66,16 @@ void protobuf_AddDesc_msg_5fdefine_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\020msg_define.proto\022\003net\032\020error_code.prot"
     "o\032\025base_msg_struct.proto\032\026client_logic_m"
-    "sg.proto\032\021servers_msg.proto*p\n\rSERVER_MS"
-    "G_ID\022\035\n\030S2CS_MSG_REGISTER_CENTER\020\311\001\022!\n\034C"
-    "S2S_MSG_REGISTER_CENTER_REP\020\312\001\022\035\n\030CS2S_M"
-    "SG_SERVER_LIST_REP\020\313\001*\274\001\n\rCLIENT_MSG_ID\022"
-    "\022\n\rC2S_MSG_HEART\020\350\007\022\022\n\rC2S_MSG_LOGIN\020\351\007\022"
-    "\026\n\021S2C_MSG_LOGIN_REP\020\352\007\022\031\n\024S2C_MSG_LOGIN"
-    "OUT_REP\020\353\007\022\035\n\030S2C_MSG_VERSION_INFO_REP\020\354"
-    "\007\022\027\n\022S2C_MSG_ENTER_GAME\020\362\007\022\030\n\023S2C_MSG_PL"
-    "AYER_INFO\020\363\007", 412);
+    "sg.proto\032\021servers_msg.proto*\256\001\n\rSERVER_M"
+    "SG_ID\022\035\n\030S2CS_MSG_REGISTER_CENTER\020\311\001\022!\n\034"
+    "CS2S_MSG_REGISTER_CENTER_REP\020\312\001\022\035\n\030CS2S_"
+    "MSG_SERVER_LIST_REP\020\313\001\022\033\n\026S2DBA_MSG_REGI"
+    "STER_DBA\020\255\002\022\037\n\032DBA2S_MSG_REGISTER_DBA_RE"
+    "P\020\256\002*\274\001\n\rCLIENT_MSG_ID\022\022\n\rC2S_MSG_HEART\020"
+    "\350\007\022\022\n\rC2S_MSG_LOGIN\020\351\007\022\026\n\021S2C_MSG_LOGIN_"
+    "REP\020\352\007\022\031\n\024S2C_MSG_LOGINOUT_REP\020\353\007\022\035\n\030S2C"
+    "_MSG_VERSION_INFO_REP\020\354\007\022\027\n\022S2C_MSG_ENTE"
+    "R_GAME\020\362\007\022\030\n\023S2C_MSG_PLAYER_INFO\020\363\007", 475);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "msg_define.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_msg_5fdefine_2eproto);
@@ -95,6 +96,8 @@ bool SERVER_MSG_ID_IsValid(int value) {
     case 201:
     case 202:
     case 203:
+    case 301:
+    case 302:
       return true;
     default:
       return false;

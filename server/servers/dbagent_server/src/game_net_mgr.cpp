@@ -22,13 +22,13 @@ CCenterNetObj::~CCenterNetObj()
 void CCenterNetObj::OnDisconnect()
 {
 	LOG_ERROR("center server on disconnect:{}--{}", GetUID(), this->GetIP());
-	CCenterMgr::Instance().RemoveServer(this);
+	CServerMgr::Instance().RemoveServer(this);
 }
 
 int CCenterNetObj::OnRecv(uint8_t* pMsg, uint16_t wSize)
 {
     AutoProfile ap("CenterNetObj::OnRecv");
-	return CCenterMgr::Instance().OnHandleClientMsg(this, pMsg, wSize);
+	return CServerMgr::Instance().OnHandleClientMsg(this, pMsg, wSize);
 }
 
 void CCenterNetObj::OnConnect(bool bSuccess, uint32_t dwNetworkIndex)
