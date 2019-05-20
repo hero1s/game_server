@@ -22,12 +22,19 @@ local redis_config = { host = "139.199.209.147",port = 14000,passwd="e2345" };
 --全局配置信息
 server_config =
 {
-    center = { ip = "127.0.0.1",port = 9999},
-    dbagent= { ip = "127.0.0.1",port = 9998}
+    center = { ip = "127.0.0.1",port = 8888},
+    dbagent= { ip = "127.0.0.1",port = 9999}
 }
 
 -- 中心服务器配置
 function center_config(sid, gameConfig)
+    load_db_config(sid, gameConfig);
+    load_redis_config(sid, gameConfig);
+    return true
+end
+
+-- dbagent服务器配置
+function dbagent_config(sid, gameConfig)
     load_db_config(sid, gameConfig);
     load_redis_config(sid, gameConfig);
     return true
@@ -39,6 +46,12 @@ function lobby_config(sid, lobbyConfig)
     load_redis_config(sid, lobbyConfig);
     return true;
 end
+
+-- 大厅服端口
+function get_lobby_listen(sid)
+    return 7777;
+end
+
 
 -- 加载数据库
 function load_db_config(sid, serviceConfig)

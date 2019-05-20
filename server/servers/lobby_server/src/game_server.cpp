@@ -88,9 +88,11 @@ bool CApplication::Initialize() {
             return false;
         }
 
-        if (!m_iocpServer.StartListen(0, "0.0.0.0", 8888))
+        uint32_t port = m_solLua["get_lobby_listen"](m_uiServerID);
+
+        if (!m_iocpServer.StartListen(0, "0.0.0.0", port))
         {
-            LOG_ERROR("IOCP SERVER StartListen fail {}", 8888);
+            LOG_ERROR("IOCP SERVER StartListen fail {}", port);
             return false;
         }
     }

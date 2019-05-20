@@ -1,7 +1,7 @@
 #!/bin/bash
 root_dir=`pwd`
 
-all_dir=("./lobby_server" "./center_server/")
+all_dir=("./lobby_server" "./center_server/" "./dbagent_server")
 
 #!/bin/bash
 while true

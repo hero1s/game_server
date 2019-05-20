@@ -2,7 +2,7 @@
 
 root_dir=`pwd`
 
-all_dir=("./center_server" "./lobby_server")
+all_dir=("./center_server" "./lobby_server" "./dbagent_server")
 
 tLen=${#all_dir[@]}
 for ((i=0;i<${tLen};i++))

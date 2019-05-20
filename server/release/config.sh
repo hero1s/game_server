@@ -9,4 +9,5 @@ all_lobby_svrs=(1 )
 #中心服
 all_center_svrs=(8888 )
 
-
+#db服
+all_dbagent_svrs=(9999 )
