@@ -40,18 +40,12 @@ public:
 	void AddAsyncSql(uint8_t dbType, string strSql);
 // 数据库操作接口    
 public:
-	// 上报服务器在线人数
-	void ReportOnlines();
-	// 上报服务器启动
-	void ReportStartServer(bool bReset);
 
 // 同步数据库操作
 public:
 	CDBOperator& GetSyncDBOper(uint8_t dbIndex);
 
 protected:
-	// 调用通用sql
-	void SendCommonLog(uint8_t dbType);
 	string GetDBName(uint8_t dbType);
 	// 添加DBEvent
 	void AddAsyncDBEvent(uint8_t dbType, shared_ptr<CDBEventReq>& pReq);
@@ -78,7 +72,6 @@ private:
 	stDBConf m_DBConf[DB_INDEX_TYPE_MAX];               // 数据库配置信息
 
 	uint16_t                                             m_svrID;
-	string                                               m_strSql;
 	MemberTimerEvent<CDBMysqlMgr, &CDBMysqlMgr::OnTimer> m_reportTimer;
 
 	SQLJoin m_sqlJoinData;

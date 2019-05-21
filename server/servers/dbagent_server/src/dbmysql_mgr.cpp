@@ -35,7 +35,6 @@ CDBMysqlMgr::~CDBMysqlMgr()
 
 void CDBMysqlMgr::OnTimer()
 {
-	ReportOnlines();
 	CApplication::Instance().schedule(&m_reportTimer, 20*1000);
 }
 
@@ -121,37 +120,10 @@ void CDBMysqlMgr::AddAsyncSql(uint8_t dbType, string strSql)
 	}
 }
 
-// 上报服务器在线人数
-void CDBMysqlMgr::ReportOnlines()
-{
-	uint32_t onlines = CPlayerMgr::Instance().GetOnlines();
-	m_strSql = CStringUtility::FormatToString("update serverinfo set onlines=%d,report_time=%lld,repair_state=%d where svrid=%d", onlines,
-	                                          getSysTime(), CApplication::Instance().GetStatus(), m_svrID);
-	SendCommonLog(DB_INDEX_TYPE_CFG);
-}
-// 上报服务器启动
-void CDBMysqlMgr::ReportStartServer(bool bReset)
-{
-	if (bReset)
-	{
-		m_strSql = CStringUtility::FormatToString("update serverinfo set start_count=1,start_time=%lld where svrid=%d", getSysTime(), m_svrID);
-	}
-	else
-	{
-		m_strSql = CStringUtility::FormatToString("update serverinfo set start_count=start_count+1,start_time=%lld where svrid=%d", getSysTime(), m_svrID);
-	}
-	SendCommonLog(DB_INDEX_TYPE_CFG);
-}
 CDBOperator& CDBMysqlMgr::GetSyncDBOper(uint8_t dbIndex)
 {
 	m_syncDBOper.dbSelect(GetDBName(dbIndex).c_str());
 	return m_syncDBOper;
-}
-
-// 调用通用sql
-void CDBMysqlMgr::SendCommonLog(uint8_t dbType)
-{
-	AddAsyncSql(dbType, m_strSql);
 }
 
 string CDBMysqlMgr::GetDBName(uint8_t dbType)
