@@ -22,11 +22,6 @@ public:
     virtual uint16_t GetPacketLen(const uint8_t *pData, uint16_t wLen) {
         return pkg_inner::GetPacketLen(pData, wLen);
     };
-
-    virtual uint16_t MaxTickPacket() {
-        return 1000;
-    }
-
 protected:
     virtual void OnDisconnect();
 

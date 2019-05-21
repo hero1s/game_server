@@ -68,23 +68,25 @@ void CDBMysqlMgr::ShutDown()
 // 启动异步线程
 bool CDBMysqlMgr::StartAsyncDB()
 {
-	m_pAsyncTask = new CDBTask(CApplication::Instance().GetAsioContext());
-	m_pAsyncTask->SetDBName(m_DBConf[DB_INDEX_TYPE_ACC].sDBName);
-	m_pAsyncTask->Init(m_DBConf[DB_INDEX_TYPE_ACC]);
-	m_pAsyncTask->Start();
-
+	for(uint16_t i=0;i<DB_INDEX_TYPE_MAX;++i) {
+		m_pAsyncTask[i] = new CDBTask(CApplication::Instance().GetAsioContext());
+		m_pAsyncTask[i]->SetDBName(m_DBConf[i].sDBName);
+		m_pAsyncTask[i]->Init(m_DBConf[i]);
+		m_pAsyncTask[i]->Start();
+	}
 	return true;
 }
 // 停止日志异步线程
 bool CDBMysqlMgr::StopAsyncDB()
 {
-	if (m_pAsyncTask != NULL)
-	{
-		m_pAsyncTask->Stop();
-		m_pAsyncTask->Join();
+	for(uint16_t i=0;i<DB_INDEX_TYPE_MAX;++i) {
+		if (m_pAsyncTask[i] != NULL) {
+			m_pAsyncTask[i]->Stop();
+			m_pAsyncTask[i]->Join();
 
-		delete m_pAsyncTask;
-		m_pAsyncTask = NULL;
+			delete m_pAsyncTask[i];
+			m_pAsyncTask[i] = NULL;
+		}
 	}
 	return true;
 }
@@ -109,9 +111,9 @@ void CDBMysqlMgr::AddAsyncSql(uint8_t dbType, string strSql)
 		LOG_ERROR("overstep dbIndexTypeMax:{}", dbType);
 		return;
 	}
-	if (m_pAsyncTask != NULL)
+	if (m_pAsyncTask[dbType] != NULL)
 	{
-		m_pAsyncTask->PushAndSelectDB(GetDBName(dbType), strSql);
+		m_pAsyncTask[dbType]->PushAndSelectDB("", strSql);
 	}
 	else
 	{
@@ -164,10 +166,13 @@ string CDBMysqlMgr::GetDBName(uint8_t dbType)
 // 添加DBEvent
 void CDBMysqlMgr::AddAsyncDBEvent(uint8_t dbType, shared_ptr<CDBEventReq>& pReq)
 {
-	pReq->dbName = GetDBName(dbType);
-	if (m_pAsyncTask != NULL)
+	if(dbType >= DB_INDEX_TYPE_MAX){
+		LOG_ERROR("dbType is more than max index:{}",dbType);
+		return;
+	}
+	if (m_pAsyncTask[dbType] != NULL)
 	{
-		m_pAsyncTask->AsyncQuery(pReq);
+		m_pAsyncTask[dbType]->AsyncQuery(pReq);
 	}
 	else
 	{
@@ -186,16 +191,16 @@ string CDBMysqlMgr::GetDayTranscTableName(int64_t time)
 
 void CDBMysqlMgr::AsyncLoadPlayerData(uint32_t uid, std::function<void(shared_ptr<CDBEventRep>& pRep)> callBack)
 {
-	shared_ptr<CDBEventReq> pReq = m_pAsyncTask->MallocDBEventReq();
+	shared_ptr<CDBEventReq> pReq = m_pAsyncTask[DB_INDEX_TYPE_ACC]->MallocDBEventReq();
 	pReq->callBack = callBack;
 	pReq->sqlStr = CStringUtility::FormatToString("SELECT Base,OfflineTime FROM t_player WHERE PlayerID =%u limit 1;", uid);
 	AddAsyncDBEvent(DB_INDEX_TYPE_ACC, pReq);
 
 }
 // 保存玩家基础数据
-void CDBMysqlMgr::SavePlayerBaseInfo(uint32_t uid,string& data,uint32_t offlineTime)
+void CDBMysqlMgr::SavePlayerBaseInfo(uint32_t uid,const string& data,uint32_t offlineTime)
 {
-	shared_ptr<CDBEventReq> pReq = m_pAsyncTask->MallocDBEventReq();
+	shared_ptr<CDBEventReq> pReq = m_pAsyncTask[DB_INDEX_TYPE_ACC]->MallocDBEventReq();
 	pReq->sqlStr = CStringUtility::FormatToString("UPDATE t_player SET `Base`=?,OfflineTime=? WHERE PlayerID=? limit 1;",offlineTime, uid);
 	pReq->pushBlobParam(data.c_str(),data.length()).pushParam(offlineTime).pushParam(uid);
 	AddAsyncDBEvent(DB_INDEX_TYPE_ACC, pReq);

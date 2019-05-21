@@ -28,9 +28,6 @@ private:
 		return pkg_client::GetProtobufPacketLen(pData, wLen);
 	};
 
-	virtual uint16_t MaxTickPacket() {
-		return 20;
-	}
 protected:
 	virtual void OnDisconnect();
 	virtual int OnRecv(uint8_t* pMsg, uint16_t wSize);

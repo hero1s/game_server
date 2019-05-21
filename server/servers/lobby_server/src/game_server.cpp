@@ -45,8 +45,6 @@ bool CApplication::Initialize() {
         // client´¦Àí¶Ë¿Ú
         stIOHANDLER_DESC desc[2];
         desc[0].ioHandlerKey = 0;
-        desc[0].maxAcceptSession = 5000;
-        desc[0].maxConnectSession = 0;
         desc[0].maxConnectBuffSize = SERVER_SOCKET_BUFF_SIZE;
         desc[0].sendBufferSize = PACKET_MAX_SIZE * 2;
         desc[0].recvBufferSize = 1024 * 4;
@@ -57,8 +55,6 @@ bool CApplication::Initialize() {
         desc[0].webSocket = true;
 
         desc[1].ioHandlerKey = 1;
-        desc[1].maxAcceptSession = 0;
-        desc[1].maxConnectSession = 100;
         desc[1].maxConnectBuffSize = 1024 * 1024;
         desc[1].sendBufferSize = SERVER_SOCKET_BUFF_SIZE;
         desc[1].recvBufferSize = SERVER_SOCKET_BUFF_SIZE;

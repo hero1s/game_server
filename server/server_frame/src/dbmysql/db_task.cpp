@@ -144,7 +144,7 @@ void CDBTask::AddDBRepEvent(shared_ptr<CDBEventRep> pRepEvent,std::function<void
 // 处理请求事件
 bool CDBTask::OnProcessEvent(shared_ptr<CDBEventReq> pReqEvent) {
     m_Counts++;
-    if (pReqEvent->dbName.length() > 1)
+    if (pReqEvent->dbName.length() > 2)
     {
         if (!dbSelect(pReqEvent->dbName.c_str()))
         {

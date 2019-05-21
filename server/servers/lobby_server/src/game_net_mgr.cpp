@@ -15,6 +15,7 @@ CClientNetObj::CClientNetObj()
 {
 	m_seqNum = 0;
 	SetUID(0);
+	m_maxTickPacket = 20;
 }
 
 CClientNetObj::~CClientNetObj()

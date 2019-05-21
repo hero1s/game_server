@@ -150,7 +150,7 @@ namespace Network {
                                                lpDesc.openMsgQueue,
                                                lpDesc.webSocket);
 
-        m_pConnectSessionPool = new SessionPool(lpDesc.maxConnectSession,
+        m_pConnectSessionPool = new SessionPool(1000,
                                                 lpDesc.maxConnectBuffSize,
                                                 lpDesc.maxConnectBuffSize,
                                                 lpDesc.maxPacketSize,

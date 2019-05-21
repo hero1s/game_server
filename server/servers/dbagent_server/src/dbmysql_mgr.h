@@ -34,8 +34,7 @@ public:
 	// 加载玩家数据
 	void AsyncLoadPlayerData(uint32_t uid, std::function<void(shared_ptr<CDBEventRep>& pRep)> callBack);
 	// 保存玩家基础数据
-	void SavePlayerBaseInfo(uint32_t uid,string& data,uint32_t offlineTime);
-
+	void SavePlayerBaseInfo(uint32_t uid,const string& data,uint32_t offlineTime);
 
 	// 添加异步SQL语句
 	void AddAsyncSql(uint8_t dbType, string strSql);
@@ -74,7 +73,7 @@ private:
 	// 同步数据库操作
 	CDBOperator m_syncDBOper;                           // 同步数据库
 	// 异步数据库操作
-	CDBTask* m_pAsyncTask;                              // 异步数据库线程
+	CDBTask* m_pAsyncTask[DB_INDEX_TYPE_MAX];           // 异步数据库线程
 
 	stDBConf m_DBConf[DB_INDEX_TYPE_MAX];               // 数据库配置信息
 

@@ -34,8 +34,6 @@ bool CApplication::Initialize()
 
 		stIOHANDLER_DESC desc;
 		desc.ioHandlerKey       = 0;
-		desc.maxAcceptSession   = 1000;
-		desc.maxConnectSession  = 0;
 		desc.maxConnectBuffSize = 1024*1024;
 		desc.sendBufferSize     = SERVER_SOCKET_BUFF_SIZE;
 		desc.recvBufferSize     = SERVER_SOCKET_BUFF_SIZE;

@@ -9,11 +9,11 @@ using namespace Network;
 using namespace svrlib;
 
 // server Á¬½Ó
-class CCenterNetObj : public NetworkObject, public CNetworkObjPoolTemplete<CCenterNetObj> {
+class CServerNetObj : public NetworkObject, public CNetworkObjPoolTemplete<CServerNetObj> {
 public:
-    CCenterNetObj();
+    CServerNetObj();
 
-    virtual ~CCenterNetObj();
+    virtual ~CServerNetObj();
 
     virtual uint16_t GetHeadLen() {
         return INNER_HEADER_SIZE;
@@ -22,10 +22,6 @@ public:
     virtual uint16_t GetPacketLen(const uint8_t *pData, uint16_t wLen) {
         return pkg_inner::GetPacketLen(pData, wLen);
     };
-
-    virtual uint16_t MaxTickPacket() {
-        return 1000;
-    }
 
 protected:
     virtual void OnDisconnect();

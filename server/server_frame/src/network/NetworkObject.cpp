@@ -12,6 +12,7 @@ NetworkObject::NetworkObject()
 	m_strIP    = "";
 	m_ipNumber = 0;
 	m_uid      = 0;
+	m_maxTickPacket = 1000;
 }
 
 NetworkObject::~NetworkObject()

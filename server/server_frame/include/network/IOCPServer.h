@@ -46,7 +46,6 @@ struct stIOHANDLER_DESC
 {
   uint32_t ioHandlerKey;
   uint32_t maxAcceptSession;      // 最大接受连接数
-  uint32_t maxConnectSession;     // 最大主动连接数
   uint32_t maxConnectBuffSize;    // 主动连接BuffSize
   uint32_t sendBufferSize;        // 发送缓存
   uint32_t recvBufferSize;        // 接受缓存
@@ -59,6 +58,7 @@ struct stIOHANDLER_DESC
   stIOHANDLER_DESC()
   {
 	  memset(this, 0, sizeof(stIOHANDLER_DESC));
+	  maxAcceptSession = 10000;
 	  openMsgQueue = false;
 	  webSocket	   = false;
   }

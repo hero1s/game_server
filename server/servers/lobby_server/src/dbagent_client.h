@@ -29,10 +29,6 @@ public:
         return pkg_inner::GetPacketLen(pData, wLen);
     };
 
-    virtual uint16_t MaxTickPacket() {
-        return 1000;
-    }
-
 protected:
     virtual void ConnectorOnDisconnect();
 

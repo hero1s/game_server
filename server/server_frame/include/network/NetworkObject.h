@@ -26,10 +26,11 @@ public:
 	uint32_t GetUID();
 	void SetUID(uint32_t uid);
 
+	inline uint16_t MaxTickPacket(){ return m_maxTickPacket; };
 public:
 	virtual uint16_t GetHeadLen() = 0;
 	virtual uint16_t GetPacketLen(const uint8_t* pData, uint16_t wLen) = 0;
-	virtual uint16_t MaxTickPacket() = 0;
+
 protected:
 	virtual void OnDisconnect();
 	virtual int OnRecv(uint8_t* pMsg, uint16_t wSize);
@@ -41,6 +42,8 @@ protected:
 	std::string m_strIP;
 	uint32_t    m_ipNumber;
 	uint32_t    m_uid;
+	uint16_t 	m_maxTickPacket;
+
 };
 }
 
