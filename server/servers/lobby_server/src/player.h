@@ -73,7 +73,7 @@ protected:
 	uint32_t                               m_reloginTime;                   // 上次重连时间(限制可能的bug导致频繁重连)
 	uint32_t                               m_loadTime;                      // 加载数据时间
 	uint32_t                               m_netDelay;                      // 网络延迟
-	std::array<uint32_t, emLIMIT_TIME_MAX> m_limitTime;  					  // 限制时间
+	std::array<uint32_t, emLIMIT_TIME_MAX> m_limitTime;  					// 限制时间
 
 };
 

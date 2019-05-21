@@ -34,7 +34,7 @@ void protobuf_AssignDesc_base_5fmsg_5fstruct_2eproto() {
       "base_msg_struct.proto");
   GOOGLE_CHECK(file != NULL);
   base_info_descriptor_ = file->message_type(0);
-  static const int base_info_offsets_[9] = {
+  static const int base_info_offsets_[10] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(base_info, uid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(base_info, name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(base_info, sex_),
@@ -44,6 +44,7 @@ void protobuf_AssignDesc_base_5fmsg_5fstruct_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(base_info, weeklogin_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(base_info, login_ip_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(base_info, all_login_days_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(base_info, offline_time_),
   };
   base_info_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -86,11 +87,12 @@ void protobuf_AddDesc_base_5fmsg_5fstruct_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\025base_msg_struct.proto\022\003net\"\233\001\n\tbase_in"
+    "\n\025base_msg_struct.proto\022\003net\"\261\001\n\tbase_in"
     "fo\022\013\n\003uid\030\001 \001(\r\022\014\n\004name\030\002 \001(\014\022\013\n\003sex\030\003 \001"
     "(\r\022\014\n\004coin\030\005 \001(\003\022\013\n\003vip\030\007 \001(\r\022\016\n\006clogin\030"
     "\t \001(\r\022\021\n\tweeklogin\030\n \001(\r\022\020\n\010login_ip\030\016 \001"
-    "(\r\022\026\n\016all_login_days\030\017 \001(\r", 186);
+    "(\r\022\026\n\016all_login_days\030\017 \001(\r\022\024\n\014offline_ti"
+    "me\030\020 \001(\r", 208);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "base_msg_struct.proto", &protobuf_RegisterTypes);
   base_info::default_instance_ = new base_info();
@@ -117,6 +119,7 @@ const int base_info::kCloginFieldNumber;
 const int base_info::kWeekloginFieldNumber;
 const int base_info::kLoginIpFieldNumber;
 const int base_info::kAllLoginDaysFieldNumber;
+const int base_info::kOfflineTimeFieldNumber;
 #endif  // !_MSC_VER
 
 base_info::base_info()
@@ -144,6 +147,7 @@ void base_info::SharedCtor() {
   weeklogin_ = 0u;
   login_ip_ = 0u;
   all_login_days_ = 0u;
+  offline_time_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -197,6 +201,7 @@ void base_info::Clear() {
   }
   if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
     all_login_days_ = 0u;
+    offline_time_ = 0u;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -345,6 +350,22 @@ bool base_info::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(128)) goto parse_offline_time;
+        break;
+      }
+
+      // optional uint32 offline_time = 16;
+      case 16: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_offline_time:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &offline_time_)));
+          set_has_offline_time();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -413,6 +434,11 @@ void base_info::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(15, this->all_login_days(), output);
   }
 
+  // optional uint32 offline_time = 16;
+  if (has_offline_time()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(16, this->offline_time(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -466,6 +492,11 @@ void base_info::SerializeWithCachedSizes(
   // optional uint32 all_login_days = 15;
   if (has_all_login_days()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(15, this->all_login_days(), target);
+  }
+
+  // optional uint32 offline_time = 16;
+  if (has_offline_time()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(16, this->offline_time(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -544,6 +575,13 @@ int base_info::ByteSize() const {
           this->all_login_days());
     }
 
+    // optional uint32 offline_time = 16;
+    if (has_offline_time()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->offline_time());
+    }
+
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -600,6 +638,9 @@ void base_info::MergeFrom(const base_info& from) {
     if (from.has_all_login_days()) {
       set_all_login_days(from.all_login_days());
     }
+    if (from.has_offline_time()) {
+      set_offline_time(from.offline_time());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -632,6 +673,7 @@ void base_info::Swap(base_info* other) {
     std::swap(weeklogin_, other->weeklogin_);
     std::swap(login_ip_, other->login_ip_);
     std::swap(all_login_days_, other->all_login_days_);
+    std::swap(offline_time_, other->offline_time_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

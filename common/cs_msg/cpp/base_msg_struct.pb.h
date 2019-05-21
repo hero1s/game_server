@@ -159,6 +159,13 @@ class base_info : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 all_login_days() const;
   inline void set_all_login_days(::google::protobuf::uint32 value);
 
+  // optional uint32 offline_time = 16;
+  inline bool has_offline_time() const;
+  inline void clear_offline_time();
+  static const int kOfflineTimeFieldNumber = 16;
+  inline ::google::protobuf::uint32 offline_time() const;
+  inline void set_offline_time(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:net.base_info)
  private:
   inline void set_has_uid();
@@ -179,6 +186,8 @@ class base_info : public ::google::protobuf::Message {
   inline void clear_has_login_ip();
   inline void set_has_all_login_days();
   inline void clear_has_all_login_days();
+  inline void set_has_offline_time();
+  inline void clear_has_offline_time();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -191,9 +200,10 @@ class base_info : public ::google::protobuf::Message {
   ::google::protobuf::uint32 weeklogin_;
   ::google::protobuf::uint32 login_ip_;
   ::google::protobuf::uint32 all_login_days_;
+  ::google::protobuf::uint32 offline_time_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(9 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(10 + 31) / 32];
 
   friend void  protobuf_AddDesc_base_5fmsg_5fstruct_2eproto();
   friend void protobuf_AssignDesc_base_5fmsg_5fstruct_2eproto();
@@ -453,6 +463,28 @@ inline ::google::protobuf::uint32 base_info::all_login_days() const {
 inline void base_info::set_all_login_days(::google::protobuf::uint32 value) {
   set_has_all_login_days();
   all_login_days_ = value;
+}
+
+// optional uint32 offline_time = 16;
+inline bool base_info::has_offline_time() const {
+  return (_has_bits_[0] & 0x00000200u) != 0;
+}
+inline void base_info::set_has_offline_time() {
+  _has_bits_[0] |= 0x00000200u;
+}
+inline void base_info::clear_has_offline_time() {
+  _has_bits_[0] &= ~0x00000200u;
+}
+inline void base_info::clear_offline_time() {
+  offline_time_ = 0u;
+  clear_has_offline_time();
+}
+inline ::google::protobuf::uint32 base_info::offline_time() const {
+  return offline_time_;
+}
+inline void base_info::set_offline_time(::google::protobuf::uint32 value) {
+  set_has_offline_time();
+  offline_time_ = value;
 }
 
 

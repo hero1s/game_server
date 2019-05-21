@@ -23,9 +23,6 @@ enum DB_INDEX_TYPE
 
   DB_INDEX_TYPE_MAX = 4,
 };
-#define REDIS_INDEX_MAX  1
-#define REDIS_POOL_SIZE  2
-#define REDIS_TIME_OUT   5
 
 // 服务器状态
 enum emSERVER_STATE
@@ -40,6 +37,7 @@ enum emSERVER_TYPE
   emSERVER_TYPE_LOBBY  = 1, // 大厅服
   emSERVER_TYPE_GAME   = 2, // 游戏服
   emSERVER_TYPE_CENTER = 3, // 中心服
+  emSERVER_TYPE_DBA    = 4, // DBA
 
 };
 // 路由类型

@@ -76,7 +76,7 @@ public:
 
 	void GetPlayerBaseData(net::base_info* pInfo);
 	void SetPlayerBaseData(const net::base_info& info);
-    void SetOfflineTime(uint32_t _time){ m_offlinetime = _time;};
+    void SetOfflineTime(uint32_t _time){ m_baseInfo.set_offline_time(_time);};
 
 private:
 
@@ -87,7 +87,6 @@ protected:
 	uint8_t  m_bPlayerState;
 	bool   m_needRecover;                    	  // 需要下线回收
 	string m_loginKey;                       	  // 登陆key
-    uint32_t m_offlinetime;                       // 最后登录时间
 	net::base_info                	m_baseInfo;   // 基础信息
 	std::bitset<emACCDATA_TYPE_MAX> m_loadState;  // 数据加载状态
 

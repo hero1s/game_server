@@ -1,8 +1,6 @@
 
 package net;
 
-//备注：C表示客户端用，S表示服务器用，CS表示客户端与服务器通用
-
 
 // 玩家基本信息
 message base_info 
@@ -16,6 +14,7 @@ message base_info
 	optional uint32 weeklogin		= 10;				// 本周累计登陆天数
 	optional uint32 login_ip		= 14;				// 登陆IP
 	optional uint32 all_login_days  = 15;				// 累计登陆天数
+	optional uint32 offline_time    = 16;				// 下线时间
 }
 
 

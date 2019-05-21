@@ -19,7 +19,6 @@ CPlayerBase::CPlayerBase(uint8_t type)
     m_uid = 0;
     m_loadState.reset();
     m_needRecover = false;
-    m_offlinetime = 0;
 }
 
 CPlayerBase::~CPlayerBase() {

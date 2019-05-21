@@ -100,12 +100,12 @@ void CPlayer::OnTimeTick(uint64_t uTime, bool bNewDay)
 	{
 		return;
 	}
-	if (CCommonLogic::IsNeedReset(m_offlinetime, uTime))
+	if (CCommonLogic::IsNeedReset(m_baseInfo.offline_time(), uTime))
 	{
 		DailyCleanup(1);
 	}
 	// 更新离线时间
-	m_offlinetime = uTime;
+	m_baseInfo.set_offline_time(uTime);
 	// 新的一天
 	if (bNewDay)
 	{
@@ -258,29 +258,30 @@ void CPlayer::BuildInit()
 
 	// 检测日常
 	uint32_t uBuildTime     = getSysTime();
-	uint32_t uOfflineSecond = ((m_offlinetime && uBuildTime > m_offlinetime) ? (uBuildTime - m_offlinetime) : 0);
+	uint32_t offlinetime 	= m_baseInfo.offline_time();
+	uint32_t uOfflineSecond = ((offlinetime && uBuildTime > offlinetime) ? (uBuildTime - offlinetime) : 0);
 	//跨天检查并清理
-	int32_t  iOfflineDay    = diffTimeDay(m_offlinetime, uBuildTime);
-	if (m_offlinetime == 0 && iOfflineDay <= 0)//新上线绝对是第一天
+	int32_t  iOfflineDay    = diffTimeDay(offlinetime, uBuildTime);
+	if (offlinetime == 0 && iOfflineDay <= 0)//新上线绝对是第一天
 	{
 		DailyCleanup(2);
 		iOfflineDay = 0;
 	}
 	//跨周检查并清理
-	int32_t iOfflineWeek = diffTimeWeek(m_offlinetime, uBuildTime);
-	if (m_offlinetime == 0 && iOfflineWeek <= 0)
+	int32_t iOfflineWeek = diffTimeWeek(offlinetime, uBuildTime);
+	if (offlinetime == 0 && iOfflineWeek <= 0)
 	{
 		WeeklyCleanup();
 		iOfflineWeek = 0;
 	}
 	//跨月检查并清理
-	int32_t iOfflineMonth = diffTimeMonth(m_offlinetime, uBuildTime);
-	if (m_offlinetime == 0 && iOfflineMonth <= 0)
+	int32_t iOfflineMonth = diffTimeMonth(offlinetime, uBuildTime);
+	if (offlinetime == 0 && iOfflineMonth <= 0)
 	{
 		MonthlyCleanup();
 		iOfflineMonth = 0;
 	}
-	if (m_offlinetime != 0 && CCommonLogic::IsNeedReset(m_offlinetime, uBuildTime))
+	if (offlinetime != 0 && CCommonLogic::IsNeedReset(offlinetime, uBuildTime))
 	{
 		DailyCleanup(iOfflineDay);
 	}
@@ -292,7 +293,7 @@ void CPlayer::BuildInit()
 	{
 		MonthlyCleanup();
 	}
-	m_offlinetime      = uBuildTime;
+	SetOfflineTime(uBuildTime);
 	if (m_baseInfo.clogin() < 1)
 		m_baseInfo.set_clogin(1);
 
@@ -333,7 +334,7 @@ void CPlayer::SavePlayerBaseInfo()
 	string baseData;
 	m_baseInfo.SerializeToString(&baseData);
 
-	LOG_DEBUG("save player data uid:{},datalen:{},{}",GetUID(),baseData.length(),m_offlinetime);
+	LOG_DEBUG("save player data uid:{},datalen:{},{}",GetUID(),baseData.length(),m_baseInfo.offline_time());
 
 	CDBAgentClientMgr::Instance().SavePlayerData(GetUID(),emACCDATA_TYPE_BASE,baseData);
 }
