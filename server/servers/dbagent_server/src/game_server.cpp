@@ -43,7 +43,6 @@ bool CApplication::Initialize()
 	}
 	do
 	{
-
 		stIOHANDLER_DESC desc;
 		desc.ioHandlerKey       = 0;
 		desc.maxAcceptSession   = 1000;
@@ -94,8 +93,6 @@ void CApplication::ConfigurationChanged()
 {
 	// ÷ÿº”‘ÿ≈‰÷√
 	LOG_INFO("configuration changed");
-
-	SOL_CALL_LUA(m_solLua["load_logic_script"]());
 
 }
 

@@ -30,6 +30,8 @@ add_definitions(-fno-delete-null-pointer-checks)
 add_definitions(-Wl,--no-as-needed)
 #  π”√asioø‚
 add_definitions(-DASIO_STANDALONE)
+# πÿ±’DEBUG
+add_definitions(-DNDEBUG)
 
 if (CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "-std=c++17 ${CMAKE_CXX_FLAGS}")

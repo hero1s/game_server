@@ -8,7 +8,6 @@
 #include "framework/application.h"
 #include "game_server_config.h"
 #include "game_net_mgr.h"
-#include "data_cfg_mgr.h"
 #include "center_mgr.h"
 #include "svrlib.h"
 #include <iostream>
@@ -30,12 +29,6 @@ bool CApplication::Initialize()
 		return false;
 	}
 	LOG_INFO("load config is:id:{}", m_uiServerID);
-	// 读取配置信息
-	if (CDataCfgMgr::Instance().Init() == false)
-	{
-		LOG_ERROR("init datamgr fail ");
-		return false;
-	}
 	do
 	{
 
@@ -88,10 +81,6 @@ void CApplication::ConfigurationChanged()
 {
 	// 重加载配置
 	LOG_INFO("configuration changed");
-	CDataCfgMgr::Instance().Reload();
-	SOL_CALL_LUA(m_solLua["load_logic_script"]());
-
-
 
 }
 

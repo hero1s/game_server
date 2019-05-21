@@ -208,13 +208,7 @@ add_executable(server
     servers/common/src/common_logic.h
     servers/common/src/data_cfg_mgr.cpp
     servers/common/src/data_cfg_mgr.h
-    servers/common/src/db_operator.cpp
-    servers/common/src/db_operator.h
     servers/common/src/db_struct_define.h
-        servers/lobby_server/src/dbagent_client.cpp
-        servers/lobby_server/src/dbagent_client.h
-    servers/common/src/dbmysql_mgr.cpp
-    servers/common/src/dbmysql_mgr.h
     servers/common/src/game_define.h
     servers/common/src/game_server_config.cpp
     servers/common/src/game_server_config.h
@@ -224,11 +218,17 @@ add_executable(server
     servers/common/src/player_mgr.h
     servers/common/src/redis_mgr.cpp
     servers/common/src/redis_mgr.h
+    servers/dbagent_server/src/db_operator.cpp
+    servers/dbagent_server/src/db_operator.h
+    servers/dbagent_server/src/dbmysql_mgr.cpp
+    servers/dbagent_server/src/dbmysql_mgr.h
     servers/dbagent_server/src/game_net_mgr.cpp
     servers/dbagent_server/src/game_net_mgr.h
     servers/dbagent_server/src/game_server.cpp
     servers/dbagent_server/src/server_mgr.cpp
     servers/dbagent_server/src/server_mgr.h
+    servers/lobby_server/src/dbagent_client.cpp
+    servers/lobby_server/src/dbagent_client.h
     servers/lobby_server/src/game_net_mgr.cpp
     servers/lobby_server/src/game_net_mgr.h
     servers/lobby_server/src/game_server.cpp
