@@ -13,6 +13,8 @@
 #include "config/config.h"
 #include <memory>
 
+#include "utility/shm_cache_mgr.h"
+
 using namespace std;
 using namespace svrlib;
 
@@ -84,5 +86,10 @@ private:
 	SQLJoin m_sqlJoinWhere;
 };
 
+class CPlayerCacheMgr : public CDataCacheMgr<4096,60>, public AutoDeleteSingleton<CPlayerCacheMgr> {
+public:
+	CPlayerCacheMgr(){};
+	virtual ~CPlayerCacheMgr(){};
 
+};
 

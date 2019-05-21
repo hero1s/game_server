@@ -6,70 +6,86 @@
 #include <unordered_map>
 #include <memory>
 #include "packet/inner_protobuf_pkg.h"
-#include "msg_define.pb.h"
+#include "servers_msg.pb.h"
 
 using namespace std;
 using namespace svrlib;
 using namespace Network;
 
 // 服务器连接
-class CServerClient
-{
+class CServerClient {
 public:
-	CServerClient(const net::svr::server_info& info, NetworkObject* pNetObj);
-	virtual ~CServerClient();
+    CServerClient(const net::svr::server_info &info, NetworkObject *pNetObj);
 
-	void SendMsg(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin);
-	void SendMsg(const uint8_t* pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin);
+    virtual ~CServerClient();
 
-	NetworkObject* GetNetObj();
-	uint16_t GetSvrID();
-	uint16_t GetSvrType();
-	uint16_t GetGameType();
-	uint16_t GetGameSubType();
+    void SendMsg(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin);
+
+    void SendMsg(const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin);
+
+    NetworkObject *GetNetObj();
+
+    uint16_t GetSvrID();
+
+    uint16_t GetSvrType();
+
+    uint16_t GetGameType();
+
+    uint16_t GetGameSubType();
 
 public:
     net::svr::server_info m_info;
-	NetworkObject* m_pNetObj;
+    NetworkObject *m_pNetObj;
 };
+
 // 服务器管理器
-class CServerMgr : public CInnerMsgHanlde, public AutoDeleteSingleton<CServerMgr>
-{
+class CServerMgr : public CInnerMsgHanlde, public AutoDeleteSingleton<CServerMgr> {
 public:
-	CServerMgr();
+    CServerMgr();
 
-	~CServerMgr();
+    ~CServerMgr();
 
-	void OnTimer();
+    void OnTimer();
 
-	bool Init();
+    bool Init();
 
-	void ShutDown();
+    void ShutDown();
 
-	bool AddServer(NetworkObject* pNetObj, const net::svr::server_info& info);
-	void RemoveServer(NetworkObject* pNetObj);
+    bool AddServer(NetworkObject *pNetObj, const net::svr::server_info &info);
 
-	shared_ptr<CServerClient> GetServerBySocket(NetworkObject* pNetObj);
+    void RemoveServer(NetworkObject *pNetObj);
+
+    shared_ptr<CServerClient> GetServerBySocket(NetworkObject *pNetObj);
 
     shared_ptr<CServerClient> GetServerBySvrID(uint16_t svrID);
-	// 指定游戏服发送消息
-	void SendMsg2Server(uint16_t svrID, const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin);
-	void SendMsg2Server(uint16_t svrID, const uint8_t* pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin);
+
+    // 指定游戏服发送消息
+    void SendMsg2Server(uint16_t svrID, const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin = 0);
 
 public:
-	virtual int OnRecvClientMsg();
+    virtual int OnRecvClientMsg();
 
 protected:
-	//服务器注册
-	int handle_msg_register_svr();
+    //服务器注册
+    int handle_msg_register_svr();
+
+    //异步执行sql
+    int handle_async_exec_sql();
+
+    //请求玩家数据
+    int handle_load_player_data();
+
+    //保存玩家数据
+    int handle_save_player_data();
+
 
 private:
-	using MAP_SERVERS = unordered_map<uint32_t, shared_ptr<CServerClient>>;
-	MAP_SERVERS                                        m_mpServers;
-	MemberTimerEvent<CServerMgr, &CServerMgr::OnTimer> m_timer;
-	int32_t                                              m_msgMinCount;//消息计数监控
-	int32_t                                              m_msgMaxCount;//消息峰值
-	uint32_t                                             m_lastCountTime;//最后计数时间
+    using MAP_SERVERS = unordered_map<uint32_t, shared_ptr<CServerClient>>;
+    MAP_SERVERS m_mpServers;
+    MemberTimerEvent<CServerMgr, &CServerMgr::OnTimer> m_timer;
+    int32_t m_msgMinCount;//消息计数监控
+    int32_t m_msgMaxCount;//消息峰值
+    uint32_t m_lastCountTime;//最后计数时间
 
 };
 

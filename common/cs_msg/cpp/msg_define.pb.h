@@ -26,7 +26,6 @@
 #include "error_code.pb.h"
 #include "base_msg_struct.pb.h"
 #include "client_logic_msg.pb.h"
-#include "servers_msg.pb.h"
 // @@protoc_insertion_point(includes)
 
 namespace net {
@@ -37,28 +36,6 @@ void protobuf_AssignDesc_msg_5fdefine_2eproto();
 void protobuf_ShutdownFile_msg_5fdefine_2eproto();
 
 
-enum SERVER_MSG_ID {
-  S2CS_MSG_REGISTER_CENTER = 201,
-  CS2S_MSG_REGISTER_CENTER_REP = 202,
-  CS2S_MSG_SERVER_LIST_REP = 203,
-  S2DBA_MSG_REGISTER_DBA = 301,
-  DBA2S_MSG_REGISTER_DBA_REP = 302
-};
-bool SERVER_MSG_ID_IsValid(int value);
-const SERVER_MSG_ID SERVER_MSG_ID_MIN = S2CS_MSG_REGISTER_CENTER;
-const SERVER_MSG_ID SERVER_MSG_ID_MAX = DBA2S_MSG_REGISTER_DBA_REP;
-const int SERVER_MSG_ID_ARRAYSIZE = SERVER_MSG_ID_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* SERVER_MSG_ID_descriptor();
-inline const ::std::string& SERVER_MSG_ID_Name(SERVER_MSG_ID value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    SERVER_MSG_ID_descriptor(), value);
-}
-inline bool SERVER_MSG_ID_Parse(
-    const ::std::string& name, SERVER_MSG_ID* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<SERVER_MSG_ID>(
-    SERVER_MSG_ID_descriptor(), name, value);
-}
 enum CLIENT_MSG_ID {
   C2S_MSG_HEART = 1000,
   C2S_MSG_LOGIN = 1001,
@@ -100,10 +77,6 @@ inline bool CLIENT_MSG_ID_Parse(
 namespace google {
 namespace protobuf {
 
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::net::SERVER_MSG_ID>() {
-  return ::net::SERVER_MSG_ID_descriptor();
-}
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::net::CLIENT_MSG_ID>() {
   return ::net::CLIENT_MSG_ID_descriptor();

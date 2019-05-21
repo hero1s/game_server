@@ -23,6 +23,7 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
+#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "base_msg_struct.pb.h"
 // @@protoc_insertion_point(includes)
@@ -41,7 +42,37 @@ class msg_register_center_svr_rep;
 class msg_server_list_rep;
 class msg_register_dbagent_svr_req;
 class msg_register_dbagent_svr_rep;
+class msg_async_exec_sql;
+class msg_load_player_data;
+class msg_load_player_data_rep;
+class msg_save_player_data;
 
+enum SERVER_MSG_ID {
+  S2CS_MSG_REGISTER_CENTER = 201,
+  CS2S_MSG_REGISTER_CENTER_REP = 202,
+  CS2S_MSG_SERVER_LIST_REP = 203,
+  S2DBA_MSG_REGISTER_DBA = 301,
+  DBA2S_MSG_REGISTER_DBA_REP = 302,
+  S2DBA_MSG_ASYNC_EXEC_SQL = 310,
+  S2DBA_LOAD_PLAYER_DATA = 311,
+  DBA2S_LOAD_PLAYER_DATA_REP = 312,
+  S2DBA_SAVE_PLAYER_DATA = 313
+};
+bool SERVER_MSG_ID_IsValid(int value);
+const SERVER_MSG_ID SERVER_MSG_ID_MIN = S2CS_MSG_REGISTER_CENTER;
+const SERVER_MSG_ID SERVER_MSG_ID_MAX = S2DBA_SAVE_PLAYER_DATA;
+const int SERVER_MSG_ID_ARRAYSIZE = SERVER_MSG_ID_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* SERVER_MSG_ID_descriptor();
+inline const ::std::string& SERVER_MSG_ID_Name(SERVER_MSG_ID value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    SERVER_MSG_ID_descriptor(), value);
+}
+inline bool SERVER_MSG_ID_Parse(
+    const ::std::string& name, SERVER_MSG_ID* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<SERVER_MSG_ID>(
+    SERVER_MSG_ID_descriptor(), name, value);
+}
 // ===================================================================
 
 class server_info : public ::google::protobuf::Message {
@@ -571,6 +602,409 @@ class msg_register_dbagent_svr_rep : public ::google::protobuf::Message {
   void InitAsDefaultInstance();
   static msg_register_dbagent_svr_rep* default_instance_;
 };
+// -------------------------------------------------------------------
+
+class msg_async_exec_sql : public ::google::protobuf::Message {
+ public:
+  msg_async_exec_sql();
+  virtual ~msg_async_exec_sql();
+
+  msg_async_exec_sql(const msg_async_exec_sql& from);
+
+  inline msg_async_exec_sql& operator=(const msg_async_exec_sql& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_async_exec_sql& default_instance();
+
+  void Swap(msg_async_exec_sql* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_async_exec_sql* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_async_exec_sql& from);
+  void MergeFrom(const msg_async_exec_sql& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 db_type = 1;
+  inline bool has_db_type() const;
+  inline void clear_db_type();
+  static const int kDbTypeFieldNumber = 1;
+  inline ::google::protobuf::uint32 db_type() const;
+  inline void set_db_type(::google::protobuf::uint32 value);
+
+  // optional bytes sql_str = 2;
+  inline bool has_sql_str() const;
+  inline void clear_sql_str();
+  static const int kSqlStrFieldNumber = 2;
+  inline const ::std::string& sql_str() const;
+  inline void set_sql_str(const ::std::string& value);
+  inline void set_sql_str(const char* value);
+  inline void set_sql_str(const void* value, size_t size);
+  inline ::std::string* mutable_sql_str();
+  inline ::std::string* release_sql_str();
+  inline void set_allocated_sql_str(::std::string* sql_str);
+
+  // @@protoc_insertion_point(class_scope:net.svr.msg_async_exec_sql)
+ private:
+  inline void set_has_db_type();
+  inline void clear_has_db_type();
+  inline void set_has_sql_str();
+  inline void clear_has_sql_str();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::std::string* sql_str_;
+  ::google::protobuf::uint32 db_type_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  friend void  protobuf_AddDesc_servers_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_servers_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_servers_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_async_exec_sql* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class msg_load_player_data : public ::google::protobuf::Message {
+ public:
+  msg_load_player_data();
+  virtual ~msg_load_player_data();
+
+  msg_load_player_data(const msg_load_player_data& from);
+
+  inline msg_load_player_data& operator=(const msg_load_player_data& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_load_player_data& default_instance();
+
+  void Swap(msg_load_player_data* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_load_player_data* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_load_player_data& from);
+  void MergeFrom(const msg_load_player_data& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 uid = 1;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 1;
+  inline ::google::protobuf::uint32 uid() const;
+  inline void set_uid(::google::protobuf::uint32 value);
+
+  // optional uint32 data_type = 2;
+  inline bool has_data_type() const;
+  inline void clear_data_type();
+  static const int kDataTypeFieldNumber = 2;
+  inline ::google::protobuf::uint32 data_type() const;
+  inline void set_data_type(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:net.svr.msg_load_player_data)
+ private:
+  inline void set_has_uid();
+  inline void clear_has_uid();
+  inline void set_has_data_type();
+  inline void clear_has_data_type();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 uid_;
+  ::google::protobuf::uint32 data_type_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  friend void  protobuf_AddDesc_servers_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_servers_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_servers_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_load_player_data* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class msg_load_player_data_rep : public ::google::protobuf::Message {
+ public:
+  msg_load_player_data_rep();
+  virtual ~msg_load_player_data_rep();
+
+  msg_load_player_data_rep(const msg_load_player_data_rep& from);
+
+  inline msg_load_player_data_rep& operator=(const msg_load_player_data_rep& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_load_player_data_rep& default_instance();
+
+  void Swap(msg_load_player_data_rep* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_load_player_data_rep* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_load_player_data_rep& from);
+  void MergeFrom(const msg_load_player_data_rep& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 uid = 1;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 1;
+  inline ::google::protobuf::uint32 uid() const;
+  inline void set_uid(::google::protobuf::uint32 value);
+
+  // optional uint32 data_type = 2;
+  inline bool has_data_type() const;
+  inline void clear_data_type();
+  static const int kDataTypeFieldNumber = 2;
+  inline ::google::protobuf::uint32 data_type() const;
+  inline void set_data_type(::google::protobuf::uint32 value);
+
+  // optional bytes load_data = 3;
+  inline bool has_load_data() const;
+  inline void clear_load_data();
+  static const int kLoadDataFieldNumber = 3;
+  inline const ::std::string& load_data() const;
+  inline void set_load_data(const ::std::string& value);
+  inline void set_load_data(const char* value);
+  inline void set_load_data(const void* value, size_t size);
+  inline ::std::string* mutable_load_data();
+  inline ::std::string* release_load_data();
+  inline void set_allocated_load_data(::std::string* load_data);
+
+  // @@protoc_insertion_point(class_scope:net.svr.msg_load_player_data_rep)
+ private:
+  inline void set_has_uid();
+  inline void clear_has_uid();
+  inline void set_has_data_type();
+  inline void clear_has_data_type();
+  inline void set_has_load_data();
+  inline void clear_has_load_data();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 uid_;
+  ::google::protobuf::uint32 data_type_;
+  ::std::string* load_data_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void  protobuf_AddDesc_servers_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_servers_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_servers_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_load_player_data_rep* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class msg_save_player_data : public ::google::protobuf::Message {
+ public:
+  msg_save_player_data();
+  virtual ~msg_save_player_data();
+
+  msg_save_player_data(const msg_save_player_data& from);
+
+  inline msg_save_player_data& operator=(const msg_save_player_data& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_save_player_data& default_instance();
+
+  void Swap(msg_save_player_data* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_save_player_data* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_save_player_data& from);
+  void MergeFrom(const msg_save_player_data& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 uid = 1;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 1;
+  inline ::google::protobuf::uint32 uid() const;
+  inline void set_uid(::google::protobuf::uint32 value);
+
+  // optional uint32 data_type = 2;
+  inline bool has_data_type() const;
+  inline void clear_data_type();
+  static const int kDataTypeFieldNumber = 2;
+  inline ::google::protobuf::uint32 data_type() const;
+  inline void set_data_type(::google::protobuf::uint32 value);
+
+  // optional bytes save_data = 3;
+  inline bool has_save_data() const;
+  inline void clear_save_data();
+  static const int kSaveDataFieldNumber = 3;
+  inline const ::std::string& save_data() const;
+  inline void set_save_data(const ::std::string& value);
+  inline void set_save_data(const char* value);
+  inline void set_save_data(const void* value, size_t size);
+  inline ::std::string* mutable_save_data();
+  inline ::std::string* release_save_data();
+  inline void set_allocated_save_data(::std::string* save_data);
+
+  // @@protoc_insertion_point(class_scope:net.svr.msg_save_player_data)
+ private:
+  inline void set_has_uid();
+  inline void clear_has_uid();
+  inline void set_has_data_type();
+  inline void clear_has_data_type();
+  inline void set_has_save_data();
+  inline void clear_has_save_data();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 uid_;
+  ::google::protobuf::uint32 data_type_;
+  ::std::string* save_data_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void  protobuf_AddDesc_servers_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_servers_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_servers_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_save_player_data* default_instance_;
+};
 // ===================================================================
 
 
@@ -831,6 +1265,386 @@ inline void msg_register_dbagent_svr_rep::set_result(::google::protobuf::uint32 
   result_ = value;
 }
 
+// -------------------------------------------------------------------
+
+// msg_async_exec_sql
+
+// optional uint32 db_type = 1;
+inline bool msg_async_exec_sql::has_db_type() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void msg_async_exec_sql::set_has_db_type() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void msg_async_exec_sql::clear_has_db_type() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void msg_async_exec_sql::clear_db_type() {
+  db_type_ = 0u;
+  clear_has_db_type();
+}
+inline ::google::protobuf::uint32 msg_async_exec_sql::db_type() const {
+  return db_type_;
+}
+inline void msg_async_exec_sql::set_db_type(::google::protobuf::uint32 value) {
+  set_has_db_type();
+  db_type_ = value;
+}
+
+// optional bytes sql_str = 2;
+inline bool msg_async_exec_sql::has_sql_str() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void msg_async_exec_sql::set_has_sql_str() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void msg_async_exec_sql::clear_has_sql_str() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void msg_async_exec_sql::clear_sql_str() {
+  if (sql_str_ != &::google::protobuf::internal::kEmptyString) {
+    sql_str_->clear();
+  }
+  clear_has_sql_str();
+}
+inline const ::std::string& msg_async_exec_sql::sql_str() const {
+  return *sql_str_;
+}
+inline void msg_async_exec_sql::set_sql_str(const ::std::string& value) {
+  set_has_sql_str();
+  if (sql_str_ == &::google::protobuf::internal::kEmptyString) {
+    sql_str_ = new ::std::string;
+  }
+  sql_str_->assign(value);
+}
+inline void msg_async_exec_sql::set_sql_str(const char* value) {
+  set_has_sql_str();
+  if (sql_str_ == &::google::protobuf::internal::kEmptyString) {
+    sql_str_ = new ::std::string;
+  }
+  sql_str_->assign(value);
+}
+inline void msg_async_exec_sql::set_sql_str(const void* value, size_t size) {
+  set_has_sql_str();
+  if (sql_str_ == &::google::protobuf::internal::kEmptyString) {
+    sql_str_ = new ::std::string;
+  }
+  sql_str_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* msg_async_exec_sql::mutable_sql_str() {
+  set_has_sql_str();
+  if (sql_str_ == &::google::protobuf::internal::kEmptyString) {
+    sql_str_ = new ::std::string;
+  }
+  return sql_str_;
+}
+inline ::std::string* msg_async_exec_sql::release_sql_str() {
+  clear_has_sql_str();
+  if (sql_str_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = sql_str_;
+    sql_str_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void msg_async_exec_sql::set_allocated_sql_str(::std::string* sql_str) {
+  if (sql_str_ != &::google::protobuf::internal::kEmptyString) {
+    delete sql_str_;
+  }
+  if (sql_str) {
+    set_has_sql_str();
+    sql_str_ = sql_str;
+  } else {
+    clear_has_sql_str();
+    sql_str_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// -------------------------------------------------------------------
+
+// msg_load_player_data
+
+// optional uint32 uid = 1;
+inline bool msg_load_player_data::has_uid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void msg_load_player_data::set_has_uid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void msg_load_player_data::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void msg_load_player_data::clear_uid() {
+  uid_ = 0u;
+  clear_has_uid();
+}
+inline ::google::protobuf::uint32 msg_load_player_data::uid() const {
+  return uid_;
+}
+inline void msg_load_player_data::set_uid(::google::protobuf::uint32 value) {
+  set_has_uid();
+  uid_ = value;
+}
+
+// optional uint32 data_type = 2;
+inline bool msg_load_player_data::has_data_type() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void msg_load_player_data::set_has_data_type() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void msg_load_player_data::clear_has_data_type() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void msg_load_player_data::clear_data_type() {
+  data_type_ = 0u;
+  clear_has_data_type();
+}
+inline ::google::protobuf::uint32 msg_load_player_data::data_type() const {
+  return data_type_;
+}
+inline void msg_load_player_data::set_data_type(::google::protobuf::uint32 value) {
+  set_has_data_type();
+  data_type_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// msg_load_player_data_rep
+
+// optional uint32 uid = 1;
+inline bool msg_load_player_data_rep::has_uid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void msg_load_player_data_rep::set_has_uid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void msg_load_player_data_rep::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void msg_load_player_data_rep::clear_uid() {
+  uid_ = 0u;
+  clear_has_uid();
+}
+inline ::google::protobuf::uint32 msg_load_player_data_rep::uid() const {
+  return uid_;
+}
+inline void msg_load_player_data_rep::set_uid(::google::protobuf::uint32 value) {
+  set_has_uid();
+  uid_ = value;
+}
+
+// optional uint32 data_type = 2;
+inline bool msg_load_player_data_rep::has_data_type() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void msg_load_player_data_rep::set_has_data_type() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void msg_load_player_data_rep::clear_has_data_type() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void msg_load_player_data_rep::clear_data_type() {
+  data_type_ = 0u;
+  clear_has_data_type();
+}
+inline ::google::protobuf::uint32 msg_load_player_data_rep::data_type() const {
+  return data_type_;
+}
+inline void msg_load_player_data_rep::set_data_type(::google::protobuf::uint32 value) {
+  set_has_data_type();
+  data_type_ = value;
+}
+
+// optional bytes load_data = 3;
+inline bool msg_load_player_data_rep::has_load_data() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void msg_load_player_data_rep::set_has_load_data() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void msg_load_player_data_rep::clear_has_load_data() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void msg_load_player_data_rep::clear_load_data() {
+  if (load_data_ != &::google::protobuf::internal::kEmptyString) {
+    load_data_->clear();
+  }
+  clear_has_load_data();
+}
+inline const ::std::string& msg_load_player_data_rep::load_data() const {
+  return *load_data_;
+}
+inline void msg_load_player_data_rep::set_load_data(const ::std::string& value) {
+  set_has_load_data();
+  if (load_data_ == &::google::protobuf::internal::kEmptyString) {
+    load_data_ = new ::std::string;
+  }
+  load_data_->assign(value);
+}
+inline void msg_load_player_data_rep::set_load_data(const char* value) {
+  set_has_load_data();
+  if (load_data_ == &::google::protobuf::internal::kEmptyString) {
+    load_data_ = new ::std::string;
+  }
+  load_data_->assign(value);
+}
+inline void msg_load_player_data_rep::set_load_data(const void* value, size_t size) {
+  set_has_load_data();
+  if (load_data_ == &::google::protobuf::internal::kEmptyString) {
+    load_data_ = new ::std::string;
+  }
+  load_data_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* msg_load_player_data_rep::mutable_load_data() {
+  set_has_load_data();
+  if (load_data_ == &::google::protobuf::internal::kEmptyString) {
+    load_data_ = new ::std::string;
+  }
+  return load_data_;
+}
+inline ::std::string* msg_load_player_data_rep::release_load_data() {
+  clear_has_load_data();
+  if (load_data_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = load_data_;
+    load_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void msg_load_player_data_rep::set_allocated_load_data(::std::string* load_data) {
+  if (load_data_ != &::google::protobuf::internal::kEmptyString) {
+    delete load_data_;
+  }
+  if (load_data) {
+    set_has_load_data();
+    load_data_ = load_data;
+  } else {
+    clear_has_load_data();
+    load_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// -------------------------------------------------------------------
+
+// msg_save_player_data
+
+// optional uint32 uid = 1;
+inline bool msg_save_player_data::has_uid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void msg_save_player_data::set_has_uid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void msg_save_player_data::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void msg_save_player_data::clear_uid() {
+  uid_ = 0u;
+  clear_has_uid();
+}
+inline ::google::protobuf::uint32 msg_save_player_data::uid() const {
+  return uid_;
+}
+inline void msg_save_player_data::set_uid(::google::protobuf::uint32 value) {
+  set_has_uid();
+  uid_ = value;
+}
+
+// optional uint32 data_type = 2;
+inline bool msg_save_player_data::has_data_type() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void msg_save_player_data::set_has_data_type() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void msg_save_player_data::clear_has_data_type() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void msg_save_player_data::clear_data_type() {
+  data_type_ = 0u;
+  clear_has_data_type();
+}
+inline ::google::protobuf::uint32 msg_save_player_data::data_type() const {
+  return data_type_;
+}
+inline void msg_save_player_data::set_data_type(::google::protobuf::uint32 value) {
+  set_has_data_type();
+  data_type_ = value;
+}
+
+// optional bytes save_data = 3;
+inline bool msg_save_player_data::has_save_data() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void msg_save_player_data::set_has_save_data() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void msg_save_player_data::clear_has_save_data() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void msg_save_player_data::clear_save_data() {
+  if (save_data_ != &::google::protobuf::internal::kEmptyString) {
+    save_data_->clear();
+  }
+  clear_has_save_data();
+}
+inline const ::std::string& msg_save_player_data::save_data() const {
+  return *save_data_;
+}
+inline void msg_save_player_data::set_save_data(const ::std::string& value) {
+  set_has_save_data();
+  if (save_data_ == &::google::protobuf::internal::kEmptyString) {
+    save_data_ = new ::std::string;
+  }
+  save_data_->assign(value);
+}
+inline void msg_save_player_data::set_save_data(const char* value) {
+  set_has_save_data();
+  if (save_data_ == &::google::protobuf::internal::kEmptyString) {
+    save_data_ = new ::std::string;
+  }
+  save_data_->assign(value);
+}
+inline void msg_save_player_data::set_save_data(const void* value, size_t size) {
+  set_has_save_data();
+  if (save_data_ == &::google::protobuf::internal::kEmptyString) {
+    save_data_ = new ::std::string;
+  }
+  save_data_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* msg_save_player_data::mutable_save_data() {
+  set_has_save_data();
+  if (save_data_ == &::google::protobuf::internal::kEmptyString) {
+    save_data_ = new ::std::string;
+  }
+  return save_data_;
+}
+inline ::std::string* msg_save_player_data::release_save_data() {
+  clear_has_save_data();
+  if (save_data_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = save_data_;
+    save_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void msg_save_player_data::set_allocated_save_data(::std::string* save_data) {
+  if (save_data_ != &::google::protobuf::internal::kEmptyString) {
+    delete save_data_;
+  }
+  if (save_data) {
+    set_has_save_data();
+    save_data_ = save_data;
+  } else {
+    clear_has_save_data();
+    save_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -841,6 +1655,10 @@ inline void msg_register_dbagent_svr_rep::set_result(::google::protobuf::uint32 
 namespace google {
 namespace protobuf {
 
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::net::svr::SERVER_MSG_ID>() {
+  return ::net::svr::SERVER_MSG_ID_descriptor();
+}
 
 }  // namespace google
 }  // namespace protobuf

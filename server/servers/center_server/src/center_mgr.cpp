@@ -66,7 +66,7 @@ CCenterMgr::CCenterMgr()
     m_msgMinCount = 0;
     m_lastCountTime = 0;
 
-    bind_handler(this, net::S2CS_MSG_REGISTER_CENTER, &CCenterMgr::handle_msg_register_svr);
+    bind_handler(this, net::svr::S2CS_MSG_REGISTER_CENTER, &CCenterMgr::handle_msg_register_svr);
 }
 
 CCenterMgr::~CCenterMgr()
@@ -211,7 +211,7 @@ void CCenterMgr::UpdateServerList()
         *info = pServer->m_info;
     }
 
-    SendMsg2All(&svrList, net::CS2S_MSG_SERVER_LIST_REP, 0);
+    SendMsg2All(&svrList, net::svr::CS2S_MSG_SERVER_LIST_REP, 0);
 }
 
 int CCenterMgr::OnRecvClientMsg()
@@ -263,7 +263,7 @@ int CCenterMgr::handle_msg_register_svr()
     }
     repmsg.set_result(bRet);
 
-    pkg_inner::SendProtobufMsg(_pNetObj, &repmsg, net::CS2S_MSG_REGISTER_CENTER_REP, 0,0,0);
+    pkg_inner::SendProtobufMsg(_pNetObj, &repmsg, net::svr::CS2S_MSG_REGISTER_CENTER_REP, 0,0,0);
 
     return 0;
 }

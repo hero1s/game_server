@@ -4,7 +4,6 @@
 #include <string>
 #include "svrlib.h"
 #include "db_struct_define.h"
-#include "dbmysql_mgr.h"
 #include <vector>
 #include "game_define.h"
 #include <unordered_map>

@@ -4,21 +4,8 @@ package net;
 import "error_code.proto";
 import "base_msg_struct.proto";
 import "client_logic_msg.proto";
-import "servers_msg.proto";
 
 
-// 服务器消息ID
-enum  SERVER_MSG_ID
-{
-//------------------------------中心服----------------------------------------------------
-	S2CS_MSG_REGISTER_CENTER			= 201;  // 注册中心服
-	CS2S_MSG_REGISTER_CENTER_REP		= 202;	// 注册中心服返回	
-	CS2S_MSG_SERVER_LIST_REP			= 203;	// 服务器列表
-//------------------------------DBAgent--------------------------------------------------
-	S2DBA_MSG_REGISTER_DBA				= 301;  // 注册DB服
-	DBA2S_MSG_REGISTER_DBA_REP			= 302;	// 注册DB返回	
-				
-}
 // 客户端消息ID
 enum  CLIENT_MSG_ID
 {

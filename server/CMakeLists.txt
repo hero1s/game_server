@@ -211,8 +211,8 @@ add_executable(server
     servers/common/src/db_operator.cpp
     servers/common/src/db_operator.h
     servers/common/src/db_struct_define.h
-    servers/common/src/dbagent_client.cpp
-    servers/common/src/dbagent_client.h
+        servers/lobby_server/src/dbagent_client.cpp
+        servers/lobby_server/src/dbagent_client.h
     servers/common/src/dbmysql_mgr.cpp
     servers/common/src/dbmysql_mgr.h
     servers/common/src/game_define.h

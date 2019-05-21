@@ -3,6 +3,26 @@ package net.svr;
 import "base_msg_struct.proto";
 
 
+// 服务器消息ID
+enum  SERVER_MSG_ID
+{
+//------------------------------中心服----------------------------------------------------
+	S2CS_MSG_REGISTER_CENTER			= 201;  // 注册中心服
+	CS2S_MSG_REGISTER_CENTER_REP		= 202;	// 注册中心服返回	
+	CS2S_MSG_SERVER_LIST_REP			= 203;	// 服务器列表
+
+	
+//------------------------------DBAgent--------------------------------------------------
+	S2DBA_MSG_REGISTER_DBA				= 301;  // 注册DB服
+	DBA2S_MSG_REGISTER_DBA_REP			= 302;	// 注册DB返回	
+		
+	S2DBA_MSG_ASYNC_EXEC_SQL			= 310;  // 异步执行sql
+	S2DBA_LOAD_PLAYER_DATA				= 311;	// 请求玩家数据
+	DBA2S_LOAD_PLAYER_DATA_REP			= 312;	// 请求玩家数据返回
+	S2DBA_SAVE_PLAYER_DATA				= 313;	// 保存玩家数据
+
+}
+
 // --------------------------------中心服-----------------------------------------------------
 message server_info
 {
@@ -35,6 +55,33 @@ message msg_register_dbagent_svr_req
 message msg_register_dbagent_svr_rep
 {
 	optional uint32 result = 1;			// 返回结果
+}
+// 异步执行sql
+message msg_async_exec_sql
+{
+	optional uint32 db_type = 1;
+	optional bytes  sql_str = 2;
+
+}
+// 请求玩家数据
+message msg_load_player_data
+{
+	optional uint32 uid 	  = 1;
+	optional uint32 data_type = 2;
+}
+// 请求玩家数据返回
+message msg_load_player_data_rep
+{
+	optional uint32 uid 	  = 1;
+	optional uint32 data_type = 2;
+	optional bytes  load_data = 3;
+}
+// 保存玩家数据
+message msg_save_player_data
+{
+	optional uint32 uid 	  = 1;
+	optional uint32 data_type = 2;
+	optional bytes  save_data = 3;
 }
 
 

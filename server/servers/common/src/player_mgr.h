@@ -2,8 +2,6 @@
 
 #pragma once
 
-#include "utility/shm_cache_mgr.h"
-
 #include "player_base.h"
 #include <unordered_map>
 #include "svrlib.h"
@@ -61,11 +59,6 @@ private:
 
 };
 
-class CPlayerCacheMgr : public CDataCacheMgr<4096,60>, public AutoDeleteSingleton<CPlayerCacheMgr> {
-public:
-	CPlayerCacheMgr(){};
-	virtual ~CPlayerCacheMgr(){};
 
-};
 
 

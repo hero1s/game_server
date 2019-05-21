@@ -8,8 +8,8 @@
 #include "framework/application.h"
 #include "game_server_config.h"
 #include "game_net_mgr.h"
-#include "data_cfg_mgr.h"
 #include "server_mgr.h"
+#include "dbmysql_mgr.h"
 #include "svrlib.h"
 #include <iostream>
 #include "utility/time_function.h"
@@ -30,10 +30,15 @@ bool CApplication::Initialize()
 		return false;
 	}
 	LOG_INFO("load config is:id:{}", m_uiServerID);
-	// 读取配置信息
-	if (CDataCfgMgr::Instance().Init() == false)
+	// db
+	if (CDBMysqlMgr::Instance().Init(GameServerConfig::Instance().DBConf) == false)
 	{
-		LOG_ERROR("init datamgr fail ");
+		LOG_ERROR("init mysqlmgr fail ");
+		return false;
+	}
+	// 初始化共享内存缓存
+	if(CPlayerCacheMgr::Instance().Init(m_ioContext,110, false,[](uint32_t uid, uint8_t cacheType, const string& data){}) == false){
+		LOG_ERROR("init player cache mgr fail ");
 		return false;
 	}
 	do
@@ -77,7 +82,8 @@ bool CApplication::Initialize()
 
 void CApplication::ShutDown()
 {
-
+	CPlayerCacheMgr::Instance().ShutDown();
+	CDBMysqlMgr::Instance().ShutDown();
 }
 
 /**
@@ -88,7 +94,7 @@ void CApplication::ConfigurationChanged()
 {
 	// 重加载配置
 	LOG_INFO("configuration changed");
-	CDataCfgMgr::Instance().Reload();
+
 	SOL_CALL_LUA(m_solLua["load_logic_script"]());
 
 }

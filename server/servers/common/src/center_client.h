@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include "network/IOCPServer.h"
 #include "network/tcp_connector.h"
-#include "msg_define.pb.h"
+#include "servers_msg.pb.h"
 
 using namespace std;
 using namespace svrlib;

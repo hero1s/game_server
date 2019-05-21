@@ -3,7 +3,6 @@
 #include "crypt/md5.h"
 #include <sstream>
 #include "game_define.h"
-#include "dbmysql_mgr.h"
 #include <algorithm>
 #include "msg_define.pb.h"
 

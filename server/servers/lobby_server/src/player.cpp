@@ -3,8 +3,8 @@
 #include "helper/bufferStream.h"
 #include <time.h>
 #include "player_mgr.h"
-#include "dbmysql_mgr.h"
 #include "common_logic.h"
+#include "dbagent_client.h"
 
 using namespace svrlib;
 using namespace std;
@@ -56,58 +56,8 @@ void CPlayer::OnLogin()
 	SendMsgToClient(&repmsg, net::S2C_MSG_LOGIN_REP);
 	uint32_t uid = GetUID();
 
-	// test
-	string testData;
-	if(CPlayerCacheMgr::Instance().GetPlayerCacheData(uid,emACCDATA_TYPE_BASE,testData)){
-		LOG_DEBUG("cache get player data success :{}",uid);
-		net::base_info baseInfo;//基础数据
-		if(baseInfo.ParseFromString(testData)){
-			LOG_DEBUG("cache load base info parase successs :{},datalen:{}",uid,testData.length());
-			DUMP_PROTO_MSG_INFO(baseInfo);
-		}else{
-			LOG_ERROR("cache load base info parase fail:{} {}",uid,testData.length());
-		}
-	}
 
-	// 拉取数据
-	CDBMysqlMgr::Instance().AsyncLoadPlayerData(GetUID(), [uid](shared_ptr<CDBEventRep>& pRep)
-	{
-	  LOG_DEBUG("OnLoadPlayerData:{}",uid);
-	  if (pRep->vecData.size() > 0)
-	  {
-		  auto& refRows = pRep->vecData[0];
-		  net::base_info baseInfo;//基础数据
-		  string baseData = refRows["Base"].as<string>();
-		  if(baseInfo.ParseFromString(baseData)){
-			  LOG_DEBUG("load base info success :{},datalen:{}",uid,baseData.length());
-              DUMP_PROTO_MSG_INFO(baseInfo);
-		  }else{
-			  LOG_ERROR("base info parase error :{} {}",uid,baseData.length());
-		  }
-		  uint32_t offlinetime  = refRows["OfflineTime"];
-
-		  CPlayer* pPlayer = dynamic_cast<CPlayer*>(CPlayerMgr::Instance().GetPlayer(uid));
-		  if (pPlayer != NULL && pPlayer->GetPlayerState() == PLAYER_STATE_LOAD_DATA)
-		  {
-			  pPlayer->SetPlayerBaseData(baseInfo);
-			  pPlayer->SetOfflineTime(offlinetime);
-			  pPlayer->SetLoadState(emACCDATA_TYPE_BASE);
-			  pPlayer->SetLoadState(emACCDATA_TYPE_MISS);//test
-			  if (pPlayer->IsLoadOver())
-			  {
-				  pPlayer->OnGetAllData();
-			  }
-		  }
-		  else
-		  {
-			  LOG_DEBUG("the player is not find:{}--{}", uid, baseInfo.name());
-		  }
-	  }
-	  else
-	  {
-		  LOG_ERROR("the base data is can't load:{}", uid);
-	  }
-	});
+	CDBAgentClientMgr::Instance().LoadPlayerData(uid,emACCDATA_TYPE_BASE);
 
 	SetPlayerState(PLAYER_STATE_LOAD_DATA);
 
@@ -382,12 +332,10 @@ void CPlayer::SavePlayerBaseInfo()
 
 	string baseData;
 	m_baseInfo.SerializeToString(&baseData);
-	CDBMysqlMgr::Instance().SavePlayerBaseInfo(GetUID(),baseData,m_offlinetime);
+
 	LOG_DEBUG("save player data uid:{},datalen:{},{}",GetUID(),baseData.length(),m_offlinetime);
 
-	//test
-	CPlayerCacheMgr::Instance().SetPlayerCacheData(GetUID(),emACCDATA_TYPE_BASE,baseData);
-
+	CDBAgentClientMgr::Instance().SavePlayerData(GetUID(),emACCDATA_TYPE_BASE,baseData);
 }
 
 
