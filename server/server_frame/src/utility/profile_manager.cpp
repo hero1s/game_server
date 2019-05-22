@@ -251,7 +251,6 @@ void ProfileManager::shutdown() {
 
 void ProfileManager::startProfile(const char *node_name) {
     if (NULL == node_name || NULL == m_cur_node) {
-        assert(false);
         return;
     }
     uint32_t cur_threadid = GETTHREADID();
@@ -268,7 +267,6 @@ void ProfileManager::startProfile(const char *node_name) {
 
 void ProfileManager::stopProfile(const char *node_name) {
     if (NULL == m_cur_node || NULL == node_name) {
-        assert(false);
         return;
     }
     uint32_t cur_threadid = GETTHREADID();
@@ -277,7 +275,6 @@ void ProfileManager::stopProfile(const char *node_name) {
     }
     if (0 != strcmp(node_name, m_cur_node->getNodeName())) {
         LOG_ERROR("node:{},curnode:{}",node_name,m_cur_node->getNodeName());
-        assert(false);
         return;
     }
     if (m_cur_node->leave()) {

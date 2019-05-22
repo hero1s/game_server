@@ -81,11 +81,7 @@ Session* SessionPool::Alloc()
 void SessionPool::Free(Session* pSession)
 {
     m_pList->Lock();
-
-    assert(m_pList->size()<m_dwMaxSize);
-
     m_pList->push_back(pSession);
-
     m_pList->Unlock();
 }
 int SessionPool::GetMaxSize()

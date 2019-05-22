@@ -104,9 +104,10 @@ void IOCPServer::Update()
 bool IOCPServer::StartListen(uint32_t dwIoHandlerKey, const char* pIP, uint16_t wPort)
 {
 	auto it = m_mapIoHandlers.find(dwIoHandlerKey);
-
-	assert(it != m_mapIoHandlers.end());
-
+	if(it == m_mapIoHandlers.end()){
+		LOG_ERROR("iohandler is null :{}",dwIoHandlerKey);
+		return false;
+	}
 	return it->second->StartListen(pIP, wPort);
 }
 
@@ -127,39 +128,57 @@ uint32_t IOCPServer::Connect(uint32_t dwIoHandlerKey, NetworkObject* pNetworkObj
 	if (pNetworkObject == NULL) return 0;
 
 	auto it = m_mapIoHandlers.find(dwIoHandlerKey);
-	assert(it != m_mapIoHandlers.end());
+	if(it == m_mapIoHandlers.end()){
+		LOG_ERROR("iohandler is null :{}",dwIoHandlerKey);
+		return 0;
+	}
 	return it->second->Connect(pNetworkObject, pszIP, wPort);
 }
 
 int IOCPServer::IsListening(uint32_t dwIoHandlerKey)
 {
 	auto it = m_mapIoHandlers.find(dwIoHandlerKey);
-	assert(it != m_mapIoHandlers.end());
+	if(it == m_mapIoHandlers.end()){
+		LOG_ERROR("iohandler is null :{}",dwIoHandlerKey);
+		return 0;
+	}
 	return it->second->IsListening();
 }
 
 uint32_t IOCPServer::GetNumberOfConnections(uint32_t dwIoHandlerKey)
 {
 	auto it = m_mapIoHandlers.find(dwIoHandlerKey);
-	assert(it != m_mapIoHandlers.end());
+	if(it == m_mapIoHandlers.end()){
+		LOG_ERROR("iohandler is null :{}",dwIoHandlerKey);
+		return 0;
+	}
 	return it->second->GetNumberOfConnections();
 }
 void IOCPServer::AddWhiteListIP(uint32_t dwIoHandlerKey, uint32_t ip)
 {
 	auto it = m_mapIoHandlers.find(dwIoHandlerKey);
-	assert(it != m_mapIoHandlers.end());
+	if(it == m_mapIoHandlers.end()){
+		LOG_ERROR("iohandler is null :{}",dwIoHandlerKey);
+		return;
+	}
 	return it->second->AddWhiteListIP(ip);
 }
 void IOCPServer::ClearWhiteListIP(uint32_t dwIoHandlerKey)
 {
 	auto it = m_mapIoHandlers.find(dwIoHandlerKey);
-	assert(it != m_mapIoHandlers.end());
+	if(it == m_mapIoHandlers.end()){
+		LOG_ERROR("iohandler is null :{}",dwIoHandlerKey);
+		return;
+	}
 	return it->second->ClearWhiteListIP();
 }
 bool IOCPServer::IsWhiteIP(uint32_t dwIoHandlerKey, uint32_t ip)
 {
 	auto it = m_mapIoHandlers.find(dwIoHandlerKey);
-	assert(it != m_mapIoHandlers.end());
+	if(it == m_mapIoHandlers.end()){
+		LOG_ERROR("iohandler is null :{}",dwIoHandlerKey);
+		return false;
+	}
 	return it->second->IsWhiteIP(ip);
 }
 

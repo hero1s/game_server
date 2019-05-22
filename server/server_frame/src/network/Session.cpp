@@ -400,9 +400,6 @@ int Session::DoSend(IoHandler* pIoHandler)
 		int len;
 		if (m_pSendBuffer->GetSendParam(&buf, len) == false)
 			return TRUE;
-
-		assert (len > 0);
-
 		int ret = send(m_socket, buf, len, 0);
 		if (ret == SOCKET_ERROR)
 		{

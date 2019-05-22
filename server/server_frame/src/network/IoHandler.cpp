@@ -173,7 +173,7 @@ namespace Network {
             m_pConnector->Init(this);
         }
 
-        if (pNetworkObject->m_pSession != NULL) return 0;
+        if (pNetworkObject == NULL || pNetworkObject->m_pSession != NULL) return 0;
 
         SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -185,12 +185,14 @@ namespace Network {
         addr.sin_port = htons(wPort);
 
         Session *pSession = AllocConnectSession();
-        assert(pSession != NULL && "Connect dwMaxConnectSession");
+        if(pSession == NULL){
+            LOG_ERROR("Connect dwMaxConnectSession");
+            return 0;
+        }
 
         pSession->SetSocket(sock);
         pSession->SetSockAddr(addr);
 
-        assert(pNetworkObject != NULL);
         pSession->BindNetworkObject(pNetworkObject);
 
         m_pConnector->Connect(pSession);
@@ -207,8 +209,6 @@ namespace Network {
 */
 //=============================================================================================================================
     bool IoHandler::StartListen(const char *pIP, uint16_t wPort) {
-        assert(m_dwMaxAcceptSession > 0);
-
         if (m_pAcceptor == NULL) {
             m_pAcceptor = new Acceptor;
             m_pAcceptor->Init(this);
@@ -355,7 +355,6 @@ namespace Network {
             }
 
             NetworkObject *pNetworkObject = (m_pNetworkPool != NULL) ? m_pNetworkPool->CreateAcceptedObject() : NULL;
-            assert(pNetworkObject);
 
             pSession->BindNetworkObject(pNetworkObject);
 
