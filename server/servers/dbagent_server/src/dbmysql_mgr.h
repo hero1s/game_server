@@ -32,9 +32,9 @@ public:
 	void ShutDown();
 
 	// 加载玩家数据
-	void AsyncLoadPlayerData(uint32_t uid, std::function<void(shared_ptr<CDBEventRep>& pRep)> callBack);
+	void AsyncLoadPlayerData(uint32_t uid,uint8_t dataType, std::function<void(shared_ptr<CDBEventRep>& pRep)> callBack);
 	// 保存玩家基础数据
-	void SavePlayerBaseInfo(uint32_t uid,const string& data,uint32_t offlineTime);
+	void SavePlayerDataInfo(uint32_t uid,uint8_t dataType,const string& data,uint32_t offlineTime);
 
 	// 添加异步SQL语句
 	void AddAsyncSql(uint8_t dbType, string strSql);

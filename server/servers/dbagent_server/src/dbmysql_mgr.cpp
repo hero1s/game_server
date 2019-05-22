@@ -19,6 +19,7 @@ using namespace svrlib;
 
 namespace
 {
+	static string s_PlayerDataFields[] = {"Base","Task"};//玩家二进制数据字段名
 
 };
 
@@ -161,19 +162,19 @@ string CDBMysqlMgr::GetDayTranscTableName(int64_t time)
 	return CStringUtility::FormatToString("daytrans%s", date_format(time));
 }
 
-void CDBMysqlMgr::AsyncLoadPlayerData(uint32_t uid, std::function<void(shared_ptr<CDBEventRep>& pRep)> callBack)
+void CDBMysqlMgr::AsyncLoadPlayerData(uint32_t uid,uint8_t dataType, std::function<void(shared_ptr<CDBEventRep>& pRep)> callBack)
 {
 	shared_ptr<CDBEventReq> pReq = m_pAsyncTask[DB_INDEX_TYPE_ACC]->MallocDBEventReq();
 	pReq->callBack = callBack;
-	pReq->sqlStr = CStringUtility::FormatToString("SELECT Base,OfflineTime FROM t_player WHERE PlayerID =%u limit 1;", uid);
+	pReq->sqlStr = CStringUtility::FormatToString("SELECT %s as data,OfflineTime FROM t_player WHERE PlayerID =%u limit 1;",s_PlayerDataFields[dataType].c_str(),uid);
 	AddAsyncDBEvent(DB_INDEX_TYPE_ACC, pReq);
 
 }
 // 保存玩家基础数据
-void CDBMysqlMgr::SavePlayerBaseInfo(uint32_t uid,const string& data,uint32_t offlineTime)
+void CDBMysqlMgr::SavePlayerDataInfo(uint32_t uid,uint8_t dataType,const string& data,uint32_t offlineTime)
 {
 	shared_ptr<CDBEventReq> pReq = m_pAsyncTask[DB_INDEX_TYPE_ACC]->MallocDBEventReq();
-	pReq->sqlStr = CStringUtility::FormatToString("UPDATE t_player SET `Base`=?,OfflineTime=? WHERE PlayerID=? limit 1;",offlineTime, uid);
+	pReq->sqlStr = CStringUtility::FormatToString("UPDATE t_player SET `%s`=?,OfflineTime=? WHERE PlayerID=? limit 1;",s_PlayerDataFields[dataType].c_str(),offlineTime, uid);
 	pReq->pushBlobParam(data.c_str(),data.length()).pushParam(offlineTime).pushParam(uid);
 	AddAsyncDBEvent(DB_INDEX_TYPE_ACC, pReq);
 }

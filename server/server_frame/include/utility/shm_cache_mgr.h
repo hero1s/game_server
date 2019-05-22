@@ -35,13 +35,13 @@ struct stCacheData {
         Reset();
     }
 
-    void SetValue(uint32_t _uid, uint8_t _cacheType, const string &data) {
+    void SetValue(uint32_t _uid, uint8_t _cacheType, const string &data, bool modify) {
         uid = _uid;
         cacheType = _cacheType;
         dateLen = data.length();
         memcpy(szData, data.data(), data.length());
         lastUpdateTime = getSysTime();
-        lastSaveTime = 0;
+        lastSaveTime = modify ? 0 : lastUpdateTime;
     }
 
     void GetValue(string &data) const {
@@ -66,7 +66,7 @@ public:
 
     virtual ~CDataCacheMgr() {};
 
-    bool Init(asio::io_context& context,uint32_t shmKey, bool bReset, handSaveFunc func) {
+    bool Init(asio::io_context &context, uint32_t shmKey, bool bReset, handSaveFunc func) {
         if (false == m_hpPlayerCache.InitShm(shmKey, s_CACHE_MAX_COUNT)) {
             LOG_ERROR("init player cach fail");
             return false;
@@ -89,7 +89,7 @@ public:
         if (m_pTimer)m_pTimer->cancel();
     }
 
-    bool SetPlayerCacheData(uint32_t uid, uint8_t cacheType, const string &data) {
+    bool SetPlayerCacheData(uint32_t uid, uint8_t cacheType, const string &data, bool modify) {
         uint64_t key = MakeKey(uid, cacheType);
         if (data.length() >= data_len) {
             LOG_ERROR("more than max cache data len :{}£¬don't cache", data.length());
@@ -104,7 +104,7 @@ public:
             LOG_DEBUG("insert new node cache data :key:{},uid:{},type:{}", key, uid, cacheType);
 
             stCacheData<data_len> value;
-            value.SetValue(uid, cacheType, data);
+            value.SetValue(uid, cacheType, data, modify);
 
             int8_t bRet = m_hpPlayerCache.Insert(key, value);
             if (bRet == INSERT_FAIL) {

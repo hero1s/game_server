@@ -174,6 +174,10 @@ int CServerMgr::handle_load_player_data() {
     uint32_t uid = msg.uid();
     uint32_t dataType = msg.data_type();
     uint32_t sid = _pNetObj->GetUID();
+    if(dataType >= emACCDATA_TYPE_MAX){
+        LOG_ERROR("player data type more than max type:{}",dataType);
+        return 0;
+    }
 
     std::string data;
     if (CPlayerCacheMgr::Instance().GetPlayerCacheData(msg.uid(), msg.data_type(), data)) {
@@ -187,26 +191,20 @@ int CServerMgr::handle_load_player_data() {
         SendMsg2Server(sid, &rep, net::svr::DBA2S_LOAD_PLAYER_DATA_REP);
     } else {
 
-        CDBMysqlMgr::Instance().AsyncLoadPlayerData(uid, [uid, sid, dataType,this](shared_ptr<CDBEventRep> &pRep) {
+        CDBMysqlMgr::Instance().AsyncLoadPlayerData(uid,dataType, [uid, sid, dataType,this](shared_ptr<CDBEventRep> &pRep) {
             LOG_DEBUG("OnLoadPlayerData:{}", uid);
             if (pRep->vecData.size() > 0) {
                 auto &refRows = pRep->vecData[0];
-                net::base_info baseInfo;//»ù´¡Êý¾Ý
-                string baseData = refRows["Base"].as<string>();
-                if (baseInfo.ParseFromString(baseData)) {
-                    LOG_DEBUG("load base info success :{},datalen:{}", uid, baseData.length());
-                    DUMP_PROTO_MSG_INFO(baseInfo);
-                } else {
-                    LOG_ERROR("base info parase error :{} {}", uid, baseData.length());
-                }
-                uint32_t offlinetime = refRows["OfflineTime"];
+                string strData = refRows["data"].as<string>();
 
                 net::svr::msg_load_player_data_rep rep;
                 rep.set_uid(uid);
                 rep.set_data_type(dataType);
-                rep.set_load_data(baseData);
+                rep.set_load_data(strData);
 
                 this->SendMsg2Server(sid, &rep, net::svr::DBA2S_LOAD_PLAYER_DATA_REP);
+
+                CPlayerCacheMgr::Instance().SetPlayerCacheData(uid,dataType,strData, false);
             }
         });
     }
@@ -219,7 +217,7 @@ int CServerMgr::handle_save_player_data() {
     PARSE_MSG(msg);
     LOG_DEBUG("save player data {}--{},size:{}", msg.uid(), msg.data_type(), msg.save_data().length());
 
-    CPlayerCacheMgr::Instance().SetPlayerCacheData(msg.uid(), msg.data_type(), msg.save_data());
+    CPlayerCacheMgr::Instance().SetPlayerCacheData(msg.uid(), msg.data_type(), msg.save_data(), true);
 
     return 0;
 }

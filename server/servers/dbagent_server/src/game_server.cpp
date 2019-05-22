@@ -36,7 +36,7 @@ bool CApplication::Initialize() {
     // 初始化共享内存缓存
     if (CPlayerCacheMgr::Instance().Init(m_ioContext, 110, false,
                                          [](uint32_t uid, uint8_t cacheType, const string &data) {
-                                             CDBMysqlMgr::Instance().SavePlayerBaseInfo(uid, data, getSysTime());
+                                             CDBMysqlMgr::Instance().SavePlayerDataInfo(uid,cacheType, data, getSysTime());
                                          }) == false) {
         LOG_ERROR("init player cache mgr fail ");
         return false;
