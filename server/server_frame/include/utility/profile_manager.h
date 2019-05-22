@@ -5,7 +5,7 @@
 #include <unordered_map>
 
 
-#define USE_PROFILE                     //是否启用性能分析
+//#define USE_PROFILE                     //是否启用性能分析
 
 #define GETTHREADID() (syscall(__NR_gettid))
 
