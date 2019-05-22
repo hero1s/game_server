@@ -102,7 +102,8 @@ private:
 	uint32_t m_numActiveSessions;
 	uint32_t m_dwMaxAcceptSession;
 
-	CNetworkObjPool* m_pNetworkPool;
+	AcceptAllocFunc m_allocFunc;
+	AcceptFreeFunc m_freeFunc;
 	unordered_map<uint32_t, uint32_t> m_mpWhiteListIp;
 
 };

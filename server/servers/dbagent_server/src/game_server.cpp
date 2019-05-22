@@ -49,7 +49,7 @@ bool CApplication::Initialize() {
         desc.recvBufferSize = SERVER_SOCKET_BUFF_SIZE;
         desc.timeOut = 60 * 60 * 24;
         desc.maxPacketSize = INNER_MAX_SIZE;
-        desc.pool = new CServerNetObj();
+        desc.allocFunc = [](){ return new CServerNetObj(); };
         desc.openMsgQueue = true;
 
         if (!m_iocpServer.AddIoHandler(desc)) {

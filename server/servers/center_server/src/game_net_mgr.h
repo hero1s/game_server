@@ -9,7 +9,7 @@ using namespace Network;
 using namespace svrlib;
 
 // server Á¬½Ó
-class CCenterNetObj : public NetworkObject, public CNetworkObjPoolTemplete<CCenterNetObj> {
+class CCenterNetObj : public NetworkObject {
 public:
     CCenterNetObj();
 

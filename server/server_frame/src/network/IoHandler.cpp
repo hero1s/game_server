@@ -108,7 +108,8 @@ namespace Network {
         m_bShutdown = FALSE;
         m_pEvents = NULL;
 
-        m_pNetworkPool = NULL;
+        m_allocFunc = nullptr;
+        m_freeFunc = nullptr;
     }
 
     IoHandler::~IoHandler() {
@@ -130,7 +131,8 @@ namespace Network {
 
     void IoHandler::Init(IOCPServer *pIOCPServer, stIOHANDLER_DESC &lpDesc) {
         m_pIOCPServer = pIOCPServer;
-        m_pNetworkPool = lpDesc.pool;
+        m_allocFunc = lpDesc.allocFunc;
+        m_freeFunc = lpDesc.freeFunc;
         m_dwKey = lpDesc.ioHandlerKey;
 
         m_pActiveSessionList = new SessionList;
@@ -349,7 +351,7 @@ namespace Network {
                 continue;
             }
 
-            NetworkObject *pNetworkObject = (m_pNetworkPool != NULL) ? m_pNetworkPool->CreateAcceptedObject() : NULL;
+            NetworkObject *pNetworkObject = (m_allocFunc != nullptr) ? m_allocFunc() : NULL;
 
             pSession->BindNetworkObject(pNetworkObject);
 
@@ -435,19 +437,15 @@ namespace Network {
 
             DelEpollEvent(pSession);
 
-            FreeSession(pSession);
-
             pNetworkObject->OnDisconnect();
 
             if (pSession->IsAcceptSocket()) {
-                if (m_pNetworkPool != NULL) {
-                    m_pNetworkPool->DestroyAcceptedObject(pNetworkObject);
-                }
-            } else {
-                if (m_pNetworkPool != NULL) {
-                    m_pNetworkPool->DestroyConnectedObject(pNetworkObject);
+                if (m_freeFunc != nullptr) {
+                    m_freeFunc(pNetworkObject);
                 }
             }
+
+            FreeSession(pSession);
         }
 
         //m_pTempList->clear();

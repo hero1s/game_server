@@ -5,43 +5,16 @@
 #include <pthread.h>
 #include <string.h>
 #include "unistd.h"
+#include <functional>
+#include "NetworkObject.h"
 
 namespace Network
 {
-
-class NetworkObject;
 class IoHandler;
 
-//对象池接口
-class CNetworkObjPool
-{
-public:
-	virtual NetworkObject* CreateAcceptedObject() = 0;
-	virtual void DestroyAcceptedObject(NetworkObject* pNetworkObject) = 0;
-	virtual void DestroyConnectedObject(NetworkObject* pNetworkObject) = 0;
-};
-//对象池接口模板
-template<typename TYPE>
-class CNetworkObjPoolTemplete : public CNetworkObjPool
-{
-public:
-	virtual NetworkObject* CreateAcceptedObject()
-	{
-		return new TYPE();
-	}
-	virtual void DestroyAcceptedObject(NetworkObject* pNetworkObject)
-	{
-		if (pNetworkObject != NULL)delete (pNetworkObject);
-	};
-	virtual void DestroyConnectedObject(NetworkObject* pNetworkObject)
-	{
+using AcceptAllocFunc = std::function<NetworkObject*()>;
+using AcceptFreeFunc = std::function<void(NetworkObject*)>;
 
-	};
-};
-
-//-------------------------------------------------------------------------------------------------
-/// I/O 
-//-------------------------------------------------------------------------------------------------
 struct stIOHANDLER_DESC
 {
   uint32_t ioHandlerKey;
@@ -51,7 +24,9 @@ struct stIOHANDLER_DESC
   uint32_t recvBufferSize;        // 接受缓存
   uint32_t timeOut;               // 超时断开(秒)
   uint32_t maxPacketSize;         // 最大包长
-  CNetworkObjPool* pool;          // 对象池
+  AcceptAllocFunc allocFunc;
+  AcceptFreeFunc freeFunc;
+
   bool openMsgQueue;              // 是否开启消息队列(防止服务器突发阻塞爆掉缓存)
   bool webSocket;				  // 是否websocket
 
@@ -59,6 +34,8 @@ struct stIOHANDLER_DESC
   {
 	  memset(this, 0, sizeof(stIOHANDLER_DESC));
 	  maxAcceptSession = 10000;
+	  allocFunc = nullptr;
+	  freeFunc  = [](NetworkObject* p){ delete p; };
 	  openMsgQueue = false;
 	  webSocket	   = false;
   }

@@ -10,7 +10,7 @@ using namespace Network;
 using namespace svrlib;
 
 // client Á¬½Ó
-class CClientNetObj : public NetworkObject, public CNetworkObjPoolTemplete<CClientNetObj>
+class CClientNetObj : public NetworkObject
 {
 public:
 	CClientNetObj();
