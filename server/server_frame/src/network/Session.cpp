@@ -533,7 +533,7 @@ void Session::OnAccept()
 
 	ResetTimeOut();
 
-	m_pNetworkObject->OnConnect(true,GetIndex());
+	m_pNetworkObject->OnConnect(true);
 }
 
 void Session::OnConnect(bool bSuccess)
@@ -547,7 +547,7 @@ void Session::OnConnect(bool bSuccess)
 		UnbindNetworkObject();
 	}
 
-	pNetworkObject->OnConnect(bSuccess, GetIndex());
+	pNetworkObject->OnConnect(bSuccess);
 }
 
 void Session::Disconnect(bool bGracefulDisconnect)

@@ -20,8 +20,8 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // This file was generated with a script.
-// Generated 2019-04-29 05:20:05.556326 UTC
-// This header was generated with sol v3.0.1-beta2 (revision 67231f7)
+// Generated 2019-05-21 23:28:10.944171 UTC
+// This header was generated with sol v3.0.2 (revision f701fd2)
 // https://github.com/ThePhD/sol2
 
 #ifndef SOL_SINGLE_INCLUDE_FORWARD_HPP
@@ -100,6 +100,12 @@
 #endif // vc++ || clang++/g++
 
 #if defined(SOL_CHECK_ARGUMENTS) && SOL_CHECK_ARGUMENTS
+	#if defined(SOL_ALL_SAFETIES_ON)
+		#define SOL_ALL_SAFETIES_ON 1
+	#endif // turn all the safeties on
+#endif // Compatibility define
+
+#if defined(SOL_ALL_SAFETIES_ON) && SOL_ALL_SAFETIES_ON
 
 	// Checks low-level getter function
 	// (and thusly, affects nearly entire framework)
@@ -403,8 +409,8 @@ namespace sol {
 	struct as_args_t;
 	template <typename T>
 	struct protect_t;
-	template <typename F, typename... Filters>
-	struct filter_wrapper;
+	template <typename F, typename... Policies>
+	struct policy_wrapper;
 
 	template <typename T>
 	struct usertype_traits;

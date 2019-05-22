@@ -27,13 +27,13 @@ public:
     void ShutDown();
 
     virtual void ConnectorOnDisconnect() = 0;
-    virtual void ConnectorOnConnect(bool bSuccess, uint32_t dwNetworkIndex) = 0;
+    virtual void ConnectorOnConnect(bool bSuccess) = 0;
 protected:
     void OnTimer();
     void ReConnect();
 
     virtual void OnDisconnect() final ;
-    virtual void OnConnect(bool bSuccess, uint32_t dwNetworkIndex) final ;
+    virtual void OnConnect(bool bSuccess) final ;
 
 private:
     MemberTimerEvent<CTcpConnector, &CTcpConnector::OnTimer> m_timer;

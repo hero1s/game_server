@@ -178,10 +178,6 @@ public:
 	{
 		return m_dwTimeOut ? GetIdleTick() < time(NULL) : false;
 	}
-	inline uint32_t GetIndex()
-	{
-		return m_dwIndex;
-	}
 	inline bool IsAcceptSocket()
 	{
 		return m_bAcceptSocket;
@@ -207,10 +203,6 @@ public:
 	}
 
 private:
-	void SetIndex(uint32_t index)
-	{
-		m_dwIndex = index;
-	}
 	inline void ResetTimeOut()
 	{
 		m_dwLastSyncTick = time(NULL);
@@ -226,7 +218,6 @@ private:
 	uint32_t     m_dwLastSyncTick;
 	volatile int m_bRemove;
 	uint32_t     m_dwTimeOut;
-	uint32_t     m_dwIndex;
 	bool         m_bAcceptSocket;
 	bool         m_bDisconnectOrdered;
 

@@ -86,7 +86,7 @@ int NetworkObject::OnRecv(uint8_t* pMsg, uint16_t wSize)
 {
 	return 0;
 }
-void NetworkObject::OnConnect(bool bSuccess, uint32_t dwNetworkIndex)
+void NetworkObject::OnConnect(bool bSuccess)
 {
 
 }

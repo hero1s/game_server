@@ -31,9 +31,9 @@ int CServerNetObj::OnRecv(uint8_t* pMsg, uint16_t wSize)
 	return CServerMgr::Instance().OnHandleClientMsg(this, pMsg, wSize);
 }
 
-void CServerNetObj::OnConnect(bool bSuccess, uint32_t dwNetworkIndex)
+void CServerNetObj::OnConnect(bool bSuccess)
 {
-	LOG_DEBUG("center server OnConnect,{},{},{}", bSuccess, dwNetworkIndex,this->GetIP());
+	LOG_DEBUG("center server OnConnect,{},{}", bSuccess,this->GetIP());
 }
 
 

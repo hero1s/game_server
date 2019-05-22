@@ -27,7 +27,7 @@ protected:
 
     virtual int OnRecv(uint8_t *pMsg, uint16_t wSize);
 
-    virtual void OnConnect(bool bSuccess, uint32_t dwNetworkIndex);
+    virtual void OnConnect(bool bSuccess);
 
 };
 

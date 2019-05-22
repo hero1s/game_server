@@ -55,7 +55,7 @@ void CTcpConnector::OnDisconnect()
 	m_netState = emNet_DISCONNECT;
 	ConnectorOnDisconnect();
 }
-void CTcpConnector::OnConnect(bool bSuccess, uint32_t dwNetworkIndex)
+void CTcpConnector::OnConnect(bool bSuccess)
 {
 	if (bSuccess)
 	{
@@ -67,7 +67,7 @@ void CTcpConnector::OnConnect(bool bSuccess, uint32_t dwNetworkIndex)
 		m_netState = emNet_DISCONNECT;
 		LOG_DEBUG("TcpConnector connect fail :{}--{}", m_szRemoteIp, m_RemotePort);
 	}
-	ConnectorOnConnect(bSuccess, dwNetworkIndex);
+	ConnectorOnConnect(bSuccess);
 }
 
 };

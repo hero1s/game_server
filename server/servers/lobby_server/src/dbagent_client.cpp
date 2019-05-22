@@ -25,8 +25,8 @@ int CDBAgentNetObj::OnRecv(uint8_t *pMsg, uint16_t wSize) {
     return CDBAgentClientMgr::Instance().OnHandleClientMsg(this, pMsg, wSize);
 }
 
-void CDBAgentNetObj::ConnectorOnConnect(bool bSuccess, uint32_t dwNetworkIndex) {
-    LOG_DEBUG("dbagent server OnConnect :{},{}", bSuccess, dwNetworkIndex);
+void CDBAgentNetObj::ConnectorOnConnect(bool bSuccess) {
+    LOG_DEBUG("dbagent server OnConnect :{}", bSuccess);
     CDBAgentClientMgr::Instance().OnConnect(bSuccess, this);
 }
 

@@ -24,8 +24,8 @@ int CCenterNetObj::OnRecv(uint8_t *pMsg, uint16_t wSize) {
     return CCenterClientMgr::Instance().OnHandleClientMsg(this, pMsg, wSize);
 }
 
-void CCenterNetObj::ConnectorOnConnect(bool bSuccess, uint32_t dwNetworkIndex) {
-    LOG_DEBUG("center server OnConnect :{},{}", bSuccess, dwNetworkIndex);
+void CCenterNetObj::ConnectorOnConnect(bool bSuccess) {
+    LOG_DEBUG("center server OnConnect :{}", bSuccess);
     CCenterClientMgr::Instance().OnConnect(bSuccess, this);
 }
 

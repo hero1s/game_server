@@ -145,7 +145,6 @@ namespace Network {
                                                lpDesc.recvBufferSize,
                                                lpDesc.maxPacketSize,
                                                lpDesc.timeOut,
-                                               1,
                                                true,
                                                lpDesc.openMsgQueue,
                                                lpDesc.webSocket);
@@ -155,7 +154,6 @@ namespace Network {
                                                 lpDesc.maxConnectBuffSize,
                                                 lpDesc.maxPacketSize,
                                                 lpDesc.timeOut,
-                                                m_pAcceptSessionPool->GetMaxSize() + 1,
                                                 false,
                                                 lpDesc.openMsgQueue,
                                                 false);
@@ -167,13 +165,13 @@ namespace Network {
         pthread_create(&m_hIoThread, NULL, io_thread, (void*)this);
     }
 
-    uint32_t IoHandler::Connect(NetworkObject *pNetworkObject, const char *pszIP, uint16_t wPort) {
+    bool IoHandler::Connect(NetworkObject *pNetworkObject, const char *pszIP, uint16_t wPort) {
         if (m_pConnector == NULL) {
             m_pConnector = new Connector;
             m_pConnector->Init(this);
         }
 
-        if (pNetworkObject == NULL || pNetworkObject->m_pSession != NULL) return 0;
+        if (pNetworkObject == NULL || pNetworkObject->m_pSession != NULL) return false;
 
         SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -187,7 +185,7 @@ namespace Network {
         Session *pSession = AllocConnectSession();
         if(pSession == NULL){
             LOG_ERROR("Connect dwMaxConnectSession");
-            return 0;
+            return false;
         }
 
         pSession->SetSocket(sock);
@@ -197,7 +195,7 @@ namespace Network {
 
         m_pConnector->Connect(pSession);
 
-        return pSession->GetIndex();
+        return true;
     }
 
 //=============================================================================================================================
@@ -278,11 +276,8 @@ namespace Network {
                 pSession->OnConnect(true);
                 activeList.push_back(pSession);
             } else {
-
-                //
-                FreeSession(pSession);
-
                 pSession->OnConnect(false);
+                FreeSession(pSession);
             }
         }
 
@@ -310,9 +305,9 @@ namespace Network {
         while (!m_pConnectFailList->empty()) {
             pSession = m_pConnectFailList->pop_front();
 
-            FreeSession(pSession);
-
             pSession->OnConnect(false);
+
+            FreeSession(pSession);
         }
 
         m_pConnectFailList->Unlock();

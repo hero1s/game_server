@@ -70,9 +70,9 @@ int CClientNetObj::OnRecv(uint8_t* pMsg, uint16_t wSize)
 	return CHandleClientMsg::Instance().OnHandleClientMsg(this, pMsg, wSize);
 }
 
-void CClientNetObj::OnConnect(bool bSuccess, uint32_t dwNetworkIndex)
+void CClientNetObj::OnConnect(bool bSuccess)
 {
-	LOG_DEBUG("Client OnConnect,{},{},{}", bSuccess, dwNetworkIndex,GetIP());
+	LOG_DEBUG("Client OnConnect,{},{}", bSuccess,GetIP());
 }
 
 

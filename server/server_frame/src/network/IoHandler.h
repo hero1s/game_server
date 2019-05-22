@@ -44,7 +44,8 @@ public:
 	{
 		return !m_bShutdown;
 	}
-	uint32_t Connect(NetworkObject* pNetworkObject, const char* pszIP, uint16_t wPort);
+
+	bool Connect(NetworkObject* pNetworkObject, const char* pszIP, uint16_t wPort);
 	bool IsListening();
 	inline uint32_t GetNumberOfConnections()
 	{

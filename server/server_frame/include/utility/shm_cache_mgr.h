@@ -98,7 +98,7 @@ public:
         }
         stCacheData<data_len> *pData = m_hpPlayerCache.GetValuePtr(key);
         if (pData != NULL) {
-            pData->SetValue(uid, cacheType, data);
+            pData->SetValue(uid, cacheType, data,modify);
             LOG_DEBUG("update node cache data :key:{},uid:{},type:{}", key, uid, cacheType);
         } else {
             LOG_DEBUG("insert new node cache data :key:{},uid:{},type:{}", key, uid, cacheType);
