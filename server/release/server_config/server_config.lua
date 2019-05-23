@@ -74,6 +74,9 @@ function set_server_cfg(sid,serverCfg)
     local _logasync     = 0;
     local _logname      = sid.."_log.txt";
     local _logmysql     = sid.."_mysql_error.txt";
+    if(sid ~= 9999) then
+        _logmysql = "";
+    end
 
     serverCfg:SetLogInfo(_loglv,_logsize,_logdays,_logasync,_logname,_logmysql);
 end
