@@ -22,8 +22,6 @@ public:
 
 	static void ReloadConfig(int iSig);
 	static void StopRun(int iSig);
-
-	void SetTickTime(uint32_t tick);
 private:
 	void ParseInputParam(int argc, char* argv[]);
 	void LoadConfig();

@@ -88,7 +88,7 @@ void CApplication::ConfigurationChanged() {
 
 }
 
-void CApplication::Tick() {
+void CApplication::Tick(uint64_t diffTime) {
 
 }
 

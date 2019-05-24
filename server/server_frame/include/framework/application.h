@@ -30,7 +30,7 @@ public:
 
     void OverShutDown();
 
-    void PreTick();
+    uint64_t PreTick();
 
     void SetServerID(unsigned int svrid);
 
@@ -65,7 +65,7 @@ public:
 
     void ConfigurationChanged();
 
-    void Tick();
+    void Tick(uint64_t diffTime);
 
     void ExceptionHandle();
 

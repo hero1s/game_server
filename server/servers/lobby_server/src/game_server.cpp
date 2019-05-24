@@ -129,7 +129,7 @@ void CApplication::ConfigurationChanged() {
     SOL_CALL_LUA(m_solLua["load_logic_script"]());
 }
 
-void CApplication::Tick() {
+void CApplication::Tick(uint64_t diffTime) {
 
 }
 

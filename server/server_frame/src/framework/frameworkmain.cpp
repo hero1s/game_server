@@ -70,7 +70,7 @@ void CApplication::OverShutDown() {
     spdlog::drop_all();
 }
 
-void CApplication::PreTick() {
+uint64_t CApplication::PreTick() {
     // 驱动时钟
     setSystemTick64();// 更新tick
     setSysTime();
@@ -93,36 +93,33 @@ void CApplication::PreTick() {
     uint64_t uTick = getSystemTick64();
     if (!uProcessTime)
         uProcessTime = uTime;
-    if (uTime == uProcessTime)
-        return;// 一秒一次
-
-    bool bNewDay = (diffTimeDay(uProcessTime, uTime) != 0);
-    if (bNewDay) {
-        if (m_OnNewDay) {
-            m_OnNewDay();
-        }
-        // 新的一天
-        tm     local_time;
-        uint64_t uTime   = getTime();
-        getLocalTime(&local_time, uTime);
-        // 跨周        0-6
-        if (local_time.tm_wday == 0)
-        {
-            if(m_OnNewWeek) {
-                m_OnNewWeek();
+    if (uTime != uProcessTime) {
+        bool bNewDay = (diffTimeDay(uProcessTime, uTime) != 0);
+        if (bNewDay) {
+            if (m_OnNewDay) {
+                m_OnNewDay();
+            }
+            // 新的一天
+            tm local_time;
+            uint64_t uTime = getTime();
+            getLocalTime(&local_time, uTime);
+            // 跨周        0-6
+            if (local_time.tm_wday == 0) {
+                if (m_OnNewWeek) {
+                    m_OnNewWeek();
+                }
+            }
+            // 跨月        1-31
+            if (local_time.tm_mday == 1) {
+                if (m_OnNewMonth) {
+                    m_OnNewMonth();
+                }
             }
         }
-        // 跨月        1-31
-        if (local_time.tm_mday == 1)
-        {
-            if(m_OnNewMonth) {
-                m_OnNewMonth();
-            }
-        }
+        uProcessTime = uTime;
     }
-    uProcessTime = uTime;
     //------end------
-
+    return delta;
 }
 
 void CApplication::SetServerID(unsigned int svrid) {

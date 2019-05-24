@@ -103,7 +103,7 @@ void CDBTask::Run() {
         }
         else
         {
-            this_thread::sleep_for(std::chrono::milliseconds(5));
+            this_thread::sleep_for(std::chrono::milliseconds(100));
         }
     }
     LOG_DEBUG("CAsyncTask run over:{}", m_dbName);
