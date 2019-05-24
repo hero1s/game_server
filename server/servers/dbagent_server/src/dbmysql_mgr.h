@@ -25,8 +25,6 @@ public:
 
 	~CDBMysqlMgr();
 
-	void OnTimer();
-
 	bool Init(stDBConf szDBConf[]);
 
 	void ShutDown();
@@ -72,8 +70,6 @@ private:
 	stDBConf m_DBConf[DB_INDEX_TYPE_MAX];               // 数据库配置信息
 
 	uint16_t                                             m_svrID;
-	MemberTimerEvent<CDBMysqlMgr, &CDBMysqlMgr::OnTimer> m_reportTimer;
-
 	SQLJoin m_sqlJoinData;
 	SQLJoin m_sqlJoinWhere;
 };

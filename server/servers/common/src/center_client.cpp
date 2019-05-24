@@ -31,8 +31,7 @@ void CCenterNetObj::ConnectorOnConnect(bool bSuccess) {
 
 //----------------------------------------------------------------------------------------------------------------------------
 
-CCenterClientMgr::CCenterClientMgr()
-        : m_timer(this) {
+CCenterClientMgr::CCenterClientMgr() {
     m_pNetObj = NULL;
     m_isRun = false;
 
@@ -41,25 +40,30 @@ CCenterClientMgr::CCenterClientMgr()
 }
 
 CCenterClientMgr::~CCenterClientMgr() {
-
+    if(m_pTimer)m_pTimer->cancel();
 }
 
 void CCenterClientMgr::OnTimer() {
-    CApplication::Instance().schedule(&m_timer, 3000);
+
+    m_pTimer->expires_from_now(std::chrono::milliseconds(3000));
+    m_pTimer->async_wait(std::bind(&CCenterClientMgr::OnTimer, this));
 }
 
 bool CCenterClientMgr::Init(int32_t ioKey, const net::svr::server_info &info, string ip, uint32_t port) {
     IOCPServer &iocpServer = CApplication::Instance().GetIOCPServer();
+    asio::io_context &context = CApplication::Instance().GetAsioContext();
 
     CCenterNetObj *pNetObj = new CCenterNetObj();
     pNetObj->SetUID(info.svrid());
-    pNetObj->Init(&iocpServer, ioKey, ip, port);
+    pNetObj->Init(context, &iocpServer, ioKey, ip, port);
 
     m_curSvrInfo = info;
     m_pNetObj = pNetObj;
     m_isRun = false;
 
-    CApplication::Instance().schedule(&m_timer, 3000);
+    m_pTimer = make_shared<asio::system_timer>(CApplication::Instance().GetAsioContext());
+    m_pTimer->expires_from_now(std::chrono::milliseconds(3000));
+    m_pTimer->async_wait(std::bind(&CCenterClientMgr::OnTimer, this));
 
     return true;
 }

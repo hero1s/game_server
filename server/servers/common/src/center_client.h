@@ -73,7 +73,7 @@ protected:
 
 
 private:
-    MemberTimerEvent<CCenterClientMgr, &CCenterClientMgr::OnTimer> m_timer;
+    std::shared_ptr<asio::system_timer> m_pTimer = nullptr;
     CCenterNetObj *m_pNetObj;
     bool m_isRun;
     net::svr::server_info m_curSvrInfo;

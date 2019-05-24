@@ -28,7 +28,7 @@ protected:
 
 
 private:
-    MemberTimerEvent<CRedisMgr, &CRedisMgr::OnTimer> m_timer;
+    std::shared_ptr<asio::system_timer> m_pTimer = nullptr;
     stRedisConf m_conf;
 
     std::shared_ptr<redisclient::RedisSyncClient>   m_syncClient;

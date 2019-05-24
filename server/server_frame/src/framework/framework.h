@@ -28,7 +28,7 @@ private:
 	void WritePidToFile();
 
 	uint64_t       m_sleepTime;
-	std::shared_ptr<asio::system_timer> m_pTimer;
+	std::shared_ptr<asio::system_timer> m_pTimer = nullptr;
 	svrlib::stServerCfg m_serverCfg;
 	static std::string m_confFilename;
 

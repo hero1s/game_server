@@ -24,7 +24,6 @@ namespace
 };
 
 CDBMysqlMgr::CDBMysqlMgr()
-		:m_reportTimer(this)
 {
 	m_svrID = 0;
 }
@@ -32,11 +31,6 @@ CDBMysqlMgr::CDBMysqlMgr()
 CDBMysqlMgr::~CDBMysqlMgr()
 {
 
-}
-
-void CDBMysqlMgr::OnTimer()
-{
-	CApplication::Instance().schedule(&m_reportTimer, 20*1000);
 }
 
 bool CDBMysqlMgr::Init(stDBConf szDBConf[])
@@ -53,8 +47,6 @@ bool CDBMysqlMgr::Init(stDBConf szDBConf[])
 	}
 	StartAsyncDB();
 
-	CApplication::Instance().schedule(&m_reportTimer, 5*1000);
-
 	return true;
 }
 
@@ -62,7 +54,6 @@ void CDBMysqlMgr::ShutDown()
 {
 	StopAsyncDB();
 	m_syncDBOper.dbClose();
-	m_reportTimer.cancel();
 }
 
 // 启动异步线程

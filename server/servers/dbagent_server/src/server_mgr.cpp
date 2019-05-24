@@ -50,8 +50,7 @@ uint16_t CServerClient::GetGameSubType() {
 }
 
 //--------------------------------------------------------------------------------------------
-CServerMgr::CServerMgr()
-        : m_timer(this) {
+CServerMgr::CServerMgr() {
     m_mpServers.clear();
     m_msgMinCount = 0;
     m_lastCountTime = 0;
@@ -64,6 +63,7 @@ CServerMgr::CServerMgr()
 }
 
 CServerMgr::~CServerMgr() {
+    if(m_pTimer)m_pTimer->cancel();
 }
 
 void CServerMgr::OnTimer() {
@@ -75,17 +75,20 @@ void CServerMgr::OnTimer() {
         }
         m_lastCountTime = getSysTime();
     }
-    CApplication::Instance().schedule(&m_timer, MINUTE * 1000);
+    m_pTimer->expires_from_now(std::chrono::milliseconds(MINUTE*1000));
+    m_pTimer->async_wait(std::bind(&CServerMgr::OnTimer, this));
 }
 
 bool CServerMgr::Init() {
-    CApplication::Instance().schedule(&m_timer, MINUTE * 1000);
+    m_pTimer = make_shared<asio::system_timer>(CApplication::Instance().GetAsioContext());
+    m_pTimer->expires_from_now(std::chrono::milliseconds(MINUTE*1000));
+    m_pTimer->async_wait(std::bind(&CServerMgr::OnTimer, this));
 
     return true;
 }
 
 void CServerMgr::ShutDown() {
-    m_timer.cancel();
+    if(m_pTimer)m_pTimer->cancel();
 }
 
 bool CServerMgr::AddServer(NetworkObject *pNetObj, const net::svr::server_info &info) {
@@ -174,8 +177,8 @@ int CServerMgr::handle_load_player_data() {
     uint32_t uid = msg.uid();
     uint32_t dataType = msg.data_type();
     uint32_t sid = _pNetObj->GetUID();
-    if(dataType >= emACCDATA_TYPE_MAX){
-        LOG_ERROR("player data type more than max type:{}",dataType);
+    if (dataType >= emACCDATA_TYPE_MAX) {
+        LOG_ERROR("player data type more than max type:{}", dataType);
         return 0;
     }
 
@@ -191,22 +194,27 @@ int CServerMgr::handle_load_player_data() {
         SendMsg2Server(sid, &rep, net::svr::DBA2S_LOAD_PLAYER_DATA_REP);
     } else {
 
-        CDBMysqlMgr::Instance().AsyncLoadPlayerData(uid,dataType, [uid, sid, dataType,this](shared_ptr<CDBEventRep> &pRep) {
-            LOG_DEBUG("OnLoadPlayerData:{}", uid);
-            if (pRep->vecData.size() > 0) {
-                auto &refRows = pRep->vecData[0];
-                string strData = refRows["data"].as<string>();
+        CDBMysqlMgr::Instance().AsyncLoadPlayerData(uid, dataType,
+                                                    [uid, sid, dataType, this](shared_ptr<CDBEventRep> &pRep) {
+                                                        LOG_DEBUG("OnLoadPlayerData:{}", uid);
+                                                        if (pRep->vecData.size() > 0) {
+                                                            auto &refRows = pRep->vecData[0];
+                                                            string strData = refRows["data"].as<string>();
 
-                net::svr::msg_load_player_data_rep rep;
-                rep.set_uid(uid);
-                rep.set_data_type(dataType);
-                rep.set_load_data(strData);
+                                                            net::svr::msg_load_player_data_rep rep;
+                                                            rep.set_uid(uid);
+                                                            rep.set_data_type(dataType);
+                                                            rep.set_load_data(strData);
 
-                this->SendMsg2Server(sid, &rep, net::svr::DBA2S_LOAD_PLAYER_DATA_REP);
+                                                            this->SendMsg2Server(sid, &rep,
+                                                                                 net::svr::DBA2S_LOAD_PLAYER_DATA_REP);
 
-                CPlayerCacheMgr::Instance().SetPlayerCacheData(uid,dataType,strData, false);
-            }
-        });
+                                                            CPlayerCacheMgr::Instance().SetPlayerCacheData(uid,
+                                                                                                           dataType,
+                                                                                                           strData,
+                                                                                                           false);
+                                                        }
+                                                    });
     }
     return 0;
 }
