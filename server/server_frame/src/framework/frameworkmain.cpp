@@ -86,39 +86,8 @@ uint64_t CApplication::PreTick() {
         m_lastTick = curTime;
     }
     m_iocpServer.Update();
+    CheckNewDayEvent();
 
-    //----检测日期变更---
-    static uint64_t uProcessTime = 0;
-    uint64_t uTime = getSysTime();
-    uint64_t uTick = getSystemTick64();
-    if (!uProcessTime)
-        uProcessTime = uTime;
-    if (uTime != uProcessTime) {
-        bool bNewDay = (diffTimeDay(uProcessTime, uTime) != 0);
-        if (bNewDay) {
-            if (m_OnNewDay) {
-                m_OnNewDay();
-            }
-            // 新的一天
-            tm local_time;
-            uint64_t uTime = getTime();
-            getLocalTime(&local_time, uTime);
-            // 跨周        0-6
-            if (local_time.tm_wday == 0) {
-                if (m_OnNewWeek) {
-                    m_OnNewWeek();
-                }
-            }
-            // 跨月        1-31
-            if (local_time.tm_mday == 1) {
-                if (m_OnNewMonth) {
-                    m_OnNewMonth();
-                }
-            }
-        }
-        uProcessTime = uTime;
-    }
-    //------end------
     return delta;
 }
 
@@ -163,4 +132,36 @@ asio::io_context &CApplication::GetAsioContext() {
 //获取lua_service
 svrlib::lua_service* CApplication::GetLuaService(){
     return m_luaService;
+}
+//----检测日期变更---
+void CApplication::CheckNewDayEvent(){
+    static uint64_t uProcessTime = 0;
+    uint64_t uTime = getSysTime();
+    if (!uProcessTime)
+        uProcessTime = uTime;
+    if (uTime != uProcessTime) {
+        bool bNewDay = (diffTimeDay(uProcessTime, uTime) != 0);
+        if (bNewDay) {
+            if (m_OnNewDay) {
+                m_OnNewDay();
+            }
+            // 新的一天
+            tm local_time;
+            uint64_t uTime = getTime();
+            getLocalTime(&local_time, uTime);
+            // 跨周        0-6
+            if (local_time.tm_wday == 0) {
+                if (m_OnNewWeek) {
+                    m_OnNewWeek();
+                }
+            }
+            // 跨月        1-31
+            if (local_time.tm_mday == 1) {
+                if (m_OnNewMonth) {
+                    m_OnNewMonth();
+                }
+            }
+        }
+        uProcessTime = uTime;
+    }
 }

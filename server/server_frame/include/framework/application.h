@@ -57,6 +57,9 @@ public:
     //获取lua_service
     svrlib::lua_service* GetLuaService();
 
+private:
+    void CheckNewDayEvent();
+
 public:
 //具体实例去实现
     bool Initialize();
