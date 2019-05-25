@@ -60,6 +60,7 @@ uint16_t CServerClient::GetGameSubType()
 
 //--------------------------------------------------------------------------------------------
 CCenterMgr::CCenterMgr()
+        :m_timer(this)
 {
     m_mpServers.clear();
     m_msgMinCount = 0;
@@ -70,7 +71,6 @@ CCenterMgr::CCenterMgr()
 
 CCenterMgr::~CCenterMgr()
 {
-    if(m_pTimer)m_pTimer->cancel();
 }
 
 void CCenterMgr::OnTimer()
@@ -83,22 +83,20 @@ void CCenterMgr::OnTimer()
         }
         m_lastCountTime = getSysTime();
     }
-    m_pTimer->expires_from_now(std::chrono::milliseconds(MINUTE*1000));
-    m_pTimer->async_wait(std::bind(&CCenterMgr::OnTimer, this));
+    CApplication::Instance().schedule(&m_timer, MINUTE*1000);
+    UpdateServerList();//test
 }
 
 bool CCenterMgr::Init()
 {
-    m_pTimer = make_shared<asio::system_timer>(CApplication::Instance().GetAsioContext());
-    m_pTimer->expires_from_now(std::chrono::milliseconds(MINUTE*1000));
-    m_pTimer->async_wait(std::bind(&CCenterMgr::OnTimer, this));
+    CApplication::Instance().schedule(&m_timer, MINUTE*1000);
 
     return true;
 }
 
 void CCenterMgr::ShutDown()
 {
-    if(m_pTimer)m_pTimer->cancel();
+    m_timer.cancel();
 }
 
 bool CCenterMgr::AddServer(NetworkObject* pNetObj, const net::svr::server_info& info)

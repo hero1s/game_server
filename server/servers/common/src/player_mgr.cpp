@@ -8,33 +8,30 @@ using namespace std;
 using namespace Network;
 
 CPlayerMgr::CPlayerMgr()
+		:m_timer(this)
 {
 }
 
 CPlayerMgr::~CPlayerMgr()
 {
-	if(m_pTimer)m_pTimer->cancel();
 }
 
 void CPlayerMgr::OnTimer()
 {
 	OnTimeTick();
 	CheckRecoverPlayer();
-	m_pTimer->expires_from_now(std::chrono::milliseconds(1000));
-	m_pTimer->async_wait(std::bind(&CPlayerMgr::OnTimer, this));
+	CApplication::Instance().schedule(&m_timer, 1000);
 }
 
 bool CPlayerMgr::Init()
 {
-	m_pTimer = make_shared<asio::system_timer>(CApplication::Instance().GetAsioContext());
-	m_pTimer->expires_from_now(std::chrono::milliseconds(1000));
-	m_pTimer->async_wait(std::bind(&CPlayerMgr::OnTimer, this));
+	CApplication::Instance().schedule(&m_timer, 1000);
 	return true;
 }
 
 void CPlayerMgr::ShutDown()
 {
-	if(m_pTimer)m_pTimer->cancel();
+	m_timer.cancel();
 	vector<CPlayerBase*> vecPlayers;
 	GetAllPlayers(vecPlayers);
 	for (uint32_t i = 0; i < vecPlayers.size(); ++i)

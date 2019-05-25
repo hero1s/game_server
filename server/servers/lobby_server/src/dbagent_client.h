@@ -83,7 +83,7 @@ protected:
 
 
 private:
-    std::shared_ptr<asio::system_timer> m_pTimer = nullptr;
+    MemberTimerEvent<CDBAgentClientMgr, &CDBAgentClientMgr::OnTimer> m_timer;
     CDBAgentNetObj *m_pNetObj;
     bool m_isRun;
     net::svr::server_info m_curSvrInfo;

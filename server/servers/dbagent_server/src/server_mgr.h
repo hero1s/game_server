@@ -80,8 +80,9 @@ protected:
 
 
 private:
-    unordered_map<uint32_t, shared_ptr<CServerClient>> m_mpServers;
-    std::shared_ptr<asio::system_timer> m_pTimer = nullptr;
+    using MAP_SERVERS = unordered_map<uint32_t, shared_ptr<CServerClient>>;
+    MAP_SERVERS m_mpServers;
+    MemberTimerEvent<CServerMgr, &CServerMgr::OnTimer> m_timer;
     int32_t m_msgMinCount;//消息计数监控
     int32_t m_msgMaxCount;//消息峰值
     uint32_t m_lastCountTime;//最后计数时间

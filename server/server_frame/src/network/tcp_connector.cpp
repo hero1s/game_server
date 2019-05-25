@@ -3,11 +3,11 @@
 //
 #include "network/tcp_connector.h"
 #include "svrlib.h"
-#include <functional>
 
 namespace Network
 {
 CTcpConnector::CTcpConnector()
+		:m_timer(this)
 {
 	m_netState = emNet_NULL;
 	m_pServer  = NULL;
@@ -18,9 +18,8 @@ CTcpConnector::~CTcpConnector()
 	m_netState = emNet_NULL;
 	m_pServer  = NULL;
 	m_ioKey    = 0;
-	if (m_pTimer)m_pTimer->cancel();
 }
-bool CTcpConnector::Init(asio::io_context &context,IOCPServer* pServer, uint32_t ioKey, std::string ip, uint32_t port)
+bool CTcpConnector::Init(IOCPServer* pServer, uint32_t ioKey, std::string ip, uint32_t port)
 {
 	m_pServer = pServer;
 	m_ioKey   = ioKey;
@@ -29,21 +28,18 @@ bool CTcpConnector::Init(asio::io_context &context,IOCPServer* pServer, uint32_t
 	m_RemotePort = port;
 	m_netState   = emNet_DISCONNECT;
 
-	m_pTimer = make_shared<asio::system_timer>(context);
-	m_pTimer->expires_from_now(std::chrono::milliseconds(1000));
-	m_pTimer->async_wait(std::bind(&CTcpConnector::OnTimer, this, std::placeholders::_1));
+	CApplication::Instance().schedule(&m_timer, 1000);
 	return true;
 }
 void CTcpConnector::ShutDown()
 {
 	Disconnect(false);
-	if (m_pTimer)m_pTimer->cancel();
+	m_timer.cancel();
 }
-void CTcpConnector::OnTimer(const std::error_code &err)
+void CTcpConnector::OnTimer()
 {
 	ReConnect();
-	m_pTimer->expires_from_now(std::chrono::milliseconds(2000));
-	m_pTimer->async_wait(std::bind(&CTcpConnector::OnTimer, this, std::placeholders::_1));
+	CApplication::Instance().schedule(&m_timer, 2000);
 }
 void CTcpConnector::ReConnect()
 {

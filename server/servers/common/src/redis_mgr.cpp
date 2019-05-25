@@ -12,28 +12,25 @@ namespace {
 
 };
 
-CRedisMgr::CRedisMgr() {
+CRedisMgr::CRedisMgr()
+        : m_timer(this) {
 
 }
 
 CRedisMgr::~CRedisMgr() {
-    if(m_pTimer)m_pTimer->cancel();
+
 }
 
 void CRedisMgr::OnTimer() {
-    m_asyncClient->command("PING", {}, [](const redisclient::RedisValue &v) {
+    CApplication::Instance().schedule(&m_timer, 5000);
+    m_asyncClient->command("PING",{},[](const redisclient::RedisValue &v){
         //LOG_DEBUG("PING repeat:{}",v.toString());
     });
-    m_pTimer->expires_from_now(std::chrono::milliseconds(5000));
-    m_pTimer->async_wait(std::bind(&CRedisMgr::OnTimer, this));
 }
 
-bool CRedisMgr::Init(asio::io_context &context, stRedisConf &conf) {
+bool CRedisMgr::Init(asio::io_context & context, stRedisConf & conf) {
     m_conf = conf;
-    m_pTimer = make_shared<asio::system_timer>(context);
-    m_pTimer->expires_from_now(std::chrono::milliseconds(5000));
-    m_pTimer->async_wait(std::bind(&CRedisMgr::OnTimer, this));
-
+    CApplication::Instance().schedule(&m_timer, 5000);
     asio::ip::address address = asio::ip::address::from_string(m_conf.redisHost);
     const unsigned short port = m_conf.redisPort;
     asio::ip::tcp::endpoint endpoint(address, port);
@@ -54,7 +51,7 @@ bool CRedisMgr::Init(asio::io_context &context, stRedisConf &conf) {
                 LOG_ERROR("redis auth is error:{}", result.toString());
             }
         }
-    } catch (const asio::system_error &e) {
+    } catch (const asio::system_error& e) {
         LOG_ERROR("redis throw error:{}", e.what());
         return false;
     }
@@ -76,7 +73,7 @@ bool CRedisMgr::Init(asio::io_context &context, stRedisConf &conf) {
                 LOG_ERROR("Can't connect to redis: {}", ec.message());
             }
         });
-    } catch (const asio::system_error &e) {
+    } catch (const asio::system_error& e) {
         LOG_ERROR("redis throw error:{}", e.what());
         return false;
     }
@@ -85,7 +82,8 @@ bool CRedisMgr::Init(asio::io_context &context, stRedisConf &conf) {
 }
 
 void CRedisMgr::ShutDown() {
-    if(m_pTimer)m_pTimer->cancel();
+    m_timer.cancel();
+
 }
 
 void CRedisMgr::test_client() {

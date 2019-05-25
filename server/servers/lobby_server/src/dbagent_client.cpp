@@ -32,7 +32,8 @@ void CDBAgentNetObj::ConnectorOnConnect(bool bSuccess) {
 
 //----------------------------------------------------------------------------------------------------------------------------
 
-CDBAgentClientMgr::CDBAgentClientMgr() {
+CDBAgentClientMgr::CDBAgentClientMgr()
+        : m_timer(this) {
     m_pNetObj = NULL;
     m_isRun = false;
 
@@ -41,29 +42,25 @@ CDBAgentClientMgr::CDBAgentClientMgr() {
 }
 
 CDBAgentClientMgr::~CDBAgentClientMgr() {
-    if (m_pTimer)m_pTimer->cancel();
+
 }
 
 void CDBAgentClientMgr::OnTimer() {
-
-    m_pTimer->expires_from_now(std::chrono::milliseconds(3000));
-    m_pTimer->async_wait(std::bind(&CDBAgentClientMgr::OnTimer, this));
+    CApplication::Instance().schedule(&m_timer, 3000);
 }
 
 bool CDBAgentClientMgr::Init(int32_t ioKey, const net::svr::server_info &info, string ip, uint32_t port) {
     IOCPServer &iocpServer = CApplication::Instance().GetIOCPServer();
-    asio::io_context &context = CApplication::Instance().GetAsioContext();
+
     CDBAgentNetObj *pNetObj = new CDBAgentNetObj();
     pNetObj->SetUID(info.svrid());
-    pNetObj->Init(context, &iocpServer, ioKey, ip, port);
+    pNetObj->Init(&iocpServer, ioKey, ip, port);
 
     m_curSvrInfo = info;
     m_pNetObj = pNetObj;
     m_isRun = false;
 
-    m_pTimer = make_shared<asio::system_timer>(CApplication::Instance().GetAsioContext());
-    m_pTimer->expires_from_now(std::chrono::milliseconds(3000));
-    m_pTimer->async_wait(std::bind(&CDBAgentClientMgr::OnTimer, this));
+    CApplication::Instance().schedule(&m_timer, 3000);
 
     return true;
 }
@@ -160,25 +157,29 @@ int CDBAgentClientMgr::handle_msg_load_data_rep() {
     net::svr::msg_load_player_data_rep msg;
     PARSE_MSG(msg);
 
-    LOG_DEBUG("DBAgent load player data rep:{}", msg.uid());
-    CPlayer *pPlayer = dynamic_cast<CPlayer *>(CPlayerMgr::Instance().GetPlayer(msg.uid()));
-    if (pPlayer != NULL && pPlayer->GetPlayerState() == PLAYER_STATE_LOAD_DATA) {
+    LOG_DEBUG("DBAgent load player data rep:{}",msg.uid());
+    CPlayer* pPlayer = dynamic_cast<CPlayer*>(CPlayerMgr::Instance().GetPlayer(msg.uid()));
+    if (pPlayer != NULL && pPlayer->GetPlayerState() == PLAYER_STATE_LOAD_DATA)
+    {
         net::base_info baseInfo;//»ù´¡Êý¾Ý
-        if (baseInfo.ParseFromString(msg.load_data())) {
-            LOG_DEBUG("load base info success :{},datalen:{}", msg.uid(), msg.load_data().length());
+        if(baseInfo.ParseFromString(msg.load_data())){
+            LOG_DEBUG("load base info success :{},datalen:{}",msg.uid(),msg.load_data().length());
             DUMP_PROTO_MSG_INFO(baseInfo);
-        } else {
-            LOG_ERROR("base info parase error :{} {}", msg.uid(), msg.load_data().length());
+        }else{
+            LOG_ERROR("base info parase error :{} {}",msg.uid(),msg.load_data().length());
         }
 
         pPlayer->SetPlayerBaseData(baseInfo);
         pPlayer->SetOfflineTime(0);
         pPlayer->SetLoadState(emACCDATA_TYPE_BASE);
         pPlayer->SetLoadState(emACCDATA_TYPE_MISS);//test
-        if (pPlayer->IsLoadOver()) {
+        if (pPlayer->IsLoadOver())
+        {
             pPlayer->OnGetAllData();
         }
-    } else {
+    }
+    else
+    {
         LOG_DEBUG("the player is not find:{}", msg.uid());
     }
 
