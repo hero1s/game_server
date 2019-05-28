@@ -49,8 +49,7 @@ void* connect_thread(void* param)
             }
             else
             {
-                SocketOpt::Nonblocking(pSession->GetSocket());
-                SocketOpt::DisableBuffering(pSession->GetSocket());
+                SocketOpt::InitSocketOpt(pSession->GetSocket());
 
                 pClass->m_pIoHandler->m_pConnectSuccessList->Lock();
                 pClass->m_pIoHandler->m_pConnectSuccessList->push_back(pSession);

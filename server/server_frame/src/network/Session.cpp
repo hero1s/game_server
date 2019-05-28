@@ -504,8 +504,7 @@ SOCKET Session::CreateSocket()
 		return newSocket;
 	}
 
-	SocketOpt::Nonblocking(newSocket);
-	SocketOpt::DisableBuffering(newSocket);
+	SocketOpt::InitSocketOpt(newSocket);
 
 	return newSocket;
 }
