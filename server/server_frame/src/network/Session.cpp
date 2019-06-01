@@ -152,7 +152,8 @@ bool Session::Send(uint8_t* pMsg, uint16_t wSize)
 {
 	if(m_webSocket){
 		if(!shake_hands_)return false;
-		auto stream = CBufferStream::buildStream();
+		char* szBuff = new char[wSize+16];
+		auto stream = CBufferStream(szBuff,wSize+16);
 		stream.write_((uint8_t)0x82);//写头部
 		//写长度
 		if (wSize >= 126) {//7位放不下
@@ -172,8 +173,10 @@ bool Session::Send(uint8_t* pMsg, uint16_t wSize)
 		{
 			LOG_ERROR("m_pSendBuffer->Write fail. data length = {}, {},ip:{}", m_pSendBuffer->GetLength(), wSize, GetIP());
 			Remove();
+			SAFE_DELETE(szBuff);
 			return false;
 		}
+		SAFE_DELETE(szBuff);
 		return true;
 	}
 	if (m_pSendBuffer->Write(pMsg, wSize) == false)

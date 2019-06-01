@@ -14,11 +14,11 @@ using namespace std;
 
 namespace {
     static const uint32_t s_CACHE_MAX_COUNT = 500 * 100;             // Cache 大小
-    static const uint32_t s_LAST_CLEAR_TIME = 24 * 60 * 60 / 1000;   // 清除时间 24小时
-    static const uint32_t s_CHECK_DATA_TIME = 60;                    // 检测数据时间
+    static const uint32_t s_LAST_CLEAR_TIME = DAY;                   // 清除时间 24小时
+    static const uint32_t s_CHECK_DATA_TIME = MINUTE;                // 检测数据时间
 }
 
-// 缓存数据最大长度4K(单字段),超过的不缓存
+// 缓存数据最大长度(单字段),超过的不缓存
 
 #pragma pack(1)
 
