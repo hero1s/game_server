@@ -174,7 +174,7 @@ void CDBMysqlMgr::AsyncLoadPlayerData(uint32_t uid,uint8_t dataType, std::functi
 void CDBMysqlMgr::SavePlayerDataInfo(uint32_t uid,uint8_t dataType,const string& data,uint32_t offlineTime)
 {
 	shared_ptr<CDBEventReq> pReq = m_pAsyncTask[DB_INDEX_TYPE_ACC]->MallocDBEventReq();
-	pReq->sqlStr = CStringUtility::FormatToString("UPDATE t_player SET `%s`=?,OfflineTime=? WHERE PlayerID=? limit 1;",s_PlayerDataFields[dataType].c_str(),offlineTime, uid);
+	pReq->sqlStr = CStringUtility::FormatToString("UPDATE t_player SET `%s`=?,OfflineTime=? WHERE PlayerID=? limit 1;",s_PlayerDataFields[dataType].c_str());
 	pReq->pushBlobParam(data.c_str(),data.length()).pushParam(offlineTime).pushParam(uid);
 	AddAsyncDBEvent(DB_INDEX_TYPE_ACC, pReq);
 }

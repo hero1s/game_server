@@ -249,4 +249,4 @@ add_executable(server
     servers/pb/src/res.pb.cc
     servers/pb/src/res.pb.h
     servers/pb/src/servers_msg.pb.cc
-    servers/pb/src/servers_msg.pb.h)
+    servers/pb/src/servers_msg.pb.h servers/common/src/server_connect/server_client.h servers/common/src/server_connect/server_client.cpp servers/common/src/server_connect/server_connect.h servers/common/src/server_connect/server_connect.cpp)
