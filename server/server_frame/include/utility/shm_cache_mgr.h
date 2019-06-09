@@ -85,7 +85,7 @@ public:
     }
 
     void ShutDown() {
-        
+
         if (m_pTimer)m_pTimer->cancel();
     }
 
