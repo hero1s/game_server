@@ -14,7 +14,7 @@ namespace {
 //--------------------------------------------------------------------------------------------
 CCenterMgr::CCenterMgr()
 {
-    bind_handler(this, net::svr::S2CS_MSG_REGISTER_CENTER, &CCenterMgr::handle_msg_register_svr);
+    bind_handler(this, net::svr::S2CS_MSG_REGISTER, &CCenterMgr::handle_msg_register_svr);
 }
 
 CCenterMgr::~CCenterMgr()
@@ -87,13 +87,13 @@ int CCenterMgr::OnRouteDispMsg()
 //·þÎñÆ÷×¢²á
 int CCenterMgr::handle_msg_register_svr()
 {
-    net::svr::msg_register_center_svr_req msg;
+    net::svr::msg_register_svr_req msg;
     PARSE_MSG(msg);
 
     LOG_DEBUG("Server Register svrid:{}--svrType {}--gameType:{}--subType:{}", msg.info().svrid(),
             msg.info().svr_type(),
             msg.info().game_type(), msg.info().game_subtype());
-    net::svr::msg_register_center_svr_rep repmsg;
+    net::svr::msg_register_svr_rep repmsg;
 
     bool bRet = AddServer(_pNetObj, msg.info());
     if (!bRet) {
@@ -101,7 +101,7 @@ int CCenterMgr::handle_msg_register_svr()
     }
     repmsg.set_result(bRet);
 
-    pkg_inner::SendProtobufMsg(_pNetObj, &repmsg, net::svr::CS2S_MSG_REGISTER_CENTER_REP, 0,0,0);
+    pkg_inner::SendProtobufMsg(_pNetObj, &repmsg, net::svr::CS2S_MSG_REGISTER_REP, 0,0,0);
 
     return 0;
 }

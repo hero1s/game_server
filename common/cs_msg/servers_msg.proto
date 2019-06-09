@@ -6,24 +6,20 @@ import "base_msg_struct.proto";
 // 服务器消息ID
 enum  SERVER_MSG_ID
 {
-//------------------------------中心服----------------------------------------------------
-	S2CS_MSG_REGISTER_CENTER			= 201;  // 注册中心服
-	CS2S_MSG_REGISTER_CENTER_REP		= 202;	// 注册中心服返回	
+//----------------------------------------------------------------------------------
+	S2CS_MSG_REGISTER					= 201;  // 注册
+	CS2S_MSG_REGISTER_REP				= 202;	// 注册返回	
 	CS2S_MSG_SERVER_LIST_REP			= 203;	// 服务器列表
 
 	
-//------------------------------DBAgent--------------------------------------------------
-	S2DBA_MSG_REGISTER_DBA				= 301;  // 注册DB服
-	DBA2S_MSG_REGISTER_DBA_REP			= 302;	// 注册DB返回	
-		
+//------------------------------DBAgent--------------------------------------------------	
 	S2DBA_MSG_ASYNC_EXEC_SQL			= 310;  // 异步执行sql
 	S2DBA_LOAD_PLAYER_DATA				= 311;	// 请求玩家数据
 	DBA2S_LOAD_PLAYER_DATA_REP			= 312;	// 请求玩家数据返回
 	S2DBA_SAVE_PLAYER_DATA				= 313;	// 保存玩家数据
-
 }
 
-// --------------------------------中心服-----------------------------------------------------
+// -------------------------------------------------------------------------------------
 message server_info
 {
 	optional uint32 svrid  	   	 = 1;		// 服务器ID
@@ -31,12 +27,12 @@ message server_info
 	optional uint32 game_type  	 = 3;		// 游戏类型
 	optional uint32 game_subtype = 4;		// 游戏子类型
 }
-// 注册中心服
-message msg_register_center_svr_req
+// 注册
+message msg_register_svr_req
 {
 	optional server_info info 	 = 1;		// 服务器信息
 }
-message msg_register_center_svr_rep
+message msg_register_svr_rep
 {
 	optional uint32 result = 1;			// 返回结果
 }
@@ -47,15 +43,6 @@ message msg_server_list_rep
 }
 
 // --------------------------------dbagent服-----------------------------------------------------
-// 注册dbagent服
-message msg_register_dbagent_svr_req
-{
-	optional server_info info 	 = 1;		// 服务器信息
-}
-message msg_register_dbagent_svr_rep
-{
-	optional uint32 result = 1;			// 返回结果
-}
 // 异步执行sql
 message msg_async_exec_sql
 {

@@ -37,29 +37,25 @@ void protobuf_AssignDesc_servers_5fmsg_2eproto();
 void protobuf_ShutdownFile_servers_5fmsg_2eproto();
 
 class server_info;
-class msg_register_center_svr_req;
-class msg_register_center_svr_rep;
+class msg_register_svr_req;
+class msg_register_svr_rep;
 class msg_server_list_rep;
-class msg_register_dbagent_svr_req;
-class msg_register_dbagent_svr_rep;
 class msg_async_exec_sql;
 class msg_load_player_data;
 class msg_load_player_data_rep;
 class msg_save_player_data;
 
 enum SERVER_MSG_ID {
-  S2CS_MSG_REGISTER_CENTER = 201,
-  CS2S_MSG_REGISTER_CENTER_REP = 202,
+  S2CS_MSG_REGISTER = 201,
+  CS2S_MSG_REGISTER_REP = 202,
   CS2S_MSG_SERVER_LIST_REP = 203,
-  S2DBA_MSG_REGISTER_DBA = 301,
-  DBA2S_MSG_REGISTER_DBA_REP = 302,
   S2DBA_MSG_ASYNC_EXEC_SQL = 310,
   S2DBA_LOAD_PLAYER_DATA = 311,
   DBA2S_LOAD_PLAYER_DATA_REP = 312,
   S2DBA_SAVE_PLAYER_DATA = 313
 };
 bool SERVER_MSG_ID_IsValid(int value);
-const SERVER_MSG_ID SERVER_MSG_ID_MIN = S2CS_MSG_REGISTER_CENTER;
+const SERVER_MSG_ID SERVER_MSG_ID_MIN = S2CS_MSG_REGISTER;
 const SERVER_MSG_ID SERVER_MSG_ID_MAX = S2DBA_SAVE_PLAYER_DATA;
 const int SERVER_MSG_ID_ARRAYSIZE = SERVER_MSG_ID_MAX + 1;
 
@@ -187,14 +183,14 @@ class server_info : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class msg_register_center_svr_req : public ::google::protobuf::Message {
+class msg_register_svr_req : public ::google::protobuf::Message {
  public:
-  msg_register_center_svr_req();
-  virtual ~msg_register_center_svr_req();
+  msg_register_svr_req();
+  virtual ~msg_register_svr_req();
 
-  msg_register_center_svr_req(const msg_register_center_svr_req& from);
+  msg_register_svr_req(const msg_register_svr_req& from);
 
-  inline msg_register_center_svr_req& operator=(const msg_register_center_svr_req& from) {
+  inline msg_register_svr_req& operator=(const msg_register_svr_req& from) {
     CopyFrom(from);
     return *this;
   }
@@ -208,17 +204,17 @@ class msg_register_center_svr_req : public ::google::protobuf::Message {
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const msg_register_center_svr_req& default_instance();
+  static const msg_register_svr_req& default_instance();
 
-  void Swap(msg_register_center_svr_req* other);
+  void Swap(msg_register_svr_req* other);
 
   // implements Message ----------------------------------------------
 
-  msg_register_center_svr_req* New() const;
+  msg_register_svr_req* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const msg_register_center_svr_req& from);
-  void MergeFrom(const msg_register_center_svr_req& from);
+  void CopyFrom(const msg_register_svr_req& from);
+  void MergeFrom(const msg_register_svr_req& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -250,7 +246,7 @@ class msg_register_center_svr_req : public ::google::protobuf::Message {
   inline ::net::svr::server_info* release_info();
   inline void set_allocated_info(::net::svr::server_info* info);
 
-  // @@protoc_insertion_point(class_scope:net.svr.msg_register_center_svr_req)
+  // @@protoc_insertion_point(class_scope:net.svr.msg_register_svr_req)
  private:
   inline void set_has_info();
   inline void clear_has_info();
@@ -267,18 +263,18 @@ class msg_register_center_svr_req : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_servers_5fmsg_2eproto();
 
   void InitAsDefaultInstance();
-  static msg_register_center_svr_req* default_instance_;
+  static msg_register_svr_req* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class msg_register_center_svr_rep : public ::google::protobuf::Message {
+class msg_register_svr_rep : public ::google::protobuf::Message {
  public:
-  msg_register_center_svr_rep();
-  virtual ~msg_register_center_svr_rep();
+  msg_register_svr_rep();
+  virtual ~msg_register_svr_rep();
 
-  msg_register_center_svr_rep(const msg_register_center_svr_rep& from);
+  msg_register_svr_rep(const msg_register_svr_rep& from);
 
-  inline msg_register_center_svr_rep& operator=(const msg_register_center_svr_rep& from) {
+  inline msg_register_svr_rep& operator=(const msg_register_svr_rep& from) {
     CopyFrom(from);
     return *this;
   }
@@ -292,17 +288,17 @@ class msg_register_center_svr_rep : public ::google::protobuf::Message {
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const msg_register_center_svr_rep& default_instance();
+  static const msg_register_svr_rep& default_instance();
 
-  void Swap(msg_register_center_svr_rep* other);
+  void Swap(msg_register_svr_rep* other);
 
   // implements Message ----------------------------------------------
 
-  msg_register_center_svr_rep* New() const;
+  msg_register_svr_rep* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const msg_register_center_svr_rep& from);
-  void MergeFrom(const msg_register_center_svr_rep& from);
+  void CopyFrom(const msg_register_svr_rep& from);
+  void MergeFrom(const msg_register_svr_rep& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -332,7 +328,7 @@ class msg_register_center_svr_rep : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 result() const;
   inline void set_result(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:net.svr.msg_register_center_svr_rep)
+  // @@protoc_insertion_point(class_scope:net.svr.msg_register_svr_rep)
  private:
   inline void set_has_result();
   inline void clear_has_result();
@@ -349,7 +345,7 @@ class msg_register_center_svr_rep : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_servers_5fmsg_2eproto();
 
   void InitAsDefaultInstance();
-  static msg_register_center_svr_rep* default_instance_;
+  static msg_register_svr_rep* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -435,172 +431,6 @@ class msg_server_list_rep : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static msg_server_list_rep* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class msg_register_dbagent_svr_req : public ::google::protobuf::Message {
- public:
-  msg_register_dbagent_svr_req();
-  virtual ~msg_register_dbagent_svr_req();
-
-  msg_register_dbagent_svr_req(const msg_register_dbagent_svr_req& from);
-
-  inline msg_register_dbagent_svr_req& operator=(const msg_register_dbagent_svr_req& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const msg_register_dbagent_svr_req& default_instance();
-
-  void Swap(msg_register_dbagent_svr_req* other);
-
-  // implements Message ----------------------------------------------
-
-  msg_register_dbagent_svr_req* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const msg_register_dbagent_svr_req& from);
-  void MergeFrom(const msg_register_dbagent_svr_req& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional .net.svr.server_info info = 1;
-  inline bool has_info() const;
-  inline void clear_info();
-  static const int kInfoFieldNumber = 1;
-  inline const ::net::svr::server_info& info() const;
-  inline ::net::svr::server_info* mutable_info();
-  inline ::net::svr::server_info* release_info();
-  inline void set_allocated_info(::net::svr::server_info* info);
-
-  // @@protoc_insertion_point(class_scope:net.svr.msg_register_dbagent_svr_req)
- private:
-  inline void set_has_info();
-  inline void clear_has_info();
-
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
-  ::net::svr::server_info* info_;
-
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
-
-  friend void  protobuf_AddDesc_servers_5fmsg_2eproto();
-  friend void protobuf_AssignDesc_servers_5fmsg_2eproto();
-  friend void protobuf_ShutdownFile_servers_5fmsg_2eproto();
-
-  void InitAsDefaultInstance();
-  static msg_register_dbagent_svr_req* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class msg_register_dbagent_svr_rep : public ::google::protobuf::Message {
- public:
-  msg_register_dbagent_svr_rep();
-  virtual ~msg_register_dbagent_svr_rep();
-
-  msg_register_dbagent_svr_rep(const msg_register_dbagent_svr_rep& from);
-
-  inline msg_register_dbagent_svr_rep& operator=(const msg_register_dbagent_svr_rep& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const msg_register_dbagent_svr_rep& default_instance();
-
-  void Swap(msg_register_dbagent_svr_rep* other);
-
-  // implements Message ----------------------------------------------
-
-  msg_register_dbagent_svr_rep* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const msg_register_dbagent_svr_rep& from);
-  void MergeFrom(const msg_register_dbagent_svr_rep& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional uint32 result = 1;
-  inline bool has_result() const;
-  inline void clear_result();
-  static const int kResultFieldNumber = 1;
-  inline ::google::protobuf::uint32 result() const;
-  inline void set_result(::google::protobuf::uint32 value);
-
-  // @@protoc_insertion_point(class_scope:net.svr.msg_register_dbagent_svr_rep)
- private:
-  inline void set_has_result();
-  inline void clear_has_result();
-
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
-  ::google::protobuf::uint32 result_;
-
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
-
-  friend void  protobuf_AddDesc_servers_5fmsg_2eproto();
-  friend void protobuf_AssignDesc_servers_5fmsg_2eproto();
-  friend void protobuf_ShutdownFile_servers_5fmsg_2eproto();
-
-  void InitAsDefaultInstance();
-  static msg_register_dbagent_svr_rep* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -1102,37 +932,37 @@ inline void server_info::set_game_subtype(::google::protobuf::uint32 value) {
 
 // -------------------------------------------------------------------
 
-// msg_register_center_svr_req
+// msg_register_svr_req
 
 // optional .net.svr.server_info info = 1;
-inline bool msg_register_center_svr_req::has_info() const {
+inline bool msg_register_svr_req::has_info() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void msg_register_center_svr_req::set_has_info() {
+inline void msg_register_svr_req::set_has_info() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void msg_register_center_svr_req::clear_has_info() {
+inline void msg_register_svr_req::clear_has_info() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void msg_register_center_svr_req::clear_info() {
+inline void msg_register_svr_req::clear_info() {
   if (info_ != NULL) info_->::net::svr::server_info::Clear();
   clear_has_info();
 }
-inline const ::net::svr::server_info& msg_register_center_svr_req::info() const {
+inline const ::net::svr::server_info& msg_register_svr_req::info() const {
   return info_ != NULL ? *info_ : *default_instance_->info_;
 }
-inline ::net::svr::server_info* msg_register_center_svr_req::mutable_info() {
+inline ::net::svr::server_info* msg_register_svr_req::mutable_info() {
   set_has_info();
   if (info_ == NULL) info_ = new ::net::svr::server_info;
   return info_;
 }
-inline ::net::svr::server_info* msg_register_center_svr_req::release_info() {
+inline ::net::svr::server_info* msg_register_svr_req::release_info() {
   clear_has_info();
   ::net::svr::server_info* temp = info_;
   info_ = NULL;
   return temp;
 }
-inline void msg_register_center_svr_req::set_allocated_info(::net::svr::server_info* info) {
+inline void msg_register_svr_req::set_allocated_info(::net::svr::server_info* info) {
   delete info_;
   info_ = info;
   if (info) {
@@ -1144,26 +974,26 @@ inline void msg_register_center_svr_req::set_allocated_info(::net::svr::server_i
 
 // -------------------------------------------------------------------
 
-// msg_register_center_svr_rep
+// msg_register_svr_rep
 
 // optional uint32 result = 1;
-inline bool msg_register_center_svr_rep::has_result() const {
+inline bool msg_register_svr_rep::has_result() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void msg_register_center_svr_rep::set_has_result() {
+inline void msg_register_svr_rep::set_has_result() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void msg_register_center_svr_rep::clear_has_result() {
+inline void msg_register_svr_rep::clear_has_result() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void msg_register_center_svr_rep::clear_result() {
+inline void msg_register_svr_rep::clear_result() {
   result_ = 0u;
   clear_has_result();
 }
-inline ::google::protobuf::uint32 msg_register_center_svr_rep::result() const {
+inline ::google::protobuf::uint32 msg_register_svr_rep::result() const {
   return result_;
 }
-inline void msg_register_center_svr_rep::set_result(::google::protobuf::uint32 value) {
+inline void msg_register_svr_rep::set_result(::google::protobuf::uint32 value) {
   set_has_result();
   result_ = value;
 }
@@ -1195,74 +1025,6 @@ msg_server_list_rep::server_list() const {
 inline ::google::protobuf::RepeatedPtrField< ::net::svr::server_info >*
 msg_server_list_rep::mutable_server_list() {
   return &server_list_;
-}
-
-// -------------------------------------------------------------------
-
-// msg_register_dbagent_svr_req
-
-// optional .net.svr.server_info info = 1;
-inline bool msg_register_dbagent_svr_req::has_info() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void msg_register_dbagent_svr_req::set_has_info() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void msg_register_dbagent_svr_req::clear_has_info() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void msg_register_dbagent_svr_req::clear_info() {
-  if (info_ != NULL) info_->::net::svr::server_info::Clear();
-  clear_has_info();
-}
-inline const ::net::svr::server_info& msg_register_dbagent_svr_req::info() const {
-  return info_ != NULL ? *info_ : *default_instance_->info_;
-}
-inline ::net::svr::server_info* msg_register_dbagent_svr_req::mutable_info() {
-  set_has_info();
-  if (info_ == NULL) info_ = new ::net::svr::server_info;
-  return info_;
-}
-inline ::net::svr::server_info* msg_register_dbagent_svr_req::release_info() {
-  clear_has_info();
-  ::net::svr::server_info* temp = info_;
-  info_ = NULL;
-  return temp;
-}
-inline void msg_register_dbagent_svr_req::set_allocated_info(::net::svr::server_info* info) {
-  delete info_;
-  info_ = info;
-  if (info) {
-    set_has_info();
-  } else {
-    clear_has_info();
-  }
-}
-
-// -------------------------------------------------------------------
-
-// msg_register_dbagent_svr_rep
-
-// optional uint32 result = 1;
-inline bool msg_register_dbagent_svr_rep::has_result() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void msg_register_dbagent_svr_rep::set_has_result() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void msg_register_dbagent_svr_rep::clear_has_result() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void msg_register_dbagent_svr_rep::clear_result() {
-  result_ = 0u;
-  clear_has_result();
-}
-inline ::google::protobuf::uint32 msg_register_dbagent_svr_rep::result() const {
-  return result_;
-}
-inline void msg_register_dbagent_svr_rep::set_result(::google::protobuf::uint32 value) {
-  set_has_result();
-  result_ = value;
 }
 
 // -------------------------------------------------------------------

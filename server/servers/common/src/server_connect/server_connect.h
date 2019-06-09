@@ -47,7 +47,7 @@ protected:
 /******************server connectorπ‹¿Ì∆˜****************************/
 class CSvrConnectorMgr : public CInnerMsgHanlde {
 public:
-    CSvrConnectorMgr(uint32_t regMsgID);
+    CSvrConnectorMgr();
 
     virtual ~CSvrConnectorMgr();
 
@@ -74,7 +74,6 @@ private:
     CSvrConnectorNetObj* m_pNetObj;
     bool m_isRun;
     net::svr::server_info m_curSvrInfo;
-    uint32_t m_registerMsgID;
 
 };
 

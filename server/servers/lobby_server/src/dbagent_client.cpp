@@ -11,10 +11,10 @@ using namespace svrlib;
 //----------------------------------------------------------------------------------------------------------------------------
 
 CDBAgentClientMgr::CDBAgentClientMgr()
-        :CSvrConnectorMgr(net::svr::S2DBA_MSG_REGISTER_DBA)
+        :CSvrConnectorMgr()
 {
 
-    bind_handler(this, net::svr::DBA2S_MSG_REGISTER_DBA_REP, &CDBAgentClientMgr::handle_msg_register_svr_rep);
+    bind_handler(this, net::svr::CS2S_MSG_REGISTER_REP, &CDBAgentClientMgr::handle_msg_register_svr_rep);
     bind_handler(this, net::svr::DBA2S_LOAD_PLAYER_DATA_REP, &CDBAgentClientMgr::handle_msg_load_data_rep);
 }
 
@@ -54,7 +54,7 @@ void CDBAgentClientMgr::SavePlayerData(uint32_t uid, uint32_t data_type, const s
 //·þÎñÆ÷×¢²á
 int CDBAgentClientMgr::handle_msg_register_svr_rep()
 {
-    net::svr::msg_register_dbagent_svr_rep msg;
+    net::svr::msg_register_svr_rep msg;
     PARSE_MSG(msg);
 
     LOG_DEBUG("dbagent server register result :{}", msg.result());

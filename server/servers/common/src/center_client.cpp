@@ -10,9 +10,9 @@ using namespace svrlib;
 //----------------------------------------------------------------------------------------------------------------------------
 
 CCenterClientMgr::CCenterClientMgr()
-:CSvrConnectorMgr(net::svr::S2CS_MSG_REGISTER_CENTER)
+:CSvrConnectorMgr()
 {
-    bind_handler(this, net::svr::CS2S_MSG_REGISTER_CENTER_REP, &CCenterClientMgr::handle_msg_register_svr_rep);
+    bind_handler(this, net::svr::CS2S_MSG_REGISTER_REP, &CCenterClientMgr::handle_msg_register_svr_rep);
     bind_handler(this, net::svr::CS2S_MSG_SERVER_LIST_REP, &CCenterClientMgr::handle_msg_server_list_rep);
 }
 
@@ -22,7 +22,7 @@ CCenterClientMgr::~CCenterClientMgr() {
 
 //·þÎñÆ÷×¢²á
 int CCenterClientMgr::handle_msg_register_svr_rep() {
-    net::svr::msg_register_center_svr_rep msg;
+    net::svr::msg_register_svr_rep msg;
     PARSE_MSG(msg);
 
     LOG_DEBUG("center server register result :{}", msg.result());

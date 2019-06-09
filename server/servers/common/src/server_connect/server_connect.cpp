@@ -39,12 +39,11 @@ void CSvrConnectorNetObj::ConnectorOnConnect(bool bSuccess)
 
 //----------------------------------------------------------------------------------------------------------------------------
 
-CSvrConnectorMgr::CSvrConnectorMgr(uint32_t regMsgID)
+CSvrConnectorMgr::CSvrConnectorMgr()
         :m_timer(this)
 {
     m_pNetObj = NULL;
     m_isRun = false;
-    m_registerMsgID = regMsgID;
 }
 
 CSvrConnectorMgr::~CSvrConnectorMgr()
@@ -76,11 +75,11 @@ bool CSvrConnectorMgr::Init(int32_t ioKey, const net::svr::server_info& info, st
 
 void CSvrConnectorMgr::Register()
 {
-    net::svr::msg_register_center_svr_req msg;
+    net::svr::msg_register_svr_req msg;
     net::svr::server_info* info = msg.mutable_info();
     *info = m_curSvrInfo;
 
-    SendMsg2Svr(&msg, m_registerMsgID, 0);
+    SendMsg2Svr(&msg, net::svr::S2CS_MSG_REGISTER, 0);
     LOG_DEBUG("register server svrid:{} svrtype:{}--gameType:{}", msg.info().svrid(), msg.info().svr_type(),
             msg.info().game_type());
 }
