@@ -7,7 +7,6 @@
 #include "game_define.h"
 #include "framework/application.h"
 #include "game_server_config.h"
-#include "game_net_mgr.h"
 #include "center_mgr.h"
 #include "svrlib.h"
 #include <iostream>
@@ -39,7 +38,7 @@ bool CApplication::Initialize()
 		desc.recvBufferSize     = SERVER_SOCKET_BUFF_SIZE;
 		desc.timeOut            = 60*60*24;
 		desc.maxPacketSize      = INNER_MAX_SIZE;
-		desc.allocFunc          = [](){ return new CCenterNetObj(); };
+		desc.allocFunc          = [](){ return new CSvrCliNetObj(CCenterMgr::Instance()); };
 		desc.openMsgQueue       = true;
 
 		if (!m_iocpServer.AddIoHandler(desc))

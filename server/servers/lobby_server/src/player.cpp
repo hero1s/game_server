@@ -4,7 +4,7 @@
 #include <time.h>
 #include "player_mgr.h"
 #include "common_logic.h"
-#include "dbagent_client.h"
+#include "net/dbagent_client.h"
 
 using namespace svrlib;
 using namespace std;

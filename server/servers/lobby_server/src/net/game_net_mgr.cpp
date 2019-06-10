@@ -2,7 +2,7 @@
 #include "game_net_mgr.h"
 #include "msg_define.pb.h"
 #include "game_server_config.h"
-#include "msg_client_handle.h"
+#include "client_msg/msg_client_handle.h"
 #include "helper/helper.h"
 #include "player_mgr.h"
 #include "player.h"

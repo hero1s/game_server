@@ -13,6 +13,33 @@ using namespace std;
 using namespace svrlib;
 using namespace Network;
 
+class CServerClientMgr;
+// server 连接
+class CSvrCliNetObj : public NetworkObject {
+public:
+    CSvrCliNetObj(CServerClientMgr& host);
+
+    virtual ~CSvrCliNetObj();
+
+    virtual uint16_t GetHeadLen() {
+        return INNER_HEADER_SIZE;
+    };
+
+    virtual uint16_t GetPacketLen(const uint8_t *pData, uint16_t wLen) {
+        return pkg_inner::GetPacketLen(pData, wLen);
+    };
+protected:
+    virtual void OnDisconnect();
+
+    virtual int OnRecv(uint8_t *pMsg, uint16_t wSize);
+
+    virtual void OnConnect(bool bSuccess);
+
+protected:
+    CServerClientMgr& m_host;
+
+};
+
 // 服务器连接
 class CServerClient {
 public:
@@ -39,7 +66,7 @@ public:
     NetworkObject* m_pNetObj;
 };
 // 服务器连接管理
-class CServerClientMgr {
+class CServerClientMgr : public CInnerMsgHanlde{
 public:
     CServerClientMgr();
 

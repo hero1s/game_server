@@ -1,7 +1,5 @@
 
 #include "server_connect.h"
-
-#include "center_client.h"
 #include "data_cfg_mgr.h"
 #include "player_mgr.h"
 #include "player_base.h"
@@ -9,8 +7,8 @@
 using namespace std;
 using namespace svrlib;
 
-CSvrConnectorNetObj::CSvrConnectorNetObj(CSvrConnectorMgr* pHost)
-        :m_pHost(pHost)
+CSvrConnectorNetObj::CSvrConnectorNetObj(CSvrConnectorMgr& host)
+        :m_host(host)
 {
 
 }
@@ -23,18 +21,18 @@ CSvrConnectorNetObj::~CSvrConnectorNetObj()
 void CSvrConnectorNetObj::ConnectorOnDisconnect()
 {
     LOG_DEBUG("center ondisconnect");
-    m_pHost->OnCloseClient(this);
+    m_host.OnCloseClient(this);
 }
 
 int CSvrConnectorNetObj::OnRecv(uint8_t* pMsg, uint16_t wSize)
 {
-    return m_pHost->OnHandleClientMsg(this, pMsg, wSize);
+    return m_host.OnHandleClientMsg(this, pMsg, wSize);
 }
 
 void CSvrConnectorNetObj::ConnectorOnConnect(bool bSuccess)
 {
     LOG_DEBUG("center server OnConnect :{}", bSuccess);
-    m_pHost->OnConnect(bSuccess, this);
+    m_host.OnConnect(bSuccess, this);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------
@@ -60,7 +58,7 @@ bool CSvrConnectorMgr::Init(int32_t ioKey, const net::svr::server_info& info, st
 {
     IOCPServer& iocpServer = CApplication::Instance().GetIOCPServer();
 
-    CSvrConnectorNetObj* pNetObj = new CSvrConnectorNetObj(this);
+    CSvrConnectorNetObj* pNetObj = new CSvrConnectorNetObj(*this);
     pNetObj->SetUID(info.svrid());
     pNetObj->Init(&iocpServer, ioKey, ip, port);
 

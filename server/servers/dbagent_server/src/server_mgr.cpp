@@ -3,6 +3,7 @@
 #include "server_mgr.h"
 #include "game_define.h"
 #include "dbmysql_mgr.h"
+#include "utility/profile_manager.h"
 
 using namespace svrlib;
 using namespace Network;

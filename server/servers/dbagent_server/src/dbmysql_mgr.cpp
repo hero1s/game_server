@@ -8,7 +8,6 @@
 #include "player_mgr.h"
 #include "data_cfg_mgr.h"
 #include "game_server_config.h"
-#include "center_client.h"
 #include "dbmysql/db_wrap.h"
 
 #include "nlohmann/json.hpp"

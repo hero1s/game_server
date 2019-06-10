@@ -3,6 +3,34 @@
 #include "msg_define.pb.h"
 #include "game_define.h"
 
+// server Á¬½Ó
+CSvrCliNetObj::CSvrCliNetObj(CServerClientMgr& host)
+:m_host(host)
+{
+
+}
+
+CSvrCliNetObj::~CSvrCliNetObj()
+{
+
+}
+void CSvrCliNetObj::OnDisconnect()
+{
+    LOG_ERROR("server on disconnect:{}--{}", GetUID(), this->GetIP());
+    m_host.RemoveServer(this);
+}
+
+int CSvrCliNetObj::OnRecv(uint8_t* pMsg, uint16_t wSize)
+{
+    AutoProfile ap(__FUNCTION__);
+    return m_host.OnHandleClientMsg(this, pMsg, wSize);
+}
+
+void CSvrCliNetObj::OnConnect(bool bSuccess)
+{
+    LOG_DEBUG("server OnConnect,{},{}", bSuccess,this->GetIP());
+}
+
 CServerClient::CServerClient(const net::svr::server_info& info, NetworkObject* pNetObj)
 {
     m_info = info;

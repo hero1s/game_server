@@ -199,11 +199,9 @@ add_executable(server
     server_frame/src/utility/timeutility.cpp
     servers/center_server/src/center_mgr.cpp
     servers/center_server/src/center_mgr.h
-    servers/center_server/src/game_net_mgr.cpp
-    servers/center_server/src/game_net_mgr.h
-    servers/center_server/src/game_server.cpp
-    servers/common/src/center_client.cpp
-    servers/common/src/center_client.h
+        servers/center_server/src/game_server.cpp
+        servers/lobby_server/src/net/center_client.cpp
+        servers/lobby_server/src/net/center_client.h
     servers/common/src/common_logic.cpp
     servers/common/src/common_logic.h
     servers/common/src/data_cfg_mgr.cpp
@@ -222,20 +220,18 @@ add_executable(server
     servers/dbagent_server/src/db_operator.h
     servers/dbagent_server/src/dbmysql_mgr.cpp
     servers/dbagent_server/src/dbmysql_mgr.h
-    servers/dbagent_server/src/game_net_mgr.cpp
-    servers/dbagent_server/src/game_net_mgr.h
-    servers/dbagent_server/src/game_server.cpp
+        servers/dbagent_server/src/game_server.cpp
     servers/dbagent_server/src/server_mgr.cpp
     servers/dbagent_server/src/server_mgr.h
-    servers/lobby_server/src/dbagent_client.cpp
-    servers/lobby_server/src/dbagent_client.h
-    servers/lobby_server/src/game_net_mgr.cpp
-    servers/lobby_server/src/game_net_mgr.h
+        servers/lobby_server/src/net/dbagent_client.cpp
+        servers/lobby_server/src/net/dbagent_client.h
+        servers/lobby_server/src/net/game_net_mgr.cpp
+        servers/lobby_server/src/net/game_net_mgr.h
     servers/lobby_server/src/game_server.cpp
-    servers/lobby_server/src/lua_logic.cpp
-    servers/lobby_server/src/lua_logic.h
-    servers/lobby_server/src/msg_client_handle.cpp
-    servers/lobby_server/src/msg_client_handle.h
+        servers/lobby_server/src/lua_logic/lua_logic.cpp
+        servers/lobby_server/src/lua_logic/lua_logic.h
+        servers/lobby_server/src/client_msg/msg_client_handle.cpp
+        servers/lobby_server/src/client_msg/msg_client_handle.h
     servers/lobby_server/src/player.cpp
     servers/lobby_server/src/player.h
     servers/pb/src/base_msg_struct.pb.cc

@@ -14,11 +14,11 @@ using namespace svrlib;
 using namespace Network;
 
 // 中心服管理器
-class CCenterMgr : public CServerClientMgr, public CInnerMsgHanlde, public AutoDeleteSingleton<CCenterMgr> {
+class CCenterMgr : public CServerClientMgr,public AutoDeleteSingleton<CCenterMgr> {
 public:
     CCenterMgr();
 
-    ~CCenterMgr();
+    virtual ~CCenterMgr();
 
     virtual void OnTimer();
 

@@ -19,7 +19,7 @@ class CSvrConnectorMgr;
 // server connector¡¨Ω”
 class CSvrConnectorNetObj : public CTcpConnector {
 public:
-    CSvrConnectorNetObj(CSvrConnectorMgr* pHost);
+    CSvrConnectorNetObj(CSvrConnectorMgr& host);
 
     virtual ~CSvrConnectorNetObj();
 
@@ -40,7 +40,7 @@ protected:
     virtual void ConnectorOnConnect(bool bSuccess);
 
 protected:
-    CSvrConnectorMgr* m_pHost;
+    CSvrConnectorMgr& m_host;
 
 };
 

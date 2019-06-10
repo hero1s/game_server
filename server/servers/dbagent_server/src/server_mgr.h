@@ -14,10 +14,10 @@ using namespace svrlib;
 using namespace Network;
 
 // 服务器管理器
-class CServerMgr : public CServerClientMgr, public CInnerMsgHanlde, public AutoDeleteSingleton<CServerMgr> {
+class CServerMgr : public CServerClientMgr, public AutoDeleteSingleton<CServerMgr> {
 public:
     CServerMgr();
-    ~CServerMgr();
+    virtual ~CServerMgr();
 
 public:
     virtual int OnRecvClientMsg();
