@@ -104,6 +104,10 @@ void CSvrConnectorMgr::SendMsg2Svr(const google::protobuf::Message *msg, uint16_
     pkg_inner::SendProtobufMsg(m_pNetObj, msg, msg_type, uin, route, routeID);
 }
 
+bool CSvrConnectorMgr::IsExistSvr(uint16_t sid) {
+    return m_allSvrList.find(sid) != m_allSvrList.end();
+}
+
 //ЗўЮёЦїзЂВс
 int CSvrConnectorMgr::handle_msg_register_svr_rep() {
     net::svr::msg_register_svr_rep msg;
@@ -128,7 +132,11 @@ int CSvrConnectorMgr::handle_msg_server_list_rep() {
     PARSE_MSG(msg);
 
     LOG_DEBUG("center server rep svrlist :{}", msg.server_list_size());
-
+    m_allSvrList.clear();
+    for (int i = 0; i < msg.server_list_size(); ++i)
+    {
+        m_allSvrList.insert(make_pair(msg.server_list(i).svrid(), msg.server_list(i)));
+    }
 
     return 0;
 

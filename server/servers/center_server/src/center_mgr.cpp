@@ -22,23 +22,7 @@ CCenterMgr::~CCenterMgr()
 {
 }
 
-void CCenterMgr::OnTimer()
-{
-    CServerClientMgr::OnTimer();
-    UpdateServerList();//test
-}
 
-bool CCenterMgr::Init()
-{
-    CServerClientMgr::Init();
-
-    return true;
-}
-
-void CCenterMgr::ShutDown()
-{
-
-}
 
 
 

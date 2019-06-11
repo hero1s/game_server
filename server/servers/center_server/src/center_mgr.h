@@ -20,11 +20,7 @@ public:
 
     virtual ~CCenterMgr();
 
-    virtual void OnTimer();
 
-    virtual bool Init();
-
-    virtual void ShutDown();
 private:
 
 

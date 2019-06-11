@@ -13,7 +13,7 @@
 #include "game_server_config.h"
 #include "utility/time_function.h"
 #include "lua_logic/lua_logic.h"
-#include "server_connect/center_client.h"
+#include "net/center_client.h"
 #include "net/dbagent_client.h"
 #include "player_mgr.h"
 #include "redis_mgr.h"

@@ -68,6 +68,8 @@ public:
     void SendMsg2Svr(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin = 0, uint8_t route = 0,
             uint32_t routeID = 0);
 
+    bool IsExistSvr(uint16_t sid);
+
 protected:
     //ЗўЮёЦїзЂВс
     int handle_msg_register_svr_rep();
@@ -80,6 +82,7 @@ private:
     CSvrConnectorNetObj* m_pNetObj;
     bool m_isRun;
     net::svr::server_info m_curSvrInfo;
+    std::unordered_map<uint16_t,net::svr::server_info> m_allSvrList;
 
 };
 

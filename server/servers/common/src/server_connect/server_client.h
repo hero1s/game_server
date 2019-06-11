@@ -14,10 +14,11 @@ using namespace svrlib;
 using namespace Network;
 
 class CServerClientMgr;
+
 // server 连接
 class CSvrCliNetObj : public NetworkObject {
 public:
-    CSvrCliNetObj(CServerClientMgr& host);
+    CSvrCliNetObj(CServerClientMgr &host);
 
     virtual ~CSvrCliNetObj();
 
@@ -36,22 +37,22 @@ protected:
     virtual void OnConnect(bool bSuccess);
 
 protected:
-    CServerClientMgr& m_host;
+    CServerClientMgr &m_host;
 
 };
 
 // 服务器连接
 class CServerClient {
 public:
-    CServerClient(const net::svr::server_info& info, NetworkObject* pNetObj);
+    CServerClient(const net::svr::server_info &info, NetworkObject *pNetObj);
 
     virtual ~CServerClient();
 
-    void SendMsg(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin);
+    void SendMsg(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin);
 
-    void SendMsg(const uint8_t* pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin);
+    void SendMsg(const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin);
 
-    NetworkObject* GetNetObj();
+    NetworkObject *GetNetObj();
 
     uint16_t GetSvrID();
 
@@ -63,10 +64,11 @@ public:
 
 public:
     net::svr::server_info m_info;
-    NetworkObject* m_pNetObj;
+    NetworkObject *m_pNetObj;
 };
+
 // 服务器连接管理
-class CServerClientMgr : public CInnerMsgHanlde{
+class CServerClientMgr : public CInnerMsgHanlde {
 public:
     CServerClientMgr();
 
@@ -78,30 +80,28 @@ public:
 
     virtual void ShutDown();
 
-    bool AddServer(NetworkObject* pNetObj, const net::svr::server_info& info);
+    bool AddServer(NetworkObject *pNetObj, const net::svr::server_info &info);
 
-    void RemoveServer(NetworkObject* pNetObj);
+    void RemoveServer(NetworkObject *pNetObj);
 
-    shared_ptr<CServerClient> GetServerBySocket(NetworkObject* pNetObj);
+    shared_ptr<CServerClient> GetServerBySocket(NetworkObject *pNetObj);
 
     shared_ptr<CServerClient> GetServerBySvrID(uint16_t svrID);
 
     // 指定游戏服发送消息
-    void SendMsg2Server(uint16_t svrID, const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin=0);
+    void SendMsg2Server(uint16_t svrID, const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin = 0);
 
-    void SendMsg2Server(uint16_t svrID, const uint8_t* pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin=0);
+    void SendMsg2Server(uint16_t svrID, const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin = 0);
 
     // 给指定类型游戏服发送消息
-    void
-    SendMsg2AllGameServer(uint16_t gameType, const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin=0);
+    void SendMsg2AllGameServer(uint16_t gameType, const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin = 0);
 
-    void
-    SendMsg2AllGameServer(uint16_t gameType, const uint8_t* pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin=0);
+    void SendMsg2AllGameServer(uint16_t gameType, const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin = 0);
 
     // 全服广播
-    void SendMsg2All(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin);
+    void SendMsg2All(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin);
 
-    void SendMsg2All(const uint8_t* pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin);
+    void SendMsg2All(const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin);
 
     // 更新服务器列表给全部服务器
     void UpdateServerList();
@@ -114,6 +114,7 @@ protected:
 
     //服务器注册
     int handle_msg_register_svr();
+
 protected:
     using MAP_SERVERS = unordered_map<uint32_t, shared_ptr<CServerClient>>;
     MAP_SERVERS m_mpServers;

@@ -753,8 +753,8 @@ add_executable(server
         servers/center_server/src/center_mgr.cpp
         servers/center_server/src/center_mgr.h
         servers/center_server/src/game_server.cpp
-        servers/common/src/server_connect/center_client.cpp
-        servers/common/src/server_connect/center_client.h
+        servers/lobby_server/src/net/center_client.cpp
+        servers/lobby_server/src/net/center_client.h
         servers/common/src/server_connect/server_client.cpp
         servers/common/src/server_connect/server_client.h
         servers/common/src/server_connect/server_connector.cpp
