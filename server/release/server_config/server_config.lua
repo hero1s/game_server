@@ -23,7 +23,8 @@ local redis_config = { host = "139.199.209.147",port = 14000,passwd="e2345" };
 server_config =
 {
     center = { ip = "127.0.0.1",port = 8888},
-    dbagent= { ip = "127.0.0.1",port = 9999}
+    dbagent= { ip = "127.0.0.1",port = 9999},
+    gate = { ip = "127.0.0.1",port = 10000,out_port = 10001}
 }
 
 -- 中心服务器配置

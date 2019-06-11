@@ -10,6 +10,7 @@ do
             ./rebuild_lobby.sh -r
             ./rebuild_center.sh -r
             ./rebuild_dbagent.sh -r
+            ./rebuild_gate.sh -r
             exit 0
             ;;
 		*)
@@ -21,4 +22,4 @@ done
 ./rebuild_lobby.sh
 ./rebuild_center.sh
 ./rebuild_dbagent.sh
-
+./rebuild_gate.sh
