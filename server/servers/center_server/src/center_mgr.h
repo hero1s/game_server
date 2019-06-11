@@ -25,20 +25,6 @@ public:
     virtual bool Init();
 
     virtual void ShutDown();
-
-    // 更新服务器列表给全部服务器
-    void UpdateServerList();
-
-public:
-    virtual int OnRecvClientMsg();
-
-protected:
-    //路由分发消息
-    int OnRouteDispMsg();
-
-    //服务器注册
-    int handle_msg_register_svr();
-
 private:
 
 

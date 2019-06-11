@@ -103,10 +103,17 @@ public:
 
     void SendMsg2All(const uint8_t* pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin);
 
-private:
     // 更新服务器列表给全部服务器
-    virtual void UpdateServerList(){};
+    void UpdateServerList();
 
+    virtual int OnRecvClientMsg();
+
+protected:
+    //路由分发消息
+    int OnRouteDispMsg();
+
+    //服务器注册
+    int handle_msg_register_svr();
 protected:
     using MAP_SERVERS = unordered_map<uint32_t, shared_ptr<CServerClient>>;
     MAP_SERVERS m_mpServers;

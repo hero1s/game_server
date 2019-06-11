@@ -24,7 +24,6 @@ server_config =
 {
     center = { ip = "127.0.0.1",port = 8888},
     dbagent= { ip = "127.0.0.1",port = 9999},
-    gate = { ip = "127.0.0.1",port = 10000,out_port = 10001}
 }
 
 -- 中心服务器配置

@@ -16,7 +16,6 @@ namespace {
 CServerMgr::CServerMgr()
 {
 
-    bind_handler(this, net::svr::S2CS_MSG_REGISTER, &CServerMgr::handle_msg_register_svr);
     bind_handler(this, net::svr::S2DBA_MSG_ASYNC_EXEC_SQL, &CServerMgr::handle_async_exec_sql);
     bind_handler(this, net::svr::S2DBA_LOAD_PLAYER_DATA, &CServerMgr::handle_load_player_data);
     bind_handler(this, net::svr::S2DBA_SAVE_PLAYER_DATA, &CServerMgr::handle_save_player_data);
@@ -24,32 +23,6 @@ CServerMgr::CServerMgr()
 }
 
 CServerMgr::~CServerMgr() {
-}
-
-int CServerMgr::OnRecvClientMsg() {
-    m_msgMinCount++;
-    return CProtobufHandleBase::OnRecvClientMsg();
-}
-
-//服务器注册
-int CServerMgr::handle_msg_register_svr() {
-    net::svr::msg_register_svr_req msg;
-    PARSE_MSG(msg);
-
-    LOG_DEBUG("Server Register svrid:{}--svrType {}--gameType:{}--subType:{}", msg.info().svrid(),
-              msg.info().svr_type(),
-              msg.info().game_type(), msg.info().game_subtype());
-    net::svr::msg_register_svr_rep repmsg;
-
-    bool bRet = AddServer(_pNetObj, msg.info());
-    if (!bRet) {
-        LOG_ERROR("Register Server fail svrid:{}", msg.info().svrid());
-    }
-    repmsg.set_result(bRet);
-
-    pkg_inner::SendProtobufMsg(_pNetObj, &repmsg, net::svr::CS2S_MSG_REGISTER_REP, 0, 0, 0);
-
-    return 0;
 }
 
 //异步执行sql

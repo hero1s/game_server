@@ -65,9 +65,15 @@ public:
 
     bool IsRun();
 
-public:
     void SendMsg2Svr(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin = 0, uint8_t route = 0,
             uint32_t routeID = 0);
+
+protected:
+    //服务器注册
+    int handle_msg_register_svr_rep();
+
+    //更新服务器列表
+    int handle_msg_server_list_rep();
 
 private:
     MemberTimerEvent<CSvrConnectorMgr, &CSvrConnectorMgr::OnTimer> m_timer;

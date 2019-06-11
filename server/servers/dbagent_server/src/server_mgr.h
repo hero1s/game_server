@@ -19,12 +19,7 @@ public:
     CServerMgr();
     virtual ~CServerMgr();
 
-public:
-    virtual int OnRecvClientMsg();
 protected:
-    //服务器注册
-    int handle_msg_register_svr();
-
     //异步执行sql
     int handle_async_exec_sql();
 

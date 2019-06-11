@@ -13,8 +13,6 @@ using namespace svrlib;
 CDBAgentClientMgr::CDBAgentClientMgr()
         :CSvrConnectorMgr()
 {
-
-    bind_handler(this, net::svr::CS2S_MSG_REGISTER_REP, &CDBAgentClientMgr::handle_msg_register_svr_rep);
     bind_handler(this, net::svr::DBA2S_LOAD_PLAYER_DATA_REP, &CDBAgentClientMgr::handle_msg_load_data_rep);
 }
 
@@ -49,30 +47,6 @@ void CDBAgentClientMgr::SavePlayerData(uint32_t uid, uint32_t data_type, const s
     msg.set_data_type(data_type);
     msg.set_save_data(saveData);
     SendMsg2Svr(&msg, net::svr::S2DBA_SAVE_PLAYER_DATA);
-}
-
-//服务器注册
-int CDBAgentClientMgr::handle_msg_register_svr_rep()
-{
-    net::svr::msg_register_svr_rep msg;
-    PARSE_MSG(msg);
-
-    LOG_DEBUG("dbagent server register result :{}", msg.result());
-    if (msg.result()==1) {
-        CDBAgentClientMgr::Instance().RegisterRep(_pNetObj->GetUID(), true);
-
-        //test toney
-        CPlayer* pPlayer = new CPlayer(PLAYER_TYPE_ONLINE);
-        pPlayer->SetUID(110);
-        CPlayerMgr::Instance().AddPlayer(pPlayer);
-        pPlayer->OnLogin();
-
-    }
-    else {
-        CDBAgentClientMgr::Instance().RegisterRep(_pNetObj->GetUID(), false);
-        LOG_ERROR("dbagent server register fail {} -->:{}", _pNetObj->GetUID(), CApplication::Instance().GetServerID());
-    }
-    return 0;
 }
 
 //请求数据返回

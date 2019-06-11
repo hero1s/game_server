@@ -7,10 +7,9 @@ import "base_msg_struct.proto";
 enum  SERVER_MSG_ID
 {
 //----------------------------------------------------------------------------------
-	S2CS_MSG_REGISTER					= 201;  // 注册
-	CS2S_MSG_REGISTER_REP				= 202;	// 注册返回	
-	CS2S_MSG_SERVER_LIST_REP			= 203;	// 服务器列表
-
+	S2S_MSG_REGISTER					= 201;  // 注册
+	S2S_MSG_REGISTER_REP				= 202;	// 注册返回	
+	S2S_MSG_SERVER_LIST_REP				= 203;	// 服务器列表
 	
 //------------------------------DBAgent--------------------------------------------------	
 	S2DBA_MSG_ASYNC_EXEC_SQL			= 310;  // 异步执行sql
@@ -20,6 +19,7 @@ enum  SERVER_MSG_ID
 }
 
 // -------------------------------------------------------------------------------------
+
 message server_info
 {
 	optional uint32 svrid  	   	 = 1;		// 服务器ID

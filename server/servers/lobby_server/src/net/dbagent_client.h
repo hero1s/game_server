@@ -9,7 +9,7 @@
 #include "network/IOCPServer.h"
 #include "network/tcp_connector.h"
 #include "servers_msg.pb.h"
-#include "server_connect/server_connect.h"
+#include "server_connect/server_connector.h"
 
 using namespace std;
 using namespace svrlib;
@@ -32,8 +32,6 @@ public:
     void SavePlayerData(uint32_t uid, uint32_t data_type, const string &saveData);
 
 protected:
-    //服务器注册
-    int handle_msg_register_svr_rep();
     //请求数据返回
     int handle_msg_load_data_rep();
 

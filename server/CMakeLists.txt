@@ -23,6 +23,7 @@ include_directories(server_frame/include/utility)
 include_directories(server_frame/src/framework)
 include_directories(server_frame/src/network)
 include_directories(servers/gate_server/src)
+include_directories(servers/center_server/src)
 include_directories(servers/common/src)
 include_directories(servers/dbagent_server/src)
 include_directories(servers/lobby_server/src)
@@ -111,56 +112,15 @@ add_executable(server
         server_frame/include/redisclient/redissyncclient.h
         server_frame/include/redisclient/redisvalue.h
         server_frame/include/redisclient/version.h
-        server_frame/include/third/asio/detail/impl/buffer_sequence_adapter.ipp
-        server_frame/include/third/asio/detail/impl/descriptor_ops.ipp
         server_frame/include/third/asio/detail/impl/dev_poll_reactor.hpp
-        server_frame/include/third/asio/detail/impl/dev_poll_reactor.ipp
         server_frame/include/third/asio/detail/impl/epoll_reactor.hpp
-        server_frame/include/third/asio/detail/impl/epoll_reactor.ipp
-        server_frame/include/third/asio/detail/impl/eventfd_select_interrupter.ipp
-        server_frame/include/third/asio/detail/impl/handler_tracking.ipp
         server_frame/include/third/asio/detail/impl/kqueue_reactor.hpp
-        server_frame/include/third/asio/detail/impl/kqueue_reactor.ipp
-        server_frame/include/third/asio/detail/impl/null_event.ipp
-        server_frame/include/third/asio/detail/impl/pipe_select_interrupter.ipp
-        server_frame/include/third/asio/detail/impl/posix_event.ipp
-        server_frame/include/third/asio/detail/impl/posix_mutex.ipp
-        server_frame/include/third/asio/detail/impl/posix_thread.ipp
-        server_frame/include/third/asio/detail/impl/posix_tss_ptr.ipp
-        server_frame/include/third/asio/detail/impl/reactive_descriptor_service.ipp
-        server_frame/include/third/asio/detail/impl/reactive_serial_port_service.ipp
-        server_frame/include/third/asio/detail/impl/reactive_socket_service_base.ipp
-        server_frame/include/third/asio/detail/impl/resolver_service_base.ipp
-        server_frame/include/third/asio/detail/impl/scheduler.ipp
         server_frame/include/third/asio/detail/impl/select_reactor.hpp
-        server_frame/include/third/asio/detail/impl/select_reactor.ipp
         server_frame/include/third/asio/detail/impl/service_registry.hpp
-        server_frame/include/third/asio/detail/impl/service_registry.ipp
-        server_frame/include/third/asio/detail/impl/signal_set_service.ipp
-        server_frame/include/third/asio/detail/impl/socket_ops.ipp
-        server_frame/include/third/asio/detail/impl/socket_select_interrupter.ipp
         server_frame/include/third/asio/detail/impl/strand_executor_service.hpp
-        server_frame/include/third/asio/detail/impl/strand_executor_service.ipp
         server_frame/include/third/asio/detail/impl/strand_service.hpp
-        server_frame/include/third/asio/detail/impl/strand_service.ipp
-        server_frame/include/third/asio/detail/impl/throw_error.ipp
-        server_frame/include/third/asio/detail/impl/timer_queue_ptime.ipp
-        server_frame/include/third/asio/detail/impl/timer_queue_set.ipp
-        server_frame/include/third/asio/detail/impl/win_event.ipp
-        server_frame/include/third/asio/detail/impl/win_iocp_handle_service.ipp
         server_frame/include/third/asio/detail/impl/win_iocp_io_context.hpp
-        server_frame/include/third/asio/detail/impl/win_iocp_io_context.ipp
-        server_frame/include/third/asio/detail/impl/win_iocp_serial_port_service.ipp
-        server_frame/include/third/asio/detail/impl/win_iocp_socket_service_base.ipp
-        server_frame/include/third/asio/detail/impl/win_mutex.ipp
-        server_frame/include/third/asio/detail/impl/win_object_handle_service.ipp
-        server_frame/include/third/asio/detail/impl/win_static_mutex.ipp
-        server_frame/include/third/asio/detail/impl/win_thread.ipp
-        server_frame/include/third/asio/detail/impl/win_tss_ptr.ipp
-        server_frame/include/third/asio/detail/impl/winrt_ssocket_service_base.ipp
         server_frame/include/third/asio/detail/impl/winrt_timer_scheduler.hpp
-        server_frame/include/third/asio/detail/impl/winrt_timer_scheduler.ipp
-        server_frame/include/third/asio/detail/impl/winsock_init.ipp
         server_frame/include/third/asio/detail/array.hpp
         server_frame/include/third/asio/detail/array_fwd.hpp
         server_frame/include/third/asio/detail/assert.hpp
@@ -363,7 +323,6 @@ add_executable(server
         server_frame/include/third/asio/experimental/co_spawn.hpp
         server_frame/include/third/asio/experimental/detached.hpp
         server_frame/include/third/asio/experimental/redirect_error.hpp
-        server_frame/include/third/asio/generic/detail/impl/endpoint.ipp
         server_frame/include/third/asio/generic/detail/endpoint.hpp
         server_frame/include/third/asio/generic/basic_endpoint.hpp
         server_frame/include/third/asio/generic/datagram_protocol.hpp
@@ -375,47 +334,31 @@ add_executable(server
         server_frame/include/third/asio/impl/connect.hpp
         server_frame/include/third/asio/impl/defer.hpp
         server_frame/include/third/asio/impl/dispatch.hpp
-        server_frame/include/third/asio/impl/error.ipp
-        server_frame/include/third/asio/impl/error_code.ipp
         server_frame/include/third/asio/impl/execution_context.hpp
-        server_frame/include/third/asio/impl/execution_context.ipp
         server_frame/include/third/asio/impl/executor.hpp
-        server_frame/include/third/asio/impl/executor.ipp
-        server_frame/include/third/asio/impl/handler_alloc_hook.ipp
         server_frame/include/third/asio/impl/io_context.hpp
-        server_frame/include/third/asio/impl/io_context.ipp
         server_frame/include/third/asio/impl/post.hpp
         server_frame/include/third/asio/impl/read.hpp
         server_frame/include/third/asio/impl/read_at.hpp
         server_frame/include/third/asio/impl/read_until.hpp
         server_frame/include/third/asio/impl/serial_port_base.hpp
-        server_frame/include/third/asio/impl/serial_port_base.ipp
         server_frame/include/third/asio/impl/spawn.hpp
         server_frame/include/third/asio/impl/src.cpp
         server_frame/include/third/asio/impl/src.hpp
         server_frame/include/third/asio/impl/system_context.hpp
-        server_frame/include/third/asio/impl/system_context.ipp
         server_frame/include/third/asio/impl/system_executor.hpp
         server_frame/include/third/asio/impl/thread_pool.hpp
-        server_frame/include/third/asio/impl/thread_pool.ipp
         server_frame/include/third/asio/impl/use_future.hpp
         server_frame/include/third/asio/impl/write.hpp
         server_frame/include/third/asio/impl/write_at.hpp
-        server_frame/include/third/asio/ip/detail/impl/endpoint.ipp
         server_frame/include/third/asio/ip/detail/endpoint.hpp
         server_frame/include/third/asio/ip/detail/socket_option.hpp
         server_frame/include/third/asio/ip/impl/address.hpp
-        server_frame/include/third/asio/ip/impl/address.ipp
         server_frame/include/third/asio/ip/impl/address_v4.hpp
-        server_frame/include/third/asio/ip/impl/address_v4.ipp
         server_frame/include/third/asio/ip/impl/address_v6.hpp
-        server_frame/include/third/asio/ip/impl/address_v6.ipp
         server_frame/include/third/asio/ip/impl/basic_endpoint.hpp
-        server_frame/include/third/asio/ip/impl/host_name.ipp
         server_frame/include/third/asio/ip/impl/network_v4.hpp
-        server_frame/include/third/asio/ip/impl/network_v4.ipp
         server_frame/include/third/asio/ip/impl/network_v6.hpp
-        server_frame/include/third/asio/ip/impl/network_v6.ipp
         server_frame/include/third/asio/ip/address.hpp
         server_frame/include/third/asio/ip/address_v4.hpp
         server_frame/include/third/asio/ip/address_v4_iterator.hpp
@@ -442,7 +385,6 @@ add_executable(server
         server_frame/include/third/asio/ip/udp.hpp
         server_frame/include/third/asio/ip/unicast.hpp
         server_frame/include/third/asio/ip/v6_only.hpp
-        server_frame/include/third/asio/local/detail/impl/endpoint.ipp
         server_frame/include/third/asio/local/detail/endpoint.hpp
         server_frame/include/third/asio/local/basic_endpoint.hpp
         server_frame/include/third/asio/local/connect_pair.hpp
@@ -454,8 +396,6 @@ add_executable(server
         server_frame/include/third/asio/posix/descriptor_base.hpp
         server_frame/include/third/asio/posix/stream_descriptor.hpp
         server_frame/include/third/asio/posix/stream_descriptor_service.hpp
-        server_frame/include/third/asio/ssl/detail/impl/engine.ipp
-        server_frame/include/third/asio/ssl/detail/impl/openssl_init.ipp
         server_frame/include/third/asio/ssl/detail/buffered_handshake_op.hpp
         server_frame/include/third/asio/ssl/detail/engine.hpp
         server_frame/include/third/asio/ssl/detail/handshake_op.hpp
@@ -469,9 +409,6 @@ add_executable(server
         server_frame/include/third/asio/ssl/detail/verify_callback.hpp
         server_frame/include/third/asio/ssl/detail/write_op.hpp
         server_frame/include/third/asio/ssl/impl/context.hpp
-        server_frame/include/third/asio/ssl/impl/context.ipp
-        server_frame/include/third/asio/ssl/impl/error.ipp
-        server_frame/include/third/asio/ssl/impl/rfc2818_verification.ipp
         server_frame/include/third/asio/ssl/impl/src.hpp
         server_frame/include/third/asio/ssl/context.hpp
         server_frame/include/third/asio/ssl/context_base.hpp
@@ -600,9 +537,7 @@ add_executable(server
         server_frame/include/third/nlohmann/json_wrap.h
         server_frame/include/third/sol/forward.hpp
         server_frame/include/third/sol/sol.hpp
-        server_frame/include/third/spdlog/contrib/sinks/.gitignore
         server_frame/include/third/spdlog/contrib/sinks/step_file_sink.h
-        server_frame/include/third/spdlog/contrib/README.md
         server_frame/include/third/spdlog/details/async_log_helper.h
         server_frame/include/third/spdlog/details/async_logger_impl.h
         server_frame/include/third/spdlog/details/file_helper.h
@@ -616,7 +551,6 @@ add_executable(server
         server_frame/include/third/spdlog/details/spdlog_impl.h
         server_frame/include/third/spdlog/fmt/bundled/format.cc
         server_frame/include/third/spdlog/fmt/bundled/format.h
-        server_frame/include/third/spdlog/fmt/bundled/LICENSE.rst
         server_frame/include/third/spdlog/fmt/bundled/ostream.cc
         server_frame/include/third/spdlog/fmt/bundled/ostream.h
         server_frame/include/third/spdlog/fmt/bundled/posix.cc
@@ -816,10 +750,15 @@ add_executable(server
         server_frame/src/utility/stringutility.cpp
         server_frame/src/utility/time_function.cpp
         server_frame/src/utility/timeutility.cpp
+        servers/center_server/src/center_mgr.cpp
+        servers/center_server/src/center_mgr.h
+        servers/center_server/src/game_server.cpp
+        servers/common/src/server_connect/center_client.cpp
+        servers/common/src/server_connect/center_client.h
         servers/common/src/server_connect/server_client.cpp
         servers/common/src/server_connect/server_client.h
-        servers/common/src/server_connect/server_connect.cpp
-        servers/common/src/server_connect/server_connect.h
+        servers/common/src/server_connect/server_connector.cpp
+        servers/common/src/server_connect/server_connector.h
         servers/common/src/common_logic.cpp
         servers/common/src/common_logic.h
         servers/common/src/data_cfg_mgr.cpp
@@ -841,15 +780,15 @@ add_executable(server
         servers/dbagent_server/src/game_server.cpp
         servers/dbagent_server/src/server_mgr.cpp
         servers/dbagent_server/src/server_mgr.h
+        servers/gate_server/src/game_server.cpp
+        servers/gate_server/src/gate_client_mgr.cpp
+        servers/gate_server/src/gate_client_mgr.h
         servers/gate_server/src/gate_server_mgr.cpp
         servers/gate_server/src/gate_server_mgr.h
-        servers/gate_server/src/game_server.cpp
         servers/lobby_server/src/client_msg/msg_client_handle.cpp
         servers/lobby_server/src/client_msg/msg_client_handle.h
         servers/lobby_server/src/lua_logic/lua_logic.cpp
         servers/lobby_server/src/lua_logic/lua_logic.h
-        servers/common/src/server_connect/center_client.cpp
-        servers/common/src/server_connect/center_client.h
         servers/lobby_server/src/net/dbagent_client.cpp
         servers/lobby_server/src/net/dbagent_client.h
         servers/lobby_server/src/net/game_net_mgr.cpp

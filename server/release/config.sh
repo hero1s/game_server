@@ -12,7 +12,6 @@ all_center_svrs=(8888 )
 #db服
 all_dbagent_svrs=(9999 )
 
-#gate服
-all_gate_svrs=(10000 )
+
 
 

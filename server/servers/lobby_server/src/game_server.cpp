@@ -31,17 +31,20 @@ bool CApplication::Initialize() {
     // 加载lua 配置
     SOL_CALL_LUA(m_solLua["load_logic_script"]());
     bool bRet = m_solLua["lobby_config"](m_uiServerID, &GameServerConfig::Instance());
-    if (bRet == false) {
+    if (bRet == false)
+    {
         LOG_ERROR("load lobby_config fail ");
         return false;
     }
     LOG_INFO("load config is:id:{}", m_uiServerID);
     // 读取配置信息
-    if (CDataCfgMgr::Instance().Init() == false) {
+    if (CDataCfgMgr::Instance().Init() == false)
+    {
         LOG_ERROR("init datamgr fail ");
         return false;
     }
-    do {
+    do
+    {
         // client处理端口
         stIOHANDLER_DESC desc[2];
         desc[0].ioHandlerKey = 0;
@@ -50,7 +53,8 @@ bool CApplication::Initialize() {
         desc[0].recvBufferSize = 1024 * 4;
         desc[0].timeOut = 2000;
         desc[0].maxPacketSize = 1024 * 2;
-        desc[0].allocFunc = [](){ return new CClientNetObj(); };
+        desc[0].allocFunc = []()
+        { return new CClientNetObj(); };
         desc[0].openMsgQueue = false;
         desc[0].webSocket = true;
 
@@ -62,24 +66,29 @@ bool CApplication::Initialize() {
         desc[1].maxPacketSize = INNER_MAX_SIZE;
         desc[1].openMsgQueue = true;
 
-        if (!m_iocpServer.AddIoHandler(desc[0]) || !m_iocpServer.AddIoHandler(desc[1])) {
+        if (!m_iocpServer.AddIoHandler(desc[0]) || !m_iocpServer.AddIoHandler(desc[1]))
+        {
             LOG_ERROR("IOCP Init fail");
             return false;
         }
 
         uint32_t port = m_solLua["get_lobby_listen"](m_uiServerID);
 
-        if (!m_iocpServer.StartListen(0, "0.0.0.0", port)) {
+        if (!m_iocpServer.StartListen(0, "0.0.0.0", port))
+        {
             LOG_ERROR("IOCP SERVER StartListen fail {}", port);
             return false;
         }
-    } while (false);
+    }
+    while (false);
 
-    if (!CRedisMgr::Instance().Init(m_ioContext, GameServerConfig::Instance().redisConf)) {
+    if (!CRedisMgr::Instance().Init(m_ioContext, GameServerConfig::Instance().redisConf))
+    {
         LOG_ERROR("init redis fail");
         return false;
     }
-    if (!CPlayerMgr::Instance().Init()) {
+    if (!CPlayerMgr::Instance().Init())
+    {
         LOG_ERROR("playermgr init fail");
         return false;
     }
@@ -89,22 +98,30 @@ bool CApplication::Initialize() {
 
     //连接中心服
     auto centerIp = m_solLua.get<sol::table>("server_config").get<sol::table>("center");
-    if (CCenterClientMgr::Instance().Init(1, info, centerIp.get<string>("ip"), centerIp.get<int>("port")) == false) {
+    if (CCenterClientMgr::Instance().Init(1, info, centerIp.get<string>("ip"), centerIp.get<int>("port")) == false)
+    {
         LOG_ERROR("init center client mgr fail");
         return false;
     }
     //连接DBAgent
     auto dbagentIp = m_solLua.get<sol::table>("server_config").get<sol::table>("dbagent");
-    if (CDBAgentClientMgr::Instance().Init(1, info, dbagentIp.get<string>("ip"), dbagentIp.get<int>("port")) == false) {
+    if (CDBAgentClientMgr::Instance().Init(1, info, dbagentIp.get<string>("ip"), dbagentIp.get<int>("port")) == false)
+    {
         LOG_ERROR("init dbagent client mgr fail");
         return false;
     }
 
     m_luaService->start();
 
-    //test aoi
-    aoi::CScene<64> scene(0, 0, 8000, 8000);
-
+    //test toney
+    static TimerEvent<std::function<void()>> timer([]()
+                                            {
+                                                CPlayer *pPlayer = new CPlayer(PLAYER_TYPE_ONLINE);
+                                                pPlayer->SetUID(110);
+                                                CPlayerMgr::Instance().AddPlayer(pPlayer);
+                                                pPlayer->OnLogin();
+                                            });
+    schedule(&timer, 10000);
     return true;
 }
 
