@@ -22,7 +22,6 @@ include_directories(server_frame/include/redisclient/impl)
 include_directories(server_frame/include/utility)
 include_directories(server_frame/src/framework)
 include_directories(server_frame/src/network)
-include_directories(servers/gate_server/src)
 include_directories(servers/center_server/src)
 include_directories(servers/common/src)
 include_directories(servers/dbagent_server/src)
@@ -780,11 +779,6 @@ add_executable(server
         servers/dbagent_server/src/game_server.cpp
         servers/dbagent_server/src/server_mgr.cpp
         servers/dbagent_server/src/server_mgr.h
-        servers/gate_server/src/game_server.cpp
-        servers/gate_server/src/gate_client_mgr.cpp
-        servers/gate_server/src/gate_client_mgr.h
-        servers/gate_server/src/gate_server_mgr.cpp
-        servers/gate_server/src/gate_server_mgr.h
         servers/lobby_server/src/client_msg/msg_client_handle.cpp
         servers/lobby_server/src/client_msg/msg_client_handle.h
         servers/lobby_server/src/lua_logic/lua_logic.cpp
