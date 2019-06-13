@@ -50,21 +50,19 @@ bool CApplication::Initialize() {
         desc[0].ioHandlerKey = 0;
         desc[0].maxConnectBuffSize = SERVER_SOCKET_BUFF_SIZE;
         desc[0].sendBufferSize = PACKET_MAX_SIZE * 2;
-        desc[0].recvBufferSize = 1024 * 4;
+        desc[0].recvBufferSize = PACKET_MAX_SIZE;
         desc[0].timeOut = 2000;
-        desc[0].maxPacketSize = 1024 * 2;
+        desc[0].maxPacketSize = PACKET_MAX_SIZE;
         desc[0].allocFunc = []()
         { return new CClientNetObj(); };
-        desc[0].openMsgQueue = false;
         desc[0].webSocket = true;
 
         desc[1].ioHandlerKey = 1;
-        desc[1].maxConnectBuffSize = 1024 * 1024;
+        desc[1].maxConnectBuffSize = SERVER_SOCKET_BUFF_SIZE;
         desc[1].sendBufferSize = SERVER_SOCKET_BUFF_SIZE;
         desc[1].recvBufferSize = SERVER_SOCKET_BUFF_SIZE;
         desc[1].timeOut = 60 * 60 * 24;
         desc[1].maxPacketSize = INNER_MAX_SIZE;
-        desc[1].openMsgQueue = true;
 
         if (!m_iocpServer.AddIoHandler(desc[0]) || !m_iocpServer.AddIoHandler(desc[1]))
         {

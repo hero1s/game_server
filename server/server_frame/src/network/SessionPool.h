@@ -10,7 +10,7 @@ namespace Network {
     class SessionPool {
     public:
         SessionPool(uint32_t dwSize, uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t dwMaxPacketSize,uint16_t maxHeadSize,
-                    uint32_t dwTimeOutTick, bool bAcceptSocket,bool bOpenMsgQueue,bool bWebSocket);
+                    uint32_t dwTimeOutTick, bool bAcceptSocket,bool bWebSocket);
 
         ~SessionPool();
 
@@ -31,7 +31,6 @@ namespace Network {
         bool m_bAcceptSocket;
         uint32_t m_dwCurSize;
 
-        bool  m_openMsgQueue;//是否开启消息队列模式
         bool  m_webSocket;	 // 是否websocket
 
         SessionList *m_pList;

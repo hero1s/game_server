@@ -88,15 +88,13 @@ namespace Network {
 	@param	dwTimeOut
 */
 //=============================================================================================================================
-    Session::Session(uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t dwMaxPacketSize, uint16_t maxHeadSize, uint32_t dwTimeOut
-            , bool openMsgQueue,bool webSocket) {
-        m_openMsgQueue = openMsgQueue;
+    Session::Session(uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t dwMaxPacketSize, uint16_t maxHeadSize, uint32_t dwTimeOut, bool webSocket) {
         SetWebSocket(webSocket);
         m_pSendBuffer = new SendBuffer();
-        m_pSendBuffer->Create(dwSendBufferSize, 0);// modify toney
+        m_pSendBuffer->Create(dwSendBufferSize, 0);
 
         m_pRecvBuffer = new RecvBuffer();
-        m_pRecvBuffer->Create(dwRecvBufferSize, m_openMsgQueue ? maxHeadSize : dwMaxPacketSize);// modify toney
+        m_pRecvBuffer->Create(dwRecvBufferSize, maxHeadSize);
 
         m_dwTimeOut = dwTimeOut;
         m_socket = INVALID_SOCKET;
@@ -104,7 +102,6 @@ namespace Network {
         m_bCanSend = true;
 
         m_pNetworkObject = NULL;
-        m_openMsgQueue = false;
         m_wMaxPacketSize = dwMaxPacketSize;
         m_webSocket = false;
         shake_hands_ = false;
@@ -191,41 +188,6 @@ namespace Network {
             LOG_ERROR("m_pSendBuffer->Write fail. data length = {}, {},ip:{}", m_pSendBuffer->GetLength(), wSize, GetIP());
             Remove();
             return false;
-        }
-        return true;
-    }
-
-    bool Session::ProcessRecvdPacket() {
-        if (m_openMsgQueue)
-        {// 开启队列模式
-            return HandleRecvMessage();
-        }
-
-        uint8_t *pPacket;
-        uint32_t msgNum = 0;
-        while (m_pRecvBuffer->GetRecvDataLen() >= m_pNetworkObject->GetHeadLen() && (msgNum++) < m_pNetworkObject->MaxTickPacket())
-        {
-            pPacket = m_pRecvBuffer->GetFirstPacketPtr(m_pNetworkObject->GetHeadLen());
-            uint16_t iPacketLen = m_pNetworkObject->GetPacketLen(pPacket, m_pNetworkObject->GetHeadLen());
-            if (iPacketLen >= m_wMaxPacketSize)
-            {
-                LOG_ERROR("max packet is big than:{},ip:{}", iPacketLen, GetIP());
-                return false;
-            }
-            pPacket = m_pRecvBuffer->GetFirstPacketPtr(iPacketLen);
-            if (pPacket == NULL)
-                return true;
-
-            int iRet = m_pNetworkObject->OnRecv(pPacket, iPacketLen);
-            if (iRet < 0)
-            {
-                LOG_DEBUG("process msg return < 0,disconnect");
-                return false;
-            }
-
-            m_pRecvBuffer->RemoveFirstPacket(iPacketLen);
-
-            ResetTimeOut();
         }
         return true;
     }
@@ -507,14 +469,13 @@ namespace Network {
             if (ret < len)
                 break;
         }
-        if (m_openMsgQueue)
-        {// 开启队列模式
-            if (!DecodeMsgToQueue())
-            {
-                LOG_ERROR("DecodeMsg Error:ip:{},Remove", GetIP());
-                Remove();
-            }
+
+        if (!DecodeMsgToQueue())
+        {
+            LOG_ERROR("DecodeMsg Error:ip:{},Remove", GetIP());
+            Remove();
         }
+
         return TRUE;
     }
 
@@ -580,9 +541,9 @@ namespace Network {
             m_bDisconnectOrdered = true;
         }
     }
+
     void Session::SetWebSocket(bool webSocket) {
         m_webSocket = webSocket;
-        if (m_webSocket)m_openMsgQueue = true;
         shake_hands_ = false;
         ws_head_.reset();
     }

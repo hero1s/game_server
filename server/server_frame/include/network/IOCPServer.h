@@ -25,8 +25,6 @@ namespace Network {
         uint16_t maxHeadSize;           // 最大包头长度
         AcceptAllocFunc allocFunc;
         AcceptFreeFunc freeFunc;
-
-        bool openMsgQueue;              // 是否开启消息队列
         bool webSocket;                 // 是否websocket
 
         stIOHANDLER_DESC() {
@@ -36,7 +34,6 @@ namespace Network {
             allocFunc = nullptr;
             freeFunc = [](NetworkObject *p)
             { delete p; };
-            openMsgQueue = false;
             webSocket = false;
         }
     };

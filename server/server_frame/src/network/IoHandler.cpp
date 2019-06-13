@@ -159,7 +159,6 @@ namespace Network {
                                                lpDesc.maxHeadSize,
                                                lpDesc.timeOut,
                                                true,
-                                               lpDesc.openMsgQueue,
                                                lpDesc.webSocket);
 
         m_pConnectSessionPool = new SessionPool(1000,
@@ -169,7 +168,6 @@ namespace Network {
                                                 lpDesc.maxHeadSize,
                                                 lpDesc.timeOut,
                                                 false,
-                                                lpDesc.openMsgQueue,
                                                 false);
 
         m_pEvents = new CircuitQueue<struct epoll_event>;
@@ -432,7 +430,7 @@ namespace Network {
                     continue;
                 }
 
-                if (!pSession->ProcessRecvdPacket())
+                if (!pSession->HandleRecvMessage())
                 {
                     pSession->Remove();
                 }

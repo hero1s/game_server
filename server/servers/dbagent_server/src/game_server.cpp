@@ -43,13 +43,12 @@ bool CApplication::Initialize() {
     do {
         stIOHANDLER_DESC desc;
         desc.ioHandlerKey = 0;
-        desc.maxConnectBuffSize = 1024 * 1024;
+        desc.maxConnectBuffSize = SERVER_SOCKET_BUFF_SIZE;
         desc.sendBufferSize = SERVER_SOCKET_BUFF_SIZE;
         desc.recvBufferSize = SERVER_SOCKET_BUFF_SIZE;
         desc.timeOut = 60 * 60 * 24;
         desc.maxPacketSize = INNER_MAX_SIZE;
         desc.allocFunc = [](){ return new CSvrCliNetObj(CServerMgr::Instance()); };
-        desc.openMsgQueue = true;
 
         if (!m_iocpServer.AddIoHandler(desc)) {
             LOG_ERROR("IOCP Init fail");

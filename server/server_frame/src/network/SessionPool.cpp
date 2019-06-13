@@ -14,7 +14,6 @@ namespace Network {
                              uint16_t maxHeadSize,
                              uint32_t dwTimeOutTick,
                              bool bAcceptSocket,
-                             bool bOpenMsgQueue,
                              bool bWebSocket) {
         m_pList = new SessionList;
 
@@ -26,7 +25,6 @@ namespace Network {
         m_dwTimeOutTick = dwTimeOutTick;
         m_bAcceptSocket = bAcceptSocket;
         m_dwCurSize = 0;
-        m_openMsgQueue = bOpenMsgQueue;
         m_webSocket = bWebSocket;
 
         Create();
@@ -42,7 +40,7 @@ namespace Network {
         {
             ++m_dwCurSize;
             pSession = new Session(m_dwSendBufferSize, m_dwRecvBufferSize, m_dwMaxPacketSize, m_maxHeadSize, m_dwTimeOutTick
-                    ,m_openMsgQueue,m_webSocket);
+                    ,m_webSocket);
             if (m_bAcceptSocket)
             {
                 pSession->SetAcceptSocketFlag();

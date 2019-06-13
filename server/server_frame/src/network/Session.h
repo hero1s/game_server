@@ -113,7 +113,7 @@ namespace Network {
     public:
         /// dwTimeOut .
         Session(uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t dwMaxPacketSize, uint16_t maxHeadSize, uint32_t dwTimeOut
-                , bool openMsgQueue, bool webSocket);
+                , bool webSocket);
 
         virtual ~Session();
 
@@ -132,8 +132,6 @@ namespace Network {
         int PreSend(IoHandler *pIoHandler);
 
         SOCKET CreateSocket();
-
-        bool ProcessRecvdPacket();
 
         //处理消息
         bool HandleRecvMessage();
@@ -247,7 +245,6 @@ namespace Network {
         TLock m_lockSend;
         int m_bCanSend;
         svrlib::LockedQueue<std::shared_ptr<MessageBuffer> > m_QueueMessage;//消息队列
-        bool m_openMsgQueue;//是否开启消息队列模式
         bool m_webSocket;     // 是否websocket
         WebSocketHead ws_head_;//包头
         uint16_t m_wMaxPacketSize;
