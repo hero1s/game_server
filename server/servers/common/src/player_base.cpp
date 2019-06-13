@@ -71,11 +71,11 @@ uint8_t CPlayerBase::GetPlayerType() {
 }
 
 string CPlayerBase::GetPlayerName() {
-    return m_baseInfo.name();
+    return m_baseInfo.name;
 }
 
 uint8_t CPlayerBase::GetSex() {
-    return m_baseInfo.sex();
+    return m_baseInfo.sex;
 }
 
 void CPlayerBase::SetSession(NetworkObject *pSession) {
@@ -87,15 +87,15 @@ NetworkObject *CPlayerBase::GetSession() {
 }
 
 void CPlayerBase::SetIP(uint32_t ip) {
-    m_baseInfo.set_login_ip(ip);
+    m_baseInfo.login_ip = ip;
 }
 
 uint32_t CPlayerBase::GetIP() {
-    return m_baseInfo.login_ip();
+    return m_baseInfo.login_ip;
 }
 
 string CPlayerBase::GetIPStr() {
-    return CHelper::ValueToIP(m_baseInfo.login_ip());
+    return CHelper::ValueToIP(m_baseInfo.login_ip);
 }
 
 bool CPlayerBase::SendMsgToClient(const google::protobuf::Message *msg, uint16_t msg_type) {
@@ -156,11 +156,27 @@ string CPlayerBase::GetLoginKey() {
 }
 
 void CPlayerBase::GetPlayerBaseData(net::base_info *pInfo) {
-    *pInfo = m_baseInfo;
+    pInfo->set_name(m_baseInfo.name);
+    pInfo->set_sex(m_baseInfo.sex);
+    pInfo->set_coin(m_baseInfo.coin);
+    pInfo->set_vip(m_baseInfo.vip);
+    pInfo->set_clogin(m_baseInfo.clogin);
+    pInfo->set_weeklogin(m_baseInfo.weeklogin);
+    pInfo->set_login_ip(m_baseInfo.login_ip);
+    pInfo->set_all_login_days(m_baseInfo.all_login_days);
+    pInfo->set_offline_time(m_baseInfo.offline_time);
 }
 
 void CPlayerBase::SetPlayerBaseData(const net::base_info &info) {
-    m_baseInfo = info;
+    m_baseInfo.name = info.name();
+    m_baseInfo.sex = info.sex();
+    m_baseInfo.coin = info.coin();
+    m_baseInfo.vip = info.vip();
+    m_baseInfo.clogin = info.clogin();
+    m_baseInfo.weeklogin = info.weeklogin();
+    m_baseInfo.login_ip = info.login_ip();
+    m_baseInfo.all_login_days = info.all_login_days();
+    m_baseInfo.offline_time = info.offline_time();
 }
 
 

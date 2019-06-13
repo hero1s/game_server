@@ -10,85 +10,99 @@ using namespace svrlib;
 using namespace std;
 using namespace Network;
 
-enum PLAYER_TYPE
-{
-  PLAYER_TYPE_ONLINE = 0,        // 在线玩家
-  PLAYER_TYPE_ROBOT,             // 机器人
+enum PLAYER_TYPE {
+    PLAYER_TYPE_ONLINE = 0,        // 在线玩家
+    PLAYER_TYPE_ROBOT,             // 机器人
 };
-enum PLAYER_STATE
-{
-  PLAYER_STATE_NULL,              // 空状态
-  PLAYER_STATE_LOAD_DATA,         // 拉取数据
-  PLAYER_STATE_PLAYING,           // 游戏状态
-  PLAYER_STATE_LOGINOUT,          // 下线
+enum PLAYER_STATE {
+    PLAYER_STATE_NULL,              // 空状态
+    PLAYER_STATE_LOAD_DATA,         // 拉取数据
+    PLAYER_STATE_PLAYING,           // 游戏状态
+    PLAYER_STATE_LOGINOUT,          // 下线
 };
 
-class CPlayerBase
-{
+class CPlayerBase {
 public:
-	CPlayerBase(uint8_t type);
+    CPlayerBase(uint8_t type);
 
-	virtual ~CPlayerBase();
+    virtual ~CPlayerBase();
 
-	bool IsLoadData(uint8_t dataType);
-	void SetLoadState(uint8_t dataType);
-	//是否加载完成
-	bool IsLoadOver();
-	//玩家状态
-	void SetPlayerState(uint8_t state);
+    bool IsLoadData(uint8_t dataType);
 
-	uint8_t GetPlayerState();
+    void SetLoadState(uint8_t dataType);
 
-	bool IsPlaying();
+    //是否加载完成
+    bool IsLoadOver();
 
-	uint32_t GetUID();
-	void SetUID(uint32_t uid);
+    //玩家状态
+    void SetPlayerState(uint8_t state);
 
-	uint8_t GetPlayerType();
-	string GetPlayerName();
-	uint8_t GetSex();
-	void SetSession(NetworkObject* pSession);
-	NetworkObject* GetSession();
-	void SetIP(uint32_t ip);
-	uint32_t GetIP();
-	string GetIPStr();
+    uint8_t GetPlayerState();
 
-	virtual bool SendMsgToClient(const google::protobuf::Message* msg, uint16_t msg_type);
-	virtual bool SendMsgToClient(const void* msg, uint16_t msg_len, uint16_t msg_type);
+    bool IsPlaying();
 
-	virtual void OnLoginOut();
+    uint32_t GetUID();
 
-	virtual void OnLogin();
+    void SetUID(uint32_t uid);
 
-	virtual void OnGetAllData();
+    uint8_t GetPlayerType();
 
-	virtual void ReLogin();
+    string GetPlayerName();
 
-	virtual void OnTimeTick(uint64_t uTime, bool bNewDay);
+    uint8_t GetSex();
 
-	// 是否需要回收
-	virtual bool NeedRecover();
-	// 设置回收
-	void SetNeedRecover(bool bNeed);
-	// 登陆key
-	void SetLoginKey(const string& key);
-	string GetLoginKey();
+    void SetSession(NetworkObject *pSession);
 
-	void GetPlayerBaseData(net::base_info* pInfo);
-	void SetPlayerBaseData(const net::base_info& info);
-    void SetOfflineTime(uint32_t _time){ m_baseInfo.set_offline_time(_time);};
+    NetworkObject *GetSession();
+
+    void SetIP(uint32_t ip);
+
+    uint32_t GetIP();
+
+    string GetIPStr();
+
+    virtual bool SendMsgToClient(const google::protobuf::Message *msg, uint16_t msg_type);
+
+    virtual bool SendMsgToClient(const void *msg, uint16_t msg_len, uint16_t msg_type);
+
+    virtual void OnLoginOut();
+
+    virtual void OnLogin();
+
+    virtual void OnGetAllData();
+
+    virtual void ReLogin();
+
+    virtual void OnTimeTick(uint64_t uTime, bool bNewDay);
+
+    // 是否需要回收
+    virtual bool NeedRecover();
+
+    // 设置回收
+    void SetNeedRecover(bool bNeed);
+
+    // 登陆key
+    void SetLoginKey(const string &key);
+
+    string GetLoginKey();
+
+    void GetPlayerBaseData(net::base_info *pInfo);
+
+    void SetPlayerBaseData(const net::base_info &info);
+
+    void SetOfflineTime(uint32_t _time) { m_baseInfo.offline_time = _time; };
 
 private:
 
 protected:
-	uint32_t m_uid;
-	uint8_t  m_bPlayerType;
-	NetworkObject* m_pSession;
-	uint8_t  m_bPlayerState;
-	bool   m_needRecover;                    	  // 需要下线回收
-	string m_loginKey;                       	  // 登陆key
-	net::base_info                	m_baseInfo;   // 基础信息
-	std::bitset<emACCDATA_TYPE_MAX> m_loadState;  // 数据加载状态
+    uint32_t m_uid;
+    uint8_t m_bPlayerType;
+    NetworkObject *m_pSession;
+    uint8_t m_bPlayerState;
+    bool m_needRecover;                             // 需要下线回收
+    string m_loginKey;                              // 登陆key
+    stBaseInfo m_baseInfo;                          // 基础信息
+    std::bitset<emACCDATA_TYPE_MAX> m_loadState;    // 数据加载状态
 
 };
 

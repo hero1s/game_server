@@ -100,12 +100,12 @@ void CPlayer::OnTimeTick(uint64_t uTime, bool bNewDay)
 	{
 		return;
 	}
-	if (CCommonLogic::IsNeedReset(m_baseInfo.offline_time(), uTime))
+	if (CCommonLogic::IsNeedReset(m_baseInfo.offline_time, uTime))
 	{
 		DailyCleanup(1);
 	}
 	// 更新离线时间
-	m_baseInfo.set_offline_time(uTime);
+	m_baseInfo.offline_time = uTime;
 	// 新的一天
 	if (bNewDay)
 	{
@@ -183,14 +183,14 @@ void CPlayer::DailyCleanup(int32_t iOfflineDay)
 	LOG_DEBUG("daily cleanup:{}",GetUID());
 	if (iOfflineDay > 1)
 	{
-		m_baseInfo.set_clogin(1);
+		m_baseInfo.clogin = 1;
 	}
 	else
 	{
-		m_baseInfo.set_clogin(m_baseInfo.clogin()+1);
+		m_baseInfo.clogin++;
 	}
 
-	m_baseInfo.set_weeklogin(m_baseInfo.weeklogin()+1);
+	m_baseInfo.weeklogin++;
 
 	SOL_CALL_LUA(CApplication::Instance().GetSolLuaState()["new_day"](this));
 }
@@ -202,7 +202,7 @@ void CPlayer::WeeklyCleanup()
 	//UnsetRewardBitFlag(net::REWARD_WLOGIN3);
 	//UnsetRewardBitFlag(net::REWARD_WLOGIN5);
 	//UnsetRewardBitFlag(net::REWARD_WLOGIN6);
-	m_baseInfo.set_weeklogin(1);
+	m_baseInfo.weeklogin = 1;
 
 	SOL_CALL_LUA(CApplication::Instance().GetSolLuaState()["new_week"](this));
 }
@@ -258,7 +258,7 @@ void CPlayer::BuildInit()
 
 	// 检测日常
 	uint32_t uBuildTime     = getSysTime();
-	uint32_t offlinetime 	= m_baseInfo.offline_time();
+	uint32_t offlinetime 	= m_baseInfo.offline_time;
 	uint32_t uOfflineSecond = ((offlinetime && uBuildTime > offlinetime) ? (uBuildTime - offlinetime) : 0);
 	//跨天检查并清理
 	int32_t  iOfflineDay    = diffTimeDay(offlinetime, uBuildTime);
@@ -294,8 +294,8 @@ void CPlayer::BuildInit()
 		MonthlyCleanup();
 	}
 	SetOfflineTime(uBuildTime);
-	if (m_baseInfo.clogin() < 1)
-		m_baseInfo.set_clogin(1);
+	if (m_baseInfo.clogin < 1)
+		m_baseInfo.clogin = 1;
 
 }
 
@@ -322,19 +322,21 @@ bool CPlayer::SetNetDelay(uint32_t netDelay)
 // 保存数据
 void CPlayer::SavePlayerBaseInfo()
 {
-    m_baseInfo.set_weeklogin(1);
-    m_baseInfo.set_name("test");
-    m_baseInfo.set_all_login_days(10);
-    m_baseInfo.set_sex(1);
-    m_baseInfo.set_uid(GetUID());
-    m_baseInfo.set_vip(10);
+    m_baseInfo.weeklogin = 1;
+    m_baseInfo.name = "test";
+    m_baseInfo.all_login_days = 10;
+    m_baseInfo.sex = 1;
+    m_baseInfo.vip = 11;
 
-    DUMP_PROTO_MSG_INFO(m_baseInfo);
+	net::base_info baseInfo;
+	GetPlayerBaseData(&baseInfo);
+
+    DUMP_PROTO_MSG_INFO(baseInfo);
 
 	string baseData;
-	m_baseInfo.SerializeToString(&baseData);
+	baseInfo.SerializeToString(&baseData);
 
-	LOG_DEBUG("save player data uid:{},datalen:{},{}",GetUID(),baseData.length(),m_baseInfo.offline_time());
+	LOG_DEBUG("save player data uid:{},datalen:{},{}",GetUID(),baseData.length(),m_baseInfo.offline_time);
 
 	CDBAgentClientMgr::Instance().SavePlayerData(GetUID(),emACCDATA_TYPE_BASE,baseData);
 }
