@@ -13,6 +13,7 @@
 #include <istream>
 #include <iostream>
 #include <arpa/inet.h>
+
 #ifdef HAVE_NETINET_IN_H
 #include <netinet/in.h>
 #endif
@@ -22,53 +23,62 @@
 
 using namespace std;
 
-namespace Network
-{
-	void Session::ShakeHandsHandle(const char *buf, int buflen) {
-		char key[512];
-		memset(key, 0, 512);
-		for (int i = 0; i < buflen; ++i) {
-			if (FindHttpParam("Sec-WebSocket-Key", buf + i)) {
-				short k = i + 17, ki = 0;
-				while (*(buf + k) != '\r' && *(buf + k) != '\n') {
-					if (*(buf + k) == ':' || *(buf + k) == ' ') {
-						++k;
-						continue;
-					} else {
-						key[ki++] = *(buf + k);
-					}
-					++k;
-				}
-				break;
-			}
-		}
-		//LOG_DEBUG("key:{}...", key);
-		memcpy(key + strlen(key), MAGIC_KEY, sizeof(MAGIC_KEY));
-		//LOG_DEBUG("megerkey:{}...", key);
-		//求哈希1
-		SHA1 sha;
-		unsigned int message_digest[5];
-		sha.Reset();
-		sha << key;
-		sha.Result(message_digest);
-		for (int i = 0; i < 5; i++) {
-			message_digest[i] = htonl(message_digest[i]);
-		}
-		memset(key, 0, 512);
-		svrlib::base64::encode(key, reinterpret_cast<const char *>(message_digest), 20);
-		char http_res[640] = "";
-		sprintf(http_res, WEB_SOCKET_HANDS_RE, key);
-		m_pSendBuffer->Write((uint8_t*)http_res, strlen(http_res));
-		shake_hands_ = true;
-		//LOG_DEBUG("shake hand success");//fkYTdNEVkParesYkrM4S
-	}
-	bool Session::FindHttpParam(const char * param, const char * buf) {
-		while (*param == *buf) {
-			if (*(param + 1) == '\0') return true;
-			++param; ++buf;
-		}
-		return false;
-	}
+namespace Network {
+    void Session::ShakeHandsHandle(const char *buf, int buflen) {
+        char key[512];
+        memset(key, 0, 512);
+        for (int i = 0; i < buflen; ++i)
+        {
+            if (FindHttpParam("Sec-WebSocket-Key", buf + i))
+            {
+                short k = i + 17, ki = 0;
+                while (*(buf + k) != '\r' && *(buf + k) != '\n')
+                {
+                    if (*(buf + k) == ':' || *(buf + k) == ' ')
+                    {
+                        ++k;
+                        continue;
+                    }
+                    else
+                    {
+                        key[ki++] = *(buf + k);
+                    }
+                    ++k;
+                }
+                break;
+            }
+        }
+        //LOG_DEBUG("key:{}...", key);
+        memcpy(key + strlen(key), MAGIC_KEY, sizeof(MAGIC_KEY));
+        //LOG_DEBUG("megerkey:{}...", key);
+        //求哈希1
+        SHA1 sha;
+        unsigned int message_digest[5];
+        sha.Reset();
+        sha << key;
+        sha.Result(message_digest);
+        for (int i = 0; i < 5; i++)
+        {
+            message_digest[i] = htonl(message_digest[i]);
+        }
+        memset(key, 0, 512);
+        svrlib::base64::encode(key, reinterpret_cast<const char *>(message_digest), 20);
+        char http_res[640] = "";
+        sprintf(http_res, WEB_SOCKET_HANDS_RE, key);
+        m_pSendBuffer->Write((uint8_t *) http_res, strlen(http_res));
+        shake_hands_ = true;
+        //LOG_DEBUG("shake hand success");//fkYTdNEVkParesYkrM4S
+    }
+
+    bool Session::FindHttpParam(const char *param, const char *buf) {
+        while (*param == *buf)
+        {
+            if (*(param + 1) == '\0') return true;
+            ++param;
+            ++buf;
+        }
+        return false;
+    }
 
 //=============================================================================================================================
 /**
@@ -78,45 +88,37 @@ namespace Network
 	@param	dwTimeOut
 */
 //=============================================================================================================================
-Session::Session(uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t dwMaxPacketSize, uint32_t dwTimeOut)
-{
-	m_pSendBuffer = new SendBuffer();
-	m_pSendBuffer->Create(dwSendBufferSize, 0);// modify toney
+    Session::Session(uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t dwMaxPacketSize, uint16_t maxHeadSize, uint32_t dwTimeOut
+            , bool openMsgQueue,bool webSocket) {
+        m_openMsgQueue = openMsgQueue;
+        SetWebSocket(webSocket);
+        m_pSendBuffer = new SendBuffer();
+        m_pSendBuffer->Create(dwSendBufferSize, 0);// modify toney
 
-	m_pRecvBuffer = new RecvBuffer();
-	m_pRecvBuffer->Create(dwRecvBufferSize, dwMaxPacketSize);
+        m_pRecvBuffer = new RecvBuffer();
+        m_pRecvBuffer->Create(dwRecvBufferSize, m_openMsgQueue ? maxHeadSize : dwMaxPacketSize);// modify toney
 
-	m_dwTimeOut     = dwTimeOut;
-	m_socket        = INVALID_SOCKET;
-	m_bAcceptSocket = false;
-	m_bCanSend      = true;
+        m_dwTimeOut = dwTimeOut;
+        m_socket = INVALID_SOCKET;
+        m_bAcceptSocket = false;
+        m_bCanSend = true;
 
-	m_pNetworkObject = NULL;
-	m_openMsgQueue   = false;
-	m_wMaxPacketSize = dwMaxPacketSize;
-	m_webSocket		 = false;
-	shake_hands_ 	 = false;
-	ws_head_.reset();
-	ResetTimeOut();
-}
+        m_pNetworkObject = NULL;
+        m_openMsgQueue = false;
+        m_wMaxPacketSize = dwMaxPacketSize;
+        m_webSocket = false;
+        shake_hands_ = false;
+        ws_head_.reset();
+        ResetTimeOut();
+    }
 
-Session::~Session()
-{
-	CloseSocket();
+    Session::~Session() {
+        CloseSocket();
 
-	if (m_pSendBuffer) delete m_pSendBuffer;
-	if (m_pRecvBuffer) delete m_pRecvBuffer;
-}
-void Session::SetOpenMsgQueue(bool openMsgQueue)
-{
-	m_openMsgQueue = openMsgQueue;
-}
-void Session::SetWebSocket(bool webSocket){
-    m_webSocket = webSocket;
-    if(m_webSocket)m_openMsgQueue = true;
-	shake_hands_ 	 = false;
-	ws_head_.reset();
-}
+        if (m_pSendBuffer) delete m_pSendBuffer;
+        if (m_pRecvBuffer) delete m_pRecvBuffer;
+    }
+
 //=============================================================================================================================
 /**
 	@remarks
@@ -125,21 +127,20 @@ void Session::SetWebSocket(bool webSocket){
 	@retval	int
 */
 //=============================================================================================================================
-void Session::Init()
-{
-	m_pSendBuffer->Clear();
-	m_pRecvBuffer->Clear();
+    void Session::Init() {
+        m_pSendBuffer->Clear();
+        m_pRecvBuffer->Clear();
 
-	ResetKillFlag();
+        ResetKillFlag();
 
-	m_bDisconnectOrdered = false;
-	m_bCanSend           = true;
-	ResetTimeOut();
+        m_bDisconnectOrdered = false;
+        m_bCanSend = true;
+        ResetTimeOut();
 
-	shake_hands_ 	 = false;
-	ws_head_.reset();
+        shake_hands_ = false;
+        ws_head_.reset();
 
-}
+    }
 //=============================================================================================================================
 /**
 	@remarks
@@ -148,216 +149,242 @@ void Session::Init()
 	@retval	int
 */
 //=============================================================================================================================
-bool Session::Send(uint8_t* pMsg, uint16_t wSize)
-{
-	if(m_webSocket){
-		if(!shake_hands_)return false;
-		char* szBuff = new char[wSize+16];
-		auto stream = CBufferStream(szBuff,wSize+16);
-		stream.write_((uint8_t)0x82);//写头部
-		//写长度
-		if (wSize >= 126) {//7位放不下
-			if (wSize <= 0xFFFF) {//16位放
-				stream.write_((uint8_t)126);
-				stream.write_((uint16_t)htons((u_short)wSize));
-			} else {//64位放
-				stream.write_((uint8_t)127);
-				//stream.write_((uint64_t)OrderSwap64(wSize));
-			}
-		} else {
-			stream.write_((uint8_t)wSize);
-		}
-		//写数据
-		stream.write(wSize,pMsg);
-		if (m_pSendBuffer->Write((uint8_t*)stream.getBuffer(), stream.getPosition()) == false)
-		{
-			LOG_ERROR("m_pSendBuffer->Write fail. data length = {}, {},ip:{}", m_pSendBuffer->GetLength(), wSize, GetIP());
-			Remove();
-			SAFE_DELETE(szBuff);
-			return false;
-		}
-		SAFE_DELETE(szBuff);
-		return true;
-	}
-	if (m_pSendBuffer->Write(pMsg, wSize) == false)
-	{
-		LOG_ERROR("m_pSendBuffer->Write fail. data length = {}, {},ip:{}", m_pSendBuffer->GetLength(), wSize, GetIP());
-		Remove();
-		return false;
-	}
-	return true;
-}
-bool Session::ProcessRecvdPacket()
-{
-	if (m_openMsgQueue)
-	{// 开启队列模式
-		return HandleRecvMessage();
-	}
+    bool Session::Send(uint8_t *pMsg, uint16_t wSize) {
+        if (m_webSocket)
+        {
+            if (!shake_hands_)return false;
+            char *szBuff = new char[wSize + 16];
+            auto stream = CBufferStream(szBuff, wSize + 16);
+            stream.write_((uint8_t) 0x82);//写头部
+            //写长度
+            if (wSize >= 126)
+            {//7位放不下
+                if (wSize <= 0xFFFF)
+                {//16位放
+                    stream.write_((uint8_t) 126);
+                    stream.write_((uint16_t) htons((u_short) wSize));
+                }
+                else
+                {//64位放
+                    stream.write_((uint8_t) 127);
+                    //stream.write_((uint64_t)OrderSwap64(wSize));
+                }
+            }
+            else
+            {
+                stream.write_((uint8_t) wSize);
+            }
+            //写数据
+            stream.write(wSize, pMsg);
+            if (m_pSendBuffer->Write((uint8_t *) stream.getBuffer(), stream.getPosition()) == false)
+            {
+                LOG_ERROR("m_pSendBuffer->Write fail. data length = {}, {},ip:{}", m_pSendBuffer->GetLength(), wSize, GetIP());
+                Remove();
+                SAFE_DELETE(szBuff);
+                return false;
+            }
+            SAFE_DELETE(szBuff);
+            return true;
+        }
+        if (m_pSendBuffer->Write(pMsg, wSize) == false)
+        {
+            LOG_ERROR("m_pSendBuffer->Write fail. data length = {}, {},ip:{}", m_pSendBuffer->GetLength(), wSize, GetIP());
+            Remove();
+            return false;
+        }
+        return true;
+    }
 
-	uint8_t* pPacket;
-	uint32_t msgNum = 0;
-	while (m_pRecvBuffer->GetRecvDataLen() >= m_pNetworkObject->GetHeadLen() && (msgNum++) < m_pNetworkObject->MaxTickPacket())
-	{
-		pPacket             = m_pRecvBuffer->GetFirstPacketPtr(m_pNetworkObject->GetHeadLen());
-		uint16_t iPacketLen = m_pNetworkObject->GetPacketLen(pPacket, m_pNetworkObject->GetHeadLen());
-		if (iPacketLen >= m_wMaxPacketSize)
-		{
-			LOG_ERROR("max packet is big than:{},ip:{}", iPacketLen, GetIP());
-			return false;
-		}
-		pPacket = m_pRecvBuffer->GetFirstPacketPtr(iPacketLen);
-		if (pPacket == NULL)
-			return true;
+    bool Session::ProcessRecvdPacket() {
+        if (m_openMsgQueue)
+        {// 开启队列模式
+            return HandleRecvMessage();
+        }
 
-		int iRet = m_pNetworkObject->OnRecv(pPacket, iPacketLen);
-		if (iRet < 0)
-		{
-			LOG_DEBUG("process msg return < 0,disconnect");
-			return false;
-		}
+        uint8_t *pPacket;
+        uint32_t msgNum = 0;
+        while (m_pRecvBuffer->GetRecvDataLen() >= m_pNetworkObject->GetHeadLen() && (msgNum++) < m_pNetworkObject->MaxTickPacket())
+        {
+            pPacket = m_pRecvBuffer->GetFirstPacketPtr(m_pNetworkObject->GetHeadLen());
+            uint16_t iPacketLen = m_pNetworkObject->GetPacketLen(pPacket, m_pNetworkObject->GetHeadLen());
+            if (iPacketLen >= m_wMaxPacketSize)
+            {
+                LOG_ERROR("max packet is big than:{},ip:{}", iPacketLen, GetIP());
+                return false;
+            }
+            pPacket = m_pRecvBuffer->GetFirstPacketPtr(iPacketLen);
+            if (pPacket == NULL)
+                return true;
 
-		m_pRecvBuffer->RemoveFirstPacket(iPacketLen);
+            int iRet = m_pNetworkObject->OnRecv(pPacket, iPacketLen);
+            if (iRet < 0)
+            {
+                LOG_DEBUG("process msg return < 0,disconnect");
+                return false;
+            }
 
-		ResetTimeOut();
-	}
-	return true;
-}
+            m_pRecvBuffer->RemoveFirstPacket(iPacketLen);
+
+            ResetTimeOut();
+        }
+        return true;
+    }
+
 //处理消息
-bool Session::HandleRecvMessage()
-{
-	uint32_t msgNum = 0;
-	while (!m_QueueMessage.empty() && (msgNum++) < m_pNetworkObject->MaxTickPacket())
-	{
-		auto message = m_QueueMessage.pop();
-		int  iRet    = m_pNetworkObject->OnRecv(message->GetReadPointer(), message->GetActiveSize());
-		if (iRet < 0)
-		{
-			LOG_ERROR("process msg return < 0,disconnect");
-			return false;
-		}
-		ResetTimeOut();
-	}
-	return true;
-}
+    bool Session::HandleRecvMessage() {
+        uint32_t msgNum = 0;
+        while (!m_QueueMessage.empty() && (msgNum++) < m_pNetworkObject->MaxTickPacket())
+        {
+            auto message = m_QueueMessage.pop();
+            int iRet = m_pNetworkObject->OnRecv(message->GetReadPointer(), message->GetActiveSize());
+            if (iRet < 0)
+            {
+                LOG_ERROR("process msg return < 0,disconnect");
+                return false;
+            }
+            ResetTimeOut();
+        }
+        return true;
+    }
+
 //解码消息到消息队列
-bool Session::DecodeMsgToQueue()
-{
-	if(m_webSocket)return DecodeWebSocketToQueue();
+    bool Session::DecodeMsgToQueue() {
+        if (m_webSocket)return DecodeWebSocketToQueue();
 
-	uint8_t* pPacket = nullptr;
-	while (m_pRecvBuffer->GetRecvDataLen() >= m_pNetworkObject->GetHeadLen() && (m_QueueMessage.size() < m_pNetworkObject->MaxTickPacket()))
-	{
-		pPacket = m_pRecvBuffer->GetFirstPacketPtr(m_pNetworkObject->GetHeadLen());
-		uint32_t iPacketLen = m_pNetworkObject->GetPacketLen(pPacket, m_pNetworkObject->GetHeadLen());
-		if (iPacketLen >= m_wMaxPacketSize)
-		{
-			LOG_ERROR("max packet is big than:{},ip:{}", iPacketLen, GetIP());
-			return false;
-		}
-		pPacket = m_pRecvBuffer->GetFirstPacketPtr(iPacketLen);
-		if (pPacket == NULL)
-			return true;
-		//放入消息队列
-		auto message = std::make_shared<MessageBuffer>(pPacket, iPacketLen);
-		m_QueueMessage.push(message);
-		//移除缓存
-		m_pRecvBuffer->RemoveFirstPacket(iPacketLen);
+        uint8_t *pPacket = nullptr;
+        while (m_pRecvBuffer->GetRecvDataLen() >= m_pNetworkObject->GetHeadLen() && (m_QueueMessage.size() < m_pNetworkObject->MaxTickPacket()))
+        {
+            pPacket = m_pRecvBuffer->GetFirstPacketPtr(m_pNetworkObject->GetHeadLen());
+            uint32_t iPacketLen = m_pNetworkObject->GetPacketLen(pPacket, m_pNetworkObject->GetHeadLen());
+            if (iPacketLen >= m_wMaxPacketSize)
+            {
+                LOG_ERROR("max packet is big than:{},ip:{}", iPacketLen, GetIP());
+                return false;
+            }
+            if (m_pRecvBuffer->GetRecvDataLen() < iPacketLen)return true;
 
-		ResetTimeOut();
-	}
-	return true;
-}
+            //放入消息队列
+            auto message = std::make_shared<MessageBuffer>(iPacketLen);
+            m_pRecvBuffer->ReadBuf(message->GetBasePointer(), iPacketLen);
+
+            m_QueueMessage.push(message);
+
+            ResetTimeOut();
+        }
+        return true;
+    }
+
 //解码websocket消息到队列
-bool Session::DecodeWebSocketToQueue(){
-		uint8_t* pPacket = nullptr;
-		if(!shake_hands_){
-			pPacket = m_pRecvBuffer->GetFirstPacketPtr(m_pRecvBuffer->GetRecvDataLen());
-			ShakeHandsHandle((const char*)pPacket,m_pRecvBuffer->GetRecvDataLen());
-			if(shake_hands_){
-				m_pRecvBuffer->Clear();
-				LOG_DEBUG("shake hand success,begin recv data");
-				return true;
-			}else{
-				LOG_DEBUG("shake hand fail");
-				return true;
-			}
-		}
-		while (m_QueueMessage.size() < m_pNetworkObject->MaxTickPacket()) {
-			//读取websocket固定包头
-			if (!ws_head_.rh) {
-				//这个包不够一个头部的大小
-				if (m_pRecvBuffer->GetRecvDataLen() < 2) {
-					break;
-				}
-				//读取
-				uint8_t head = 0;
-				m_pRecvBuffer->ReadBuf(&head,1);
-				ws_head_.fin = head >> 7;
-				ws_head_.opcode = head & 0xF;
-				m_pRecvBuffer->ReadBuf(&head,1);
-				ws_head_.len = head & 0x7F;
-				ws_head_.mask = head >> 7;
-				ws_head_.rh = 1;//标记头部读取完成
-			}
-			//读取长度
-			if (!ws_head_.rl) {
-				uint8_t nsize = ws_head_.GetLenNeedByte();
-				if (nsize) {
-					//这个包不够一个长度
-					if (m_pRecvBuffer->GetRecvDataLen() < nsize) {
-						break;
-					}
-					if (nsize == 2) {
-						m_pRecvBuffer->ReadBuf(&ws_head_.ex_len.v16, sizeof(ws_head_.ex_len.v16));
-						ws_head_.ex_len.v16 = ntohs(ws_head_.ex_len.v16);
-					} else {
-						m_pRecvBuffer->ReadBuf(&ws_head_.ex_len.v64, sizeof(ws_head_.ex_len.v64));
-						ws_head_.ex_len.v64 = ntohl((u_long)ws_head_.ex_len.v64);
-					}
-				}
-				ws_head_.rl = 1;
-			}
-			//读取MKEY
-			if (!ws_head_.rk) {
-				if (ws_head_.mask) {
-					//这个包不够一个key
-					if (m_pRecvBuffer->GetRecvDataLen() < 4) {
-						break;
-					}
-					m_pRecvBuffer->ReadBuf(&ws_head_.mkey[0],1);
-					m_pRecvBuffer->ReadBuf(&ws_head_.mkey[1],1);
-					m_pRecvBuffer->ReadBuf(&ws_head_.mkey[2],1);
-					m_pRecvBuffer->ReadBuf(&ws_head_.mkey[3],1);
-				}
-				ws_head_.rk = 1;
-			}
-			//读取数据段
-			uint64_t data_len = ws_head_.GetLen();
-			if (m_pRecvBuffer->GetRecvDataLen() < data_len) {
-				break;
-			}
-			if (ws_head_.mask) {
-				pPacket = m_pRecvBuffer->GetFirstPacketPtr(data_len);
-				for (size_t i = 0; i < data_len; ++i) {
-					pPacket[i] = pPacket[i] ^ ws_head_.mkey[i % 4];
-				}
-			}
-			//放入消息队列
-			auto message = std::make_shared<MessageBuffer>(pPacket, data_len);
-			m_QueueMessage.push(message);
-			//移除缓存
-			m_pRecvBuffer->RemoveFirstPacket(data_len);
-			//LOG_DEBUG("收到web消息:{}--len:{}",string((char*)(message->Data()),message->Length()),data_len);
-			if (ws_head_.opcode == OPCODE_CLR) {
-				LOG_DEBUG("websocket closed");
-				return false;
-			}
-			ws_head_.reset();
-			ResetTimeOut();
-		}
+    bool Session::DecodeWebSocketToQueue() {
+        uint8_t *pPacket = nullptr;
+        if (!shake_hands_)
+        {
+            pPacket = m_pRecvBuffer->GetFirstPacketPtr(m_pRecvBuffer->GetRecvDataLen());
+            ShakeHandsHandle((const char *) pPacket, m_pRecvBuffer->GetRecvDataLen());
+            if (shake_hands_)
+            {
+                m_pRecvBuffer->Clear();
+                LOG_DEBUG("shake hand success,begin recv data");
+                return true;
+            }
+            else
+            {
+                LOG_DEBUG("shake hand fail");
+                return true;
+            }
+        }
+        while (m_QueueMessage.size() < m_pNetworkObject->MaxTickPacket())
+        {
+            //读取websocket固定包头
+            if (!ws_head_.rh)
+            {
+                //这个包不够一个头部的大小
+                if (m_pRecvBuffer->GetRecvDataLen() < 2)
+                {
+                    break;
+                }
+                //读取
+                uint8_t head = 0;
+                m_pRecvBuffer->ReadBuf(&head, 1);
+                ws_head_.fin = head >> 7;
+                ws_head_.opcode = head & 0xF;
+                m_pRecvBuffer->ReadBuf(&head, 1);
+                ws_head_.len = head & 0x7F;
+                ws_head_.mask = head >> 7;
+                ws_head_.rh = 1;//标记头部读取完成
+            }
+            //读取长度
+            if (!ws_head_.rl)
+            {
+                uint8_t nsize = ws_head_.GetLenNeedByte();
+                if (nsize)
+                {
+                    //这个包不够一个长度
+                    if (m_pRecvBuffer->GetRecvDataLen() < nsize)
+                    {
+                        break;
+                    }
+                    if (nsize == 2)
+                    {
+                        m_pRecvBuffer->ReadBuf(&ws_head_.ex_len.v16, sizeof(ws_head_.ex_len.v16));
+                        ws_head_.ex_len.v16 = ntohs(ws_head_.ex_len.v16);
+                    }
+                    else
+                    {
+                        m_pRecvBuffer->ReadBuf(&ws_head_.ex_len.v64, sizeof(ws_head_.ex_len.v64));
+                        ws_head_.ex_len.v64 = ntohl((u_long) ws_head_.ex_len.v64);
+                    }
+                }
+                ws_head_.rl = 1;
+            }
+            //读取MKEY
+            if (!ws_head_.rk)
+            {
+                if (ws_head_.mask)
+                {
+                    //这个包不够一个key
+                    if (m_pRecvBuffer->GetRecvDataLen() < 4)
+                    {
+                        break;
+                    }
+                    m_pRecvBuffer->ReadBuf(&ws_head_.mkey[0], 1);
+                    m_pRecvBuffer->ReadBuf(&ws_head_.mkey[1], 1);
+                    m_pRecvBuffer->ReadBuf(&ws_head_.mkey[2], 1);
+                    m_pRecvBuffer->ReadBuf(&ws_head_.mkey[3], 1);
+                }
+                ws_head_.rk = 1;
+            }
+            //读取数据段
+            uint64_t data_len = ws_head_.GetLen();
+            if (m_pRecvBuffer->GetRecvDataLen() < data_len)
+            {
+                break;
+            }
+            //放入消息队列
+            auto message = std::make_shared<MessageBuffer>(data_len);
+            m_pRecvBuffer->ReadBuf(message->GetBasePointer(), data_len);
+            if (ws_head_.mask)
+            {
+                for (size_t i = 0; i < data_len; ++i)
+                {
+                    uint8_t tmp = message->GetBasePointer()[i];
+                    tmp = tmp ^ ws_head_.mkey[i % 4];
+                    message->GetBasePointer()[i] = tmp;
+                }
+            }
+            m_QueueMessage.push(message);
+            //LOG_DEBUG("收到web消息:{}--len:{}",string((char*)(message->Data()),message->Length()),data_len);
+            if (ws_head_.opcode == OPCODE_CLR)
+            {
+                LOG_DEBUG("websocket closed");
+                return false;
+            }
+            ws_head_.reset();
+            ResetTimeOut();
+        }
 
-	return true;
-}
+        return true;
+    }
 
 //=============================================================================================================================
 /**
@@ -368,70 +395,67 @@ bool Session::DecodeWebSocketToQueue(){
 			- send FALSE.
 */
 //=============================================================================================================================
-bool Session::OnSend()
-{
-	LOG_DEBUG("[Session::OnSend]");
+    bool Session::OnSend() {
+        LOG_DEBUG("[Session::OnSend]");
 
-	m_lockSend.Lock();
-	m_bCanSend = true;
-	m_lockSend.Unlock();
+        m_lockSend.Lock();
+        m_bCanSend = true;
+        m_lockSend.Unlock();
 
-	return m_bCanSend;
-}
+        return m_bCanSend;
+    }
 
-int Session::PreSend(IoHandler* pIoHandler)
-{
-	if (!m_bRemove && m_bCanSend && m_pSendBuffer->IsReadyToSend())
-	{
-		// add to io_thread
-		struct epoll_event event;
-		event.events   = 0x800;
-		event.data.ptr = this;
+    int Session::PreSend(IoHandler *pIoHandler) {
+        if (!m_bRemove && m_bCanSend && m_pSendBuffer->IsReadyToSend())
+        {
+            // add to io_thread
+            struct epoll_event event;
+            event.events = 0x800;
+            event.data.ptr = this;
 
-		pIoHandler->AddIoEvent(&event);
-	}
-	return TRUE;
-}
+            pIoHandler->AddIoEvent(&event);
+        }
+        return TRUE;
+    }
 
-int Session::DoSend(IoHandler* pIoHandler)
-{
-	TGuard gd(m_lockSend);
+    int Session::DoSend(IoHandler *pIoHandler) {
+        TGuard gd(m_lockSend);
 
-	if (m_bCanSend && m_bRemove == FALSE)
-	{
-		uint8_t* buf;
-		int len;
-		if (m_pSendBuffer->GetSendParam(&buf, len) == false)
-			return TRUE;
-		int ret = send(m_socket, buf, len, 0);
-		if (ret == SOCKET_ERROR)
-		{
-			if (errno == EAGAIN)
-			{
-				ret = 0;
-			}
-			else
-			{
-				LOG_DEBUG("[Session::DoSend] send error = {} .", errno);
-				return FALSE;
-			}
-		}
+        if (m_bCanSend && m_bRemove == FALSE)
+        {
+            uint8_t *buf;
+            int len;
+            if (m_pSendBuffer->GetSendParam(&buf, len) == false)
+                return TRUE;
+            int ret = send(m_socket, buf, len, 0);
+            if (ret == SOCKET_ERROR)
+            {
+                if (errno == EAGAIN)
+                {
+                    ret = 0;
+                }
+                else
+                {
+                    LOG_DEBUG("[Session::DoSend] send error = {} .", errno);
+                    return FALSE;
+                }
+            }
 
-		if (ret < len)
-		{
-			// now the send buffer is full, wait EPOLLOUT then send
-			m_bCanSend = false;
-			uint32_t event = EPOLLIN | EPOLLOUT | EPOLLET | EPOLLERR | EPOLLHUP;
-			pIoHandler->ModEpollEvent(this, event);
+            if (ret < len)
+            {
+                // now the send buffer is full, wait EPOLLOUT then send
+                m_bCanSend = false;
+                uint32_t event = EPOLLIN | EPOLLOUT | EPOLLET | EPOLLERR | EPOLLHUP;
+                pIoHandler->ModEpollEvent(this, event);
 
-			LOG_DEBUG("[Session::DoSend] send ret = {}/1024, len = {}/1024 EAGAIN.", ret, len);
-		}
+                LOG_DEBUG("[Session::DoSend] send ret = {}/1024, len = {}/1024 EAGAIN.", ret, len);
+            }
 
-		m_pSendBuffer->Completion(ret);
-	}
+            m_pSendBuffer->Completion(ret);
+        }
 
-	return TRUE;
-}
+        return TRUE;
+    }
 
 //=============================================================================================================================
 /**
@@ -441,128 +465,128 @@ int Session::DoSend(IoHandler* pIoHandler)
 			recv FALSE.
 */
 //=============================================================================================================================
-int Session::DoRecv()
-{
-	TGuard gd(m_lockRecv);
+    int Session::DoRecv() {
+        TGuard gd(m_lockRecv);
 
-	char* buf;
-	int ret = 0, len = 0;
+        char *buf;
+        int ret = 0, len = 0;
 
-	while (m_bRemove == FALSE)
-	{
-		m_pRecvBuffer->GetRecvParam((uint8_t**) &buf, len);
-		if (len <= 0)
-		{
-			LOG_ERROR("[Session::OnRecv] no more recv buffer.");
-			Remove();
-			return FALSE;
-		}
+        while (m_bRemove == FALSE)
+        {
+            m_pRecvBuffer->GetRecvParam((uint8_t **) &buf, len);
+            if (len <= 0)
+            {
+                LOG_ERROR("[Session::OnRecv] no more recv buffer.");
+                Remove();
+                return FALSE;
+            }
 
-		ret = recv(m_socket, buf, len, 0);
-		if (ret == SOCKET_ERROR)
-		{
-			if (errno == EAGAIN)
-			{
-				//OnLogString("[Session::OnRecv] recv error = EAGAIN .");
-				return TRUE;
-			}
-			else
-			{
-				LOG_DEBUG("[Session::OnRecv] recv error = {} .", errno);
-				Remove();
-				return FALSE;
-			}
-		}
-		if (ret == 0) // peer closed
-		{
-			LOG_DEBUG("[Session::OnRecv] recv ret = 0.peer disconnect");
-			Remove();
+            ret = recv(m_socket, buf, len, 0);
+            if (ret == SOCKET_ERROR)
+            {
+                if (errno == EAGAIN)
+                {
+                    //OnLogString("[Session::OnRecv] recv error = EAGAIN .");
+                    return TRUE;
+                }
+                else
+                {
+                    LOG_DEBUG("[Session::OnRecv] recv error = {} .", errno);
+                    Remove();
+                    return FALSE;
+                }
+            }
+            if (ret == 0) // peer closed
+            {
+                LOG_DEBUG("[Session::OnRecv] recv ret = 0.peer disconnect");
+                Remove();
 
-			return FALSE;
-		}
-		m_pRecvBuffer->Completion(ret);
-		if (ret < len)
-			break;
-	}
-	if (m_openMsgQueue)
-	{// 开启队列模式
-		if (!DecodeMsgToQueue())
-		{
-			LOG_ERROR("DecodeMsg Error:ip:{},Remove",GetIP());
-			Remove();
-		}
-	}
-	return TRUE;
-}
+                return FALSE;
+            }
+            m_pRecvBuffer->Completion(ret);
+            if (ret < len)
+                break;
+        }
+        if (m_openMsgQueue)
+        {// 开启队列模式
+            if (!DecodeMsgToQueue())
+            {
+                LOG_ERROR("DecodeMsg Error:ip:{},Remove", GetIP());
+                Remove();
+            }
+        }
+        return TRUE;
+    }
 
-SOCKET Session::CreateSocket()
-{
-	int nRet  = 0;
-	int nZero = 0;
+    SOCKET Session::CreateSocket() {
+        int nRet = 0;
+        int nZero = 0;
 
-	SOCKET newSocket = socket(AF_INET, SOCK_STREAM, 0);
+        SOCKET newSocket = socket(AF_INET, SOCK_STREAM, 0);
 
-	if (newSocket == INVALID_SOCKET)
-	{
-		return newSocket;
-	}
+        if (newSocket == INVALID_SOCKET)
+        {
+            return newSocket;
+        }
 
-	SocketOpt::InitSocketOpt(newSocket);
+        SocketOpt::InitSocketOpt(newSocket);
 
-	return newSocket;
-}
+        return newSocket;
+    }
 
-void Session::BindNetworkObject(NetworkObject* pNetworkObject)
-{
-	m_pNetworkObject = pNetworkObject;
-	pNetworkObject->SetSession(this);
-}
+    void Session::BindNetworkObject(NetworkObject *pNetworkObject) {
+        m_pNetworkObject = pNetworkObject;
+        pNetworkObject->SetSession(this);
+    }
 
-void Session::UnbindNetworkObject()
-{
-	if (m_pNetworkObject == NULL)
-	{
-		return;
-	}
-	m_pNetworkObject->SetSession(NULL);
+    void Session::UnbindNetworkObject() {
+        if (m_pNetworkObject == NULL)
+        {
+            return;
+        }
+        m_pNetworkObject->SetSession(NULL);
 
-	m_pNetworkObject = NULL;
-}
+        m_pNetworkObject = NULL;
+    }
 
-void Session::OnAccept()
-{
-	ResetKillFlag();
+    void Session::OnAccept() {
+        ResetKillFlag();
 
-	ResetTimeOut();
+        ResetTimeOut();
 
-	m_pNetworkObject->OnConnect(true);
-}
+        m_pNetworkObject->OnConnect(true);
+    }
 
-void Session::OnConnect(bool bSuccess)
-{
-	Init();
+    void Session::OnConnect(bool bSuccess) {
+        Init();
 
-	NetworkObject* pNetworkObject = m_pNetworkObject;
+        NetworkObject *pNetworkObject = m_pNetworkObject;
 
-	if (!bSuccess)
-	{
-		UnbindNetworkObject();
-	}
+        if (!bSuccess)
+        {
+            UnbindNetworkObject();
+        }
 
-	pNetworkObject->OnConnect(bSuccess);
-}
+        pNetworkObject->OnConnect(bSuccess);
+    }
 
-void Session::Disconnect(bool bGracefulDisconnect)
-{
-	if (bGracefulDisconnect)
-	{
-		Remove();
-	}
-	else
-	{
-		m_bDisconnectOrdered = true;
-	}
-}
+    void Session::Disconnect(bool bGracefulDisconnect) {
+        if (bGracefulDisconnect)
+        {
+            Remove();
+        }
+        else
+        {
+            m_bDisconnectOrdered = true;
+        }
+    }
+    void Session::SetWebSocket(bool webSocket) {
+        m_webSocket = webSocket;
+        if (m_webSocket)m_openMsgQueue = true;
+        shake_hands_ = false;
+        ws_head_.reset();
+    }
+
 
 }
 

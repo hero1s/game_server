@@ -18,30 +18,36 @@ namespace Network {
         IoHandler *pIoHandler = (IoHandler *) param;
 
         pIoHandler->m_epoll = epoll_create(SOCKET_HOLDER_SIZE);
-        if (pIoHandler->m_epoll == -1) {
+        if (pIoHandler->m_epoll == -1)
+        {
             LOG_ERROR("Could not create epoll fd (/dev/epoll).");
             pthread_exit(0);
         }
 
         struct epoll_event *events = new struct epoll_event[SOCKET_HOLDER_SIZE];
 
-        while (!pIoHandler->m_bShutdown) {
+        while (!pIoHandler->m_bShutdown)
+        {
             int fd_count = epoll_wait(pIoHandler->m_epoll, events, SOCKET_HOLDER_SIZE, 5000);
-            for (int i = 0; i < fd_count; i++) {
+            for (int i = 0; i < fd_count; i++)
+            {
                 Session *pSession = (Session *) events[i].data.ptr;
 
-                if (events[i].events & EPOLLHUP || events[i].events & EPOLLERR) {
+                if (events[i].events & EPOLLHUP || events[i].events & EPOLLERR)
+                {
                     pSession->Remove();
                     continue;
                 }
 
-                if (events[i].events & EPOLLOUT) {
+                if (events[i].events & EPOLLOUT)
+                {
                     pSession->OnSend();
                     pIoHandler->ModEpollEvent(pSession, EPOLLIN | EPOLLET | EPOLLERR | EPOLLHUP);
                     //continue;
                 }
 
-                if (events[i].events & EPOLLIN) {
+                if (events[i].events & EPOLLIN)
+                {
                     //__sync_fetch_and_add ( &pSession->m_nRecvRef, 1 );
                     pIoHandler->AddIoEvent(&events[i]);
                 }
@@ -66,25 +72,29 @@ namespace Network {
 
         struct epoll_event event;
 
-        while (1) {
+        while (1)
+        {
             pIoHandler->m_lockEvents.Lock();
 //		while ( pIoHandler->m_pEvents->GetLength() == 0 && !pIoHandler->m_bShutdown )			
 //		{
             pIoHandler->m_condEvents.Wait(&pIoHandler->m_lockEvents);
 //		}
 
-            if (pIoHandler->m_bShutdown) {
+            if (pIoHandler->m_bShutdown)
+            {
                 pIoHandler->m_lockEvents.Unlock();
                 pthread_exit(NULL);
             }
 
-            while (pIoHandler->m_pEvents->Dequeue(&event, 1)) {
+            while (pIoHandler->m_pEvents->Dequeue(&event, 1))
+            {
                 pSession = (Session *) event.data.ptr;
 
                 if (event.events == 0x800) // send data
                 {
                     pSession->DoSend(pIoHandler);
-                } else if (event.events & EPOLLIN) // recv data
+                }
+                else if (event.events & EPOLLIN) // recv data
                 {
                     pSession->DoRecv();
                 }
@@ -146,6 +156,7 @@ namespace Network {
                                                lpDesc.sendBufferSize,
                                                lpDesc.recvBufferSize,
                                                lpDesc.maxPacketSize,
+                                               lpDesc.maxHeadSize,
                                                lpDesc.timeOut,
                                                true,
                                                lpDesc.openMsgQueue,
@@ -155,6 +166,7 @@ namespace Network {
                                                 lpDesc.maxConnectBuffSize,
                                                 lpDesc.maxConnectBuffSize,
                                                 lpDesc.maxPacketSize,
+                                                lpDesc.maxHeadSize,
                                                 lpDesc.timeOut,
                                                 false,
                                                 lpDesc.openMsgQueue,
@@ -164,11 +176,12 @@ namespace Network {
         m_pEvents->Create(SOCKET_HOLDER_SIZE * 2, SOCKET_HOLDER_SIZE);
 
         pthread_create(&m_hEpollThread, NULL, epoll_thread, (void *) this);
-        pthread_create(&m_hIoThread, NULL, io_thread, (void*)this);
+        pthread_create(&m_hIoThread, NULL, io_thread, (void *) this);
     }
 
     bool IoHandler::Connect(NetworkObject *pNetworkObject, const char *pszIP, uint16_t wPort) {
-        if (m_pConnector == NULL) {
+        if (m_pConnector == NULL)
+        {
             m_pConnector = new Connector;
             m_pConnector->Init(this);
         }
@@ -185,7 +198,8 @@ namespace Network {
         addr.sin_port = htons(wPort);
 
         Session *pSession = AllocConnectSession();
-        if(pSession == NULL){
+        if (pSession == NULL)
+        {
             LOG_ERROR("Connect dwMaxConnectSession");
             return false;
         }
@@ -209,13 +223,15 @@ namespace Network {
 */
 //=============================================================================================================================
     bool IoHandler::StartListen(const char *pIP, uint16_t wPort) {
-        if (m_pAcceptor == NULL) {
+        if (m_pAcceptor == NULL)
+        {
             m_pAcceptor = new Acceptor;
             m_pAcceptor->Init(this);
         }
         if (IsListening()) return true;
 
-        if (m_pAcceptor == NULL || !m_pAcceptor->StartListen(pIP, wPort)) {
+        if (m_pAcceptor == NULL || !m_pAcceptor->StartListen(pIP, wPort))
+        {
             LOG_ERROR("Listen socket creation failed.");
             return false;
         }
@@ -247,9 +263,12 @@ namespace Network {
         //printf("[FreeSession][%d]\n", (int)pSession->GetSocket());
         pSession->CloseSocket();
         pSession->Init();
-        if (pSession->IsAcceptSocket()) {
+        if (pSession->IsAcceptSocket())
+        {
             m_pAcceptSessionPool->Free(pSession);
-        } else {
+        }
+        else
+        {
             m_pConnectSessionPool->Free(pSession);
         }
     }
@@ -271,19 +290,24 @@ namespace Network {
         m_pTempList->splice(*m_pConnectSuccessList);
         m_pConnectSuccessList->Unlock();
 
-        while (!m_pTempList->empty()) {
+        while (!m_pTempList->empty())
+        {
             pSession = m_pTempList->pop_front();
 
-            if (AddEpollEvent(pSession)) {
+            if (AddEpollEvent(pSession))
+            {
                 pSession->OnConnect(true);
                 activeList.push_back(pSession);
-            } else {
+            }
+            else
+            {
                 pSession->OnConnect(false);
                 FreeSession(pSession);
             }
         }
 
-        if (!activeList.empty()) {
+        if (!activeList.empty())
+        {
             m_numActiveSessions += (uint32_t) activeList.size();
 
             m_pActiveSessionList->Lock();
@@ -304,7 +328,8 @@ namespace Network {
 
         m_pConnectFailList->Lock();
 
-        while (!m_pConnectFailList->empty()) {
+        while (!m_pConnectFailList->empty())
+        {
             pSession = m_pConnectFailList->pop_front();
 
             pSession->OnConnect(false);
@@ -331,22 +356,26 @@ namespace Network {
 
         SESSION_LIST activeList;
 
-        while (!m_pTempList->empty()) {
+        while (!m_pTempList->empty())
+        {
             pSession = m_pTempList->pop_front();
 
-            if (m_numActiveSessions >= m_dwMaxAcceptSession) {
+            if (m_numActiveSessions >= m_dwMaxAcceptSession)
+            {
                 LOG_ERROR("connection full! no available accept socket!\n");
                 FreeSession(pSession);
                 continue;
             }
 
-            if (!IsWhiteIP(pSession->GetIPNumber())) {
+            if (!IsWhiteIP(pSession->GetIPNumber()))
+            {
                 LOG_ERROR("connection is not the whitelist ip %s !\n", pSession->GetIP());
                 FreeSession(pSession);
                 continue;
             }
 
-            if (!AddEpollEvent(pSession)) {
+            if (!AddEpollEvent(pSession))
+            {
                 FreeSession(pSession);
                 continue;
             }
@@ -361,7 +390,8 @@ namespace Network {
             activeList.push_back(pSession);
         }
 
-        if (!activeList.empty()) {
+        if (!activeList.empty())
+        {
             m_pActiveSessionList->Lock();
             m_pActiveSessionList->splice(activeList);
             m_pActiveSessionList->Unlock();
@@ -378,25 +408,32 @@ namespace Network {
         SESSION_LIST_ITER it;
         Session *pSession;
 
-        for (it = m_pActiveSessionList->begin(); it != m_pActiveSessionList->end(); ++it) {
+        for (it = m_pActiveSessionList->begin(); it != m_pActiveSessionList->end(); ++it)
+        {
             pSession = *it;
 
             if (pSession->ShouldBeRemoved())
                 continue;
 
-            if (pSession->HasDisconnectOrdered()) {
-                if (pSession->GetSendBuffer()->GetLength() == 0) {
+            if (pSession->HasDisconnectOrdered())
+            {
+                if (pSession->GetSendBuffer()->GetLength() == 0)
+                {
                     pSession->Remove();
                 }
-            } else {
-                if (pSession->IsAcceptSocket() && pSession->IsOnIdle()) {
+            }
+            else
+            {
+                if (pSession->IsAcceptSocket() && pSession->IsOnIdle())
+                {
                     LOG_DEBUG("Idle Session,idleTick:{}--curTick:{},diff:{}",
-                              pSession->GetIdleTick(), time(NULL), (time(NULL) - pSession->GetLastSyncTick()));
+                              pSession->GetIdleTick(), getNetWorkTime(), getNetWorkTime() - pSession->GetLastSyncTick());
                     pSession->Remove();
                     continue;
                 }
 
-                if (!pSession->ProcessRecvdPacket()) {
+                if (!pSession->ProcessRecvdPacket())
+                {
                     pSession->Remove();
                 }
             }
@@ -414,19 +451,23 @@ namespace Network {
         SESSION_LIST_ITER it, it2;
         Session *pSession;
         m_pActiveSessionList->Lock();
-        for (it = m_pActiveSessionList->begin(); it != m_pActiveSessionList->end();) {
+        for (it = m_pActiveSessionList->begin(); it != m_pActiveSessionList->end();)
+        {
             pSession = *it;
 
-            if (pSession->ShouldBeRemoved()) {
+            if (pSession->ShouldBeRemoved())
+            {
                 it2 = it++;
                 m_pActiveSessionList->remove(it2);
                 m_pTempList->push_back(pSession);
-            } else
+            }
+            else
                 it++;
         }
         m_pActiveSessionList->Unlock();
 
-        while (!m_pTempList->empty()) {
+        while (!m_pTempList->empty())
+        {
             Session *pSession = m_pTempList->pop_front();
 
             --m_numActiveSessions;
@@ -439,8 +480,10 @@ namespace Network {
 
             pNetworkObject->OnDisconnect();
 
-            if (pSession->IsAcceptSocket()) {
-                if (m_freeFunc != nullptr) {
+            if (pSession->IsAcceptSocket())
+            {
+                if (m_freeFunc != nullptr)
+                {
                     m_freeFunc(pNetworkObject);
                 }
             }
@@ -457,12 +500,14 @@ namespace Network {
 
         // ActiveSessionList
         m_pActiveSessionList->Lock();
-        for (it = m_pActiveSessionList->begin(); it != m_pActiveSessionList->end(); ++it) {
+        for (it = m_pActiveSessionList->begin(); it != m_pActiveSessionList->end(); ++it)
+        {
             pSession = *it;
 
             if (pSession->ShouldBeRemoved()) continue;
 
-            if (pSession->PreSend(this) == FALSE) {
+            if (pSession->PreSend(this) == FALSE)
+            {
                 LOG_ERROR("[REMOVE][{}] pSession->PreSend() == FALSE\n", (int) pSession->GetSocket());
                 pSession->Remove();
             }
@@ -479,7 +524,8 @@ namespace Network {
         SESSION_LIST_ITER it;
 
         m_pActiveSessionList->Lock();
-        for (it = m_pActiveSessionList->begin(); it != m_pActiveSessionList->end(); ++it) {
+        for (it = m_pActiveSessionList->begin(); it != m_pActiveSessionList->end(); ++it)
+        {
             (*it)->Remove();
         }
         m_pActiveSessionList->Unlock();
@@ -495,14 +541,17 @@ namespace Network {
     void IoHandler::Update() {
         ProcessActiveSessionList();
 
-        if (!m_pAcceptedSessionList->empty()) {
+        if (!m_pAcceptedSessionList->empty())
+        {
             ProcessAcceptedSessionList();
         }
 
-        if (!m_pConnectSuccessList->empty()) {
+        if (!m_pConnectSuccessList->empty())
+        {
             ProcessConnectSuccessList();
         }
-        if (!m_pConnectFailList->empty()) {
+        if (!m_pConnectFailList->empty())
+        {
             ProcessConnectFailList();
         }
         KickDeadSessions();
@@ -547,7 +596,8 @@ namespace Network {
         //ev.data.fd = pSession->GetSocket();
         ev.data.ptr = pSession;
 
-        if (epoll_ctl(m_epoll, EPOLL_CTL_MOD, pSession->GetSocket(), &ev) != 0) {
+        if (epoll_ctl(m_epoll, EPOLL_CTL_MOD, pSession->GetSocket(), &ev) != 0)
+        {
             LOG_ERROR("Epoll could not add event to epoll set on fd {}", pSession->GetSocket());
             return false;
         }
@@ -565,7 +615,8 @@ namespace Network {
         //ev.data.fd = pSession->GetSocket();
         ev.data.ptr = pSession;
 
-        if (epoll_ctl(m_epoll, EPOLL_CTL_ADD, pSession->GetSocket(), &ev) != 0) {
+        if (epoll_ctl(m_epoll, EPOLL_CTL_ADD, pSession->GetSocket(), &ev) != 0)
+        {
             LOG_ERROR("Epoll could not add event to epoll set on fd {}", pSession->GetSocket());
             return false;
         }

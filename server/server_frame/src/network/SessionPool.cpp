@@ -11,6 +11,7 @@ namespace Network {
                              uint32_t dwSendBufferSize,
                              uint32_t dwRecvBufferSize,
                              uint32_t dwMaxPacketSize,
+                             uint16_t maxHeadSize,
                              uint32_t dwTimeOutTick,
                              bool bAcceptSocket,
                              bool bOpenMsgQueue,
@@ -21,6 +22,7 @@ namespace Network {
         m_dwSendBufferSize = dwSendBufferSize;
         m_dwRecvBufferSize = dwRecvBufferSize;
         m_dwMaxPacketSize = dwMaxPacketSize;
+        m_maxHeadSize = maxHeadSize;
         m_dwTimeOutTick = dwTimeOutTick;
         m_bAcceptSocket = bAcceptSocket;
         m_dwCurSize = 0;
@@ -36,10 +38,13 @@ namespace Network {
 
     void SessionPool::Create() {
         Session *pSession;
-        if (m_dwCurSize < m_dwMaxSize) {
+        if (m_dwCurSize < m_dwMaxSize)
+        {
             ++m_dwCurSize;
-            pSession = new Session(m_dwSendBufferSize, m_dwRecvBufferSize, m_dwMaxPacketSize, m_dwTimeOutTick);
-            if (m_bAcceptSocket) {
+            pSession = new Session(m_dwSendBufferSize, m_dwRecvBufferSize, m_dwMaxPacketSize, m_maxHeadSize, m_dwTimeOutTick
+                    ,m_openMsgQueue,m_webSocket);
+            if (m_bAcceptSocket)
+            {
                 pSession->SetAcceptSocketFlag();
             }
             m_pList->push_back(pSession);
@@ -54,19 +59,20 @@ namespace Network {
 
     Session *SessionPool::Alloc() {
         m_pList->Lock();
-        if (m_pList->empty()) {
+        if (m_pList->empty())
+        {
             Create();
-            if (m_pList->empty()) {
+            if (m_pList->empty())
+            {
                 m_pList->Unlock();
                 return NULL;
             }
         }
 
         Session *pSession = m_pList->front();
-        if (NULL != pSession) {
+        if (NULL != pSession)
+        {
             pSession->Init();
-            pSession->SetOpenMsgQueue(m_openMsgQueue);
-            pSession->SetWebSocket(m_webSocket);
         }
         m_pList->pop_front();
 
@@ -77,10 +83,13 @@ namespace Network {
 
     void SessionPool::Free(Session *pSession) {
         m_pList->Lock();
-        if (NeedFree()) {
+        if (NeedFree())
+        {
             delete pSession;
             m_dwCurSize--;
-        } else {
+        }
+        else
+        {
             m_pList->push_back(pSession);
         }
         m_pList->Unlock();

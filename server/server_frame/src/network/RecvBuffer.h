@@ -53,9 +53,7 @@ public:
             size = GetRecvDataLen();
         if (size > 0)
         {
-            auto pPacket = GetFirstPacketPtr(size);
-            memcpy(buf, pPacket, size);
-            RemoveFirstPacket(size);
+            m_pQueue->Dequeue((uint8_t*)buf,size);
         }
         return size;
     }
