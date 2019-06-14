@@ -27,6 +27,7 @@ include_directories(servers/common/src)
 include_directories(servers/dbagent_server/src)
 include_directories(servers/lobby_server/src)
 include_directories(servers/pb/src)
+include_directories(server_frame/include/third)
 
 add_executable(server
         server_frame/include/aoi/quad_tree.hpp
