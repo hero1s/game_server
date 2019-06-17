@@ -67,8 +67,7 @@ namespace aoi {
         }
 
         void get_object_ids(float x,float y, float w, float h, std::vector<math::objectid_t>& out){
-            math::rect rc(x,y,w,h);
-            qtree->query(rc,out);
+            qtree->query(x,y,w,h,out);
         }
 
         void check_aoi() {

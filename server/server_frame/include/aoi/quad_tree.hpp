@@ -324,7 +324,11 @@ namespace math
         {
             root_.query(rc, out);
         }
-
+        void query(float x,float y, float width, float height, std::vector<objectid_t>& out)
+        {
+            node_rect rc = make_around(x, y, width / 2.0f, height / 2.0f);
+            root_.query(rc, out);
+        }
         template<typename Action>
         void foreach(Action&& f)
         {
