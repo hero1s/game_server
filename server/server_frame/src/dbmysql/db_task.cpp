@@ -1,8 +1,8 @@
 
 #include <dbmysql/db_task.h>
 #include "svrlib.h"
-#include "utility/stringutility.h"
-#include "utility/time_function.h"
+#include "string/stringutility.h"
+#include "time/time_function.h"
 
 using namespace std;
 using namespace svrlib;

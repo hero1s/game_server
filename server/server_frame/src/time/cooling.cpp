@@ -1,6 +1,6 @@
 
-#include "utility/time_function.h"
-#include "utility/cooling.h"
+#include "time/time_function.h"
+#include "time/cooling.h"
 /*************************************************************/
 //-------------------------------------------------------------
 //------------------------------ 

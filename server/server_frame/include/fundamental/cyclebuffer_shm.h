@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "utility/ipcutility.h"
+#include "memory/ipcutility.h"
 #include "fundamental/cyclebuffer.h"
 #include <assert.h>
 

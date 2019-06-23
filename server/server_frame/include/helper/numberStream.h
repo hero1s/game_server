@@ -2,7 +2,7 @@
 #pragma once
 
 #include "utility/basic_types.h"
-#include "utility/time_function.h"
+#include "time/time_function.h"
 #include <time.h>
 
 /*************************************************************/

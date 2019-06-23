@@ -3,7 +3,7 @@
 
 #include "utility/basic_types.h"
 #include "utility/basic_functions.h"
-#include "utility/string_functions.h"
+#include "string/string_functions.h"
 #include <string>
 #include <queue>
 #include "dbmysql/dbmysql.h"

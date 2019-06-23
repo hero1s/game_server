@@ -13,7 +13,7 @@
 #include "config/config.h"
 #include <memory>
 
-#include "utility/shm_cache_mgr.h"
+#include "memory/shm_cache_mgr.h"
 
 using namespace std;
 using namespace svrlib;

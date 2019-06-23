@@ -585,18 +585,18 @@ add_executable(server
         server_frame/include/utility/basic_functions.h
         server_frame/include/utility/basic_types.h
         server_frame/include/utility/comm_macro.h
-        server_frame/include/utility/cooling.h
+        server_frame/include/time/cooling.h
         server_frame/include/utility/event_processor.h
-        server_frame/include/utility/ipcutility.h
-        server_frame/include/utility/object_pool.hpp
+        server_frame/include/memory/ipcutility.h
+        server_frame/include/memory/object_pool.hpp
         server_frame/include/utility/profile_manager.h
-        server_frame/include/utility/shm_buff_queue.h
-        server_frame/include/utility/shm_cache_mgr.h
+        server_frame/include/memory/shm_buff_queue.h
+        server_frame/include/memory/shm_cache_mgr.h
         server_frame/include/utility/singleton.h
-        server_frame/include/utility/string_functions.h
-        server_frame/include/utility/stringutility.h
-        server_frame/include/utility/time_function.h
-        server_frame/include/utility/timeutility.h
+        server_frame/include/string/string_functions.h
+        server_frame/include/string/stringutility.h
+        server_frame/include/time/time_function.h
+        server_frame/include/time/timeutility.h
         server_frame/include/svrlib.h
         server_frame/src/astar/astar.cpp
         server_frame/src/astar/blockallocator.cpp
@@ -741,15 +741,15 @@ add_executable(server
         server_frame/src/third/zlib/zutil.c
         server_frame/src/third/zlib/zutil.h
         server_frame/src/utility/basic_functions.cpp
-        server_frame/src/utility/cooling.cpp
+        server_frame/src/time/cooling.cpp
         server_frame/src/utility/event_processor.cpp
-        server_frame/src/utility/ipcutility.cpp
+        server_frame/src/memory/ipcutility.cpp
         server_frame/src/utility/profile_manager.cpp
-        server_frame/src/utility/shm_buff_queue.cpp
-        server_frame/src/utility/string_functions.cpp
-        server_frame/src/utility/stringutility.cpp
-        server_frame/src/utility/time_function.cpp
-        server_frame/src/utility/timeutility.cpp
+        server_frame/src/memory/shm_buff_queue.cpp
+        server_frame/src/string/string_functions.cpp
+        server_frame/src/string/stringutility.cpp
+        server_frame/src/time/time_function.cpp
+        server_frame/src/time/timeutility.cpp
         servers/center_server/src/center_mgr.cpp
         servers/center_server/src/center_mgr.h
         servers/center_server/src/game_server.cpp

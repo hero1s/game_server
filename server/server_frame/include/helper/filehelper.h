@@ -19,7 +19,7 @@
 #include <sstream>
 #include <map>
 #include "fundamental/common.h"
-#include "utility/stringutility.h"
+#include "string/stringutility.h"
 
 namespace svrlib {
 class CFileHelper {

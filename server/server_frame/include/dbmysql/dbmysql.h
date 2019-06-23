@@ -94,7 +94,7 @@
 #endif//WIN32
 
 #include "utility/basic_functions.h"
-#include "utility/string_functions.h"
+#include "string/string_functions.h"
 #include <memory.h>
 #include <stdio.h>
 

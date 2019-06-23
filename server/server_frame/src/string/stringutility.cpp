@@ -1,5 +1,5 @@
 
-#include "utility/stringutility.h"
+#include "string/stringutility.h"
 #include <sstream>
 #include <ctype.h>
 #include <algorithm>
@@ -11,7 +11,7 @@
 #include <vector>
 #include <stdarg.h>
 
-#include "utility/string_functions.h"
+#include "string/string_functions.h"
 
 namespace svrlib
 {

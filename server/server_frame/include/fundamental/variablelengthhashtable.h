@@ -9,7 +9,7 @@
 #include <cmath>
 #include <strings.h>
 #include "fundamental/hashtable.h"
-#include "utility/ipcutility.h"
+#include "memory/ipcutility.h"
 #include "linkcache.h"
 
 

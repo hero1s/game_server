@@ -5,7 +5,7 @@
 
 namespace svrlib
 {
-    class spin_lock : public moon::noncopyable
+    class spin_lock : public noncopyable
     {
         std::atomic_flag flag_ = ATOMIC_FLAG_INIT;
 

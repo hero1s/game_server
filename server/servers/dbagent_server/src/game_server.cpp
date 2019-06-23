@@ -11,7 +11,7 @@
 #include "dbmysql_mgr.h"
 #include "svrlib.h"
 #include <iostream>
-#include "utility/time_function.h"
+#include "time/time_function.h"
 #include "msg_define.pb.h"
 
 using namespace svrlib;

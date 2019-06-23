@@ -31,8 +31,8 @@ xonst char *tm_zone;
 }
 
 *------------------------------------------------------------*/
-#include "utility/time_function.h"
-#include "utility/string_functions.h"
+#include "time/time_function.h"
+#include "string/string_functions.h"
 #include <memory>
 #include <string.h>
 #include <unistd.h>
