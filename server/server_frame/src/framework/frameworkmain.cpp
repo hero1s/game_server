@@ -11,6 +11,8 @@
 #include "utility/comm_macro.h"
 #include "config/config.h"
 #include "lua_service/lua_bind.h"
+#include "ebus/frame_event.hpp"
+#include "ebus/event_bus.hpp"
 #include <memory>
 
 using namespace svrlib;
@@ -146,25 +148,23 @@ void CApplication::CheckNewDayEvent(){
     if (uTime != uProcessTime) {
         bool bNewDay = (diffTimeDay(uProcessTime, uTime) != 0);
         if (bNewDay) {
-            if (m_OnNewDay) {
-                m_OnNewDay();
-            }
+            bool bNewWeek = false;
+            bool bNewMonth = false;
             // 新的一天
             tm local_time;
             uint64_t uTime = getTime();
             getLocalTime(&local_time, uTime);
             // 跨周        0-6
             if (local_time.tm_wday == 0) {
-                if (m_OnNewWeek) {
-                    m_OnNewWeek();
-                }
+                bNewWeek = true;
             }
             // 跨月        1-31
             if (local_time.tm_mday == 1) {
-                if (m_OnNewMonth) {
-                    m_OnNewMonth();
-                }
+                bNewMonth = true;
             }
+
+            ebus::NewDayEvent ev(*this,bNewWeek,bNewMonth);
+            ebus::EventBus::FireEvent(ev);
         }
         uProcessTime = uTime;
     }

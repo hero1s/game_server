@@ -5,13 +5,16 @@
 #include "player_base.h"
 #include "game_define.h"
 #include "msg_define.pb.h"
+#include "ebus/frame_event.hpp"
+#include "ebus/event_handler.hpp"
+#include "ebus/handler_registration.hpp"
 
 using namespace svrlib;
 using namespace std;
 using namespace net;
 using namespace Network;
 
-class CPlayer : public CPlayerBase
+class CPlayer : public CPlayerBase, public ebus::EventHandler<ebus::NewDayEvent>
 {
 	enum LIMIT_TIME
 	{
@@ -32,6 +35,8 @@ public:
 	virtual void ReLogin();
 
 	virtual void OnTimeTick(uint64_t uTime, bool bNewDay);
+
+	virtual void onEvent(ebus::NewDayEvent & e) override;
 
 	// 是否需要回收
 	virtual bool NeedRecover();
@@ -74,7 +79,7 @@ protected:
 	uint32_t                               m_loadTime;                      // 加载数据时间
 	uint32_t                               m_netDelay;                      // 网络延迟
 	std::array<uint32_t, emLIMIT_TIME_MAX> m_limitTime;  					// 限制时间
-
+	ebus::HandlerRegistration* 			   m_dayEventReg;
 };
 
 

@@ -11,13 +11,14 @@
 #include <map>
 #include "asio.hpp"
 #include "lua_service/lua_service.h"
+#include "ebus/object.hpp"
 
 using namespace std;
 using namespace Network;
 
 extern int FrameworkMain(int argc, char* argv[]);
 
-class CApplication : public AutoDeleteSingleton<CApplication> {
+class CApplication : public ebus::Object, public AutoDeleteSingleton<CApplication> {
 public:
     CApplication();
 
@@ -84,12 +85,6 @@ private:
     sol::state m_solLua;              // sol lua模块
     asio::io_context m_ioContext;
     svrlib::lua_service* m_luaService;         // lua server
-
-protected:
-    using handTimeFunc = function<void()>;
-    handTimeFunc m_OnNewDay = nullptr;
-    handTimeFunc m_OnNewWeek = nullptr;
-    handTimeFunc m_OnNewMonth = nullptr;
 
 };
 
