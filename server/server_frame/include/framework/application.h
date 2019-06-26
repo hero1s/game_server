@@ -11,7 +11,7 @@
 #include <map>
 #include "asio.hpp"
 #include "lua_service/lua_service.h"
-#include "ebus/object.hpp"
+#include "ebus/event_bus.hpp"
 
 using namespace std;
 using namespace Network;
