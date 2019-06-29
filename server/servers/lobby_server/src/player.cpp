@@ -5,7 +5,6 @@
 #include "player_mgr.h"
 #include "common_logic.h"
 #include "net/dbagent_client.h"
-#include "ebus/event_bus.hpp"
 
 using namespace svrlib;
 using namespace std;

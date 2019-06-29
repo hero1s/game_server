@@ -6,8 +6,7 @@
 #include "game_define.h"
 #include "msg_define.pb.h"
 #include "ebus/frame_event.hpp"
-#include "ebus/event_handler.hpp"
-#include "ebus/handler_registration.hpp"
+#include "ebus/event_bus.hpp"
 
 using namespace svrlib;
 using namespace std;
