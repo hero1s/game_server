@@ -1,6 +1,7 @@
 #pragma once
 
-#include "event_bus.hpp"
+#include "event.hpp"
+#include <string>
 
 //¿ò¼ÜÊÂ¼ş
 namespace ebus {

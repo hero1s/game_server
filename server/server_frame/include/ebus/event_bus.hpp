@@ -1,238 +1,221 @@
 #pragma once
 
+#include "object.hpp"
+#include "event_handler.hpp"
+#include "event.hpp"
+#include "handler_registration.hpp"
+
 #include <list>
 #include <typeinfo>
 #include <unordered_map>
-#include <map>
-#include <typeindex>
-#include <vector>
-#include <stdexcept>
 
 namespace ebus {
-    //事件及派发基类
-    class Object {
-    public:
-        Object() { }
+/**
+ * \brief An Event system that allows decoupling of code through synchronous events
+ *
+ */
+	class EventBus : public Object {
+	public:
+		/**
+         * \brief Default empty constructor
+         */
+		EventBus() { }
 
-        virtual ~Object() { }
+		/**
+         * \brief Empty virtual destructor
+         */
+		virtual ~EventBus() { }
 
-        Object(const Object& other) { }
-    };
+		/**
+         * \brief Returns the EventBus singleton instance
+         *
+         * Creates a new instance of the EventBus if hasn't already been created
+         *
+         * @return The singleton instance
+         */
+		static EventBus* const GetInstance()
+		{
+			if (instance==nullptr) {
+				instance = new EventBus();
+			}
 
-    //事件基类
-    class Event : public Object {
-    public:
-        Event(Object& sender)
-                :
-                sender(sender),
-                canceled(false)
-        {
-        }
+			return instance;
+		}
 
-        virtual ~Event() { }
+		/**
+         * \brief Registers a new event handler to the EventBus with a source specifier
+         *
+         * The template parameter is the specific type of event that is being added. Since a class can
+         * potentially inherit multiple event handlers, the template specifier will remove any ambiguity
+         * as to which handler pointer is being referenced.
+         *
+         * @param handler The event handler class
+         * @param sender The source sender object
+         * @return An EventRegistration pointer which can be used to unregister the event handler
+         */
+		template<class T>
+		static HandlerRegistration* const AddHandler(EventHandler<T>& handler, Object& sender)
+		{
+			EventBus* instance = GetInstance();
 
-        Object& getSender()
-        {
-            return sender;
-        }
+			// Fetch the list of event pairs unique to this event type
+			Registrations* registrations = instance->handlers[typeid(T)];
 
-        bool getCanceled()
-        {
-            return canceled;
-        }
+			// Create a new collection instance for this type if it hasn't been created yet
+			if (registrations==nullptr) {
+				registrations = new Registrations();
+				instance->handlers[typeid(T)] = registrations;
+			}
 
-        void setCanceled(bool canceled)
-        {
-            this->canceled = canceled;
-        }
+			// Create a new EventPair instance for this registration.
+			// This will group the handler, sender, and registration object into the same class
+			EventRegistration* registration = new EventRegistration(static_cast<void*>(&handler), registrations,
+					&sender);
 
-    private:
-        Object& sender;    //事件触发对象
-        bool canceled;    //是否终止事件
-    };
+			// Add the registration object to the collection
+			registrations->push_back(registration);
 
-    //事件处理handler
-    template<class T>
-    class EventHandler {
-    public:
-        EventHandler()
-        {
-            static_assert(std::is_base_of<Event, T>::value, "EventHandler<T>: T must be a class derived from Event");
-        }
+			return registration;
+		}
 
-        virtual ~EventHandler() { }
+		/**
+         * \brief Registers a new event handler to the EventBus with no source specified
+         *
+         * @param handler The event handler class
+         * @return An EventRegistration pointer which can be used to unregister the event handler
+         */
+		template<class T>
+		static HandlerRegistration* const AddHandler(EventHandler<T>& handler)
+		{
+			EventBus* instance = GetInstance();
 
-        //实现事件处理接口
-        virtual void onEvent(T&) = 0;
+			// Fetch the list of event pairs unique to this event type
+			Registrations* registrations = instance->handlers[typeid(T)];
 
-        void dispatch(Event& e)
-        {
-            onEvent(dynamic_cast<T&>(e));
-        }
-    };
+			// Create a new collection instance for this type if it hasn't been created yet
+			if (registrations==nullptr) {
+				registrations = new Registrations();
+				instance->handlers[typeid(T)] = registrations;
+			}
 
-    // 异步事件BUS
-    class EventBus : public Object {
-    public:
-        EventBus() { }
+			// Create a new EventPair instance for this registration.
+			// This will group the handler, sender, and registration object into the same class
+			EventRegistration* registration = new EventRegistration(static_cast<void*>(&handler), registrations,
+					nullptr);
 
-        virtual ~EventBus() { }
+			// Add the registration object to the collection
+			registrations->push_back(registration);
 
-        static EventBus* const GetInstance()
-        {
-            if (instance==nullptr) {
-                instance = new EventBus();
-            }
-            return instance;
-        }
+			return registration;
+		}
 
-        //注册事件handler到ebus
-        template<class T>
-        static bool const AddHandler(EventHandler<T>& handler, Object* sender)
-        {
-            EventBus* instance = GetInstance();
-            std::type_index typeIndex = typeid(T);
-            Registrations* registrations = instance->handlers[typeIndex];
-            if (registrations==nullptr) {
-                registrations = new Registrations();
-                auto regMap = new RegMap();
-                instance->handlers[typeIndex] = registrations;
-                instance->registrations[typeIndex] = regMap;
-            }
-            EvRegKey key(static_cast<void*>(&handler), sender);
-            auto pCur = findEventRegistration(typeIndex, key);
-            if (pCur) {
-                return false;//重复注册
-            }
-            EventRegistration* registration = new EventRegistration(static_cast<void*>(&handler), registrations,
-                    sender);
-            registrations->push_back(registration);
-            instance->registrations[typeIndex]->insert(RegMap::value_type(key, registration));
-            return true;
-        }
+		/**
+         * \brief Fires an event
+         *
+         * @param e The event to fire
+         */
+		static void FireEvent(Event& e)
+		{
+			EventBus* instance = GetInstance();
 
-        template<class T>
-        static bool const RemoveHandler(EventHandler<T>& handler, Object* sender)
-        {
-            EventBus* instance = GetInstance();
-            std::type_index typeIndex = typeid(T);
-            Registrations* registrations = instance->handlers[typeIndex];
-            if (registrations==nullptr) {
-                registrations = new Registrations();
-                auto regMap = new RegMap();
-                instance->handlers[typeIndex] = registrations;
-                instance->registrations[typeIndex] = regMap;
-            }
-            EvRegKey key(static_cast<void*>(&handler), sender);
-            auto pCur = findEventRegistration(typeIndex, key);
-            if (pCur) {
-                return false;//不存在
-            }
-            else {
-                pCur->removeHandler();
-                instance->registrations[typeIndex]->erase(key);
-                delete pCur;
-            }
-            return true;
-        }
+			Registrations* registrations = instance->handlers[typeid(e)];
 
-        //派发事件
-        static void FireEvent(Event& e)
-        {
-            EventBus* instance = GetInstance();
-            Registrations* registrations = instance->handlers[typeid(e)];
-            if (registrations==nullptr) {
-                return;
-            }
-            for (auto& reg : *registrations) {
-                if ((reg->getSender()==nullptr) || (reg->getSender()==&e.getSender())) {
-                    static_cast<EventHandler<Event>*>(reg->getHandler())->dispatch(e);
-                }
-            }
-        }
+			// If the registrations list is null, then no handlers have been registered for this event
+			if (registrations==nullptr) {
+				return;
+			}
 
-    private:
-        static EventBus* instance;
+			// Iterate through all the registered handlers and dispatch to each one if the sender
+			// matches the source or if the sender is not specified
+			for (auto& reg : *registrations) {
+				if ((reg->getSender()==nullptr) || (reg->getSender()==&e.getSender())) {
 
-        //检索索引
-        struct EvRegKey {
-            uint64_t h;
-            uint64_t s;
+					// This is where some magic happens. The void * handler is statically cast to an event handler
+					// of generic type Event and dispatched. The dispatch function will then do a dynamic
+					// cast to the correct event type so the matching onEvent method can be called
+					static_cast<EventHandler<Event>*>(reg->getHandler())->dispatch(e);
+				}
+			}
+		}
 
-            EvRegKey(void* const handler, void* const sender)
-            {
-                this->h = (uint64_t) handler;
-                this->s = (uint64_t) sender;
-            }
+	private:
+		// Singleton class instance
+		static EventBus* instance;
 
-            bool operator==(const EvRegKey& erk) const
-            {
-                return h==erk.h && s==erk.s;
-            }
+		/**
+         * \brief Registration class private to EventBus for registered event handlers
+         */
+		class EventRegistration : public HandlerRegistration {
+		public:
+			typedef std::list<EventRegistration*> Registrations;
 
-            bool operator<(const EvRegKey& erk) const
-            {
-                if (h<erk.h)
-                    return true;
-                else if (h==erk.h)
-                    return s<erk.s;
-                return false;
-            }
-        };
+			/**
+             * \brief Represents a registration object for a registered event handler
+             *
+             * This object is stored in a collection with other handlers for the event type.
+             *
+             * @param handler The event handler
+             * @param registrations The handler collection for this event type
+             * @param sender The registered sender object
+             */
+			EventRegistration(void* const handler, Registrations* const registrations, Object* const sender)
+					:
+					handler(handler),
+					registrations(registrations),
+					sender(sender),
+					registered(true) { }
 
-        class EventRegistration {
-        public:
-            typedef std::list<EventRegistration*> Registrations;
+			/**
+             * \brief Empty virtual destructor
+             */
+			virtual ~EventRegistration() { }
 
-            EventRegistration(void* const handler, Registrations* const registrations, Object* const sender)
-                    :handler(handler),
-                     registrations(registrations),
-                     sender(sender),
-                     registered(true) { }
+			/**
+             * \brief Gets the event handler for this registration
+             *
+             * @return The event handler
+             */
+			void* const getHandler()
+			{
+				return handler;
+			}
 
-            virtual ~EventRegistration() { }
+			/**
+             * \brief Gets the sender object for this registration
+             *
+             * @return The registered sender object
+             */
+			Object* const getSender()
+			{
+				return sender;
+			}
 
-            void* const getHandler()
-            {
-                return handler;
-            }
+			/**
+             * \brief Removes an event handler from the registration collection
+             *
+             * The event handler will no longer receive events for this event type
+             */
+			virtual void removeHandler()
+			{
+				if (registered) {
+					registrations->remove(this);
+					registered = false;
+				}
+			}
 
-            Object* const getSender()
-            {
-                return sender;
-            }
+		private:
+			void* const handler;
+			Registrations* const registrations;
+			Object* const sender;
 
-            void removeHandler()
-            {
-                if (registered) {
-                    registrations->remove(this);
-                    registered = false;
-                }
-            }
+			bool registered;
+		};
 
-        private:
-            void* const handler;
-            Registrations* const registrations;
-            Object* const sender;
-            bool registered;
-        };
+		typedef std::list<EventRegistration*> Registrations;
+		typedef std::unordered_map<std::type_index, std::list<EventRegistration*>*> TypeMap;
 
-        static EventRegistration* findEventRegistration(std::type_index& index, EvRegKey& key)
-        {
-            EventBus* instance = GetInstance();
-            auto it = instance->registrations[index]->find(key);
-            if (it==instance->registrations[index]->end())return nullptr;
-            return it->second;
-        }
+		TypeMap handlers;
 
-        using Registrations = std::list<EventRegistration*>;
-        using TypeMap = std::unordered_map<std::type_index, std::list<EventRegistration*>*>;
-        using RegMap = std::map<EvRegKey, EventRegistration*>;
-        using RegMaps = std::unordered_map<std::type_index, std::map<EvRegKey, EventRegistration*>*>;
-
-        TypeMap handlers;
-        RegMaps registrations;
-    };
-
+	};
 
 };

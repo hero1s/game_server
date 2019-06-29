@@ -12,6 +12,7 @@
 #include "config/config.h"
 #include "lua_service/lua_bind.h"
 #include "ebus/frame_event.hpp"
+#include "ebus/event_bus.hpp"
 #include <memory>
 
 using namespace svrlib;
