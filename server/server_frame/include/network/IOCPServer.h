@@ -29,7 +29,7 @@ namespace Network {
 
         stIOHANDLER_DESC() {
             memset(this, 0, sizeof(stIOHANDLER_DESC));
-            maxAcceptSession = 10000;
+            maxAcceptSession = 50000;
             maxHeadSize = 32;
             allocFunc = nullptr;
             freeFunc = [](NetworkObject *p)

@@ -9,7 +9,7 @@ namespace Network {
 
     class SessionPool {
     public:
-        SessionPool(uint32_t dwSize, uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t dwMaxPacketSize,uint16_t maxHeadSize,
+        SessionPool(uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t dwMaxPacketSize,uint16_t maxHeadSize,
                     uint32_t dwTimeOutTick, bool bAcceptSocket,bool bWebSocket);
 
         ~SessionPool();
@@ -22,7 +22,6 @@ namespace Network {
         void Create();
         bool NeedFree();
 
-        uint32_t m_dwMaxSize;
         uint32_t m_dwSendBufferSize;
         uint32_t m_dwRecvBufferSize;
         uint32_t m_dwMaxPacketSize;

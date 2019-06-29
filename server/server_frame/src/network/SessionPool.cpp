@@ -7,17 +7,16 @@
 #include <algorithm>
 
 namespace Network {
-    SessionPool::SessionPool(uint32_t dwSize,
-                             uint32_t dwSendBufferSize,
-                             uint32_t dwRecvBufferSize,
-                             uint32_t dwMaxPacketSize,
-                             uint16_t maxHeadSize,
-                             uint32_t dwTimeOutTick,
-                             bool bAcceptSocket,
-                             bool bWebSocket) {
+    SessionPool::SessionPool(uint32_t dwSendBufferSize,
+            uint32_t dwRecvBufferSize,
+            uint32_t dwMaxPacketSize,
+            uint16_t maxHeadSize,
+            uint32_t dwTimeOutTick,
+            bool bAcceptSocket,
+            bool bWebSocket)
+    {
         m_pList = new SessionList;
 
-        m_dwMaxSize = dwSize;
         m_dwSendBufferSize = dwSendBufferSize;
         m_dwRecvBufferSize = dwRecvBufferSize;
         m_dwMaxPacketSize = dwMaxPacketSize;
@@ -30,46 +29,42 @@ namespace Network {
         Create();
     }
 
-    SessionPool::~SessionPool() {
+    SessionPool::~SessionPool()
+    {
         if (m_pList) delete m_pList;
     }
 
-    void SessionPool::Create() {
-        Session *pSession;
-        if (m_dwCurSize < m_dwMaxSize)
-        {
-            ++m_dwCurSize;
-            pSession = new Session(m_dwSendBufferSize, m_dwRecvBufferSize, m_dwMaxPacketSize, m_maxHeadSize, m_dwTimeOutTick
-                    ,m_webSocket);
-            if (m_bAcceptSocket)
-            {
-                pSession->SetAcceptSocketFlag();
-            }
-            m_pList->push_back(pSession);
+    void SessionPool::Create()
+    {
+        ++m_dwCurSize;
+        auto pSession = new Session(m_dwSendBufferSize, m_dwRecvBufferSize, m_dwMaxPacketSize, m_maxHeadSize,
+                m_dwTimeOutTick, m_webSocket);
+        if (m_bAcceptSocket) {
+            pSession->SetAcceptSocketFlag();
         }
+        m_pList->push_back(pSession);
     }
 
-    bool SessionPool::NeedFree() {
-        if (m_pList->size() > (m_dwCurSize / 10))return true;
+    bool SessionPool::NeedFree()
+    {
+        if (m_pList->size()>(m_dwCurSize/10))return true;
 
         return false;
     }
 
-    Session *SessionPool::Alloc() {
+    Session* SessionPool::Alloc()
+    {
         m_pList->Lock();
-        if (m_pList->empty())
-        {
+        if (m_pList->empty()) {
             Create();
-            if (m_pList->empty())
-            {
+            if (m_pList->empty()) {
                 m_pList->Unlock();
                 return NULL;
             }
         }
 
-        Session *pSession = m_pList->front();
-        if (NULL != pSession)
-        {
+        Session* pSession = m_pList->front();
+        if (NULL!=pSession) {
             pSession->Init();
         }
         m_pList->pop_front();
@@ -79,15 +74,14 @@ namespace Network {
         return pSession;
     }
 
-    void SessionPool::Free(Session *pSession) {
+    void SessionPool::Free(Session* pSession)
+    {
         m_pList->Lock();
-        if (NeedFree())
-        {
+        if (NeedFree()) {
             delete pSession;
             m_dwCurSize--;
         }
-        else
-        {
+        else {
             m_pList->push_back(pSession);
         }
         m_pList->Unlock();
