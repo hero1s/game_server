@@ -10,7 +10,7 @@ namespace svrlib {
 
     class lua_bind : public svrlib::noncopyable {
     public:
-        explicit lua_bind(sol::state& _lua);
+        explicit lua_bind(sol::state &_lua);
 
         ~lua_bind();
 
@@ -18,7 +18,12 @@ namespace svrlib {
 
         static void registerlib(lua_State *L, const char *name, lua_CFunction f);
 
-        static void registerlib(lua_State *L, const char *name, const sol::table&);
+        static void registerlib(lua_State *L, const char *name, const sol::table &);
+
+        void add_lua_cpath(lua_State *L, std::vector<std::string> &cpaths);
+
+        void add_lua_path(lua_State *L, std::vector<std::string> &paths);
+
     protected:
         void bind_conf();
 
@@ -29,7 +34,7 @@ namespace svrlib {
         void bind_service();
 
     private:
-        sol::state& lua;
+        sol::state &lua;
     };
 
 };

@@ -75,24 +75,18 @@ namespace Network {
             void reset(void) { memset(this, 0, sizeof(WebSocketHead)); }
 
             inline uint64_t GetLen(void) {
-                if (len == 126)
-                {
+                if (len == 126) {
                     return ex_len.v16;
-                }
-                else if (len == 127)
-                {
+                } else if (len == 127) {
                     return ex_len.v64;
                 }
                 return len;
             }
 
             inline uint8_t GetLenNeedByte(void) {
-                if (len == 126)
-                {
+                if (len == 126) {
                     return 2;
-                }
-                else if (len == 127)
-                {
+                } else if (len == 127) {
                     return 8;
                 }
                 return 0;
@@ -112,8 +106,8 @@ namespace Network {
 
     public:
         /// dwTimeOut .
-        Session(uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t dwMaxPacketSize, uint16_t maxHeadSize, uint32_t dwTimeOut
-                , bool webSocket);
+        Session(uint32_t dwSendBufferSize, uint32_t dwRecvBufferSize, uint32_t dwMaxPacketSize, uint16_t maxHeadSize,
+                uint32_t dwTimeOut, bool webSocket);
 
         virtual ~Session();
 
@@ -226,6 +220,7 @@ namespace Network {
         inline void ResetTimeOut() {
             m_dwLastSyncTick = getNetWorkTime();
         }
+
         void SetWebSocket(bool webSocket);
 
         NetworkObject *m_pNetworkObject;

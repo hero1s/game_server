@@ -52,6 +52,8 @@ add_executable(server
         server_frame/include/dbmysql/db_wrap.h
         server_frame/include/dbmysql/dbmysql.h
         server_frame/include/dbmysql/sql_join.h
+        server_frame/include/ebus/event_bus.hpp
+        server_frame/include/ebus/frame_event.hpp
         server_frame/include/framework/application.h
         server_frame/include/fundamental/common.h
         server_frame/include/fundamental/cyclebuffer.h
@@ -79,6 +81,10 @@ add_executable(server
         server_frame/include/math/rand_table.h
         server_frame/include/math/rank.h
         server_frame/include/math/rect.h
+        server_frame/include/memory/ipcutility.h
+        server_frame/include/memory/object_pool.hpp
+        server_frame/include/memory/shm_buff_queue.h
+        server_frame/include/memory/shm_cache_mgr.h
         server_frame/include/modern/coroutine.h
         server_frame/include/modern/directory.hpp
         server_frame/include/modern/file.hpp
@@ -112,6 +118,8 @@ add_executable(server
         server_frame/include/redisclient/redissyncclient.h
         server_frame/include/redisclient/redisvalue.h
         server_frame/include/redisclient/version.h
+        server_frame/include/string/string_functions.h
+        server_frame/include/string/stringutility.h
         server_frame/include/third/asio/detail/impl/dev_poll_reactor.hpp
         server_frame/include/third/asio/detail/impl/epoll_reactor.hpp
         server_frame/include/third/asio/detail/impl/kqueue_reactor.hpp
@@ -528,11 +536,633 @@ add_executable(server
         server_frame/include/third/asio/write.hpp
         server_frame/include/third/asio/write_at.hpp
         server_frame/include/third/asio/yield.hpp
+        server_frame/include/third/iguana/detail/itoa.hpp
+        server_frame/include/third/iguana/detail/string_stream.hpp
+        server_frame/include/third/iguana/detail/traits.hpp
+        server_frame/include/third/iguana/json.hpp
+        server_frame/include/third/iguana/msgpack.hpp
+        server_frame/include/third/iguana/reflection.hpp
+        server_frame/include/third/iguana/xml.hpp
         server_frame/include/third/lua/lauxlib.h
         server_frame/include/third/lua/lua.h
         server_frame/include/third/lua/lua.hpp
         server_frame/include/third/lua/luaconf.h
         server_frame/include/third/lua/lualib.h
+        server_frame/include/third/msgpack/include/msgpack/adaptor/boost/fusion.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/boost/msgpack_variant.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/boost/msgpack_variant_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/boost/optional.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/boost/string_ref.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/cpp11/array.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/cpp11/array_char.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/cpp11/array_unsigned_char.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/cpp11/forward_list.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/cpp11/reference_wrapper.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/cpp11/shared_ptr.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/cpp11/tuple.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/cpp11/unique_ptr.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/cpp11/unordered_map.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/cpp11/unordered_set.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/tr1/unordered_map.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/tr1/unordered_set.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/adaptor_base.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/adaptor_base_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/array_ref.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/array_ref_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/bool.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/char_ptr.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/check_container_size.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/check_container_size_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/define.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/define_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/deque.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/ext.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/ext_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/fixint.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/fixint_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/float.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/int.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/int_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/list.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/map.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/map_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/msgpack_tuple.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/msgpack_tuple_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/nil.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/nil_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/pair.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/raw.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/raw_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/set.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/string.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/v4raw.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/v4raw_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/vector.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/vector_bool.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/vector_char.hpp
+        server_frame/include/third/msgpack/include/msgpack/adaptor/vector_unsigned_char.hpp
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/x86/32.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/x86/64.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/alpha.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/arm.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/blackfin.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/convex.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/ia64.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/m68k.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/mips.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/parisc.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/ppc.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/pyramid.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/rs6k.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/sparc.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/superh.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/sys370.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/sys390.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/x86.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture/z.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/borland.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/clang.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/comeau.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/compaq.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/diab.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/digitalmars.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/dignus.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/edg.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/ekopath.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/gcc.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/gcc_xml.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/greenhills.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/hp_acc.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/iar.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/ibm.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/intel.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/kai.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/llvm.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/metaware.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/metrowerks.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/microtec.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/mpw.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/palm.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/pgi.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/sgi_mipspro.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/sunpro.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/tendra.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/visualc.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler/watcom.h
+        server_frame/include/third/msgpack/include/msgpack/predef/detail/_cassert.h
+        server_frame/include/third/msgpack/include/msgpack/predef/detail/_exception.h
+        server_frame/include/third/msgpack/include/msgpack/predef/detail/comp_detected.h
+        server_frame/include/third/msgpack/include/msgpack/predef/detail/endian_compat.h
+        server_frame/include/third/msgpack/include/msgpack/predef/detail/os_detected.h
+        server_frame/include/third/msgpack/include/msgpack/predef/detail/platform_detected.h
+        server_frame/include/third/msgpack/include/msgpack/predef/detail/test.h
+        server_frame/include/third/msgpack/include/msgpack/predef/language/objc.h
+        server_frame/include/third/msgpack/include/msgpack/predef/language/stdc.h
+        server_frame/include/third/msgpack/include/msgpack/predef/language/stdcpp.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/c/_prefix.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/c/gnu.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/c/uc.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/c/vms.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/c/zos.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/std/_prefix.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/std/cxx.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/std/dinkumware.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/std/libcomo.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/std/modena.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/std/msl.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/std/roguewave.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/std/sgi.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/std/stdcpp3.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/std/stlport.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/std/vacpp.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/c.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library/std.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/bsd/bsdi.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/bsd/dragonfly.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/bsd/free.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/bsd/net.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/bsd/open.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/aix.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/amigaos.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/android.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/beos.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/bsd.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/cygwin.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/haiku.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/hpux.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/ios.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/irix.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/linux.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/macos.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/os400.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/qnxnto.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/solaris.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/unix.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/vms.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os/windows.h
+        server_frame/include/third/msgpack/include/msgpack/predef/other/endian.h
+        server_frame/include/third/msgpack/include/msgpack/predef/platform/mingw.h
+        server_frame/include/third/msgpack/include/msgpack/predef/platform/windows_desktop.h
+        server_frame/include/third/msgpack/include/msgpack/predef/platform/windows_phone.h
+        server_frame/include/third/msgpack/include/msgpack/predef/platform/windows_runtime.h
+        server_frame/include/third/msgpack/include/msgpack/predef/platform/windows_store.h
+        server_frame/include/third/msgpack/include/msgpack/predef/architecture.h
+        server_frame/include/third/msgpack/include/msgpack/predef/compiler.h
+        server_frame/include/third/msgpack/include/msgpack/predef/language.h
+        server_frame/include/third/msgpack/include/msgpack/predef/library.h
+        server_frame/include/third/msgpack/include/msgpack/predef/make.h
+        server_frame/include/third/msgpack/include/msgpack/predef/os.h
+        server_frame/include/third/msgpack/include/msgpack/predef/other.h
+        server_frame/include/third/msgpack/include/msgpack/predef/platform.h
+        server_frame/include/third/msgpack/include/msgpack/predef/version.h
+        server_frame/include/third/msgpack/include/msgpack/predef/version_number.h
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/arithmetic/detail/div_base.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/arithmetic/add.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/arithmetic/dec.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/arithmetic/div.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/arithmetic/inc.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/arithmetic/mod.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/arithmetic/mul.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/arithmetic/sub.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/detail/get_data.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/data.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/elem.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/enum.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/insert.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/pop_back.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/pop_front.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/push_back.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/push_front.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/remove.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/replace.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/reverse.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/size.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/to_list.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/to_seq.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array/to_tuple.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/comparison/equal.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/comparison/greater.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/comparison/greater_equal.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/comparison/less.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/comparison/less_equal.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/comparison/not_equal.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/config/config.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/config/limits.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/control/detail/dmc/while.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/control/detail/edg/while.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/control/detail/msvc/while.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/control/detail/while.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/control/deduce_d.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/control/expr_if.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/control/expr_iif.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/control/if.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/control/iif.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/control/while.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/debug/assert.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/debug/error.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/debug/line.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/detail/dmc/auto_rec.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/detail/auto_rec.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/detail/check.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/detail/is_binary.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/detail/is_nullary.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/detail/is_unary.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/detail/null.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/detail/split.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/facilities/detail/is_empty.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/facilities/apply.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/facilities/empty.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/facilities/expand.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/facilities/identity.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/facilities/intercept.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/facilities/is_1.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/facilities/is_empty.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/facilities/is_empty_or_1.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/facilities/is_empty_variadic.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/facilities/overload.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/bounds/lower1.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/bounds/lower2.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/bounds/lower3.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/bounds/lower4.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/bounds/lower5.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/bounds/upper1.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/bounds/upper2.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/bounds/upper3.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/bounds/upper4.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/bounds/upper5.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/iter/forward1.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/iter/forward2.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/iter/forward3.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/iter/forward4.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/iter/forward5.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/iter/reverse1.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/iter/reverse2.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/iter/reverse3.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/iter/reverse4.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/iter/reverse5.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/finish.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/local.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/rlocal.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/self.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/detail/start.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/iterate.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/local.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration/self.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/detail/dmc/fold_left.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/detail/edg/fold_left.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/detail/edg/fold_right.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/detail/fold_left.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/detail/fold_right.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/adt.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/append.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/at.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/cat.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/enum.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/filter.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/first_n.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/fold_left.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/fold_right.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/for_each.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/for_each_i.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/for_each_product.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/rest_n.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/reverse.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/size.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/to_array.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/to_seq.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/to_tuple.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list/transform.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/logical/and.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/logical/bitand.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/logical/bitnor.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/logical/bitor.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/logical/bitxor.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/logical/bool.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/logical/compl.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/logical/nor.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/logical/not.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/logical/or.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/logical/xor.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/punctuation/detail/is_begin_parens.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/punctuation/comma.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/punctuation/comma_if.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/punctuation/is_begin_parens.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/punctuation/paren.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/punctuation/paren_if.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/punctuation/remove_parens.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/detail/dmc/for.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/detail/edg/for.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/detail/msvc/for.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/detail/for.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/deduce_r.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/deduce_z.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/enum.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/enum_binary_params.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/enum_params.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/enum_params_with_a_default.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/enum_params_with_defaults.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/enum_shifted.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/enum_shifted_binary_params.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/enum_shifted_params.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/enum_trailing.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/enum_trailing_binary_params.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/enum_trailing_params.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/for.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/repeat.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition/repeat_from_to.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/selection/max.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/selection/min.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/detail/binary_transform.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/detail/split.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/cat.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/elem.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/enum.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/filter.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/first_n.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/fold_left.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/fold_right.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/for_each.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/for_each_i.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/for_each_product.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/insert.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/pop_back.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/pop_front.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/push_back.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/push_front.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/remove.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/replace.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/rest_n.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/reverse.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/seq.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/size.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/subseq.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/to_array.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/to_list.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/to_tuple.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/transform.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq/variadic_seq_to_seq.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/slot/detail/counter.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/slot/detail/def.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/slot/detail/shared.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/slot/detail/slot1.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/slot/detail/slot2.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/slot/detail/slot3.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/slot/detail/slot4.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/slot/detail/slot5.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/slot/counter.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/slot/slot.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/detail/is_single_return.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/eat.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/elem.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/enum.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/insert.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/pop_back.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/pop_front.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/push_back.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/push_front.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/rem.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/remove.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/replace.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/reverse.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/size.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/to_array.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/to_list.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple/to_seq.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/variadic/detail/is_single_return.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/variadic/elem.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/variadic/size.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/variadic/to_array.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/variadic/to_list.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/variadic/to_seq.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/variadic/to_tuple.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/arithmetic.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/array.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/assert_msg.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/cat.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/comma.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/comma_if.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/comparison.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/control.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/debug.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/dec.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/empty.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/enum.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/enum_params.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/enum_params_with_a_default.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/enum_params_with_defaults.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/enum_shifted.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/enum_shifted_params.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/expand.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/expr_if.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/facilities.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/for.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/identity.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/if.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/inc.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iterate.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/iteration.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/library.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/limits.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/list.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/logical.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/max.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/min.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/punctuation.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repeat.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repeat_2nd.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repeat_3rd.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repeat_from_to.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repeat_from_to_2nd.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repeat_from_to_3rd.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/repetition.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/selection.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/seq.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/slot.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/stringize.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/tuple.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/variadic.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/while.hpp
+        server_frame/include/third/msgpack/include/msgpack/preprocessor/wstringize.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/boost/fusion.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/boost/msgpack_variant.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/boost/msgpack_variant_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/boost/optional.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/boost/string_ref.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/cpp11/array.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/cpp11/array_char.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/cpp11/array_unsigned_char.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/cpp11/forward_list.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/cpp11/reference_wrapper.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/cpp11/shared_ptr.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/cpp11/tuple.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/cpp11/unique_ptr.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/cpp11/unordered_map.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/cpp11/unordered_set.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/detail/cpp03_define_array.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/detail/cpp03_define_array_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/detail/cpp03_define_map.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/detail/cpp03_define_map_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/detail/cpp03_msgpack_tuple.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/detail/cpp03_msgpack_tuple_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/detail/cpp11_define_array.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/detail/cpp11_define_array_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/detail/cpp11_define_map.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/detail/cpp11_define_map_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/detail/cpp11_msgpack_tuple.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/detail/cpp11_msgpack_tuple_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/tr1/unordered_map.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/tr1/unordered_set.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/adaptor_base.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/adaptor_base_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/array_ref.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/array_ref_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/bool.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/char_ptr.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/check_container_size.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/check_container_size_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/define.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/define_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/deque.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/ext.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/ext_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/fixint.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/fixint_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/float.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/int.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/int_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/list.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/map.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/map_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/msgpack_tuple.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/msgpack_tuple_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/nil.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/nil_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/pair.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/raw.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/raw_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/set.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/string.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/v4raw.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/v4raw_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/vector.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/vector_bool.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/vector_char.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/adaptor/vector_unsigned_char.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/detail/cpp03_zone.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/detail/cpp03_zone_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/detail/cpp11_zone.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/detail/cpp11_zone_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/cpp_config.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/cpp_config_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/fbuffer.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/fbuffer_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/iterator.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/iterator_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/meta.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/meta_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/object.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/object_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/object_fwd.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/object_fwd_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/pack.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/pack_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/preprocessor.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/sbuffer.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/sbuffer_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/type.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/unpack.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/unpack_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/version.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/versioning.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/vrefbuffer.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/vrefbuffer_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/zbuffer.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/zbuffer_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/zone.hpp
+        server_frame/include/third/msgpack/include/msgpack/v1/zone_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/boost/msgpack_variant_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/detail/cpp03_define_array_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/detail/cpp03_define_map_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/detail/cpp03_msgpack_tuple_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/detail/cpp11_define_array_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/detail/cpp11_define_map_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/detail/cpp11_msgpack_tuple_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/adaptor_base.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/adaptor_base_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/array_ref_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/check_container_size_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/define_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/ext_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/fixint_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/int_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/map_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/msgpack_tuple_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/nil_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/raw_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/adaptor/v4raw_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/detail/cpp03_zone_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/detail/cpp11_zone_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/cpp_config_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/fbuffer_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/iterator_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/meta_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/object_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/object_fwd.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/object_fwd_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/pack_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/sbuffer_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/unpack_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/vrefbuffer_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/zbuffer_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/v2/zone_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/cpp_config.hpp
+        server_frame/include/third/msgpack/include/msgpack/cpp_config_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/fbuffer.h
+        server_frame/include/third/msgpack/include/msgpack/fbuffer.hpp
+        server_frame/include/third/msgpack/include/msgpack/fbuffer_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/gcc_atomic.h
+        server_frame/include/third/msgpack/include/msgpack/iterator.hpp
+        server_frame/include/third/msgpack/include/msgpack/iterator_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/meta.hpp
+        server_frame/include/third/msgpack/include/msgpack/meta_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/object.h
+        server_frame/include/third/msgpack/include/msgpack/object.hpp
+        server_frame/include/third/msgpack/include/msgpack/object_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/object_fwd.hpp
+        server_frame/include/third/msgpack/include/msgpack/object_fwd_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/pack.h
+        server_frame/include/third/msgpack/include/msgpack/pack.hpp
+        server_frame/include/third/msgpack/include/msgpack/pack_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/pack_define.h
+        server_frame/include/third/msgpack/include/msgpack/pack_template.h
+        server_frame/include/third/msgpack/include/msgpack/predef.h
+        server_frame/include/third/msgpack/include/msgpack/preprocessor.hpp
+        server_frame/include/third/msgpack/include/msgpack/sbuffer.h
+        server_frame/include/third/msgpack/include/msgpack/sbuffer.hpp
+        server_frame/include/third/msgpack/include/msgpack/sbuffer_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/sysdep.h
+        server_frame/include/third/msgpack/include/msgpack/type.hpp
+        server_frame/include/third/msgpack/include/msgpack/unpack.h
+        server_frame/include/third/msgpack/include/msgpack/unpack.hpp
+        server_frame/include/third/msgpack/include/msgpack/unpack_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/unpack_define.h
+        server_frame/include/third/msgpack/include/msgpack/unpack_template.h
+        server_frame/include/third/msgpack/include/msgpack/util.h
+        server_frame/include/third/msgpack/include/msgpack/version.h
+        server_frame/include/third/msgpack/include/msgpack/version.hpp
+        server_frame/include/third/msgpack/include/msgpack/version_master.h
+        server_frame/include/third/msgpack/include/msgpack/versioning.hpp
+        server_frame/include/third/msgpack/include/msgpack/vrefbuffer.h
+        server_frame/include/third/msgpack/include/msgpack/vrefbuffer.hpp
+        server_frame/include/third/msgpack/include/msgpack/vrefbuffer_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/zbuffer.h
+        server_frame/include/third/msgpack/include/msgpack/zbuffer.hpp
+        server_frame/include/third/msgpack/include/msgpack/zbuffer_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack/zone.h
+        server_frame/include/third/msgpack/include/msgpack/zone.hpp
+        server_frame/include/third/msgpack/include/msgpack/zone_decl.hpp
+        server_frame/include/third/msgpack/include/msgpack.h
+        server_frame/include/third/msgpack/include/msgpack.hpp
         server_frame/include/third/nlohmann/json.hpp
         server_frame/include/third/nlohmann/json_wrap.h
         server_frame/include/third/sol/forward.hpp
@@ -582,21 +1212,16 @@ add_executable(server
         server_frame/include/third/zlib/zconf.h
         server_frame/include/third/zlib/zlib.h
         server_frame/include/third/asio.hpp
+        server_frame/include/time/cooling.h
+        server_frame/include/time/time_function.h
+        server_frame/include/time/timeutility.h
         server_frame/include/utility/basic_functions.h
         server_frame/include/utility/basic_types.h
         server_frame/include/utility/comm_macro.h
-        server_frame/include/time/cooling.h
         server_frame/include/utility/event_processor.h
-        server_frame/include/memory/ipcutility.h
-        server_frame/include/memory/object_pool.hpp
         server_frame/include/utility/profile_manager.h
-        server_frame/include/memory/shm_buff_queue.h
-        server_frame/include/memory/shm_cache_mgr.h
+        server_frame/include/utility/puid.hpp
         server_frame/include/utility/singleton.h
-        server_frame/include/string/string_functions.h
-        server_frame/include/string/stringutility.h
-        server_frame/include/time/time_function.h
-        server_frame/include/time/timeutility.h
         server_frame/include/svrlib.h
         server_frame/src/astar/astar.cpp
         server_frame/src/astar/blockallocator.cpp
@@ -617,6 +1242,7 @@ add_executable(server
         server_frame/src/dbmysql/dbmysql_statement.cpp
         server_frame/src/dbmysql/dbmysql_transaction.cpp
         server_frame/src/dbmysql/test_client.cpp
+        server_frame/src/ebus/event_bus.cpp
         server_frame/src/framework/cmdline.h
         server_frame/src/framework/exception.cpp
         server_frame/src/framework/framework.cpp
@@ -632,6 +1258,8 @@ add_executable(server
         server_frame/src/lua_service/lua_service.cpp
         server_frame/src/math/math_functions.cpp
         server_frame/src/math/rand_table.cpp
+        server_frame/src/memory/ipcutility.cpp
+        server_frame/src/memory/shm_buff_queue.cpp
         server_frame/src/modern/json_wrap.cpp
         server_frame/src/modern/tinyxml2.cpp
         server_frame/src/network/Acceptor.cpp
@@ -660,6 +1288,8 @@ add_executable(server
         server_frame/src/network/tcp_connector.cpp
         server_frame/src/network/TLock.cpp
         server_frame/src/network/TLock.h
+        server_frame/src/string/string_functions.cpp
+        server_frame/src/string/stringutility.cpp
         server_frame/src/third/lua/lapi.c
         server_frame/src/third/lua/lapi.h
         server_frame/src/third/lua/lauxlib.c
@@ -740,21 +1370,15 @@ add_executable(server
         server_frame/src/third/zlib/uncompr.c
         server_frame/src/third/zlib/zutil.c
         server_frame/src/third/zlib/zutil.h
-        server_frame/src/utility/basic_functions.cpp
         server_frame/src/time/cooling.cpp
-        server_frame/src/utility/event_processor.cpp
-        server_frame/src/memory/ipcutility.cpp
-        server_frame/src/utility/profile_manager.cpp
-        server_frame/src/memory/shm_buff_queue.cpp
-        server_frame/src/string/string_functions.cpp
-        server_frame/src/string/stringutility.cpp
         server_frame/src/time/time_function.cpp
         server_frame/src/time/timeutility.cpp
+        server_frame/src/utility/basic_functions.cpp
+        server_frame/src/utility/event_processor.cpp
+        server_frame/src/utility/profile_manager.cpp
         servers/center_server/src/center_mgr.cpp
         servers/center_server/src/center_mgr.h
         servers/center_server/src/game_server.cpp
-        servers/lobby_server/src/net/center_client.cpp
-        servers/lobby_server/src/net/center_client.h
         servers/common/src/server_connect/server_client.cpp
         servers/common/src/server_connect/server_client.h
         servers/common/src/server_connect/server_connector.cpp
@@ -784,6 +1408,8 @@ add_executable(server
         servers/lobby_server/src/client_msg/msg_client_handle.h
         servers/lobby_server/src/lua_logic/lua_logic.cpp
         servers/lobby_server/src/lua_logic/lua_logic.h
+        servers/lobby_server/src/net/center_client.cpp
+        servers/lobby_server/src/net/center_client.h
         servers/lobby_server/src/net/dbagent_client.cpp
         servers/lobby_server/src/net/dbagent_client.h
         servers/lobby_server/src/net/game_net_mgr.cpp
