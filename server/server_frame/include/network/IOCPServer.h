@@ -32,8 +32,7 @@ namespace Network {
             maxAcceptSession = 50000;
             maxHeadSize = 32;
             allocFunc = nullptr;
-            freeFunc = [](NetworkObject *p)
-            { delete p; };
+            freeFunc = [](NetworkObject *p) { delete p; };
             webSocket = false;
         }
     };
