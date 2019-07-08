@@ -1288,6 +1288,15 @@ add_executable(server
         server_frame/src/network/tcp_connector.cpp
         server_frame/src/network/TLock.cpp
         server_frame/src/network/TLock.h
+        server_frame/include/network_asio/byte_buffer.h
+        server_frame/include/network_asio/message_head.h
+        server_frame/include/network_asio/tcp_callbacks.h
+        server_frame/src/network_asio/tcp_client.cc
+        server_frame/include/network_asio/tcp_client.h
+        server_frame/src/network_asio/tcp_conn.cc
+        server_frame/include/network_asio/tcp_conn.h
+        server_frame/src/network_asio/tcp_server.cc
+        server_frame/include/network_asio/tcp_server.h
         server_frame/src/string/string_functions.cpp
         server_frame/src/string/stringutility.cpp
         server_frame/src/third/lua/lapi.c
