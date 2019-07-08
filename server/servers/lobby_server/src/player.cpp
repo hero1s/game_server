@@ -60,6 +60,23 @@ void CPlayer::OnLogin()
 
     m_loadTime = getSysTime();
     m_reloginTime = getSysTime();
+
+    //²âÊÔasioÍøÂç¿â
+    m_tcpClient = std::make_shared<TCPClient>(CApplication::Instance().GetAsioContext(), "127.0.0.1", 7788, "MYDOOP");
+    m_tcpClient->Connect();
+    m_tcpClient->SetAutoReconnect(true);
+    m_tcpClient->SetConnCallback([](const TCPConnPtr &conn) {
+        if (conn->IsConnected()) {
+            LOG_DEBUG("{}, connection accepted.",conn->GetName());
+            conn->Send("client say hello!");
+        } else if (conn->IsDisconnecting()) {
+            LOG_DEBUG("{}, connection disconnecting.",conn->GetName());
+        }
+    });
+    m_tcpClient->SetMessageCallback([](const TCPConnPtr &conn, Network::ByteBuffer &buffer) {
+        LOG_DEBUG("recv msg, {}",std::string(buffer.Data(), buffer.Size()));
+        conn->Send("client say hello!");
+    });
 }
 
 void CPlayer::OnGetAllData()

@@ -7,6 +7,9 @@
 #include "msg_define.pb.h"
 #include "ebus/frame_event.hpp"
 #include "ebus/event_bus.hpp"
+#include "network_asio/tcp_client.h"
+#include "network_asio/tcp_conn.h"
+#include "network_asio/byte_buffer.h"
 
 using namespace svrlib;
 using namespace std;
@@ -79,6 +82,7 @@ protected:
 	uint32_t                               m_netDelay;                      // 网络延迟
 	std::array<uint32_t, emLIMIT_TIME_MAX> m_limitTime;  					// 限制时间
 	ebus::HandlerRegistration* 			   m_dayEventReg;
+	std::shared_ptr<TCPClient>			   m_tcpClient = nullptr;
 };
 
 

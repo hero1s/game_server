@@ -66,7 +66,7 @@ bool CApplication::Initialize()
 
 void CApplication::ShutDown()
 {
-
+	CCenterMgr::Instance().ShutDown();
 }
 
 /**

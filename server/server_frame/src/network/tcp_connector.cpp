@@ -5,7 +5,7 @@
 #include "svrlib.h"
 
 namespace Network
-{
+	{
 CTcpConnector::CTcpConnector()
 		:m_timer(this)
 {
