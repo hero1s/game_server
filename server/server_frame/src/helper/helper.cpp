@@ -41,10 +41,8 @@ using namespace svrlib;
 
 namespace
 {
-#define  s_max_context_buf_len 1024*1024*5
-static uint8_t s_local_buff[s_max_context_buf_len];
-static uLong s_localLen = s_max_context_buf_len;
-
+	static vector<uint8_t> s_LocalVecBuff;
+	static uLong s_localLen = 0;
 };
 
 size_t CHelper::GetDirectoryFiles(std::string const& oPathDir, std::vector<std::string>& oFileNames)
@@ -332,12 +330,15 @@ std::string CHelper::ValueToIP(uint32_t ulAddr)
 int32_t CHelper::Uncompress(const char* pdata, uint32_t uLen, uint8_t** pLocalBuff)
 {
 	int32_t nRes = Z_OK;
-	s_localLen = s_max_context_buf_len;
-	nRes       = uncompress((Bytef*) s_local_buff, (uLongf*) &s_localLen, (const Bytef*) pdata, (uLong) uLen);
+	if(s_LocalVecBuff.size() < uLen*10){
+		s_LocalVecBuff.reserve(uLen*10);//解压，分配10倍空间
+	}
+	s_localLen = s_LocalVecBuff.capacity();
+	nRes       = uncompress((Bytef*) s_LocalVecBuff.data(), (uLongf*) &s_localLen, (const Bytef*) pdata, (uLong) uLen);
 	if (nRes == Z_OK)
 	{
 		//LOG_DEBUG("uncompress data context size:{}--->{}", uLen, s_localLen);
-		*pLocalBuff = s_local_buff;
+		*pLocalBuff = s_LocalVecBuff.data();
 	}
 	else
 	{
@@ -351,12 +352,15 @@ int32_t CHelper::Compress(const char* pData, uint32_t size, uint8_t** pLocalBuff
 {
 	int32_t nRes    = Z_OK;
 	uLong destLen = size;
-	s_localLen = s_max_context_buf_len;
-	nRes       = compress((Bytef*) s_local_buff, (uLongf*) &s_localLen, (const Bytef*) pData, (uLong) destLen);
+	if(s_LocalVecBuff.size() < size*2){
+		s_LocalVecBuff.reserve(size*2);//压缩，分配2倍空间
+	}
+	s_localLen = s_LocalVecBuff.capacity();
+	nRes       = compress((Bytef*) s_LocalVecBuff.data(), (uLongf*) &s_localLen, (const Bytef*) pData, (uLong) destLen);
 	if (nRes == Z_OK)
 	{
 		//LOG_DEBUG("compress data context size:{} --->{}", size, s_localLen);
-		*pLocalBuff = s_local_buff;
+		*pLocalBuff = s_LocalVecBuff.data();
 	}
 	else
 	{
