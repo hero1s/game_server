@@ -34,7 +34,7 @@ bool CCenterMgr::Init() {
     });
     m_tcpServer->SetMessageCallback([](const NetworkAsio::TCPConnPtr &conn, NetworkAsio::ByteBuffer &buffer) {
         LOG_DEBUG("recv msg {}", std::string(buffer.Data(), buffer.Size()));
-        conn->Send("server say hello!");
+        //conn->Send("server say hello!");
     });
     m_tcpServer->Start();
 
