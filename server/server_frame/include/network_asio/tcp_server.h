@@ -7,9 +7,12 @@
 #include <unordered_map>
 #include <asio/ip/tcp.hpp>
 #include <asio.hpp>
+#include <asio/steady_timer.hpp>
 #include "tcp_callbacks.h"
 
+using asio::steady_timer;
 using asio::ip::tcp;
+
 namespace NetworkAsio {
     class TCPServer {
     public:
@@ -36,6 +39,8 @@ namespace NetworkAsio {
 
         void HandleNewConn(tcp::socket &&socket);
 
+        void HeartBeatTimer();
+
     private:
         asio::io_service &io_service_;  // the listening loop
         tcp::acceptor acceptor_;
@@ -50,6 +55,9 @@ namespace NetworkAsio {
         uint64_t next_conn_id_;
         typedef std::unordered_map<std::string, TCPConnPtr> ConnectionMap;
         ConnectionMap conns_;
+
+        steady_timer heartbeat_timer_;
+        uint32_t disconnect_time_;
     };
 };
 
