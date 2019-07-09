@@ -9,6 +9,10 @@
 #include "packet/inner_protobuf_pkg.h"
 #include "servers_msg.pb.h"
 
+#include "network_asio/tcp_client.h"
+#include "network_asio/tcp_conn.h"
+#include "network_asio/byte_buffer.h"
+
 using namespace std;
 using namespace svrlib;
 using namespace Network;
@@ -44,7 +48,7 @@ protected:
 // 服务器连接
 class CServerClient {
 public:
-    CServerClient(const net::svr::server_info &info, NetworkObject *pNetObj);
+    CServerClient(const net::svr::server_info &info, NetworkAsio::TCPConnPtr connPtr);
 
     virtual ~CServerClient();
 
@@ -52,7 +56,7 @@ public:
 
     void SendMsg(const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin);
 
-    NetworkObject *GetNetObj();
+    NetworkAsio::TCPConnPtr GetNetObj();
 
     uint16_t GetSvrID();
 
@@ -64,7 +68,8 @@ public:
 
 public:
     net::svr::server_info m_info;
-    NetworkObject *m_pNetObj;
+    //NetworkObject *m_pNetObj;
+    NetworkAsio::TCPConnPtr m_connPtr = nullptr;
 };
 
 // 服务器连接管理
@@ -80,11 +85,11 @@ public:
 
     virtual void ShutDown();
 
-    bool AddServer(NetworkObject *pNetObj, const net::svr::server_info &info);
+    bool AddServer(NetworkAsio::TCPConnPtr connPtr, const net::svr::server_info &info);
 
-    void RemoveServer(NetworkObject *pNetObj);
+    void RemoveServer(NetworkAsio::TCPConnPtr connPtr);
 
-    shared_ptr<CServerClient> GetServerBySocket(NetworkObject *pNetObj);
+    shared_ptr<CServerClient> GetServerBySocket(NetworkAsio::TCPConnPtr connPtr);
 
     shared_ptr<CServerClient> GetServerBySvrID(uint16_t svrID);
 

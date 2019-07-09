@@ -74,6 +74,10 @@ namespace NetworkAsio {
 
         std::string GetName() const { return name_; }
 
+        void SetUID(uint32_t id) { uid_ = id; }
+
+        uint32_t GetUID() { return uid_; }
+
     protected:
         void HandleClose();
 
@@ -98,6 +102,7 @@ namespace NetworkAsio {
         Type type_;
         Status status_;
         std::string name_;
+        uint32_t uid_;
 
         tcp::endpoint local_ep_;
         tcp::endpoint remote_ep_;

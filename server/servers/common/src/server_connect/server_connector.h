@@ -10,6 +10,10 @@
 #include "network/tcp_connector.h"
 #include "servers_msg.pb.h"
 
+#include "network_asio/tcp_client.h"
+#include "network_asio/tcp_conn.h"
+#include "network_asio/byte_buffer.h"
+
 using namespace std;
 using namespace svrlib;
 using namespace Network;
@@ -59,9 +63,9 @@ public:
 
     void RegisterRep(uint16_t svrid, bool rep);
 
-    void OnConnect(bool bSuccess, CSvrConnectorNetObj* pNetObj);
+    void OnConnect(bool bSuccess, NetworkAsio::TCPConnPtr connPtr);
 
-    void OnCloseClient(CSvrConnectorNetObj* pNetObj);
+    void OnCloseClient(NetworkAsio::TCPConnPtr connPtr);
 
     bool IsRun();
 
@@ -79,11 +83,12 @@ protected:
 
 private:
     MemberTimerEvent<CSvrConnectorMgr, &CSvrConnectorMgr::OnTimer> m_timer;
-    CSvrConnectorNetObj* m_pNetObj;
+    //CSvrConnectorNetObj* m_pNetObj;
     bool m_isRun;
     net::svr::server_info m_curSvrInfo;
     std::unordered_map<uint16_t,net::svr::server_info> m_allSvrList;
 
+    std::shared_ptr<NetworkAsio::TCPClient> m_tcpClient = nullptr;
 };
 
 
