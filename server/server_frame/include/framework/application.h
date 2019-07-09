@@ -8,17 +8,15 @@
 #include "network/IOCPServer.h"
 #include "sol/sol.hpp"
 #include <memory>
-#include <unordered_map>
-#include <string>
+#include <map>
 #include "asio.hpp"
 #include "lua_service/lua_service.h"
 #include "ebus/event_bus.hpp"
-#include "network_asio/tcp_server.h"
 
 using namespace std;
 using namespace Network;
 
-extern int FrameworkMain(int argc, char *argv[]);
+extern int FrameworkMain(int argc, char* argv[]);
 
 class CApplication : public ebus::Object, public AutoDeleteSingleton<CApplication> {
 public:
@@ -45,24 +43,23 @@ public:
     uint8_t GetStatus();
 
     //定时器
-    void schedule(TimerEventInterface *event, uint64_t delta);
+    void schedule(TimerEventInterface* event, uint64_t delta);
 
-    void schedule_in_range(TimerEventInterface *event, uint64_t start, uint64_t end);
+    void schedule_in_range(TimerEventInterface* event, uint64_t start, uint64_t end);
 
     //网络模块
-    IOCPServer &GetIOCPServer();
+    IOCPServer& GetIOCPServer();
 
     //获得sol模块
-    sol::state &GetSolLuaState();
+    sol::state& GetSolLuaState();
 
-    asio::io_context &GetAsioContext();
+    asio::io_context& GetAsioContext();
 
     //获取lua_service
-    svrlib::lua_service *GetLuaService();
+    svrlib::lua_service* GetLuaService();
 
 private:
     void CheckNewDayEvent();
-
     void InitWheelPrecision(uint32_t precision);
 
 public:
@@ -87,8 +84,8 @@ private:
     IOCPServer m_iocpServer;          // 网络服务模块
     sol::state m_solLua;              // sol lua模块
     asio::io_context m_ioContext;
-    svrlib::lua_service *m_luaService;// lua server
-    std::unordered_map<std::string, std::shared_ptr<NetworkAsio::TCPServer>> m_asioTcpServers;
+    svrlib::lua_service* m_luaService;         // lua server
+
 };
 
 
