@@ -29,8 +29,6 @@ namespace NetworkAsio {
             return acceptor_.local_endpoint().address().to_string();
         }
 
-        void StopInLoop();
-
         void RemoveConn(const TCPConnPtr &conn);
 
     protected:

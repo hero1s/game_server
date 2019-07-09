@@ -14,8 +14,8 @@ namespace NetworkAsio {
     }
 
     TCPServer::~TCPServer() {
-        assert(conns_.empty());
-        assert(!acceptor_.is_open());
+        //assert(conns_.empty());
+        //assert(!acceptor_.is_open());
     }
 
     bool TCPServer::Start() {
@@ -24,20 +24,13 @@ namespace NetworkAsio {
     }
 
     void TCPServer::Stop() {
-        StopInLoop();
-    }
-
-    void TCPServer::StopInLoop() {
         asio::error_code ec;
         acceptor_.close(ec);
-
         for (auto &c : conns_) {
             c.second->Close();
         }
-
         closed_ = true;
     }
-
 
     void TCPServer::RemoveConn(const TCPConnPtr &conn) {
         // Remove the connection in the listening EventLoop

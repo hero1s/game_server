@@ -149,7 +149,6 @@ namespace NetworkAsio {
         if (recv_buffer_.Size() >= sizeof(message_head)) {
             message_head *head = (message_head *) recv_buffer_.ReadBegin();
             if (recv_buffer_.Size() >= head->length_ + sizeof(message_head)) {
-                //crc32 to do
                 std::shared_ptr<MessageBuffer> msg = CreateMessage(recv_buffer_.ReadBegin() + sizeof(message_head),
                                                                    head->length_);
                 recv_buffer_.ReadBytes(head->length_ + sizeof(message_head));

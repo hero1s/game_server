@@ -59,16 +59,23 @@ CApplication::~CApplication() {
 bool CApplication::PreInit() {
     lua_bind bind(m_solLua);
     bind.export_lua_bind();
-    
+
     return true;
 }
 
-bool CApplication::OverPreInit(){
+bool CApplication::OverPreInit() {
     SOL_CALL_LUA(m_solLua["init_lua_service"](m_luaService));
+
     return true;
 }
 
 void CApplication::OverShutDown() {
+
+    for (auto &iter:m_asioTcpServers) {
+        iter.second->Stop();
+    }
+    m_asioTcpServers.clear();
+
     m_iocpServer.Shutdown();
     spdlog::drop_all();
 }
@@ -86,8 +93,8 @@ uint64_t CApplication::PreTick() {
     int64_t delta = curTime - m_lastTick;
     if (delta > 0) {
         m_wheelTime += delta;
-        m_timers.advance(m_wheelTime/m_wheelPrecision);
-        m_wheelTime = m_wheelTime%m_wheelPrecision;
+        m_timers.advance(m_wheelTime / m_wheelPrecision);
+        m_wheelTime = m_wheelTime % m_wheelPrecision;
         m_lastTick = curTime;
     }
     m_iocpServer.Update();
@@ -114,11 +121,11 @@ uint8_t CApplication::GetStatus() {
 }
 
 void CApplication::schedule(TimerEventInterface *event, uint64_t delta) {
-    m_timers.schedule(event, delta/m_wheelPrecision);
+    m_timers.schedule(event, delta / m_wheelPrecision);
 }
 
 void CApplication::schedule_in_range(TimerEventInterface *event, uint64_t start, uint64_t end) {
-    m_timers.schedule_in_range(event, start/m_wheelPrecision, end/m_wheelPrecision);
+    m_timers.schedule_in_range(event, start / m_wheelPrecision, end / m_wheelPrecision);
 }
 
 //网络模块
@@ -134,12 +141,14 @@ sol::state &CApplication::GetSolLuaState() {
 asio::io_context &CApplication::GetAsioContext() {
     return m_ioContext;
 }
+
 //获取lua_service
-svrlib::lua_service* CApplication::GetLuaService(){
+svrlib::lua_service *CApplication::GetLuaService() {
     return m_luaService;
 }
+
 //----检测日期变更---
-void CApplication::CheckNewDayEvent(){
+void CApplication::CheckNewDayEvent() {
     static uint64_t uProcessTime = 0;
     uint64_t uTime = getSysTime();
     if (!uProcessTime)
@@ -162,12 +171,13 @@ void CApplication::CheckNewDayEvent(){
                 bNewMonth = true;
             }
 
-            ebus::NewDayEvent ev(*this,bNewWeek,bNewMonth);
+            ebus::NewDayEvent ev(*this, bNewWeek, bNewMonth);
             ebus::EventBus::FireEvent(ev);
         }
         uProcessTime = uTime;
     }
 }
-void CApplication::InitWheelPrecision(uint32_t precision){
+
+void CApplication::InitWheelPrecision(uint32_t precision) {
     m_wheelPrecision = precision > 1 ? precision : 1;
 }
