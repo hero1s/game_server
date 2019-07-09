@@ -30,7 +30,8 @@ bool CApplication::Initialize()
 	LOG_INFO("load config is:id:{}", m_uiServerID);
 	do
 	{
-		/*stIOHANDLER_DESC desc;
+
+		stIOHANDLER_DESC desc;
 		desc.ioHandlerKey       = 0;
 		desc.maxConnectBuffSize = SERVER_SOCKET_BUFF_SIZE;
 		desc.sendBufferSize     = SERVER_SOCKET_BUFF_SIZE;
@@ -43,31 +44,13 @@ bool CApplication::Initialize()
 		{
 			LOG_ERROR("IOCP Init fail");
 			return false;
-		}*/
+		}
 		auto centerIp = m_solLua.get<sol::table>("server_config").get<sol::table>("center");
 		if (!m_iocpServer.StartListen(0, "0.0.0.0", centerIp.get<int>("port")))
 		{
 			LOG_ERROR("IOCP SERVER StartListen fail {}", centerIp.get<int>("port"));
 			return false;
 		}
-
-		auto tcpServer = std::make_shared<NetworkAsio::TCPServer>(CApplication::Instance().GetAsioContext(), "0.0.0.0", centerIp.get<int>("port"), "centerServer");
-		tcpServer->SetConnectionCallback([](const NetworkAsio::TCPConnPtr &conn) {
-			if (conn->IsConnected()) {
-				LOG_DEBUG("{}, connection accepted.", conn->GetName());
-
-			} else if (conn->IsDisconnecting()) {
-				LOG_DEBUG("{}, connection disconnecting.", conn->GetName());
-				CCenterMgr::Instance().RemoveServer(conn)
-			}
-		});
-		tcpServer->SetMessageCallback([](const NetworkAsio::TCPConnPtr &conn, NetworkAsio::ByteBuffer &buffer) {
-			LOG_DEBUG("recv msg {}", std::string(buffer.Data(), buffer.Size()));
-			//conn->Send("server say hello!");
-			CCenterMgr::Instance().OnHandleClientMsg(conn,buffer.Data(),buffer.Size());
-		});
-		tcpServer->Start();
-		m_asioTcpServers.insert(make_pair(tcpServer->Address(),tcpServer));
 
 	} while (false);
 	if (CCenterMgr::Instance().Init() == false)

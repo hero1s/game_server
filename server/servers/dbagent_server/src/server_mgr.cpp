@@ -41,7 +41,7 @@ int CServerMgr::handle_load_player_data() {
     LOG_DEBUG("load player data:{}--{}", msg.uid(), msg.data_type());
     uint32_t uid = msg.uid();
     uint32_t dataType = msg.data_type();
-    uint32_t sid = _connPtr->GetUID();
+    uint32_t sid = _pNetObj->GetUID();
     if(dataType >= emACCDATA_TYPE_MAX){
         LOG_ERROR("player data type more than max type:{}",dataType);
         return 0;
