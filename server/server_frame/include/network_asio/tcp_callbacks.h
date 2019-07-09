@@ -5,7 +5,7 @@
 #include <functional>
 #include "byte_buffer.h"
 
-namespace Network {
+namespace NetworkAsio {
     class TCPConn;
 
     typedef std::shared_ptr<TCPConn> TCPConnPtr;

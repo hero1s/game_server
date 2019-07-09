@@ -28,7 +28,7 @@ public:
 
     virtual void ShutDown();
 private:
-    std::shared_ptr<TCPServer> m_tcpServer = nullptr;
+    std::shared_ptr<NetworkAsio::TCPServer> m_tcpServer = nullptr;
 
 };
 

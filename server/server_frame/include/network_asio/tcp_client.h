@@ -13,7 +13,7 @@
 
 using asio::steady_timer;
 using asio::ip::tcp;
-namespace Network {
+namespace NetworkAsio {
 	class TCPClient {
 	public:
 		TCPClient(asio::io_service &service_, const std::string &remote_addr, uint16_t port, const std::string &name);

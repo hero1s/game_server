@@ -3,7 +3,7 @@
 #include "network_asio/tcp_conn.h"
 #include <assert.h>
 
-namespace Network {
+namespace NetworkAsio {
     static const int default_max_reconnect_time = 5000;
 
     TCPClient::TCPClient(asio::io_service &service_, const std::string &remote_addr, uint16_t port,

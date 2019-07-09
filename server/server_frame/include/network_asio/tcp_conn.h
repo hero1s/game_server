@@ -9,7 +9,7 @@
 
 using asio::ip::tcp;
 using asio::ip::address;
-namespace Network {
+namespace NetworkAsio {
     class TCPConn
             : public std::enable_shared_from_this<TCPConn> {
     public:

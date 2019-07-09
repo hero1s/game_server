@@ -3,7 +3,7 @@
 #include "network_asio/tcp_conn.h"
 #include <assert.h>
 
-namespace Network {
+namespace NetworkAsio {
     using asio::ip::address;
 
     TCPServer::TCPServer(asio::io_service &service_, const std::string &bind_ip, uint16_t port, const std::string &name)

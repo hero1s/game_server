@@ -10,7 +10,7 @@
 #include "tcp_callbacks.h"
 
 using asio::ip::tcp;
-namespace Network {
+namespace NetworkAsio {
     class TCPServer {
     public:
         TCPServer(asio::io_service &service_, const std::string &bind_ip, uint16_t port, const std::string &name);

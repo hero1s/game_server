@@ -15,7 +15,7 @@ set(CMAKE_CXX_COMPILER "g++")
 
 #set( WITH_WARNINGS 1)
 set(LESS_WARNINGS 1)
-set(RELEASE 1)
+set(RELEASE 0)
 #set( WITH_COREDEBUG 1)
 
 #set( CMAKE_BUILD_TYPE "Debug" )

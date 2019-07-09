@@ -15,6 +15,7 @@ set(CMAKE_CXX_COMPILER "g++")
 
 #set( WITH_WARNINGS 1)
 set(LESS_WARNINGS 1)
+set(RELEASE 0)
 #set( WITH_COREDEBUG 1)
 
 set( WITH_GPROF 0)
@@ -35,6 +36,12 @@ add_definitions(-fno-delete-null-pointer-checks)
 add_definitions(-Wl,--no-as-needed)
 #  π”√asioø‚
 add_definitions(-DASIO_STANDALONE)
+
+# πÿ±’DEBUG
+if (RELEASE)
+    add_definitions(-DNDEBUG)
+    add_definitions(-DUSE_PROFILE)
+endif()
 
 if (CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "-std=c++17 ${CMAKE_CXX_FLAGS}")

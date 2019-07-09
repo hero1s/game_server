@@ -16,73 +16,77 @@ using namespace std;
 using namespace net;
 using namespace Network;
 
-class CPlayer : public CPlayerBase, public ebus::EventHandler<ebus::NewDayEvent>
-{
-	enum LIMIT_TIME
-	{
-	  emLIMIT_TIME_NETDELAY,
-	  emLIMIT_TIME_MAX,
-	};
+class CPlayer : public CPlayerBase, public ebus::EventHandler<ebus::NewDayEvent> {
+    enum LIMIT_TIME {
+        emLIMIT_TIME_NETDELAY,
+        emLIMIT_TIME_MAX,
+    };
 public:
-	CPlayer(uint8_t type);
+    CPlayer(uint8_t type);
 
-	virtual ~CPlayer();
+    virtual ~CPlayer();
 
-	virtual void OnLoginOut();
+    virtual void OnLoginOut();
 
-	virtual void OnLogin();
+    virtual void OnLogin();
 
-	virtual void OnGetAllData();
+    virtual void OnGetAllData();
 
-	virtual void ReLogin();
+    virtual void ReLogin();
 
-	virtual void OnTimeTick(uint64_t uTime, bool bNewDay);
+    virtual void OnTimeTick(uint64_t uTime, bool bNewDay);
 
-	virtual void onEvent(ebus::NewDayEvent & e) override;
+    virtual void onEvent(ebus::NewDayEvent &e) override;
 
-	// 是否需要回收
-	virtual bool NeedRecover();
-	bool CanModifyData();
+    // 是否需要回收
+    virtual bool NeedRecover();
 
-	//--- 每日清理
-	void DailyCleanup(int32_t iOfflineDay);
+    bool CanModifyData();
 
-	//--- 每周清理
-	void WeeklyCleanup();
+    //--- 每日清理
+    void DailyCleanup(int32_t iOfflineDay);
 
-	//--- 每月清理
-	void MonthlyCleanup();
+    //--- 每周清理
+    void WeeklyCleanup();
 
-	// 信息同步
-	void NotifyEnterGame();
+    //--- 每月清理
+    void MonthlyCleanup();
 
-	void NotifyLoginOut(uint32_t code, string deviceid = "");
+    // 信息同步
+    void NotifyEnterGame();
 
-	bool SendAllPlayerData2Client();
+    void NotifyLoginOut(uint32_t code, string deviceid = "");
 
-	bool SendAccData2Client();
+    bool SendAllPlayerData2Client();
 
-	bool UpdateAccValue2Client();
-	// 构建初始化
-	void BuildInit();
+    bool SendAccData2Client();
+
+    bool UpdateAccValue2Client();
+
+    // 构建初始化
+    void BuildInit();
+
 public:
-	// 获得relogin时间
-	uint32_t GetReloginTime();
-	// 网络延迟
-	uint32_t GetNetDelay();
-	bool SetNetDelay(uint32_t netDelay);
-protected:
-	// 保存数据
-	void SavePlayerBaseInfo();
+    // 获得relogin时间
+    uint32_t GetReloginTime();
+
+    // 网络延迟
+    uint32_t GetNetDelay();
+
+    bool SetNetDelay(uint32_t netDelay);
 
 protected:
-	uint32_t                               m_disconnectTime;                // 断线时间
-	uint32_t                               m_reloginTime;                   // 上次重连时间(限制可能的bug导致频繁重连)
-	uint32_t                               m_loadTime;                      // 加载数据时间
-	uint32_t                               m_netDelay;                      // 网络延迟
-	std::array<uint32_t, emLIMIT_TIME_MAX> m_limitTime;  					// 限制时间
-	ebus::HandlerRegistration* 			   m_dayEventReg;
-	std::shared_ptr<TCPClient>			   m_tcpClient = nullptr;
+    // 保存数据
+    void SavePlayerBaseInfo();
+
+protected:
+    uint32_t m_disconnectTime;                // 断线时间
+    uint32_t m_reloginTime;                   // 上次重连时间(限制可能的bug导致频繁重连)
+    uint32_t m_loadTime;                      // 加载数据时间
+    uint32_t m_netDelay;                      // 网络延迟
+    std::array<uint32_t, emLIMIT_TIME_MAX> m_limitTime;                    // 限制时间
+    ebus::HandlerRegistration *m_dayEventReg;
+    std::shared_ptr<NetworkAsio::TCPClient> m_tcpClient = nullptr;
 };
 
 

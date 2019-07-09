@@ -1,7 +1,7 @@
 
 #pragma once
 
-namespace Network {
+namespace NetworkAsio {
 // 4 + 1 + 1 + 4 = 10
 	struct message_head {
 		message_head() : length_(0), compress_(0), crypto_(0), crc32_(0) {}
