@@ -20,9 +20,11 @@ namespace svrlib {
 
         void registerlib(const char *name, const sol::table &);
 
-        void add_lua_cpath(std::vector<std::string> &cpaths);
+        void add_lua_cpath(std::vector<std::string> cpaths);
 
-        void add_lua_path(std::vector<std::string> &paths);
+        void add_lua_path(std::vector<std::string> paths);
+
+        void add_lua_dir_path(std::string dirPath);
 
         void reload_lua_file(std::string fileName);
 

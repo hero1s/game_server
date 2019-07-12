@@ -44,7 +44,7 @@ namespace svrlib {
         lua_pop(L, 2); /* pop 'package' and 'preload' tables */
     }
 
-    void lua_bind::add_lua_cpath(std::vector<std::string> &cpaths) {
+    void lua_bind::add_lua_cpath(std::vector<std::string> cpaths) {
         cpaths.emplace_back("./clib");
         std::string strpath;
         strpath.append("package.cpath ='");
@@ -57,7 +57,7 @@ namespace svrlib {
         LOG_DEBUG("add lua cpath:{}", strpath);
     }
 
-    void lua_bind::add_lua_path(std::vector<std::string> &paths) {
+    void lua_bind::add_lua_path(std::vector<std::string> paths) {
         paths.emplace_back("./lualib");
         std::string strpath;
         strpath.append("package.path ='");
@@ -68,6 +68,15 @@ namespace svrlib {
         strpath.append("'..package.path");
         lua.script(strpath);
         LOG_DEBUG("add lua path:{}", strpath);
+    }
+
+    void lua_bind::add_lua_dir_path(std::string dirPath){
+        directory::traverse_folder(dirPath,10,[this](const fs::path& path,bool dir){
+            if(dir){
+                LOG_DEBUG("file path dir is:{}",path.c_str());
+                this->add_lua_path({path.c_str()});
+            }
+        });
     }
 
     void lua_bind::reload_lua_file(std::string fileName) {

@@ -1,0 +1,9 @@
+list {
+  id: 1
+  roleID: 10020101
+  passID: 10010001
+  res {
+    resID: 0
+    resNum: 0
+  }
+}

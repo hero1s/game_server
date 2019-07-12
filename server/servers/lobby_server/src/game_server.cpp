@@ -18,6 +18,7 @@
 #include "player_mgr.h"
 #include "redis_mgr.h"
 #include "player.h"
+#include "lua_service/lua_bind.h"
 
 #include "aoi/scene.h"
 
@@ -29,7 +30,12 @@ bool CApplication::Initialize() {
     defLuaLogic(m_solLua);
 
     // º”‘ÿlua ≈‰÷√
-    SOL_CALL_LUA(m_solLua["load_logic_script"]());
+    auto lubBind = lua_bind(m_solLua);
+    lubBind.add_lua_cpath({"./clualib/"});
+    lubBind.add_lua_path({"./lualib/","./lua/","./scp_lua/"});
+
+    lubBind.reload_lua_dir("./lua/");
+    //SOL_CALL_LUA(m_solLua["load_logic_script"]());
     bool bRet = m_solLua["lobby_config"](m_uiServerID, &GameServerConfig::Instance());
     if (bRet == false) {
         LOG_ERROR("load lobby_config fail ");
@@ -130,7 +136,11 @@ void CApplication::ConfigurationChanged() {
     LOG_INFO("configuration changed");
     CDataCfgMgr::Instance().Reload();
 
-    SOL_CALL_LUA(m_solLua["load_logic_script"]());
+    //SOL_CALL_LUA(m_solLua["load_logic_script"]());
+
+    auto lubBind = lua_bind(m_solLua);
+    lubBind.reload_lua_dir("./lua/");
+
 }
 
 void CApplication::Tick(uint64_t diffTime) {
