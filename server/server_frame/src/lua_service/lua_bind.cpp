@@ -70,28 +70,36 @@ namespace svrlib {
         LOG_DEBUG("add lua path:{}", strpath);
     }
 
-    void lua_bind::add_lua_dir_path(std::string dirPath){
-        directory::traverse_folder(dirPath,10,[this](const fs::path& path,bool dir){
-            if(dir){
-                LOG_DEBUG("file path dir is:{}",path.c_str());
-                this->add_lua_path({path.c_str()});
+    void lua_bind::add_lua_dir_path(std::string dirPath) {
+        LOG_DEBUG("add root path:{}", fs::current_path().root_path().c_str());
+        directory::traverse_folder(dirPath, 10, [this](const fs::path &path, bool dir) {
+            if (dir) {
+                LOG_DEBUG("file path dir is:{}", path.relative_path().c_str());
+                this->add_lua_path({path.relative_path()});
             }
+            return true;
         });
     }
 
     void lua_bind::reload_lua_file(std::string fileName) {
-        std::string reloadStr = CStringUtility::FormatToString("package.loaded[%s] = nil;require(%s);",
-                                                               fileName.c_str(), fileName.c_str());
-        lua.script(reloadStr);
         LOG_DEBUG("reload lua file:{}", fileName);
+        lua.script_file(fileName);
+
+        //std::string reloadStr = CStringUtility::FormatToString("package.loaded[%s] = nil;require(%s);",
+        //                                                       fileName.c_str(), fileName.c_str());
+        //lua.script(reloadStr);
     }
 
-    void lua_bind::reload_lua_dir(std::string dirPath){
-        directory::traverse_folder(dirPath,10,[this](const fs::path& path,bool dir){
-            if(!dir){
-                LOG_DEBUG("file path is:{}",path.c_str());
-                this->reload_lua_file(path);
+    void lua_bind::reload_lua_dir(std::string dirPath) {
+        LOG_DEBUG("reload root path:{}", fs::current_path().root_path().c_str());
+        directory::traverse_folder(dirPath, 10, [this](const fs::path &path, bool dir) {
+            if (!dir) {
+                if (path.extension() == ".lua") {
+                    LOG_DEBUG("file path is:{}", path.relative_path().c_str());
+                    this->reload_lua_file(path.relative_path());
+                }
             }
+            return true;
         });
     }
 

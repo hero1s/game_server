@@ -31,10 +31,10 @@ bool CApplication::Initialize() {
 
     // º”‘ÿlua ≈‰÷√
     auto lubBind = lua_bind(m_solLua);
-    lubBind.add_lua_cpath({"./clualib/"});
-    lubBind.add_lua_path({"./lualib/","./lua/","./scp_lua/"});
+    lubBind.add_lua_cpath({"clualib"});
+    lubBind.add_lua_path({"lualib","lua","scp_lua"});
 
-    lubBind.reload_lua_dir("./lua/");
+    lubBind.reload_lua_dir("lua");
     //SOL_CALL_LUA(m_solLua["load_logic_script"]());
     bool bRet = m_solLua["lobby_config"](m_uiServerID, &GameServerConfig::Instance());
     if (bRet == false) {

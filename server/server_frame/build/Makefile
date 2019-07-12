@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /data/server_asio_frame/build
+CMAKE_SOURCE_DIR = /root/server/server_frame/build
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /data/server_asio_frame/build
+CMAKE_BINARY_DIR = /root/server/server_frame/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -72,9 +72,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /data/server_asio_frame/build/CMakeFiles /data/server_asio_frame/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/server/server_frame/build/CMakeFiles /root/server/server_frame/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /data/server_asio_frame/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/server/server_frame/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -114,2477 +114,2621 @@ svrlib/fast:
 	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/build
 .PHONY : svrlib/fast
 
-data/server_asio_frame/src/config/config.o: data/server_asio_frame/src/config/config.cpp.o
-.PHONY : data/server_asio_frame/src/config/config.o
+root/server/server_frame/src/astar/astar.o: root/server/server_frame/src/astar/astar.cpp.o
+.PHONY : root/server/server_frame/src/astar/astar.o
 
 # target to build an object file
-data/server_asio_frame/src/config/config.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/config/config.cpp.o
-.PHONY : data/server_asio_frame/src/config/config.cpp.o
+root/server/server_frame/src/astar/astar.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/astar/astar.cpp.o
+.PHONY : root/server/server_frame/src/astar/astar.cpp.o
 
-data/server_asio_frame/src/config/config.i: data/server_asio_frame/src/config/config.cpp.i
-.PHONY : data/server_asio_frame/src/config/config.i
+root/server/server_frame/src/astar/astar.i: root/server/server_frame/src/astar/astar.cpp.i
+.PHONY : root/server/server_frame/src/astar/astar.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/config/config.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/config/config.cpp.i
-.PHONY : data/server_asio_frame/src/config/config.cpp.i
+root/server/server_frame/src/astar/astar.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/astar/astar.cpp.i
+.PHONY : root/server/server_frame/src/astar/astar.cpp.i
 
-data/server_asio_frame/src/config/config.s: data/server_asio_frame/src/config/config.cpp.s
-.PHONY : data/server_asio_frame/src/config/config.s
+root/server/server_frame/src/astar/astar.s: root/server/server_frame/src/astar/astar.cpp.s
+.PHONY : root/server/server_frame/src/astar/astar.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/config/config.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/config/config.cpp.s
-.PHONY : data/server_asio_frame/src/config/config.cpp.s
+root/server/server_frame/src/astar/astar.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/astar/astar.cpp.s
+.PHONY : root/server/server_frame/src/astar/astar.cpp.s
 
-data/server_asio_frame/src/config/csvreader.o: data/server_asio_frame/src/config/csvreader.cpp.o
-.PHONY : data/server_asio_frame/src/config/csvreader.o
+root/server/server_frame/src/astar/blockallocator.o: root/server/server_frame/src/astar/blockallocator.cpp.o
+.PHONY : root/server/server_frame/src/astar/blockallocator.o
 
 # target to build an object file
-data/server_asio_frame/src/config/csvreader.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/config/csvreader.cpp.o
-.PHONY : data/server_asio_frame/src/config/csvreader.cpp.o
+root/server/server_frame/src/astar/blockallocator.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/astar/blockallocator.cpp.o
+.PHONY : root/server/server_frame/src/astar/blockallocator.cpp.o
 
-data/server_asio_frame/src/config/csvreader.i: data/server_asio_frame/src/config/csvreader.cpp.i
-.PHONY : data/server_asio_frame/src/config/csvreader.i
+root/server/server_frame/src/astar/blockallocator.i: root/server/server_frame/src/astar/blockallocator.cpp.i
+.PHONY : root/server/server_frame/src/astar/blockallocator.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/config/csvreader.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/config/csvreader.cpp.i
-.PHONY : data/server_asio_frame/src/config/csvreader.cpp.i
+root/server/server_frame/src/astar/blockallocator.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/astar/blockallocator.cpp.i
+.PHONY : root/server/server_frame/src/astar/blockallocator.cpp.i
 
-data/server_asio_frame/src/config/csvreader.s: data/server_asio_frame/src/config/csvreader.cpp.s
-.PHONY : data/server_asio_frame/src/config/csvreader.s
+root/server/server_frame/src/astar/blockallocator.s: root/server/server_frame/src/astar/blockallocator.cpp.s
+.PHONY : root/server/server_frame/src/astar/blockallocator.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/config/csvreader.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/config/csvreader.cpp.s
-.PHONY : data/server_asio_frame/src/config/csvreader.cpp.s
+root/server/server_frame/src/astar/blockallocator.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/astar/blockallocator.cpp.s
+.PHONY : root/server/server_frame/src/astar/blockallocator.cpp.s
 
-data/server_asio_frame/src/crypt/aes.o: data/server_asio_frame/src/crypt/aes.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/aes.o
+root/server/server_frame/src/config/csvreader.o: root/server/server_frame/src/config/csvreader.cpp.o
+.PHONY : root/server/server_frame/src/config/csvreader.o
 
 # target to build an object file
-data/server_asio_frame/src/crypt/aes.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/aes.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/aes.cpp.o
+root/server/server_frame/src/config/csvreader.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/config/csvreader.cpp.o
+.PHONY : root/server/server_frame/src/config/csvreader.cpp.o
 
-data/server_asio_frame/src/crypt/aes.i: data/server_asio_frame/src/crypt/aes.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/aes.i
+root/server/server_frame/src/config/csvreader.i: root/server/server_frame/src/config/csvreader.cpp.i
+.PHONY : root/server/server_frame/src/config/csvreader.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/crypt/aes.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/aes.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/aes.cpp.i
+root/server/server_frame/src/config/csvreader.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/config/csvreader.cpp.i
+.PHONY : root/server/server_frame/src/config/csvreader.cpp.i
 
-data/server_asio_frame/src/crypt/aes.s: data/server_asio_frame/src/crypt/aes.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/aes.s
+root/server/server_frame/src/config/csvreader.s: root/server/server_frame/src/config/csvreader.cpp.s
+.PHONY : root/server/server_frame/src/config/csvreader.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/crypt/aes.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/aes.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/aes.cpp.s
+root/server/server_frame/src/config/csvreader.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/config/csvreader.cpp.s
+.PHONY : root/server/server_frame/src/config/csvreader.cpp.s
 
-data/server_asio_frame/src/crypt/blowFish.o: data/server_asio_frame/src/crypt/blowFish.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/blowFish.o
+root/server/server_frame/src/crypt/aes.o: root/server/server_frame/src/crypt/aes.cpp.o
+.PHONY : root/server/server_frame/src/crypt/aes.o
 
 # target to build an object file
-data/server_asio_frame/src/crypt/blowFish.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/blowFish.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/blowFish.cpp.o
+root/server/server_frame/src/crypt/aes.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/aes.cpp.o
+.PHONY : root/server/server_frame/src/crypt/aes.cpp.o
 
-data/server_asio_frame/src/crypt/blowFish.i: data/server_asio_frame/src/crypt/blowFish.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/blowFish.i
+root/server/server_frame/src/crypt/aes.i: root/server/server_frame/src/crypt/aes.cpp.i
+.PHONY : root/server/server_frame/src/crypt/aes.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/crypt/blowFish.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/blowFish.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/blowFish.cpp.i
+root/server/server_frame/src/crypt/aes.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/aes.cpp.i
+.PHONY : root/server/server_frame/src/crypt/aes.cpp.i
 
-data/server_asio_frame/src/crypt/blowFish.s: data/server_asio_frame/src/crypt/blowFish.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/blowFish.s
+root/server/server_frame/src/crypt/aes.s: root/server/server_frame/src/crypt/aes.cpp.s
+.PHONY : root/server/server_frame/src/crypt/aes.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/crypt/blowFish.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/blowFish.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/blowFish.cpp.s
+root/server/server_frame/src/crypt/aes.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/aes.cpp.s
+.PHONY : root/server/server_frame/src/crypt/aes.cpp.s
 
-data/server_asio_frame/src/crypt/crypt.o: data/server_asio_frame/src/crypt/crypt.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/crypt.o
+root/server/server_frame/src/crypt/blowFish.o: root/server/server_frame/src/crypt/blowFish.cpp.o
+.PHONY : root/server/server_frame/src/crypt/blowFish.o
 
 # target to build an object file
-data/server_asio_frame/src/crypt/crypt.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/crypt.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/crypt.cpp.o
+root/server/server_frame/src/crypt/blowFish.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/blowFish.cpp.o
+.PHONY : root/server/server_frame/src/crypt/blowFish.cpp.o
 
-data/server_asio_frame/src/crypt/crypt.i: data/server_asio_frame/src/crypt/crypt.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/crypt.i
+root/server/server_frame/src/crypt/blowFish.i: root/server/server_frame/src/crypt/blowFish.cpp.i
+.PHONY : root/server/server_frame/src/crypt/blowFish.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/crypt/crypt.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/crypt.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/crypt.cpp.i
+root/server/server_frame/src/crypt/blowFish.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/blowFish.cpp.i
+.PHONY : root/server/server_frame/src/crypt/blowFish.cpp.i
 
-data/server_asio_frame/src/crypt/crypt.s: data/server_asio_frame/src/crypt/crypt.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/crypt.s
+root/server/server_frame/src/crypt/blowFish.s: root/server/server_frame/src/crypt/blowFish.cpp.s
+.PHONY : root/server/server_frame/src/crypt/blowFish.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/crypt/crypt.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/crypt.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/crypt.cpp.s
+root/server/server_frame/src/crypt/blowFish.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/blowFish.cpp.s
+.PHONY : root/server/server_frame/src/crypt/blowFish.cpp.s
 
-data/server_asio_frame/src/crypt/mars.o: data/server_asio_frame/src/crypt/mars.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/mars.o
+root/server/server_frame/src/crypt/mars.o: root/server/server_frame/src/crypt/mars.cpp.o
+.PHONY : root/server/server_frame/src/crypt/mars.o
 
 # target to build an object file
-data/server_asio_frame/src/crypt/mars.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/mars.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/mars.cpp.o
+root/server/server_frame/src/crypt/mars.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/mars.cpp.o
+.PHONY : root/server/server_frame/src/crypt/mars.cpp.o
 
-data/server_asio_frame/src/crypt/mars.i: data/server_asio_frame/src/crypt/mars.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/mars.i
+root/server/server_frame/src/crypt/mars.i: root/server/server_frame/src/crypt/mars.cpp.i
+.PHONY : root/server/server_frame/src/crypt/mars.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/crypt/mars.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/mars.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/mars.cpp.i
+root/server/server_frame/src/crypt/mars.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/mars.cpp.i
+.PHONY : root/server/server_frame/src/crypt/mars.cpp.i
 
-data/server_asio_frame/src/crypt/mars.s: data/server_asio_frame/src/crypt/mars.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/mars.s
+root/server/server_frame/src/crypt/mars.s: root/server/server_frame/src/crypt/mars.cpp.s
+.PHONY : root/server/server_frame/src/crypt/mars.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/crypt/mars.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/mars.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/mars.cpp.s
+root/server/server_frame/src/crypt/mars.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/mars.cpp.s
+.PHONY : root/server/server_frame/src/crypt/mars.cpp.s
 
-data/server_asio_frame/src/crypt/md5.o: data/server_asio_frame/src/crypt/md5.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/md5.o
+root/server/server_frame/src/crypt/md5.o: root/server/server_frame/src/crypt/md5.cpp.o
+.PHONY : root/server/server_frame/src/crypt/md5.o
 
 # target to build an object file
-data/server_asio_frame/src/crypt/md5.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/md5.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/md5.cpp.o
+root/server/server_frame/src/crypt/md5.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/md5.cpp.o
+.PHONY : root/server/server_frame/src/crypt/md5.cpp.o
 
-data/server_asio_frame/src/crypt/md5.i: data/server_asio_frame/src/crypt/md5.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/md5.i
+root/server/server_frame/src/crypt/md5.i: root/server/server_frame/src/crypt/md5.cpp.i
+.PHONY : root/server/server_frame/src/crypt/md5.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/crypt/md5.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/md5.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/md5.cpp.i
+root/server/server_frame/src/crypt/md5.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/md5.cpp.i
+.PHONY : root/server/server_frame/src/crypt/md5.cpp.i
 
-data/server_asio_frame/src/crypt/md5.s: data/server_asio_frame/src/crypt/md5.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/md5.s
+root/server/server_frame/src/crypt/md5.s: root/server/server_frame/src/crypt/md5.cpp.s
+.PHONY : root/server/server_frame/src/crypt/md5.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/crypt/md5.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/md5.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/md5.cpp.s
+root/server/server_frame/src/crypt/md5.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/md5.cpp.s
+.PHONY : root/server/server_frame/src/crypt/md5.cpp.s
 
-data/server_asio_frame/src/crypt/net_encrypt.o: data/server_asio_frame/src/crypt/net_encrypt.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/net_encrypt.o
+root/server/server_frame/src/crypt/net_encrypt.o: root/server/server_frame/src/crypt/net_encrypt.cpp.o
+.PHONY : root/server/server_frame/src/crypt/net_encrypt.o
 
 # target to build an object file
-data/server_asio_frame/src/crypt/net_encrypt.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/net_encrypt.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/net_encrypt.cpp.o
+root/server/server_frame/src/crypt/net_encrypt.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/net_encrypt.cpp.o
+.PHONY : root/server/server_frame/src/crypt/net_encrypt.cpp.o
 
-data/server_asio_frame/src/crypt/net_encrypt.i: data/server_asio_frame/src/crypt/net_encrypt.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/net_encrypt.i
+root/server/server_frame/src/crypt/net_encrypt.i: root/server/server_frame/src/crypt/net_encrypt.cpp.i
+.PHONY : root/server/server_frame/src/crypt/net_encrypt.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/crypt/net_encrypt.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/net_encrypt.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/net_encrypt.cpp.i
+root/server/server_frame/src/crypt/net_encrypt.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/net_encrypt.cpp.i
+.PHONY : root/server/server_frame/src/crypt/net_encrypt.cpp.i
 
-data/server_asio_frame/src/crypt/net_encrypt.s: data/server_asio_frame/src/crypt/net_encrypt.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/net_encrypt.s
+root/server/server_frame/src/crypt/net_encrypt.s: root/server/server_frame/src/crypt/net_encrypt.cpp.s
+.PHONY : root/server/server_frame/src/crypt/net_encrypt.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/crypt/net_encrypt.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/net_encrypt.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/net_encrypt.cpp.s
+root/server/server_frame/src/crypt/net_encrypt.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/net_encrypt.cpp.s
+.PHONY : root/server/server_frame/src/crypt/net_encrypt.cpp.s
 
-data/server_asio_frame/src/crypt/serpent.o: data/server_asio_frame/src/crypt/serpent.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/serpent.o
+root/server/server_frame/src/crypt/serpent.o: root/server/server_frame/src/crypt/serpent.cpp.o
+.PHONY : root/server/server_frame/src/crypt/serpent.o
 
 # target to build an object file
-data/server_asio_frame/src/crypt/serpent.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/serpent.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/serpent.cpp.o
+root/server/server_frame/src/crypt/serpent.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/serpent.cpp.o
+.PHONY : root/server/server_frame/src/crypt/serpent.cpp.o
 
-data/server_asio_frame/src/crypt/serpent.i: data/server_asio_frame/src/crypt/serpent.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/serpent.i
+root/server/server_frame/src/crypt/serpent.i: root/server/server_frame/src/crypt/serpent.cpp.i
+.PHONY : root/server/server_frame/src/crypt/serpent.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/crypt/serpent.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/serpent.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/serpent.cpp.i
+root/server/server_frame/src/crypt/serpent.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/serpent.cpp.i
+.PHONY : root/server/server_frame/src/crypt/serpent.cpp.i
 
-data/server_asio_frame/src/crypt/serpent.s: data/server_asio_frame/src/crypt/serpent.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/serpent.s
+root/server/server_frame/src/crypt/serpent.s: root/server/server_frame/src/crypt/serpent.cpp.s
+.PHONY : root/server/server_frame/src/crypt/serpent.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/crypt/serpent.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/serpent.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/serpent.cpp.s
+root/server/server_frame/src/crypt/serpent.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/serpent.cpp.s
+.PHONY : root/server/server_frame/src/crypt/serpent.cpp.s
 
-data/server_asio_frame/src/crypt/url_encode.o: data/server_asio_frame/src/crypt/url_encode.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/url_encode.o
+root/server/server_frame/src/crypt/sha1.o: root/server/server_frame/src/crypt/sha1.cc.o
+.PHONY : root/server/server_frame/src/crypt/sha1.o
 
 # target to build an object file
-data/server_asio_frame/src/crypt/url_encode.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/url_encode.cpp.o
-.PHONY : data/server_asio_frame/src/crypt/url_encode.cpp.o
+root/server/server_frame/src/crypt/sha1.cc.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/sha1.cc.o
+.PHONY : root/server/server_frame/src/crypt/sha1.cc.o
 
-data/server_asio_frame/src/crypt/url_encode.i: data/server_asio_frame/src/crypt/url_encode.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/url_encode.i
+root/server/server_frame/src/crypt/sha1.i: root/server/server_frame/src/crypt/sha1.cc.i
+.PHONY : root/server/server_frame/src/crypt/sha1.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/crypt/url_encode.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/url_encode.cpp.i
-.PHONY : data/server_asio_frame/src/crypt/url_encode.cpp.i
+root/server/server_frame/src/crypt/sha1.cc.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/sha1.cc.i
+.PHONY : root/server/server_frame/src/crypt/sha1.cc.i
 
-data/server_asio_frame/src/crypt/url_encode.s: data/server_asio_frame/src/crypt/url_encode.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/url_encode.s
+root/server/server_frame/src/crypt/sha1.s: root/server/server_frame/src/crypt/sha1.cc.s
+.PHONY : root/server/server_frame/src/crypt/sha1.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/crypt/url_encode.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/crypt/url_encode.cpp.s
-.PHONY : data/server_asio_frame/src/crypt/url_encode.cpp.s
+root/server/server_frame/src/crypt/sha1.cc.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/sha1.cc.s
+.PHONY : root/server/server_frame/src/crypt/sha1.cc.s
 
-data/server_asio_frame/src/dbmysql/db_task.o: data/server_asio_frame/src/dbmysql/db_task.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/db_task.o
+root/server/server_frame/src/crypt/url_encode.o: root/server/server_frame/src/crypt/url_encode.cpp.o
+.PHONY : root/server/server_frame/src/crypt/url_encode.o
 
 # target to build an object file
-data/server_asio_frame/src/dbmysql/db_task.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/db_task.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/db_task.cpp.o
+root/server/server_frame/src/crypt/url_encode.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/url_encode.cpp.o
+.PHONY : root/server/server_frame/src/crypt/url_encode.cpp.o
 
-data/server_asio_frame/src/dbmysql/db_task.i: data/server_asio_frame/src/dbmysql/db_task.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/db_task.i
+root/server/server_frame/src/crypt/url_encode.i: root/server/server_frame/src/crypt/url_encode.cpp.i
+.PHONY : root/server/server_frame/src/crypt/url_encode.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/dbmysql/db_task.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/db_task.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/db_task.cpp.i
+root/server/server_frame/src/crypt/url_encode.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/url_encode.cpp.i
+.PHONY : root/server/server_frame/src/crypt/url_encode.cpp.i
 
-data/server_asio_frame/src/dbmysql/db_task.s: data/server_asio_frame/src/dbmysql/db_task.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/db_task.s
+root/server/server_frame/src/crypt/url_encode.s: root/server/server_frame/src/crypt/url_encode.cpp.s
+.PHONY : root/server/server_frame/src/crypt/url_encode.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/dbmysql/db_task.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/db_task.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/db_task.cpp.s
+root/server/server_frame/src/crypt/url_encode.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/crypt/url_encode.cpp.s
+.PHONY : root/server/server_frame/src/crypt/url_encode.cpp.s
 
-data/server_asio_frame/src/dbmysql/db_wrap.o: data/server_asio_frame/src/dbmysql/db_wrap.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/db_wrap.o
+root/server/server_frame/src/dbmysql/db_task.o: root/server/server_frame/src/dbmysql/db_task.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/db_task.o
 
 # target to build an object file
-data/server_asio_frame/src/dbmysql/db_wrap.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/db_wrap.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/db_wrap.cpp.o
+root/server/server_frame/src/dbmysql/db_task.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/db_task.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/db_task.cpp.o
 
-data/server_asio_frame/src/dbmysql/db_wrap.i: data/server_asio_frame/src/dbmysql/db_wrap.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/db_wrap.i
+root/server/server_frame/src/dbmysql/db_task.i: root/server/server_frame/src/dbmysql/db_task.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/db_task.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/dbmysql/db_wrap.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/db_wrap.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/db_wrap.cpp.i
+root/server/server_frame/src/dbmysql/db_task.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/db_task.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/db_task.cpp.i
 
-data/server_asio_frame/src/dbmysql/db_wrap.s: data/server_asio_frame/src/dbmysql/db_wrap.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/db_wrap.s
+root/server/server_frame/src/dbmysql/db_task.s: root/server/server_frame/src/dbmysql/db_task.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/db_task.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/dbmysql/db_wrap.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/db_wrap.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/db_wrap.cpp.s
+root/server/server_frame/src/dbmysql/db_task.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/db_task.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/db_task.cpp.s
 
-data/server_asio_frame/src/dbmysql/dbmysql.o: data/server_asio_frame/src/dbmysql/dbmysql.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql.o
+root/server/server_frame/src/dbmysql/db_wrap.o: root/server/server_frame/src/dbmysql/db_wrap.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/db_wrap.o
 
 # target to build an object file
-data/server_asio_frame/src/dbmysql/dbmysql.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql.cpp.o
+root/server/server_frame/src/dbmysql/db_wrap.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/db_wrap.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/db_wrap.cpp.o
 
-data/server_asio_frame/src/dbmysql/dbmysql.i: data/server_asio_frame/src/dbmysql/dbmysql.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql.i
+root/server/server_frame/src/dbmysql/db_wrap.i: root/server/server_frame/src/dbmysql/db_wrap.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/db_wrap.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/dbmysql/dbmysql.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql.cpp.i
+root/server/server_frame/src/dbmysql/db_wrap.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/db_wrap.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/db_wrap.cpp.i
 
-data/server_asio_frame/src/dbmysql/dbmysql.s: data/server_asio_frame/src/dbmysql/dbmysql.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql.s
+root/server/server_frame/src/dbmysql/db_wrap.s: root/server/server_frame/src/dbmysql/db_wrap.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/db_wrap.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/dbmysql/dbmysql.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql.cpp.s
+root/server/server_frame/src/dbmysql/db_wrap.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/db_wrap.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/db_wrap.cpp.s
 
-data/server_asio_frame/src/dbmysql/dbmysql_exception.o: data/server_asio_frame/src/dbmysql/dbmysql_exception.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_exception.o
+root/server/server_frame/src/dbmysql/dbmysql.o: root/server/server_frame/src/dbmysql/dbmysql.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql.o
 
 # target to build an object file
-data/server_asio_frame/src/dbmysql/dbmysql_exception.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql_exception.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_exception.cpp.o
+root/server/server_frame/src/dbmysql/dbmysql.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql.cpp.o
 
-data/server_asio_frame/src/dbmysql/dbmysql_exception.i: data/server_asio_frame/src/dbmysql/dbmysql_exception.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_exception.i
+root/server/server_frame/src/dbmysql/dbmysql.i: root/server/server_frame/src/dbmysql/dbmysql.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/dbmysql/dbmysql_exception.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql_exception.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_exception.cpp.i
+root/server/server_frame/src/dbmysql/dbmysql.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql.cpp.i
 
-data/server_asio_frame/src/dbmysql/dbmysql_exception.s: data/server_asio_frame/src/dbmysql/dbmysql_exception.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_exception.s
+root/server/server_frame/src/dbmysql/dbmysql.s: root/server/server_frame/src/dbmysql/dbmysql.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/dbmysql/dbmysql_exception.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql_exception.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_exception.cpp.s
+root/server/server_frame/src/dbmysql/dbmysql.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql.cpp.s
 
-data/server_asio_frame/src/dbmysql/dbmysql_result.o: data/server_asio_frame/src/dbmysql/dbmysql_result.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_result.o
+root/server/server_frame/src/dbmysql/dbmysql_exception.o: root/server/server_frame/src/dbmysql/dbmysql_exception.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_exception.o
 
 # target to build an object file
-data/server_asio_frame/src/dbmysql/dbmysql_result.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql_result.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_result.cpp.o
+root/server/server_frame/src/dbmysql/dbmysql_exception.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql_exception.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_exception.cpp.o
 
-data/server_asio_frame/src/dbmysql/dbmysql_result.i: data/server_asio_frame/src/dbmysql/dbmysql_result.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_result.i
+root/server/server_frame/src/dbmysql/dbmysql_exception.i: root/server/server_frame/src/dbmysql/dbmysql_exception.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_exception.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/dbmysql/dbmysql_result.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql_result.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_result.cpp.i
+root/server/server_frame/src/dbmysql/dbmysql_exception.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql_exception.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_exception.cpp.i
 
-data/server_asio_frame/src/dbmysql/dbmysql_result.s: data/server_asio_frame/src/dbmysql/dbmysql_result.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_result.s
+root/server/server_frame/src/dbmysql/dbmysql_exception.s: root/server/server_frame/src/dbmysql/dbmysql_exception.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_exception.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/dbmysql/dbmysql_result.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql_result.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_result.cpp.s
+root/server/server_frame/src/dbmysql/dbmysql_exception.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql_exception.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_exception.cpp.s
 
-data/server_asio_frame/src/dbmysql/dbmysql_statement.o: data/server_asio_frame/src/dbmysql/dbmysql_statement.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_statement.o
+root/server/server_frame/src/dbmysql/dbmysql_result.o: root/server/server_frame/src/dbmysql/dbmysql_result.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_result.o
 
 # target to build an object file
-data/server_asio_frame/src/dbmysql/dbmysql_statement.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql_statement.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_statement.cpp.o
+root/server/server_frame/src/dbmysql/dbmysql_result.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql_result.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_result.cpp.o
 
-data/server_asio_frame/src/dbmysql/dbmysql_statement.i: data/server_asio_frame/src/dbmysql/dbmysql_statement.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_statement.i
+root/server/server_frame/src/dbmysql/dbmysql_result.i: root/server/server_frame/src/dbmysql/dbmysql_result.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_result.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/dbmysql/dbmysql_statement.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql_statement.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_statement.cpp.i
+root/server/server_frame/src/dbmysql/dbmysql_result.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql_result.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_result.cpp.i
 
-data/server_asio_frame/src/dbmysql/dbmysql_statement.s: data/server_asio_frame/src/dbmysql/dbmysql_statement.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_statement.s
+root/server/server_frame/src/dbmysql/dbmysql_result.s: root/server/server_frame/src/dbmysql/dbmysql_result.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_result.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/dbmysql/dbmysql_statement.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql_statement.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_statement.cpp.s
+root/server/server_frame/src/dbmysql/dbmysql_result.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql_result.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_result.cpp.s
 
-data/server_asio_frame/src/dbmysql/dbmysql_transaction.o: data/server_asio_frame/src/dbmysql/dbmysql_transaction.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_transaction.o
+root/server/server_frame/src/dbmysql/dbmysql_statement.o: root/server/server_frame/src/dbmysql/dbmysql_statement.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_statement.o
 
 # target to build an object file
-data/server_asio_frame/src/dbmysql/dbmysql_transaction.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql_transaction.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_transaction.cpp.o
+root/server/server_frame/src/dbmysql/dbmysql_statement.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql_statement.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_statement.cpp.o
 
-data/server_asio_frame/src/dbmysql/dbmysql_transaction.i: data/server_asio_frame/src/dbmysql/dbmysql_transaction.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_transaction.i
+root/server/server_frame/src/dbmysql/dbmysql_statement.i: root/server/server_frame/src/dbmysql/dbmysql_statement.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_statement.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/dbmysql/dbmysql_transaction.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql_transaction.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_transaction.cpp.i
+root/server/server_frame/src/dbmysql/dbmysql_statement.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql_statement.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_statement.cpp.i
 
-data/server_asio_frame/src/dbmysql/dbmysql_transaction.s: data/server_asio_frame/src/dbmysql/dbmysql_transaction.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_transaction.s
+root/server/server_frame/src/dbmysql/dbmysql_statement.s: root/server/server_frame/src/dbmysql/dbmysql_statement.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_statement.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/dbmysql/dbmysql_transaction.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/dbmysql_transaction.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/dbmysql_transaction.cpp.s
+root/server/server_frame/src/dbmysql/dbmysql_statement.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql_statement.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_statement.cpp.s
 
-data/server_asio_frame/src/dbmysql/test_client.o: data/server_asio_frame/src/dbmysql/test_client.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/test_client.o
+root/server/server_frame/src/dbmysql/dbmysql_transaction.o: root/server/server_frame/src/dbmysql/dbmysql_transaction.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_transaction.o
 
 # target to build an object file
-data/server_asio_frame/src/dbmysql/test_client.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/test_client.cpp.o
-.PHONY : data/server_asio_frame/src/dbmysql/test_client.cpp.o
+root/server/server_frame/src/dbmysql/dbmysql_transaction.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql_transaction.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_transaction.cpp.o
 
-data/server_asio_frame/src/dbmysql/test_client.i: data/server_asio_frame/src/dbmysql/test_client.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/test_client.i
+root/server/server_frame/src/dbmysql/dbmysql_transaction.i: root/server/server_frame/src/dbmysql/dbmysql_transaction.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_transaction.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/dbmysql/test_client.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/test_client.cpp.i
-.PHONY : data/server_asio_frame/src/dbmysql/test_client.cpp.i
+root/server/server_frame/src/dbmysql/dbmysql_transaction.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql_transaction.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_transaction.cpp.i
 
-data/server_asio_frame/src/dbmysql/test_client.s: data/server_asio_frame/src/dbmysql/test_client.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/test_client.s
+root/server/server_frame/src/dbmysql/dbmysql_transaction.s: root/server/server_frame/src/dbmysql/dbmysql_transaction.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_transaction.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/dbmysql/test_client.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/dbmysql/test_client.cpp.s
-.PHONY : data/server_asio_frame/src/dbmysql/test_client.cpp.s
+root/server/server_frame/src/dbmysql/dbmysql_transaction.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/dbmysql_transaction.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/dbmysql_transaction.cpp.s
 
-data/server_asio_frame/src/framework/exception.o: data/server_asio_frame/src/framework/exception.cpp.o
-.PHONY : data/server_asio_frame/src/framework/exception.o
+root/server/server_frame/src/dbmysql/test_client.o: root/server/server_frame/src/dbmysql/test_client.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/test_client.o
 
 # target to build an object file
-data/server_asio_frame/src/framework/exception.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/framework/exception.cpp.o
-.PHONY : data/server_asio_frame/src/framework/exception.cpp.o
+root/server/server_frame/src/dbmysql/test_client.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/test_client.cpp.o
+.PHONY : root/server/server_frame/src/dbmysql/test_client.cpp.o
 
-data/server_asio_frame/src/framework/exception.i: data/server_asio_frame/src/framework/exception.cpp.i
-.PHONY : data/server_asio_frame/src/framework/exception.i
+root/server/server_frame/src/dbmysql/test_client.i: root/server/server_frame/src/dbmysql/test_client.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/test_client.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/framework/exception.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/framework/exception.cpp.i
-.PHONY : data/server_asio_frame/src/framework/exception.cpp.i
+root/server/server_frame/src/dbmysql/test_client.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/test_client.cpp.i
+.PHONY : root/server/server_frame/src/dbmysql/test_client.cpp.i
 
-data/server_asio_frame/src/framework/exception.s: data/server_asio_frame/src/framework/exception.cpp.s
-.PHONY : data/server_asio_frame/src/framework/exception.s
+root/server/server_frame/src/dbmysql/test_client.s: root/server/server_frame/src/dbmysql/test_client.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/test_client.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/framework/exception.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/framework/exception.cpp.s
-.PHONY : data/server_asio_frame/src/framework/exception.cpp.s
+root/server/server_frame/src/dbmysql/test_client.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/dbmysql/test_client.cpp.s
+.PHONY : root/server/server_frame/src/dbmysql/test_client.cpp.s
 
-data/server_asio_frame/src/framework/framework.o: data/server_asio_frame/src/framework/framework.cpp.o
-.PHONY : data/server_asio_frame/src/framework/framework.o
+root/server/server_frame/src/ebus/event_bus.o: root/server/server_frame/src/ebus/event_bus.cpp.o
+.PHONY : root/server/server_frame/src/ebus/event_bus.o
 
 # target to build an object file
-data/server_asio_frame/src/framework/framework.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/framework/framework.cpp.o
-.PHONY : data/server_asio_frame/src/framework/framework.cpp.o
+root/server/server_frame/src/ebus/event_bus.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/ebus/event_bus.cpp.o
+.PHONY : root/server/server_frame/src/ebus/event_bus.cpp.o
 
-data/server_asio_frame/src/framework/framework.i: data/server_asio_frame/src/framework/framework.cpp.i
-.PHONY : data/server_asio_frame/src/framework/framework.i
+root/server/server_frame/src/ebus/event_bus.i: root/server/server_frame/src/ebus/event_bus.cpp.i
+.PHONY : root/server/server_frame/src/ebus/event_bus.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/framework/framework.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/framework/framework.cpp.i
-.PHONY : data/server_asio_frame/src/framework/framework.cpp.i
+root/server/server_frame/src/ebus/event_bus.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/ebus/event_bus.cpp.i
+.PHONY : root/server/server_frame/src/ebus/event_bus.cpp.i
 
-data/server_asio_frame/src/framework/framework.s: data/server_asio_frame/src/framework/framework.cpp.s
-.PHONY : data/server_asio_frame/src/framework/framework.s
+root/server/server_frame/src/ebus/event_bus.s: root/server/server_frame/src/ebus/event_bus.cpp.s
+.PHONY : root/server/server_frame/src/ebus/event_bus.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/framework/framework.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/framework/framework.cpp.s
-.PHONY : data/server_asio_frame/src/framework/framework.cpp.s
+root/server/server_frame/src/ebus/event_bus.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/ebus/event_bus.cpp.s
+.PHONY : root/server/server_frame/src/ebus/event_bus.cpp.s
 
-data/server_asio_frame/src/framework/frameworkmain.o: data/server_asio_frame/src/framework/frameworkmain.cpp.o
-.PHONY : data/server_asio_frame/src/framework/frameworkmain.o
+root/server/server_frame/src/framework/exception.o: root/server/server_frame/src/framework/exception.cpp.o
+.PHONY : root/server/server_frame/src/framework/exception.o
 
 # target to build an object file
-data/server_asio_frame/src/framework/frameworkmain.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/framework/frameworkmain.cpp.o
-.PHONY : data/server_asio_frame/src/framework/frameworkmain.cpp.o
+root/server/server_frame/src/framework/exception.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/framework/exception.cpp.o
+.PHONY : root/server/server_frame/src/framework/exception.cpp.o
 
-data/server_asio_frame/src/framework/frameworkmain.i: data/server_asio_frame/src/framework/frameworkmain.cpp.i
-.PHONY : data/server_asio_frame/src/framework/frameworkmain.i
+root/server/server_frame/src/framework/exception.i: root/server/server_frame/src/framework/exception.cpp.i
+.PHONY : root/server/server_frame/src/framework/exception.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/framework/frameworkmain.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/framework/frameworkmain.cpp.i
-.PHONY : data/server_asio_frame/src/framework/frameworkmain.cpp.i
+root/server/server_frame/src/framework/exception.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/framework/exception.cpp.i
+.PHONY : root/server/server_frame/src/framework/exception.cpp.i
 
-data/server_asio_frame/src/framework/frameworkmain.s: data/server_asio_frame/src/framework/frameworkmain.cpp.s
-.PHONY : data/server_asio_frame/src/framework/frameworkmain.s
+root/server/server_frame/src/framework/exception.s: root/server/server_frame/src/framework/exception.cpp.s
+.PHONY : root/server/server_frame/src/framework/exception.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/framework/frameworkmain.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/framework/frameworkmain.cpp.s
-.PHONY : data/server_asio_frame/src/framework/frameworkmain.cpp.s
+root/server/server_frame/src/framework/exception.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/framework/exception.cpp.s
+.PHONY : root/server/server_frame/src/framework/exception.cpp.s
 
-data/server_asio_frame/src/helper/bufferStream.o: data/server_asio_frame/src/helper/bufferStream.cpp.o
-.PHONY : data/server_asio_frame/src/helper/bufferStream.o
+root/server/server_frame/src/framework/framework.o: root/server/server_frame/src/framework/framework.cpp.o
+.PHONY : root/server/server_frame/src/framework/framework.o
 
 # target to build an object file
-data/server_asio_frame/src/helper/bufferStream.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/bufferStream.cpp.o
-.PHONY : data/server_asio_frame/src/helper/bufferStream.cpp.o
+root/server/server_frame/src/framework/framework.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/framework/framework.cpp.o
+.PHONY : root/server/server_frame/src/framework/framework.cpp.o
 
-data/server_asio_frame/src/helper/bufferStream.i: data/server_asio_frame/src/helper/bufferStream.cpp.i
-.PHONY : data/server_asio_frame/src/helper/bufferStream.i
+root/server/server_frame/src/framework/framework.i: root/server/server_frame/src/framework/framework.cpp.i
+.PHONY : root/server/server_frame/src/framework/framework.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/helper/bufferStream.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/bufferStream.cpp.i
-.PHONY : data/server_asio_frame/src/helper/bufferStream.cpp.i
+root/server/server_frame/src/framework/framework.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/framework/framework.cpp.i
+.PHONY : root/server/server_frame/src/framework/framework.cpp.i
 
-data/server_asio_frame/src/helper/bufferStream.s: data/server_asio_frame/src/helper/bufferStream.cpp.s
-.PHONY : data/server_asio_frame/src/helper/bufferStream.s
+root/server/server_frame/src/framework/framework.s: root/server/server_frame/src/framework/framework.cpp.s
+.PHONY : root/server/server_frame/src/framework/framework.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/helper/bufferStream.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/bufferStream.cpp.s
-.PHONY : data/server_asio_frame/src/helper/bufferStream.cpp.s
+root/server/server_frame/src/framework/framework.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/framework/framework.cpp.s
+.PHONY : root/server/server_frame/src/framework/framework.cpp.s
 
-data/server_asio_frame/src/helper/fileStream.o: data/server_asio_frame/src/helper/fileStream.cpp.o
-.PHONY : data/server_asio_frame/src/helper/fileStream.o
+root/server/server_frame/src/framework/frameworkmain.o: root/server/server_frame/src/framework/frameworkmain.cpp.o
+.PHONY : root/server/server_frame/src/framework/frameworkmain.o
 
 # target to build an object file
-data/server_asio_frame/src/helper/fileStream.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/fileStream.cpp.o
-.PHONY : data/server_asio_frame/src/helper/fileStream.cpp.o
+root/server/server_frame/src/framework/frameworkmain.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/framework/frameworkmain.cpp.o
+.PHONY : root/server/server_frame/src/framework/frameworkmain.cpp.o
 
-data/server_asio_frame/src/helper/fileStream.i: data/server_asio_frame/src/helper/fileStream.cpp.i
-.PHONY : data/server_asio_frame/src/helper/fileStream.i
+root/server/server_frame/src/framework/frameworkmain.i: root/server/server_frame/src/framework/frameworkmain.cpp.i
+.PHONY : root/server/server_frame/src/framework/frameworkmain.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/helper/fileStream.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/fileStream.cpp.i
-.PHONY : data/server_asio_frame/src/helper/fileStream.cpp.i
+root/server/server_frame/src/framework/frameworkmain.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/framework/frameworkmain.cpp.i
+.PHONY : root/server/server_frame/src/framework/frameworkmain.cpp.i
 
-data/server_asio_frame/src/helper/fileStream.s: data/server_asio_frame/src/helper/fileStream.cpp.s
-.PHONY : data/server_asio_frame/src/helper/fileStream.s
+root/server/server_frame/src/framework/frameworkmain.s: root/server/server_frame/src/framework/frameworkmain.cpp.s
+.PHONY : root/server/server_frame/src/framework/frameworkmain.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/helper/fileStream.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/fileStream.cpp.s
-.PHONY : data/server_asio_frame/src/helper/fileStream.cpp.s
+root/server/server_frame/src/framework/frameworkmain.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/framework/frameworkmain.cpp.s
+.PHONY : root/server/server_frame/src/framework/frameworkmain.cpp.s
 
-data/server_asio_frame/src/helper/filehelper.o: data/server_asio_frame/src/helper/filehelper.cpp.o
-.PHONY : data/server_asio_frame/src/helper/filehelper.o
+root/server/server_frame/src/helper/bufferStream.o: root/server/server_frame/src/helper/bufferStream.cpp.o
+.PHONY : root/server/server_frame/src/helper/bufferStream.o
 
 # target to build an object file
-data/server_asio_frame/src/helper/filehelper.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/filehelper.cpp.o
-.PHONY : data/server_asio_frame/src/helper/filehelper.cpp.o
+root/server/server_frame/src/helper/bufferStream.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/bufferStream.cpp.o
+.PHONY : root/server/server_frame/src/helper/bufferStream.cpp.o
 
-data/server_asio_frame/src/helper/filehelper.i: data/server_asio_frame/src/helper/filehelper.cpp.i
-.PHONY : data/server_asio_frame/src/helper/filehelper.i
+root/server/server_frame/src/helper/bufferStream.i: root/server/server_frame/src/helper/bufferStream.cpp.i
+.PHONY : root/server/server_frame/src/helper/bufferStream.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/helper/filehelper.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/filehelper.cpp.i
-.PHONY : data/server_asio_frame/src/helper/filehelper.cpp.i
+root/server/server_frame/src/helper/bufferStream.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/bufferStream.cpp.i
+.PHONY : root/server/server_frame/src/helper/bufferStream.cpp.i
 
-data/server_asio_frame/src/helper/filehelper.s: data/server_asio_frame/src/helper/filehelper.cpp.s
-.PHONY : data/server_asio_frame/src/helper/filehelper.s
+root/server/server_frame/src/helper/bufferStream.s: root/server/server_frame/src/helper/bufferStream.cpp.s
+.PHONY : root/server/server_frame/src/helper/bufferStream.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/helper/filehelper.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/filehelper.cpp.s
-.PHONY : data/server_asio_frame/src/helper/filehelper.cpp.s
+root/server/server_frame/src/helper/bufferStream.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/bufferStream.cpp.s
+.PHONY : root/server/server_frame/src/helper/bufferStream.cpp.s
 
-data/server_asio_frame/src/helper/helper.o: data/server_asio_frame/src/helper/helper.cpp.o
-.PHONY : data/server_asio_frame/src/helper/helper.o
+root/server/server_frame/src/helper/fileStream.o: root/server/server_frame/src/helper/fileStream.cpp.o
+.PHONY : root/server/server_frame/src/helper/fileStream.o
 
 # target to build an object file
-data/server_asio_frame/src/helper/helper.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/helper.cpp.o
-.PHONY : data/server_asio_frame/src/helper/helper.cpp.o
+root/server/server_frame/src/helper/fileStream.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/fileStream.cpp.o
+.PHONY : root/server/server_frame/src/helper/fileStream.cpp.o
 
-data/server_asio_frame/src/helper/helper.i: data/server_asio_frame/src/helper/helper.cpp.i
-.PHONY : data/server_asio_frame/src/helper/helper.i
+root/server/server_frame/src/helper/fileStream.i: root/server/server_frame/src/helper/fileStream.cpp.i
+.PHONY : root/server/server_frame/src/helper/fileStream.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/helper/helper.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/helper.cpp.i
-.PHONY : data/server_asio_frame/src/helper/helper.cpp.i
+root/server/server_frame/src/helper/fileStream.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/fileStream.cpp.i
+.PHONY : root/server/server_frame/src/helper/fileStream.cpp.i
 
-data/server_asio_frame/src/helper/helper.s: data/server_asio_frame/src/helper/helper.cpp.s
-.PHONY : data/server_asio_frame/src/helper/helper.s
+root/server/server_frame/src/helper/fileStream.s: root/server/server_frame/src/helper/fileStream.cpp.s
+.PHONY : root/server/server_frame/src/helper/fileStream.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/helper/helper.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/helper.cpp.s
-.PHONY : data/server_asio_frame/src/helper/helper.cpp.s
+root/server/server_frame/src/helper/fileStream.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/fileStream.cpp.s
+.PHONY : root/server/server_frame/src/helper/fileStream.cpp.s
 
-data/server_asio_frame/src/helper/streamBase.o: data/server_asio_frame/src/helper/streamBase.cpp.o
-.PHONY : data/server_asio_frame/src/helper/streamBase.o
+root/server/server_frame/src/helper/filehelper.o: root/server/server_frame/src/helper/filehelper.cpp.o
+.PHONY : root/server/server_frame/src/helper/filehelper.o
 
 # target to build an object file
-data/server_asio_frame/src/helper/streamBase.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/streamBase.cpp.o
-.PHONY : data/server_asio_frame/src/helper/streamBase.cpp.o
+root/server/server_frame/src/helper/filehelper.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/filehelper.cpp.o
+.PHONY : root/server/server_frame/src/helper/filehelper.cpp.o
 
-data/server_asio_frame/src/helper/streamBase.i: data/server_asio_frame/src/helper/streamBase.cpp.i
-.PHONY : data/server_asio_frame/src/helper/streamBase.i
+root/server/server_frame/src/helper/filehelper.i: root/server/server_frame/src/helper/filehelper.cpp.i
+.PHONY : root/server/server_frame/src/helper/filehelper.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/helper/streamBase.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/streamBase.cpp.i
-.PHONY : data/server_asio_frame/src/helper/streamBase.cpp.i
+root/server/server_frame/src/helper/filehelper.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/filehelper.cpp.i
+.PHONY : root/server/server_frame/src/helper/filehelper.cpp.i
 
-data/server_asio_frame/src/helper/streamBase.s: data/server_asio_frame/src/helper/streamBase.cpp.s
-.PHONY : data/server_asio_frame/src/helper/streamBase.s
+root/server/server_frame/src/helper/filehelper.s: root/server/server_frame/src/helper/filehelper.cpp.s
+.PHONY : root/server/server_frame/src/helper/filehelper.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/helper/streamBase.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/streamBase.cpp.s
-.PHONY : data/server_asio_frame/src/helper/streamBase.cpp.s
+root/server/server_frame/src/helper/filehelper.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/filehelper.cpp.s
+.PHONY : root/server/server_frame/src/helper/filehelper.cpp.s
 
-data/server_asio_frame/src/helper/stringStream.o: data/server_asio_frame/src/helper/stringStream.cpp.o
-.PHONY : data/server_asio_frame/src/helper/stringStream.o
+root/server/server_frame/src/helper/helper.o: root/server/server_frame/src/helper/helper.cpp.o
+.PHONY : root/server/server_frame/src/helper/helper.o
 
 # target to build an object file
-data/server_asio_frame/src/helper/stringStream.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/stringStream.cpp.o
-.PHONY : data/server_asio_frame/src/helper/stringStream.cpp.o
+root/server/server_frame/src/helper/helper.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/helper.cpp.o
+.PHONY : root/server/server_frame/src/helper/helper.cpp.o
 
-data/server_asio_frame/src/helper/stringStream.i: data/server_asio_frame/src/helper/stringStream.cpp.i
-.PHONY : data/server_asio_frame/src/helper/stringStream.i
+root/server/server_frame/src/helper/helper.i: root/server/server_frame/src/helper/helper.cpp.i
+.PHONY : root/server/server_frame/src/helper/helper.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/helper/stringStream.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/stringStream.cpp.i
-.PHONY : data/server_asio_frame/src/helper/stringStream.cpp.i
+root/server/server_frame/src/helper/helper.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/helper.cpp.i
+.PHONY : root/server/server_frame/src/helper/helper.cpp.i
 
-data/server_asio_frame/src/helper/stringStream.s: data/server_asio_frame/src/helper/stringStream.cpp.s
-.PHONY : data/server_asio_frame/src/helper/stringStream.s
+root/server/server_frame/src/helper/helper.s: root/server/server_frame/src/helper/helper.cpp.s
+.PHONY : root/server/server_frame/src/helper/helper.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/helper/stringStream.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/helper/stringStream.cpp.s
-.PHONY : data/server_asio_frame/src/helper/stringStream.cpp.s
+root/server/server_frame/src/helper/helper.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/helper.cpp.s
+.PHONY : root/server/server_frame/src/helper/helper.cpp.s
 
-data/server_asio_frame/src/lua/lapi.o: data/server_asio_frame/src/lua/lapi.c.o
-.PHONY : data/server_asio_frame/src/lua/lapi.o
+root/server/server_frame/src/helper/streamBase.o: root/server/server_frame/src/helper/streamBase.cpp.o
+.PHONY : root/server/server_frame/src/helper/streamBase.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lapi.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lapi.c.o
-.PHONY : data/server_asio_frame/src/lua/lapi.c.o
+root/server/server_frame/src/helper/streamBase.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/streamBase.cpp.o
+.PHONY : root/server/server_frame/src/helper/streamBase.cpp.o
 
-data/server_asio_frame/src/lua/lapi.i: data/server_asio_frame/src/lua/lapi.c.i
-.PHONY : data/server_asio_frame/src/lua/lapi.i
+root/server/server_frame/src/helper/streamBase.i: root/server/server_frame/src/helper/streamBase.cpp.i
+.PHONY : root/server/server_frame/src/helper/streamBase.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lapi.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lapi.c.i
-.PHONY : data/server_asio_frame/src/lua/lapi.c.i
+root/server/server_frame/src/helper/streamBase.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/streamBase.cpp.i
+.PHONY : root/server/server_frame/src/helper/streamBase.cpp.i
 
-data/server_asio_frame/src/lua/lapi.s: data/server_asio_frame/src/lua/lapi.c.s
-.PHONY : data/server_asio_frame/src/lua/lapi.s
+root/server/server_frame/src/helper/streamBase.s: root/server/server_frame/src/helper/streamBase.cpp.s
+.PHONY : root/server/server_frame/src/helper/streamBase.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lapi.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lapi.c.s
-.PHONY : data/server_asio_frame/src/lua/lapi.c.s
+root/server/server_frame/src/helper/streamBase.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/streamBase.cpp.s
+.PHONY : root/server/server_frame/src/helper/streamBase.cpp.s
 
-data/server_asio_frame/src/lua/lauxlib.o: data/server_asio_frame/src/lua/lauxlib.c.o
-.PHONY : data/server_asio_frame/src/lua/lauxlib.o
+root/server/server_frame/src/helper/stringStream.o: root/server/server_frame/src/helper/stringStream.cpp.o
+.PHONY : root/server/server_frame/src/helper/stringStream.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lauxlib.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lauxlib.c.o
-.PHONY : data/server_asio_frame/src/lua/lauxlib.c.o
+root/server/server_frame/src/helper/stringStream.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/stringStream.cpp.o
+.PHONY : root/server/server_frame/src/helper/stringStream.cpp.o
 
-data/server_asio_frame/src/lua/lauxlib.i: data/server_asio_frame/src/lua/lauxlib.c.i
-.PHONY : data/server_asio_frame/src/lua/lauxlib.i
+root/server/server_frame/src/helper/stringStream.i: root/server/server_frame/src/helper/stringStream.cpp.i
+.PHONY : root/server/server_frame/src/helper/stringStream.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lauxlib.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lauxlib.c.i
-.PHONY : data/server_asio_frame/src/lua/lauxlib.c.i
+root/server/server_frame/src/helper/stringStream.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/stringStream.cpp.i
+.PHONY : root/server/server_frame/src/helper/stringStream.cpp.i
 
-data/server_asio_frame/src/lua/lauxlib.s: data/server_asio_frame/src/lua/lauxlib.c.s
-.PHONY : data/server_asio_frame/src/lua/lauxlib.s
+root/server/server_frame/src/helper/stringStream.s: root/server/server_frame/src/helper/stringStream.cpp.s
+.PHONY : root/server/server_frame/src/helper/stringStream.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lauxlib.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lauxlib.c.s
-.PHONY : data/server_asio_frame/src/lua/lauxlib.c.s
+root/server/server_frame/src/helper/stringStream.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/helper/stringStream.cpp.s
+.PHONY : root/server/server_frame/src/helper/stringStream.cpp.s
 
-data/server_asio_frame/src/lua/lbaselib.o: data/server_asio_frame/src/lua/lbaselib.c.o
-.PHONY : data/server_asio_frame/src/lua/lbaselib.o
+root/server/server_frame/src/lua_service/lua_bind.o: root/server/server_frame/src/lua_service/lua_bind.cpp.o
+.PHONY : root/server/server_frame/src/lua_service/lua_bind.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lbaselib.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lbaselib.c.o
-.PHONY : data/server_asio_frame/src/lua/lbaselib.c.o
+root/server/server_frame/src/lua_service/lua_bind.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/lua_service/lua_bind.cpp.o
+.PHONY : root/server/server_frame/src/lua_service/lua_bind.cpp.o
 
-data/server_asio_frame/src/lua/lbaselib.i: data/server_asio_frame/src/lua/lbaselib.c.i
-.PHONY : data/server_asio_frame/src/lua/lbaselib.i
+root/server/server_frame/src/lua_service/lua_bind.i: root/server/server_frame/src/lua_service/lua_bind.cpp.i
+.PHONY : root/server/server_frame/src/lua_service/lua_bind.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lbaselib.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lbaselib.c.i
-.PHONY : data/server_asio_frame/src/lua/lbaselib.c.i
+root/server/server_frame/src/lua_service/lua_bind.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/lua_service/lua_bind.cpp.i
+.PHONY : root/server/server_frame/src/lua_service/lua_bind.cpp.i
 
-data/server_asio_frame/src/lua/lbaselib.s: data/server_asio_frame/src/lua/lbaselib.c.s
-.PHONY : data/server_asio_frame/src/lua/lbaselib.s
+root/server/server_frame/src/lua_service/lua_bind.s: root/server/server_frame/src/lua_service/lua_bind.cpp.s
+.PHONY : root/server/server_frame/src/lua_service/lua_bind.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lbaselib.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lbaselib.c.s
-.PHONY : data/server_asio_frame/src/lua/lbaselib.c.s
+root/server/server_frame/src/lua_service/lua_bind.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/lua_service/lua_bind.cpp.s
+.PHONY : root/server/server_frame/src/lua_service/lua_bind.cpp.s
 
-data/server_asio_frame/src/lua/lbitlib.o: data/server_asio_frame/src/lua/lbitlib.c.o
-.PHONY : data/server_asio_frame/src/lua/lbitlib.o
+root/server/server_frame/src/lua_service/lua_service.o: root/server/server_frame/src/lua_service/lua_service.cpp.o
+.PHONY : root/server/server_frame/src/lua_service/lua_service.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lbitlib.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lbitlib.c.o
-.PHONY : data/server_asio_frame/src/lua/lbitlib.c.o
+root/server/server_frame/src/lua_service/lua_service.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/lua_service/lua_service.cpp.o
+.PHONY : root/server/server_frame/src/lua_service/lua_service.cpp.o
 
-data/server_asio_frame/src/lua/lbitlib.i: data/server_asio_frame/src/lua/lbitlib.c.i
-.PHONY : data/server_asio_frame/src/lua/lbitlib.i
+root/server/server_frame/src/lua_service/lua_service.i: root/server/server_frame/src/lua_service/lua_service.cpp.i
+.PHONY : root/server/server_frame/src/lua_service/lua_service.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lbitlib.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lbitlib.c.i
-.PHONY : data/server_asio_frame/src/lua/lbitlib.c.i
+root/server/server_frame/src/lua_service/lua_service.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/lua_service/lua_service.cpp.i
+.PHONY : root/server/server_frame/src/lua_service/lua_service.cpp.i
 
-data/server_asio_frame/src/lua/lbitlib.s: data/server_asio_frame/src/lua/lbitlib.c.s
-.PHONY : data/server_asio_frame/src/lua/lbitlib.s
+root/server/server_frame/src/lua_service/lua_service.s: root/server/server_frame/src/lua_service/lua_service.cpp.s
+.PHONY : root/server/server_frame/src/lua_service/lua_service.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lbitlib.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lbitlib.c.s
-.PHONY : data/server_asio_frame/src/lua/lbitlib.c.s
+root/server/server_frame/src/lua_service/lua_service.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/lua_service/lua_service.cpp.s
+.PHONY : root/server/server_frame/src/lua_service/lua_service.cpp.s
 
-data/server_asio_frame/src/lua/lcode.o: data/server_asio_frame/src/lua/lcode.c.o
-.PHONY : data/server_asio_frame/src/lua/lcode.o
+root/server/server_frame/src/math/math_functions.o: root/server/server_frame/src/math/math_functions.cpp.o
+.PHONY : root/server/server_frame/src/math/math_functions.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lcode.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lcode.c.o
-.PHONY : data/server_asio_frame/src/lua/lcode.c.o
+root/server/server_frame/src/math/math_functions.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/math/math_functions.cpp.o
+.PHONY : root/server/server_frame/src/math/math_functions.cpp.o
 
-data/server_asio_frame/src/lua/lcode.i: data/server_asio_frame/src/lua/lcode.c.i
-.PHONY : data/server_asio_frame/src/lua/lcode.i
+root/server/server_frame/src/math/math_functions.i: root/server/server_frame/src/math/math_functions.cpp.i
+.PHONY : root/server/server_frame/src/math/math_functions.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lcode.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lcode.c.i
-.PHONY : data/server_asio_frame/src/lua/lcode.c.i
+root/server/server_frame/src/math/math_functions.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/math/math_functions.cpp.i
+.PHONY : root/server/server_frame/src/math/math_functions.cpp.i
 
-data/server_asio_frame/src/lua/lcode.s: data/server_asio_frame/src/lua/lcode.c.s
-.PHONY : data/server_asio_frame/src/lua/lcode.s
+root/server/server_frame/src/math/math_functions.s: root/server/server_frame/src/math/math_functions.cpp.s
+.PHONY : root/server/server_frame/src/math/math_functions.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lcode.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lcode.c.s
-.PHONY : data/server_asio_frame/src/lua/lcode.c.s
+root/server/server_frame/src/math/math_functions.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/math/math_functions.cpp.s
+.PHONY : root/server/server_frame/src/math/math_functions.cpp.s
 
-data/server_asio_frame/src/lua/lcorolib.o: data/server_asio_frame/src/lua/lcorolib.c.o
-.PHONY : data/server_asio_frame/src/lua/lcorolib.o
+root/server/server_frame/src/math/rand_table.o: root/server/server_frame/src/math/rand_table.cpp.o
+.PHONY : root/server/server_frame/src/math/rand_table.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lcorolib.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lcorolib.c.o
-.PHONY : data/server_asio_frame/src/lua/lcorolib.c.o
+root/server/server_frame/src/math/rand_table.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/math/rand_table.cpp.o
+.PHONY : root/server/server_frame/src/math/rand_table.cpp.o
 
-data/server_asio_frame/src/lua/lcorolib.i: data/server_asio_frame/src/lua/lcorolib.c.i
-.PHONY : data/server_asio_frame/src/lua/lcorolib.i
+root/server/server_frame/src/math/rand_table.i: root/server/server_frame/src/math/rand_table.cpp.i
+.PHONY : root/server/server_frame/src/math/rand_table.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lcorolib.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lcorolib.c.i
-.PHONY : data/server_asio_frame/src/lua/lcorolib.c.i
+root/server/server_frame/src/math/rand_table.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/math/rand_table.cpp.i
+.PHONY : root/server/server_frame/src/math/rand_table.cpp.i
 
-data/server_asio_frame/src/lua/lcorolib.s: data/server_asio_frame/src/lua/lcorolib.c.s
-.PHONY : data/server_asio_frame/src/lua/lcorolib.s
+root/server/server_frame/src/math/rand_table.s: root/server/server_frame/src/math/rand_table.cpp.s
+.PHONY : root/server/server_frame/src/math/rand_table.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lcorolib.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lcorolib.c.s
-.PHONY : data/server_asio_frame/src/lua/lcorolib.c.s
+root/server/server_frame/src/math/rand_table.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/math/rand_table.cpp.s
+.PHONY : root/server/server_frame/src/math/rand_table.cpp.s
 
-data/server_asio_frame/src/lua/lctype.o: data/server_asio_frame/src/lua/lctype.c.o
-.PHONY : data/server_asio_frame/src/lua/lctype.o
+root/server/server_frame/src/memory/ipcutility.o: root/server/server_frame/src/memory/ipcutility.cpp.o
+.PHONY : root/server/server_frame/src/memory/ipcutility.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lctype.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lctype.c.o
-.PHONY : data/server_asio_frame/src/lua/lctype.c.o
+root/server/server_frame/src/memory/ipcutility.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/memory/ipcutility.cpp.o
+.PHONY : root/server/server_frame/src/memory/ipcutility.cpp.o
 
-data/server_asio_frame/src/lua/lctype.i: data/server_asio_frame/src/lua/lctype.c.i
-.PHONY : data/server_asio_frame/src/lua/lctype.i
+root/server/server_frame/src/memory/ipcutility.i: root/server/server_frame/src/memory/ipcutility.cpp.i
+.PHONY : root/server/server_frame/src/memory/ipcutility.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lctype.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lctype.c.i
-.PHONY : data/server_asio_frame/src/lua/lctype.c.i
+root/server/server_frame/src/memory/ipcutility.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/memory/ipcutility.cpp.i
+.PHONY : root/server/server_frame/src/memory/ipcutility.cpp.i
 
-data/server_asio_frame/src/lua/lctype.s: data/server_asio_frame/src/lua/lctype.c.s
-.PHONY : data/server_asio_frame/src/lua/lctype.s
+root/server/server_frame/src/memory/ipcutility.s: root/server/server_frame/src/memory/ipcutility.cpp.s
+.PHONY : root/server/server_frame/src/memory/ipcutility.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lctype.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lctype.c.s
-.PHONY : data/server_asio_frame/src/lua/lctype.c.s
+root/server/server_frame/src/memory/ipcutility.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/memory/ipcutility.cpp.s
+.PHONY : root/server/server_frame/src/memory/ipcutility.cpp.s
 
-data/server_asio_frame/src/lua/ldblib.o: data/server_asio_frame/src/lua/ldblib.c.o
-.PHONY : data/server_asio_frame/src/lua/ldblib.o
+root/server/server_frame/src/memory/shm_buff_queue.o: root/server/server_frame/src/memory/shm_buff_queue.cpp.o
+.PHONY : root/server/server_frame/src/memory/shm_buff_queue.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/ldblib.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ldblib.c.o
-.PHONY : data/server_asio_frame/src/lua/ldblib.c.o
+root/server/server_frame/src/memory/shm_buff_queue.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/memory/shm_buff_queue.cpp.o
+.PHONY : root/server/server_frame/src/memory/shm_buff_queue.cpp.o
 
-data/server_asio_frame/src/lua/ldblib.i: data/server_asio_frame/src/lua/ldblib.c.i
-.PHONY : data/server_asio_frame/src/lua/ldblib.i
+root/server/server_frame/src/memory/shm_buff_queue.i: root/server/server_frame/src/memory/shm_buff_queue.cpp.i
+.PHONY : root/server/server_frame/src/memory/shm_buff_queue.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/ldblib.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ldblib.c.i
-.PHONY : data/server_asio_frame/src/lua/ldblib.c.i
+root/server/server_frame/src/memory/shm_buff_queue.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/memory/shm_buff_queue.cpp.i
+.PHONY : root/server/server_frame/src/memory/shm_buff_queue.cpp.i
 
-data/server_asio_frame/src/lua/ldblib.s: data/server_asio_frame/src/lua/ldblib.c.s
-.PHONY : data/server_asio_frame/src/lua/ldblib.s
+root/server/server_frame/src/memory/shm_buff_queue.s: root/server/server_frame/src/memory/shm_buff_queue.cpp.s
+.PHONY : root/server/server_frame/src/memory/shm_buff_queue.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/ldblib.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ldblib.c.s
-.PHONY : data/server_asio_frame/src/lua/ldblib.c.s
+root/server/server_frame/src/memory/shm_buff_queue.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/memory/shm_buff_queue.cpp.s
+.PHONY : root/server/server_frame/src/memory/shm_buff_queue.cpp.s
 
-data/server_asio_frame/src/lua/ldebug.o: data/server_asio_frame/src/lua/ldebug.c.o
-.PHONY : data/server_asio_frame/src/lua/ldebug.o
+root/server/server_frame/src/modern/json_wrap.o: root/server/server_frame/src/modern/json_wrap.cpp.o
+.PHONY : root/server/server_frame/src/modern/json_wrap.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/ldebug.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ldebug.c.o
-.PHONY : data/server_asio_frame/src/lua/ldebug.c.o
+root/server/server_frame/src/modern/json_wrap.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/modern/json_wrap.cpp.o
+.PHONY : root/server/server_frame/src/modern/json_wrap.cpp.o
 
-data/server_asio_frame/src/lua/ldebug.i: data/server_asio_frame/src/lua/ldebug.c.i
-.PHONY : data/server_asio_frame/src/lua/ldebug.i
+root/server/server_frame/src/modern/json_wrap.i: root/server/server_frame/src/modern/json_wrap.cpp.i
+.PHONY : root/server/server_frame/src/modern/json_wrap.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/ldebug.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ldebug.c.i
-.PHONY : data/server_asio_frame/src/lua/ldebug.c.i
+root/server/server_frame/src/modern/json_wrap.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/modern/json_wrap.cpp.i
+.PHONY : root/server/server_frame/src/modern/json_wrap.cpp.i
 
-data/server_asio_frame/src/lua/ldebug.s: data/server_asio_frame/src/lua/ldebug.c.s
-.PHONY : data/server_asio_frame/src/lua/ldebug.s
+root/server/server_frame/src/modern/json_wrap.s: root/server/server_frame/src/modern/json_wrap.cpp.s
+.PHONY : root/server/server_frame/src/modern/json_wrap.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/ldebug.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ldebug.c.s
-.PHONY : data/server_asio_frame/src/lua/ldebug.c.s
+root/server/server_frame/src/modern/json_wrap.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/modern/json_wrap.cpp.s
+.PHONY : root/server/server_frame/src/modern/json_wrap.cpp.s
 
-data/server_asio_frame/src/lua/ldo.o: data/server_asio_frame/src/lua/ldo.c.o
-.PHONY : data/server_asio_frame/src/lua/ldo.o
+root/server/server_frame/src/modern/tinyxml2.o: root/server/server_frame/src/modern/tinyxml2.cpp.o
+.PHONY : root/server/server_frame/src/modern/tinyxml2.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/ldo.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ldo.c.o
-.PHONY : data/server_asio_frame/src/lua/ldo.c.o
+root/server/server_frame/src/modern/tinyxml2.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/modern/tinyxml2.cpp.o
+.PHONY : root/server/server_frame/src/modern/tinyxml2.cpp.o
 
-data/server_asio_frame/src/lua/ldo.i: data/server_asio_frame/src/lua/ldo.c.i
-.PHONY : data/server_asio_frame/src/lua/ldo.i
+root/server/server_frame/src/modern/tinyxml2.i: root/server/server_frame/src/modern/tinyxml2.cpp.i
+.PHONY : root/server/server_frame/src/modern/tinyxml2.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/ldo.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ldo.c.i
-.PHONY : data/server_asio_frame/src/lua/ldo.c.i
+root/server/server_frame/src/modern/tinyxml2.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/modern/tinyxml2.cpp.i
+.PHONY : root/server/server_frame/src/modern/tinyxml2.cpp.i
 
-data/server_asio_frame/src/lua/ldo.s: data/server_asio_frame/src/lua/ldo.c.s
-.PHONY : data/server_asio_frame/src/lua/ldo.s
+root/server/server_frame/src/modern/tinyxml2.s: root/server/server_frame/src/modern/tinyxml2.cpp.s
+.PHONY : root/server/server_frame/src/modern/tinyxml2.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/ldo.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ldo.c.s
-.PHONY : data/server_asio_frame/src/lua/ldo.c.s
+root/server/server_frame/src/modern/tinyxml2.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/modern/tinyxml2.cpp.s
+.PHONY : root/server/server_frame/src/modern/tinyxml2.cpp.s
 
-data/server_asio_frame/src/lua/ldump.o: data/server_asio_frame/src/lua/ldump.c.o
-.PHONY : data/server_asio_frame/src/lua/ldump.o
+root/server/server_frame/src/network/Acceptor.o: root/server/server_frame/src/network/Acceptor.cpp.o
+.PHONY : root/server/server_frame/src/network/Acceptor.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/ldump.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ldump.c.o
-.PHONY : data/server_asio_frame/src/lua/ldump.c.o
+root/server/server_frame/src/network/Acceptor.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/Acceptor.cpp.o
+.PHONY : root/server/server_frame/src/network/Acceptor.cpp.o
 
-data/server_asio_frame/src/lua/ldump.i: data/server_asio_frame/src/lua/ldump.c.i
-.PHONY : data/server_asio_frame/src/lua/ldump.i
+root/server/server_frame/src/network/Acceptor.i: root/server/server_frame/src/network/Acceptor.cpp.i
+.PHONY : root/server/server_frame/src/network/Acceptor.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/ldump.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ldump.c.i
-.PHONY : data/server_asio_frame/src/lua/ldump.c.i
+root/server/server_frame/src/network/Acceptor.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/Acceptor.cpp.i
+.PHONY : root/server/server_frame/src/network/Acceptor.cpp.i
 
-data/server_asio_frame/src/lua/ldump.s: data/server_asio_frame/src/lua/ldump.c.s
-.PHONY : data/server_asio_frame/src/lua/ldump.s
+root/server/server_frame/src/network/Acceptor.s: root/server/server_frame/src/network/Acceptor.cpp.s
+.PHONY : root/server/server_frame/src/network/Acceptor.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/ldump.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ldump.c.s
-.PHONY : data/server_asio_frame/src/lua/ldump.c.s
+root/server/server_frame/src/network/Acceptor.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/Acceptor.cpp.s
+.PHONY : root/server/server_frame/src/network/Acceptor.cpp.s
 
-data/server_asio_frame/src/lua/lfunc.o: data/server_asio_frame/src/lua/lfunc.c.o
-.PHONY : data/server_asio_frame/src/lua/lfunc.o
+root/server/server_frame/src/network/Connector.o: root/server/server_frame/src/network/Connector.cpp.o
+.PHONY : root/server/server_frame/src/network/Connector.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lfunc.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lfunc.c.o
-.PHONY : data/server_asio_frame/src/lua/lfunc.c.o
+root/server/server_frame/src/network/Connector.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/Connector.cpp.o
+.PHONY : root/server/server_frame/src/network/Connector.cpp.o
 
-data/server_asio_frame/src/lua/lfunc.i: data/server_asio_frame/src/lua/lfunc.c.i
-.PHONY : data/server_asio_frame/src/lua/lfunc.i
+root/server/server_frame/src/network/Connector.i: root/server/server_frame/src/network/Connector.cpp.i
+.PHONY : root/server/server_frame/src/network/Connector.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lfunc.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lfunc.c.i
-.PHONY : data/server_asio_frame/src/lua/lfunc.c.i
+root/server/server_frame/src/network/Connector.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/Connector.cpp.i
+.PHONY : root/server/server_frame/src/network/Connector.cpp.i
 
-data/server_asio_frame/src/lua/lfunc.s: data/server_asio_frame/src/lua/lfunc.c.s
-.PHONY : data/server_asio_frame/src/lua/lfunc.s
+root/server/server_frame/src/network/Connector.s: root/server/server_frame/src/network/Connector.cpp.s
+.PHONY : root/server/server_frame/src/network/Connector.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lfunc.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lfunc.c.s
-.PHONY : data/server_asio_frame/src/lua/lfunc.c.s
+root/server/server_frame/src/network/Connector.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/Connector.cpp.s
+.PHONY : root/server/server_frame/src/network/Connector.cpp.s
 
-data/server_asio_frame/src/lua/lgc.o: data/server_asio_frame/src/lua/lgc.c.o
-.PHONY : data/server_asio_frame/src/lua/lgc.o
+root/server/server_frame/src/network/IOCPServer.o: root/server/server_frame/src/network/IOCPServer.cpp.o
+.PHONY : root/server/server_frame/src/network/IOCPServer.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lgc.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lgc.c.o
-.PHONY : data/server_asio_frame/src/lua/lgc.c.o
+root/server/server_frame/src/network/IOCPServer.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/IOCPServer.cpp.o
+.PHONY : root/server/server_frame/src/network/IOCPServer.cpp.o
 
-data/server_asio_frame/src/lua/lgc.i: data/server_asio_frame/src/lua/lgc.c.i
-.PHONY : data/server_asio_frame/src/lua/lgc.i
+root/server/server_frame/src/network/IOCPServer.i: root/server/server_frame/src/network/IOCPServer.cpp.i
+.PHONY : root/server/server_frame/src/network/IOCPServer.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lgc.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lgc.c.i
-.PHONY : data/server_asio_frame/src/lua/lgc.c.i
+root/server/server_frame/src/network/IOCPServer.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/IOCPServer.cpp.i
+.PHONY : root/server/server_frame/src/network/IOCPServer.cpp.i
 
-data/server_asio_frame/src/lua/lgc.s: data/server_asio_frame/src/lua/lgc.c.s
-.PHONY : data/server_asio_frame/src/lua/lgc.s
+root/server/server_frame/src/network/IOCPServer.s: root/server/server_frame/src/network/IOCPServer.cpp.s
+.PHONY : root/server/server_frame/src/network/IOCPServer.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lgc.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lgc.c.s
-.PHONY : data/server_asio_frame/src/lua/lgc.c.s
+root/server/server_frame/src/network/IOCPServer.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/IOCPServer.cpp.s
+.PHONY : root/server/server_frame/src/network/IOCPServer.cpp.s
 
-data/server_asio_frame/src/lua/linit.o: data/server_asio_frame/src/lua/linit.c.o
-.PHONY : data/server_asio_frame/src/lua/linit.o
+root/server/server_frame/src/network/IoHandler.o: root/server/server_frame/src/network/IoHandler.cpp.o
+.PHONY : root/server/server_frame/src/network/IoHandler.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/linit.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/linit.c.o
-.PHONY : data/server_asio_frame/src/lua/linit.c.o
+root/server/server_frame/src/network/IoHandler.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/IoHandler.cpp.o
+.PHONY : root/server/server_frame/src/network/IoHandler.cpp.o
 
-data/server_asio_frame/src/lua/linit.i: data/server_asio_frame/src/lua/linit.c.i
-.PHONY : data/server_asio_frame/src/lua/linit.i
+root/server/server_frame/src/network/IoHandler.i: root/server/server_frame/src/network/IoHandler.cpp.i
+.PHONY : root/server/server_frame/src/network/IoHandler.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/linit.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/linit.c.i
-.PHONY : data/server_asio_frame/src/lua/linit.c.i
+root/server/server_frame/src/network/IoHandler.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/IoHandler.cpp.i
+.PHONY : root/server/server_frame/src/network/IoHandler.cpp.i
 
-data/server_asio_frame/src/lua/linit.s: data/server_asio_frame/src/lua/linit.c.s
-.PHONY : data/server_asio_frame/src/lua/linit.s
+root/server/server_frame/src/network/IoHandler.s: root/server/server_frame/src/network/IoHandler.cpp.s
+.PHONY : root/server/server_frame/src/network/IoHandler.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/linit.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/linit.c.s
-.PHONY : data/server_asio_frame/src/lua/linit.c.s
+root/server/server_frame/src/network/IoHandler.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/IoHandler.cpp.s
+.PHONY : root/server/server_frame/src/network/IoHandler.cpp.s
 
-data/server_asio_frame/src/lua/liolib.o: data/server_asio_frame/src/lua/liolib.c.o
-.PHONY : data/server_asio_frame/src/lua/liolib.o
+root/server/server_frame/src/network/NetworkObject.o: root/server/server_frame/src/network/NetworkObject.cpp.o
+.PHONY : root/server/server_frame/src/network/NetworkObject.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/liolib.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/liolib.c.o
-.PHONY : data/server_asio_frame/src/lua/liolib.c.o
+root/server/server_frame/src/network/NetworkObject.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/NetworkObject.cpp.o
+.PHONY : root/server/server_frame/src/network/NetworkObject.cpp.o
 
-data/server_asio_frame/src/lua/liolib.i: data/server_asio_frame/src/lua/liolib.c.i
-.PHONY : data/server_asio_frame/src/lua/liolib.i
+root/server/server_frame/src/network/NetworkObject.i: root/server/server_frame/src/network/NetworkObject.cpp.i
+.PHONY : root/server/server_frame/src/network/NetworkObject.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/liolib.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/liolib.c.i
-.PHONY : data/server_asio_frame/src/lua/liolib.c.i
+root/server/server_frame/src/network/NetworkObject.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/NetworkObject.cpp.i
+.PHONY : root/server/server_frame/src/network/NetworkObject.cpp.i
 
-data/server_asio_frame/src/lua/liolib.s: data/server_asio_frame/src/lua/liolib.c.s
-.PHONY : data/server_asio_frame/src/lua/liolib.s
+root/server/server_frame/src/network/NetworkObject.s: root/server/server_frame/src/network/NetworkObject.cpp.s
+.PHONY : root/server/server_frame/src/network/NetworkObject.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/liolib.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/liolib.c.s
-.PHONY : data/server_asio_frame/src/lua/liolib.c.s
+root/server/server_frame/src/network/NetworkObject.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/NetworkObject.cpp.s
+.PHONY : root/server/server_frame/src/network/NetworkObject.cpp.s
 
-data/server_asio_frame/src/lua/llex.o: data/server_asio_frame/src/lua/llex.c.o
-.PHONY : data/server_asio_frame/src/lua/llex.o
+root/server/server_frame/src/network/Session.o: root/server/server_frame/src/network/Session.cpp.o
+.PHONY : root/server/server_frame/src/network/Session.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/llex.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/llex.c.o
-.PHONY : data/server_asio_frame/src/lua/llex.c.o
+root/server/server_frame/src/network/Session.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/Session.cpp.o
+.PHONY : root/server/server_frame/src/network/Session.cpp.o
 
-data/server_asio_frame/src/lua/llex.i: data/server_asio_frame/src/lua/llex.c.i
-.PHONY : data/server_asio_frame/src/lua/llex.i
+root/server/server_frame/src/network/Session.i: root/server/server_frame/src/network/Session.cpp.i
+.PHONY : root/server/server_frame/src/network/Session.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/llex.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/llex.c.i
-.PHONY : data/server_asio_frame/src/lua/llex.c.i
+root/server/server_frame/src/network/Session.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/Session.cpp.i
+.PHONY : root/server/server_frame/src/network/Session.cpp.i
 
-data/server_asio_frame/src/lua/llex.s: data/server_asio_frame/src/lua/llex.c.s
-.PHONY : data/server_asio_frame/src/lua/llex.s
+root/server/server_frame/src/network/Session.s: root/server/server_frame/src/network/Session.cpp.s
+.PHONY : root/server/server_frame/src/network/Session.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/llex.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/llex.c.s
-.PHONY : data/server_asio_frame/src/lua/llex.c.s
+root/server/server_frame/src/network/Session.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/Session.cpp.s
+.PHONY : root/server/server_frame/src/network/Session.cpp.s
 
-data/server_asio_frame/src/lua/lmathlib.o: data/server_asio_frame/src/lua/lmathlib.c.o
-.PHONY : data/server_asio_frame/src/lua/lmathlib.o
+root/server/server_frame/src/network/SessionList.o: root/server/server_frame/src/network/SessionList.cpp.o
+.PHONY : root/server/server_frame/src/network/SessionList.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lmathlib.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lmathlib.c.o
-.PHONY : data/server_asio_frame/src/lua/lmathlib.c.o
+root/server/server_frame/src/network/SessionList.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/SessionList.cpp.o
+.PHONY : root/server/server_frame/src/network/SessionList.cpp.o
 
-data/server_asio_frame/src/lua/lmathlib.i: data/server_asio_frame/src/lua/lmathlib.c.i
-.PHONY : data/server_asio_frame/src/lua/lmathlib.i
+root/server/server_frame/src/network/SessionList.i: root/server/server_frame/src/network/SessionList.cpp.i
+.PHONY : root/server/server_frame/src/network/SessionList.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lmathlib.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lmathlib.c.i
-.PHONY : data/server_asio_frame/src/lua/lmathlib.c.i
+root/server/server_frame/src/network/SessionList.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/SessionList.cpp.i
+.PHONY : root/server/server_frame/src/network/SessionList.cpp.i
 
-data/server_asio_frame/src/lua/lmathlib.s: data/server_asio_frame/src/lua/lmathlib.c.s
-.PHONY : data/server_asio_frame/src/lua/lmathlib.s
+root/server/server_frame/src/network/SessionList.s: root/server/server_frame/src/network/SessionList.cpp.s
+.PHONY : root/server/server_frame/src/network/SessionList.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lmathlib.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lmathlib.c.s
-.PHONY : data/server_asio_frame/src/lua/lmathlib.c.s
+root/server/server_frame/src/network/SessionList.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/SessionList.cpp.s
+.PHONY : root/server/server_frame/src/network/SessionList.cpp.s
 
-data/server_asio_frame/src/lua/lmem.o: data/server_asio_frame/src/lua/lmem.c.o
-.PHONY : data/server_asio_frame/src/lua/lmem.o
+root/server/server_frame/src/network/SessionPool.o: root/server/server_frame/src/network/SessionPool.cpp.o
+.PHONY : root/server/server_frame/src/network/SessionPool.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lmem.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lmem.c.o
-.PHONY : data/server_asio_frame/src/lua/lmem.c.o
+root/server/server_frame/src/network/SessionPool.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/SessionPool.cpp.o
+.PHONY : root/server/server_frame/src/network/SessionPool.cpp.o
 
-data/server_asio_frame/src/lua/lmem.i: data/server_asio_frame/src/lua/lmem.c.i
-.PHONY : data/server_asio_frame/src/lua/lmem.i
+root/server/server_frame/src/network/SessionPool.i: root/server/server_frame/src/network/SessionPool.cpp.i
+.PHONY : root/server/server_frame/src/network/SessionPool.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lmem.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lmem.c.i
-.PHONY : data/server_asio_frame/src/lua/lmem.c.i
+root/server/server_frame/src/network/SessionPool.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/SessionPool.cpp.i
+.PHONY : root/server/server_frame/src/network/SessionPool.cpp.i
 
-data/server_asio_frame/src/lua/lmem.s: data/server_asio_frame/src/lua/lmem.c.s
-.PHONY : data/server_asio_frame/src/lua/lmem.s
+root/server/server_frame/src/network/SessionPool.s: root/server/server_frame/src/network/SessionPool.cpp.s
+.PHONY : root/server/server_frame/src/network/SessionPool.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lmem.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lmem.c.s
-.PHONY : data/server_asio_frame/src/lua/lmem.c.s
+root/server/server_frame/src/network/SessionPool.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/SessionPool.cpp.s
+.PHONY : root/server/server_frame/src/network/SessionPool.cpp.s
 
-data/server_asio_frame/src/lua/loadlib.o: data/server_asio_frame/src/lua/loadlib.c.o
-.PHONY : data/server_asio_frame/src/lua/loadlib.o
+root/server/server_frame/src/network/SocketOps.o: root/server/server_frame/src/network/SocketOps.cpp.o
+.PHONY : root/server/server_frame/src/network/SocketOps.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/loadlib.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/loadlib.c.o
-.PHONY : data/server_asio_frame/src/lua/loadlib.c.o
+root/server/server_frame/src/network/SocketOps.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/SocketOps.cpp.o
+.PHONY : root/server/server_frame/src/network/SocketOps.cpp.o
 
-data/server_asio_frame/src/lua/loadlib.i: data/server_asio_frame/src/lua/loadlib.c.i
-.PHONY : data/server_asio_frame/src/lua/loadlib.i
+root/server/server_frame/src/network/SocketOps.i: root/server/server_frame/src/network/SocketOps.cpp.i
+.PHONY : root/server/server_frame/src/network/SocketOps.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/loadlib.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/loadlib.c.i
-.PHONY : data/server_asio_frame/src/lua/loadlib.c.i
+root/server/server_frame/src/network/SocketOps.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/SocketOps.cpp.i
+.PHONY : root/server/server_frame/src/network/SocketOps.cpp.i
 
-data/server_asio_frame/src/lua/loadlib.s: data/server_asio_frame/src/lua/loadlib.c.s
-.PHONY : data/server_asio_frame/src/lua/loadlib.s
+root/server/server_frame/src/network/SocketOps.s: root/server/server_frame/src/network/SocketOps.cpp.s
+.PHONY : root/server/server_frame/src/network/SocketOps.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/loadlib.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/loadlib.c.s
-.PHONY : data/server_asio_frame/src/lua/loadlib.c.s
+root/server/server_frame/src/network/SocketOps.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/SocketOps.cpp.s
+.PHONY : root/server/server_frame/src/network/SocketOps.cpp.s
 
-data/server_asio_frame/src/lua/lobject.o: data/server_asio_frame/src/lua/lobject.c.o
-.PHONY : data/server_asio_frame/src/lua/lobject.o
+root/server/server_frame/src/network/TLock.o: root/server/server_frame/src/network/TLock.cpp.o
+.PHONY : root/server/server_frame/src/network/TLock.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lobject.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lobject.c.o
-.PHONY : data/server_asio_frame/src/lua/lobject.c.o
+root/server/server_frame/src/network/TLock.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/TLock.cpp.o
+.PHONY : root/server/server_frame/src/network/TLock.cpp.o
 
-data/server_asio_frame/src/lua/lobject.i: data/server_asio_frame/src/lua/lobject.c.i
-.PHONY : data/server_asio_frame/src/lua/lobject.i
+root/server/server_frame/src/network/TLock.i: root/server/server_frame/src/network/TLock.cpp.i
+.PHONY : root/server/server_frame/src/network/TLock.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lobject.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lobject.c.i
-.PHONY : data/server_asio_frame/src/lua/lobject.c.i
+root/server/server_frame/src/network/TLock.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/TLock.cpp.i
+.PHONY : root/server/server_frame/src/network/TLock.cpp.i
 
-data/server_asio_frame/src/lua/lobject.s: data/server_asio_frame/src/lua/lobject.c.s
-.PHONY : data/server_asio_frame/src/lua/lobject.s
+root/server/server_frame/src/network/TLock.s: root/server/server_frame/src/network/TLock.cpp.s
+.PHONY : root/server/server_frame/src/network/TLock.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lobject.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lobject.c.s
-.PHONY : data/server_asio_frame/src/lua/lobject.c.s
+root/server/server_frame/src/network/TLock.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/TLock.cpp.s
+.PHONY : root/server/server_frame/src/network/TLock.cpp.s
 
-data/server_asio_frame/src/lua/lopcodes.o: data/server_asio_frame/src/lua/lopcodes.c.o
-.PHONY : data/server_asio_frame/src/lua/lopcodes.o
+root/server/server_frame/src/network/tcp_connector.o: root/server/server_frame/src/network/tcp_connector.cpp.o
+.PHONY : root/server/server_frame/src/network/tcp_connector.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lopcodes.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lopcodes.c.o
-.PHONY : data/server_asio_frame/src/lua/lopcodes.c.o
+root/server/server_frame/src/network/tcp_connector.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/tcp_connector.cpp.o
+.PHONY : root/server/server_frame/src/network/tcp_connector.cpp.o
 
-data/server_asio_frame/src/lua/lopcodes.i: data/server_asio_frame/src/lua/lopcodes.c.i
-.PHONY : data/server_asio_frame/src/lua/lopcodes.i
+root/server/server_frame/src/network/tcp_connector.i: root/server/server_frame/src/network/tcp_connector.cpp.i
+.PHONY : root/server/server_frame/src/network/tcp_connector.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lopcodes.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lopcodes.c.i
-.PHONY : data/server_asio_frame/src/lua/lopcodes.c.i
+root/server/server_frame/src/network/tcp_connector.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/tcp_connector.cpp.i
+.PHONY : root/server/server_frame/src/network/tcp_connector.cpp.i
 
-data/server_asio_frame/src/lua/lopcodes.s: data/server_asio_frame/src/lua/lopcodes.c.s
-.PHONY : data/server_asio_frame/src/lua/lopcodes.s
+root/server/server_frame/src/network/tcp_connector.s: root/server/server_frame/src/network/tcp_connector.cpp.s
+.PHONY : root/server/server_frame/src/network/tcp_connector.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lopcodes.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lopcodes.c.s
-.PHONY : data/server_asio_frame/src/lua/lopcodes.c.s
+root/server/server_frame/src/network/tcp_connector.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network/tcp_connector.cpp.s
+.PHONY : root/server/server_frame/src/network/tcp_connector.cpp.s
 
-data/server_asio_frame/src/lua/loslib.o: data/server_asio_frame/src/lua/loslib.c.o
-.PHONY : data/server_asio_frame/src/lua/loslib.o
+root/server/server_frame/src/network_asio/tcp_client.o: root/server/server_frame/src/network_asio/tcp_client.cc.o
+.PHONY : root/server/server_frame/src/network_asio/tcp_client.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/loslib.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/loslib.c.o
-.PHONY : data/server_asio_frame/src/lua/loslib.c.o
+root/server/server_frame/src/network_asio/tcp_client.cc.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network_asio/tcp_client.cc.o
+.PHONY : root/server/server_frame/src/network_asio/tcp_client.cc.o
 
-data/server_asio_frame/src/lua/loslib.i: data/server_asio_frame/src/lua/loslib.c.i
-.PHONY : data/server_asio_frame/src/lua/loslib.i
+root/server/server_frame/src/network_asio/tcp_client.i: root/server/server_frame/src/network_asio/tcp_client.cc.i
+.PHONY : root/server/server_frame/src/network_asio/tcp_client.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/loslib.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/loslib.c.i
-.PHONY : data/server_asio_frame/src/lua/loslib.c.i
+root/server/server_frame/src/network_asio/tcp_client.cc.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network_asio/tcp_client.cc.i
+.PHONY : root/server/server_frame/src/network_asio/tcp_client.cc.i
 
-data/server_asio_frame/src/lua/loslib.s: data/server_asio_frame/src/lua/loslib.c.s
-.PHONY : data/server_asio_frame/src/lua/loslib.s
+root/server/server_frame/src/network_asio/tcp_client.s: root/server/server_frame/src/network_asio/tcp_client.cc.s
+.PHONY : root/server/server_frame/src/network_asio/tcp_client.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/loslib.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/loslib.c.s
-.PHONY : data/server_asio_frame/src/lua/loslib.c.s
+root/server/server_frame/src/network_asio/tcp_client.cc.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network_asio/tcp_client.cc.s
+.PHONY : root/server/server_frame/src/network_asio/tcp_client.cc.s
 
-data/server_asio_frame/src/lua/lparser.o: data/server_asio_frame/src/lua/lparser.c.o
-.PHONY : data/server_asio_frame/src/lua/lparser.o
+root/server/server_frame/src/network_asio/tcp_conn.o: root/server/server_frame/src/network_asio/tcp_conn.cc.o
+.PHONY : root/server/server_frame/src/network_asio/tcp_conn.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lparser.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lparser.c.o
-.PHONY : data/server_asio_frame/src/lua/lparser.c.o
+root/server/server_frame/src/network_asio/tcp_conn.cc.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network_asio/tcp_conn.cc.o
+.PHONY : root/server/server_frame/src/network_asio/tcp_conn.cc.o
 
-data/server_asio_frame/src/lua/lparser.i: data/server_asio_frame/src/lua/lparser.c.i
-.PHONY : data/server_asio_frame/src/lua/lparser.i
+root/server/server_frame/src/network_asio/tcp_conn.i: root/server/server_frame/src/network_asio/tcp_conn.cc.i
+.PHONY : root/server/server_frame/src/network_asio/tcp_conn.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lparser.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lparser.c.i
-.PHONY : data/server_asio_frame/src/lua/lparser.c.i
+root/server/server_frame/src/network_asio/tcp_conn.cc.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network_asio/tcp_conn.cc.i
+.PHONY : root/server/server_frame/src/network_asio/tcp_conn.cc.i
 
-data/server_asio_frame/src/lua/lparser.s: data/server_asio_frame/src/lua/lparser.c.s
-.PHONY : data/server_asio_frame/src/lua/lparser.s
+root/server/server_frame/src/network_asio/tcp_conn.s: root/server/server_frame/src/network_asio/tcp_conn.cc.s
+.PHONY : root/server/server_frame/src/network_asio/tcp_conn.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lparser.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lparser.c.s
-.PHONY : data/server_asio_frame/src/lua/lparser.c.s
+root/server/server_frame/src/network_asio/tcp_conn.cc.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network_asio/tcp_conn.cc.s
+.PHONY : root/server/server_frame/src/network_asio/tcp_conn.cc.s
 
-data/server_asio_frame/src/lua/lstate.o: data/server_asio_frame/src/lua/lstate.c.o
-.PHONY : data/server_asio_frame/src/lua/lstate.o
+root/server/server_frame/src/network_asio/tcp_server.o: root/server/server_frame/src/network_asio/tcp_server.cc.o
+.PHONY : root/server/server_frame/src/network_asio/tcp_server.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lstate.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lstate.c.o
-.PHONY : data/server_asio_frame/src/lua/lstate.c.o
+root/server/server_frame/src/network_asio/tcp_server.cc.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network_asio/tcp_server.cc.o
+.PHONY : root/server/server_frame/src/network_asio/tcp_server.cc.o
 
-data/server_asio_frame/src/lua/lstate.i: data/server_asio_frame/src/lua/lstate.c.i
-.PHONY : data/server_asio_frame/src/lua/lstate.i
+root/server/server_frame/src/network_asio/tcp_server.i: root/server/server_frame/src/network_asio/tcp_server.cc.i
+.PHONY : root/server/server_frame/src/network_asio/tcp_server.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lstate.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lstate.c.i
-.PHONY : data/server_asio_frame/src/lua/lstate.c.i
+root/server/server_frame/src/network_asio/tcp_server.cc.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network_asio/tcp_server.cc.i
+.PHONY : root/server/server_frame/src/network_asio/tcp_server.cc.i
 
-data/server_asio_frame/src/lua/lstate.s: data/server_asio_frame/src/lua/lstate.c.s
-.PHONY : data/server_asio_frame/src/lua/lstate.s
+root/server/server_frame/src/network_asio/tcp_server.s: root/server/server_frame/src/network_asio/tcp_server.cc.s
+.PHONY : root/server/server_frame/src/network_asio/tcp_server.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lstate.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lstate.c.s
-.PHONY : data/server_asio_frame/src/lua/lstate.c.s
+root/server/server_frame/src/network_asio/tcp_server.cc.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/network_asio/tcp_server.cc.s
+.PHONY : root/server/server_frame/src/network_asio/tcp_server.cc.s
 
-data/server_asio_frame/src/lua/lstring.o: data/server_asio_frame/src/lua/lstring.c.o
-.PHONY : data/server_asio_frame/src/lua/lstring.o
+root/server/server_frame/src/string/string_functions.o: root/server/server_frame/src/string/string_functions.cpp.o
+.PHONY : root/server/server_frame/src/string/string_functions.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lstring.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lstring.c.o
-.PHONY : data/server_asio_frame/src/lua/lstring.c.o
+root/server/server_frame/src/string/string_functions.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/string/string_functions.cpp.o
+.PHONY : root/server/server_frame/src/string/string_functions.cpp.o
 
-data/server_asio_frame/src/lua/lstring.i: data/server_asio_frame/src/lua/lstring.c.i
-.PHONY : data/server_asio_frame/src/lua/lstring.i
+root/server/server_frame/src/string/string_functions.i: root/server/server_frame/src/string/string_functions.cpp.i
+.PHONY : root/server/server_frame/src/string/string_functions.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lstring.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lstring.c.i
-.PHONY : data/server_asio_frame/src/lua/lstring.c.i
+root/server/server_frame/src/string/string_functions.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/string/string_functions.cpp.i
+.PHONY : root/server/server_frame/src/string/string_functions.cpp.i
 
-data/server_asio_frame/src/lua/lstring.s: data/server_asio_frame/src/lua/lstring.c.s
-.PHONY : data/server_asio_frame/src/lua/lstring.s
+root/server/server_frame/src/string/string_functions.s: root/server/server_frame/src/string/string_functions.cpp.s
+.PHONY : root/server/server_frame/src/string/string_functions.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lstring.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lstring.c.s
-.PHONY : data/server_asio_frame/src/lua/lstring.c.s
+root/server/server_frame/src/string/string_functions.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/string/string_functions.cpp.s
+.PHONY : root/server/server_frame/src/string/string_functions.cpp.s
 
-data/server_asio_frame/src/lua/lstrlib.o: data/server_asio_frame/src/lua/lstrlib.c.o
-.PHONY : data/server_asio_frame/src/lua/lstrlib.o
+root/server/server_frame/src/string/stringutility.o: root/server/server_frame/src/string/stringutility.cpp.o
+.PHONY : root/server/server_frame/src/string/stringutility.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lstrlib.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lstrlib.c.o
-.PHONY : data/server_asio_frame/src/lua/lstrlib.c.o
+root/server/server_frame/src/string/stringutility.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/string/stringutility.cpp.o
+.PHONY : root/server/server_frame/src/string/stringutility.cpp.o
 
-data/server_asio_frame/src/lua/lstrlib.i: data/server_asio_frame/src/lua/lstrlib.c.i
-.PHONY : data/server_asio_frame/src/lua/lstrlib.i
+root/server/server_frame/src/string/stringutility.i: root/server/server_frame/src/string/stringutility.cpp.i
+.PHONY : root/server/server_frame/src/string/stringutility.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lstrlib.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lstrlib.c.i
-.PHONY : data/server_asio_frame/src/lua/lstrlib.c.i
+root/server/server_frame/src/string/stringutility.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/string/stringutility.cpp.i
+.PHONY : root/server/server_frame/src/string/stringutility.cpp.i
 
-data/server_asio_frame/src/lua/lstrlib.s: data/server_asio_frame/src/lua/lstrlib.c.s
-.PHONY : data/server_asio_frame/src/lua/lstrlib.s
+root/server/server_frame/src/string/stringutility.s: root/server/server_frame/src/string/stringutility.cpp.s
+.PHONY : root/server/server_frame/src/string/stringutility.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lstrlib.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lstrlib.c.s
-.PHONY : data/server_asio_frame/src/lua/lstrlib.c.s
+root/server/server_frame/src/string/stringutility.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/string/stringutility.cpp.s
+.PHONY : root/server/server_frame/src/string/stringutility.cpp.s
 
-data/server_asio_frame/src/lua/ltable.o: data/server_asio_frame/src/lua/ltable.c.o
-.PHONY : data/server_asio_frame/src/lua/ltable.o
+root/server/server_frame/src/third/lua/lapi.o: root/server/server_frame/src/third/lua/lapi.c.o
+.PHONY : root/server/server_frame/src/third/lua/lapi.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/ltable.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ltable.c.o
-.PHONY : data/server_asio_frame/src/lua/ltable.c.o
+root/server/server_frame/src/third/lua/lapi.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lapi.c.o
+.PHONY : root/server/server_frame/src/third/lua/lapi.c.o
 
-data/server_asio_frame/src/lua/ltable.i: data/server_asio_frame/src/lua/ltable.c.i
-.PHONY : data/server_asio_frame/src/lua/ltable.i
+root/server/server_frame/src/third/lua/lapi.i: root/server/server_frame/src/third/lua/lapi.c.i
+.PHONY : root/server/server_frame/src/third/lua/lapi.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/ltable.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ltable.c.i
-.PHONY : data/server_asio_frame/src/lua/ltable.c.i
+root/server/server_frame/src/third/lua/lapi.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lapi.c.i
+.PHONY : root/server/server_frame/src/third/lua/lapi.c.i
 
-data/server_asio_frame/src/lua/ltable.s: data/server_asio_frame/src/lua/ltable.c.s
-.PHONY : data/server_asio_frame/src/lua/ltable.s
+root/server/server_frame/src/third/lua/lapi.s: root/server/server_frame/src/third/lua/lapi.c.s
+.PHONY : root/server/server_frame/src/third/lua/lapi.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/ltable.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ltable.c.s
-.PHONY : data/server_asio_frame/src/lua/ltable.c.s
+root/server/server_frame/src/third/lua/lapi.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lapi.c.s
+.PHONY : root/server/server_frame/src/third/lua/lapi.c.s
 
-data/server_asio_frame/src/lua/ltablib.o: data/server_asio_frame/src/lua/ltablib.c.o
-.PHONY : data/server_asio_frame/src/lua/ltablib.o
+root/server/server_frame/src/third/lua/lauxlib.o: root/server/server_frame/src/third/lua/lauxlib.c.o
+.PHONY : root/server/server_frame/src/third/lua/lauxlib.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/ltablib.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ltablib.c.o
-.PHONY : data/server_asio_frame/src/lua/ltablib.c.o
+root/server/server_frame/src/third/lua/lauxlib.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lauxlib.c.o
+.PHONY : root/server/server_frame/src/third/lua/lauxlib.c.o
 
-data/server_asio_frame/src/lua/ltablib.i: data/server_asio_frame/src/lua/ltablib.c.i
-.PHONY : data/server_asio_frame/src/lua/ltablib.i
+root/server/server_frame/src/third/lua/lauxlib.i: root/server/server_frame/src/third/lua/lauxlib.c.i
+.PHONY : root/server/server_frame/src/third/lua/lauxlib.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/ltablib.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ltablib.c.i
-.PHONY : data/server_asio_frame/src/lua/ltablib.c.i
+root/server/server_frame/src/third/lua/lauxlib.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lauxlib.c.i
+.PHONY : root/server/server_frame/src/third/lua/lauxlib.c.i
 
-data/server_asio_frame/src/lua/ltablib.s: data/server_asio_frame/src/lua/ltablib.c.s
-.PHONY : data/server_asio_frame/src/lua/ltablib.s
+root/server/server_frame/src/third/lua/lauxlib.s: root/server/server_frame/src/third/lua/lauxlib.c.s
+.PHONY : root/server/server_frame/src/third/lua/lauxlib.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/ltablib.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ltablib.c.s
-.PHONY : data/server_asio_frame/src/lua/ltablib.c.s
+root/server/server_frame/src/third/lua/lauxlib.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lauxlib.c.s
+.PHONY : root/server/server_frame/src/third/lua/lauxlib.c.s
 
-data/server_asio_frame/src/lua/ltm.o: data/server_asio_frame/src/lua/ltm.c.o
-.PHONY : data/server_asio_frame/src/lua/ltm.o
+root/server/server_frame/src/third/lua/lbaselib.o: root/server/server_frame/src/third/lua/lbaselib.c.o
+.PHONY : root/server/server_frame/src/third/lua/lbaselib.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/ltm.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ltm.c.o
-.PHONY : data/server_asio_frame/src/lua/ltm.c.o
+root/server/server_frame/src/third/lua/lbaselib.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lbaselib.c.o
+.PHONY : root/server/server_frame/src/third/lua/lbaselib.c.o
 
-data/server_asio_frame/src/lua/ltm.i: data/server_asio_frame/src/lua/ltm.c.i
-.PHONY : data/server_asio_frame/src/lua/ltm.i
+root/server/server_frame/src/third/lua/lbaselib.i: root/server/server_frame/src/third/lua/lbaselib.c.i
+.PHONY : root/server/server_frame/src/third/lua/lbaselib.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/ltm.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ltm.c.i
-.PHONY : data/server_asio_frame/src/lua/ltm.c.i
+root/server/server_frame/src/third/lua/lbaselib.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lbaselib.c.i
+.PHONY : root/server/server_frame/src/third/lua/lbaselib.c.i
 
-data/server_asio_frame/src/lua/ltm.s: data/server_asio_frame/src/lua/ltm.c.s
-.PHONY : data/server_asio_frame/src/lua/ltm.s
+root/server/server_frame/src/third/lua/lbaselib.s: root/server/server_frame/src/third/lua/lbaselib.c.s
+.PHONY : root/server/server_frame/src/third/lua/lbaselib.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/ltm.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/ltm.c.s
-.PHONY : data/server_asio_frame/src/lua/ltm.c.s
+root/server/server_frame/src/third/lua/lbaselib.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lbaselib.c.s
+.PHONY : root/server/server_frame/src/third/lua/lbaselib.c.s
 
-data/server_asio_frame/src/lua/lua.o: data/server_asio_frame/src/lua/lua.c.o
-.PHONY : data/server_asio_frame/src/lua/lua.o
+root/server/server_frame/src/third/lua/lbitlib.o: root/server/server_frame/src/third/lua/lbitlib.c.o
+.PHONY : root/server/server_frame/src/third/lua/lbitlib.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lua.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lua.c.o
-.PHONY : data/server_asio_frame/src/lua/lua.c.o
+root/server/server_frame/src/third/lua/lbitlib.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lbitlib.c.o
+.PHONY : root/server/server_frame/src/third/lua/lbitlib.c.o
 
-data/server_asio_frame/src/lua/lua.i: data/server_asio_frame/src/lua/lua.c.i
-.PHONY : data/server_asio_frame/src/lua/lua.i
+root/server/server_frame/src/third/lua/lbitlib.i: root/server/server_frame/src/third/lua/lbitlib.c.i
+.PHONY : root/server/server_frame/src/third/lua/lbitlib.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lua.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lua.c.i
-.PHONY : data/server_asio_frame/src/lua/lua.c.i
+root/server/server_frame/src/third/lua/lbitlib.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lbitlib.c.i
+.PHONY : root/server/server_frame/src/third/lua/lbitlib.c.i
 
-data/server_asio_frame/src/lua/lua.s: data/server_asio_frame/src/lua/lua.c.s
-.PHONY : data/server_asio_frame/src/lua/lua.s
+root/server/server_frame/src/third/lua/lbitlib.s: root/server/server_frame/src/third/lua/lbitlib.c.s
+.PHONY : root/server/server_frame/src/third/lua/lbitlib.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lua.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lua.c.s
-.PHONY : data/server_asio_frame/src/lua/lua.c.s
+root/server/server_frame/src/third/lua/lbitlib.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lbitlib.c.s
+.PHONY : root/server/server_frame/src/third/lua/lbitlib.c.s
 
-data/server_asio_frame/src/lua/luac.o: data/server_asio_frame/src/lua/luac.c.o
-.PHONY : data/server_asio_frame/src/lua/luac.o
+root/server/server_frame/src/third/lua/lcode.o: root/server/server_frame/src/third/lua/lcode.c.o
+.PHONY : root/server/server_frame/src/third/lua/lcode.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/luac.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/luac.c.o
-.PHONY : data/server_asio_frame/src/lua/luac.c.o
+root/server/server_frame/src/third/lua/lcode.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lcode.c.o
+.PHONY : root/server/server_frame/src/third/lua/lcode.c.o
 
-data/server_asio_frame/src/lua/luac.i: data/server_asio_frame/src/lua/luac.c.i
-.PHONY : data/server_asio_frame/src/lua/luac.i
+root/server/server_frame/src/third/lua/lcode.i: root/server/server_frame/src/third/lua/lcode.c.i
+.PHONY : root/server/server_frame/src/third/lua/lcode.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/luac.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/luac.c.i
-.PHONY : data/server_asio_frame/src/lua/luac.c.i
+root/server/server_frame/src/third/lua/lcode.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lcode.c.i
+.PHONY : root/server/server_frame/src/third/lua/lcode.c.i
 
-data/server_asio_frame/src/lua/luac.s: data/server_asio_frame/src/lua/luac.c.s
-.PHONY : data/server_asio_frame/src/lua/luac.s
+root/server/server_frame/src/third/lua/lcode.s: root/server/server_frame/src/third/lua/lcode.c.s
+.PHONY : root/server/server_frame/src/third/lua/lcode.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/luac.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/luac.c.s
-.PHONY : data/server_asio_frame/src/lua/luac.c.s
+root/server/server_frame/src/third/lua/lcode.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lcode.c.s
+.PHONY : root/server/server_frame/src/third/lua/lcode.c.s
 
-data/server_asio_frame/src/lua/lundump.o: data/server_asio_frame/src/lua/lundump.c.o
-.PHONY : data/server_asio_frame/src/lua/lundump.o
+root/server/server_frame/src/third/lua/lcorolib.o: root/server/server_frame/src/third/lua/lcorolib.c.o
+.PHONY : root/server/server_frame/src/third/lua/lcorolib.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lundump.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lundump.c.o
-.PHONY : data/server_asio_frame/src/lua/lundump.c.o
+root/server/server_frame/src/third/lua/lcorolib.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lcorolib.c.o
+.PHONY : root/server/server_frame/src/third/lua/lcorolib.c.o
 
-data/server_asio_frame/src/lua/lundump.i: data/server_asio_frame/src/lua/lundump.c.i
-.PHONY : data/server_asio_frame/src/lua/lundump.i
+root/server/server_frame/src/third/lua/lcorolib.i: root/server/server_frame/src/third/lua/lcorolib.c.i
+.PHONY : root/server/server_frame/src/third/lua/lcorolib.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lundump.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lundump.c.i
-.PHONY : data/server_asio_frame/src/lua/lundump.c.i
+root/server/server_frame/src/third/lua/lcorolib.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lcorolib.c.i
+.PHONY : root/server/server_frame/src/third/lua/lcorolib.c.i
 
-data/server_asio_frame/src/lua/lundump.s: data/server_asio_frame/src/lua/lundump.c.s
-.PHONY : data/server_asio_frame/src/lua/lundump.s
+root/server/server_frame/src/third/lua/lcorolib.s: root/server/server_frame/src/third/lua/lcorolib.c.s
+.PHONY : root/server/server_frame/src/third/lua/lcorolib.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lundump.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lundump.c.s
-.PHONY : data/server_asio_frame/src/lua/lundump.c.s
+root/server/server_frame/src/third/lua/lcorolib.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lcorolib.c.s
+.PHONY : root/server/server_frame/src/third/lua/lcorolib.c.s
 
-data/server_asio_frame/src/lua/lutf8lib.o: data/server_asio_frame/src/lua/lutf8lib.c.o
-.PHONY : data/server_asio_frame/src/lua/lutf8lib.o
+root/server/server_frame/src/third/lua/lctype.o: root/server/server_frame/src/third/lua/lctype.c.o
+.PHONY : root/server/server_frame/src/third/lua/lctype.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lutf8lib.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lutf8lib.c.o
-.PHONY : data/server_asio_frame/src/lua/lutf8lib.c.o
+root/server/server_frame/src/third/lua/lctype.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lctype.c.o
+.PHONY : root/server/server_frame/src/third/lua/lctype.c.o
 
-data/server_asio_frame/src/lua/lutf8lib.i: data/server_asio_frame/src/lua/lutf8lib.c.i
-.PHONY : data/server_asio_frame/src/lua/lutf8lib.i
+root/server/server_frame/src/third/lua/lctype.i: root/server/server_frame/src/third/lua/lctype.c.i
+.PHONY : root/server/server_frame/src/third/lua/lctype.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lutf8lib.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lutf8lib.c.i
-.PHONY : data/server_asio_frame/src/lua/lutf8lib.c.i
+root/server/server_frame/src/third/lua/lctype.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lctype.c.i
+.PHONY : root/server/server_frame/src/third/lua/lctype.c.i
 
-data/server_asio_frame/src/lua/lutf8lib.s: data/server_asio_frame/src/lua/lutf8lib.c.s
-.PHONY : data/server_asio_frame/src/lua/lutf8lib.s
+root/server/server_frame/src/third/lua/lctype.s: root/server/server_frame/src/third/lua/lctype.c.s
+.PHONY : root/server/server_frame/src/third/lua/lctype.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lutf8lib.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lutf8lib.c.s
-.PHONY : data/server_asio_frame/src/lua/lutf8lib.c.s
+root/server/server_frame/src/third/lua/lctype.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lctype.c.s
+.PHONY : root/server/server_frame/src/third/lua/lctype.c.s
 
-data/server_asio_frame/src/lua/lvm.o: data/server_asio_frame/src/lua/lvm.c.o
-.PHONY : data/server_asio_frame/src/lua/lvm.o
+root/server/server_frame/src/third/lua/ldblib.o: root/server/server_frame/src/third/lua/ldblib.c.o
+.PHONY : root/server/server_frame/src/third/lua/ldblib.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lvm.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lvm.c.o
-.PHONY : data/server_asio_frame/src/lua/lvm.c.o
+root/server/server_frame/src/third/lua/ldblib.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ldblib.c.o
+.PHONY : root/server/server_frame/src/third/lua/ldblib.c.o
 
-data/server_asio_frame/src/lua/lvm.i: data/server_asio_frame/src/lua/lvm.c.i
-.PHONY : data/server_asio_frame/src/lua/lvm.i
+root/server/server_frame/src/third/lua/ldblib.i: root/server/server_frame/src/third/lua/ldblib.c.i
+.PHONY : root/server/server_frame/src/third/lua/ldblib.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lvm.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lvm.c.i
-.PHONY : data/server_asio_frame/src/lua/lvm.c.i
+root/server/server_frame/src/third/lua/ldblib.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ldblib.c.i
+.PHONY : root/server/server_frame/src/third/lua/ldblib.c.i
 
-data/server_asio_frame/src/lua/lvm.s: data/server_asio_frame/src/lua/lvm.c.s
-.PHONY : data/server_asio_frame/src/lua/lvm.s
+root/server/server_frame/src/third/lua/ldblib.s: root/server/server_frame/src/third/lua/ldblib.c.s
+.PHONY : root/server/server_frame/src/third/lua/ldblib.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lvm.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lvm.c.s
-.PHONY : data/server_asio_frame/src/lua/lvm.c.s
+root/server/server_frame/src/third/lua/ldblib.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ldblib.c.s
+.PHONY : root/server/server_frame/src/third/lua/ldblib.c.s
 
-data/server_asio_frame/src/lua/lzio.o: data/server_asio_frame/src/lua/lzio.c.o
-.PHONY : data/server_asio_frame/src/lua/lzio.o
+root/server/server_frame/src/third/lua/ldebug.o: root/server/server_frame/src/third/lua/ldebug.c.o
+.PHONY : root/server/server_frame/src/third/lua/ldebug.o
 
 # target to build an object file
-data/server_asio_frame/src/lua/lzio.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lzio.c.o
-.PHONY : data/server_asio_frame/src/lua/lzio.c.o
+root/server/server_frame/src/third/lua/ldebug.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ldebug.c.o
+.PHONY : root/server/server_frame/src/third/lua/ldebug.c.o
 
-data/server_asio_frame/src/lua/lzio.i: data/server_asio_frame/src/lua/lzio.c.i
-.PHONY : data/server_asio_frame/src/lua/lzio.i
+root/server/server_frame/src/third/lua/ldebug.i: root/server/server_frame/src/third/lua/ldebug.c.i
+.PHONY : root/server/server_frame/src/third/lua/ldebug.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua/lzio.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lzio.c.i
-.PHONY : data/server_asio_frame/src/lua/lzio.c.i
+root/server/server_frame/src/third/lua/ldebug.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ldebug.c.i
+.PHONY : root/server/server_frame/src/third/lua/ldebug.c.i
 
-data/server_asio_frame/src/lua/lzio.s: data/server_asio_frame/src/lua/lzio.c.s
-.PHONY : data/server_asio_frame/src/lua/lzio.s
+root/server/server_frame/src/third/lua/ldebug.s: root/server/server_frame/src/third/lua/ldebug.c.s
+.PHONY : root/server/server_frame/src/third/lua/ldebug.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua/lzio.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua/lzio.c.s
-.PHONY : data/server_asio_frame/src/lua/lzio.c.s
+root/server/server_frame/src/third/lua/ldebug.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ldebug.c.s
+.PHONY : root/server/server_frame/src/third/lua/ldebug.c.s
 
-data/server_asio_frame/src/lua_service/lua_service.o: data/server_asio_frame/src/lua_service/lua_service.cpp.o
-.PHONY : data/server_asio_frame/src/lua_service/lua_service.o
+root/server/server_frame/src/third/lua/ldo.o: root/server/server_frame/src/third/lua/ldo.c.o
+.PHONY : root/server/server_frame/src/third/lua/ldo.o
 
 # target to build an object file
-data/server_asio_frame/src/lua_service/lua_service.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua_service/lua_service.cpp.o
-.PHONY : data/server_asio_frame/src/lua_service/lua_service.cpp.o
+root/server/server_frame/src/third/lua/ldo.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ldo.c.o
+.PHONY : root/server/server_frame/src/third/lua/ldo.c.o
 
-data/server_asio_frame/src/lua_service/lua_service.i: data/server_asio_frame/src/lua_service/lua_service.cpp.i
-.PHONY : data/server_asio_frame/src/lua_service/lua_service.i
+root/server/server_frame/src/third/lua/ldo.i: root/server/server_frame/src/third/lua/ldo.c.i
+.PHONY : root/server/server_frame/src/third/lua/ldo.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/lua_service/lua_service.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua_service/lua_service.cpp.i
-.PHONY : data/server_asio_frame/src/lua_service/lua_service.cpp.i
+root/server/server_frame/src/third/lua/ldo.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ldo.c.i
+.PHONY : root/server/server_frame/src/third/lua/ldo.c.i
 
-data/server_asio_frame/src/lua_service/lua_service.s: data/server_asio_frame/src/lua_service/lua_service.cpp.s
-.PHONY : data/server_asio_frame/src/lua_service/lua_service.s
+root/server/server_frame/src/third/lua/ldo.s: root/server/server_frame/src/third/lua/ldo.c.s
+.PHONY : root/server/server_frame/src/third/lua/ldo.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/lua_service/lua_service.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/lua_service/lua_service.cpp.s
-.PHONY : data/server_asio_frame/src/lua_service/lua_service.cpp.s
+root/server/server_frame/src/third/lua/ldo.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ldo.c.s
+.PHONY : root/server/server_frame/src/third/lua/ldo.c.s
 
-data/server_asio_frame/src/math/math_functions.o: data/server_asio_frame/src/math/math_functions.cpp.o
-.PHONY : data/server_asio_frame/src/math/math_functions.o
+root/server/server_frame/src/third/lua/ldump.o: root/server/server_frame/src/third/lua/ldump.c.o
+.PHONY : root/server/server_frame/src/third/lua/ldump.o
 
 # target to build an object file
-data/server_asio_frame/src/math/math_functions.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/math/math_functions.cpp.o
-.PHONY : data/server_asio_frame/src/math/math_functions.cpp.o
+root/server/server_frame/src/third/lua/ldump.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ldump.c.o
+.PHONY : root/server/server_frame/src/third/lua/ldump.c.o
 
-data/server_asio_frame/src/math/math_functions.i: data/server_asio_frame/src/math/math_functions.cpp.i
-.PHONY : data/server_asio_frame/src/math/math_functions.i
+root/server/server_frame/src/third/lua/ldump.i: root/server/server_frame/src/third/lua/ldump.c.i
+.PHONY : root/server/server_frame/src/third/lua/ldump.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/math/math_functions.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/math/math_functions.cpp.i
-.PHONY : data/server_asio_frame/src/math/math_functions.cpp.i
+root/server/server_frame/src/third/lua/ldump.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ldump.c.i
+.PHONY : root/server/server_frame/src/third/lua/ldump.c.i
 
-data/server_asio_frame/src/math/math_functions.s: data/server_asio_frame/src/math/math_functions.cpp.s
-.PHONY : data/server_asio_frame/src/math/math_functions.s
+root/server/server_frame/src/third/lua/ldump.s: root/server/server_frame/src/third/lua/ldump.c.s
+.PHONY : root/server/server_frame/src/third/lua/ldump.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/math/math_functions.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/math/math_functions.cpp.s
-.PHONY : data/server_asio_frame/src/math/math_functions.cpp.s
+root/server/server_frame/src/third/lua/ldump.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ldump.c.s
+.PHONY : root/server/server_frame/src/third/lua/ldump.c.s
 
-data/server_asio_frame/src/math/rand_table.o: data/server_asio_frame/src/math/rand_table.cpp.o
-.PHONY : data/server_asio_frame/src/math/rand_table.o
+root/server/server_frame/src/third/lua/lfunc.o: root/server/server_frame/src/third/lua/lfunc.c.o
+.PHONY : root/server/server_frame/src/third/lua/lfunc.o
 
 # target to build an object file
-data/server_asio_frame/src/math/rand_table.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/math/rand_table.cpp.o
-.PHONY : data/server_asio_frame/src/math/rand_table.cpp.o
+root/server/server_frame/src/third/lua/lfunc.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lfunc.c.o
+.PHONY : root/server/server_frame/src/third/lua/lfunc.c.o
 
-data/server_asio_frame/src/math/rand_table.i: data/server_asio_frame/src/math/rand_table.cpp.i
-.PHONY : data/server_asio_frame/src/math/rand_table.i
+root/server/server_frame/src/third/lua/lfunc.i: root/server/server_frame/src/third/lua/lfunc.c.i
+.PHONY : root/server/server_frame/src/third/lua/lfunc.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/math/rand_table.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/math/rand_table.cpp.i
-.PHONY : data/server_asio_frame/src/math/rand_table.cpp.i
+root/server/server_frame/src/third/lua/lfunc.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lfunc.c.i
+.PHONY : root/server/server_frame/src/third/lua/lfunc.c.i
 
-data/server_asio_frame/src/math/rand_table.s: data/server_asio_frame/src/math/rand_table.cpp.s
-.PHONY : data/server_asio_frame/src/math/rand_table.s
+root/server/server_frame/src/third/lua/lfunc.s: root/server/server_frame/src/third/lua/lfunc.c.s
+.PHONY : root/server/server_frame/src/third/lua/lfunc.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/math/rand_table.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/math/rand_table.cpp.s
-.PHONY : data/server_asio_frame/src/math/rand_table.cpp.s
+root/server/server_frame/src/third/lua/lfunc.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lfunc.c.s
+.PHONY : root/server/server_frame/src/third/lua/lfunc.c.s
 
-data/server_asio_frame/src/modern/json_wrap.o: data/server_asio_frame/src/modern/json_wrap.cpp.o
-.PHONY : data/server_asio_frame/src/modern/json_wrap.o
+root/server/server_frame/src/third/lua/lgc.o: root/server/server_frame/src/third/lua/lgc.c.o
+.PHONY : root/server/server_frame/src/third/lua/lgc.o
 
 # target to build an object file
-data/server_asio_frame/src/modern/json_wrap.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/modern/json_wrap.cpp.o
-.PHONY : data/server_asio_frame/src/modern/json_wrap.cpp.o
+root/server/server_frame/src/third/lua/lgc.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lgc.c.o
+.PHONY : root/server/server_frame/src/third/lua/lgc.c.o
 
-data/server_asio_frame/src/modern/json_wrap.i: data/server_asio_frame/src/modern/json_wrap.cpp.i
-.PHONY : data/server_asio_frame/src/modern/json_wrap.i
+root/server/server_frame/src/third/lua/lgc.i: root/server/server_frame/src/third/lua/lgc.c.i
+.PHONY : root/server/server_frame/src/third/lua/lgc.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/modern/json_wrap.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/modern/json_wrap.cpp.i
-.PHONY : data/server_asio_frame/src/modern/json_wrap.cpp.i
+root/server/server_frame/src/third/lua/lgc.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lgc.c.i
+.PHONY : root/server/server_frame/src/third/lua/lgc.c.i
 
-data/server_asio_frame/src/modern/json_wrap.s: data/server_asio_frame/src/modern/json_wrap.cpp.s
-.PHONY : data/server_asio_frame/src/modern/json_wrap.s
+root/server/server_frame/src/third/lua/lgc.s: root/server/server_frame/src/third/lua/lgc.c.s
+.PHONY : root/server/server_frame/src/third/lua/lgc.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/modern/json_wrap.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/modern/json_wrap.cpp.s
-.PHONY : data/server_asio_frame/src/modern/json_wrap.cpp.s
+root/server/server_frame/src/third/lua/lgc.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lgc.c.s
+.PHONY : root/server/server_frame/src/third/lua/lgc.c.s
 
-data/server_asio_frame/src/modern/tinyxml2.o: data/server_asio_frame/src/modern/tinyxml2.cpp.o
-.PHONY : data/server_asio_frame/src/modern/tinyxml2.o
+root/server/server_frame/src/third/lua/linit.o: root/server/server_frame/src/third/lua/linit.c.o
+.PHONY : root/server/server_frame/src/third/lua/linit.o
 
 # target to build an object file
-data/server_asio_frame/src/modern/tinyxml2.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/modern/tinyxml2.cpp.o
-.PHONY : data/server_asio_frame/src/modern/tinyxml2.cpp.o
+root/server/server_frame/src/third/lua/linit.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/linit.c.o
+.PHONY : root/server/server_frame/src/third/lua/linit.c.o
 
-data/server_asio_frame/src/modern/tinyxml2.i: data/server_asio_frame/src/modern/tinyxml2.cpp.i
-.PHONY : data/server_asio_frame/src/modern/tinyxml2.i
+root/server/server_frame/src/third/lua/linit.i: root/server/server_frame/src/third/lua/linit.c.i
+.PHONY : root/server/server_frame/src/third/lua/linit.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/modern/tinyxml2.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/modern/tinyxml2.cpp.i
-.PHONY : data/server_asio_frame/src/modern/tinyxml2.cpp.i
+root/server/server_frame/src/third/lua/linit.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/linit.c.i
+.PHONY : root/server/server_frame/src/third/lua/linit.c.i
 
-data/server_asio_frame/src/modern/tinyxml2.s: data/server_asio_frame/src/modern/tinyxml2.cpp.s
-.PHONY : data/server_asio_frame/src/modern/tinyxml2.s
+root/server/server_frame/src/third/lua/linit.s: root/server/server_frame/src/third/lua/linit.c.s
+.PHONY : root/server/server_frame/src/third/lua/linit.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/modern/tinyxml2.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/modern/tinyxml2.cpp.s
-.PHONY : data/server_asio_frame/src/modern/tinyxml2.cpp.s
+root/server/server_frame/src/third/lua/linit.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/linit.c.s
+.PHONY : root/server/server_frame/src/third/lua/linit.c.s
 
-data/server_asio_frame/src/network/Acceptor.o: data/server_asio_frame/src/network/Acceptor.cpp.o
-.PHONY : data/server_asio_frame/src/network/Acceptor.o
+root/server/server_frame/src/third/lua/liolib.o: root/server/server_frame/src/third/lua/liolib.c.o
+.PHONY : root/server/server_frame/src/third/lua/liolib.o
 
 # target to build an object file
-data/server_asio_frame/src/network/Acceptor.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/Acceptor.cpp.o
-.PHONY : data/server_asio_frame/src/network/Acceptor.cpp.o
+root/server/server_frame/src/third/lua/liolib.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/liolib.c.o
+.PHONY : root/server/server_frame/src/third/lua/liolib.c.o
 
-data/server_asio_frame/src/network/Acceptor.i: data/server_asio_frame/src/network/Acceptor.cpp.i
-.PHONY : data/server_asio_frame/src/network/Acceptor.i
+root/server/server_frame/src/third/lua/liolib.i: root/server/server_frame/src/third/lua/liolib.c.i
+.PHONY : root/server/server_frame/src/third/lua/liolib.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/network/Acceptor.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/Acceptor.cpp.i
-.PHONY : data/server_asio_frame/src/network/Acceptor.cpp.i
+root/server/server_frame/src/third/lua/liolib.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/liolib.c.i
+.PHONY : root/server/server_frame/src/third/lua/liolib.c.i
 
-data/server_asio_frame/src/network/Acceptor.s: data/server_asio_frame/src/network/Acceptor.cpp.s
-.PHONY : data/server_asio_frame/src/network/Acceptor.s
+root/server/server_frame/src/third/lua/liolib.s: root/server/server_frame/src/third/lua/liolib.c.s
+.PHONY : root/server/server_frame/src/third/lua/liolib.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/network/Acceptor.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/Acceptor.cpp.s
-.PHONY : data/server_asio_frame/src/network/Acceptor.cpp.s
+root/server/server_frame/src/third/lua/liolib.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/liolib.c.s
+.PHONY : root/server/server_frame/src/third/lua/liolib.c.s
 
-data/server_asio_frame/src/network/Connector.o: data/server_asio_frame/src/network/Connector.cpp.o
-.PHONY : data/server_asio_frame/src/network/Connector.o
+root/server/server_frame/src/third/lua/llex.o: root/server/server_frame/src/third/lua/llex.c.o
+.PHONY : root/server/server_frame/src/third/lua/llex.o
 
 # target to build an object file
-data/server_asio_frame/src/network/Connector.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/Connector.cpp.o
-.PHONY : data/server_asio_frame/src/network/Connector.cpp.o
+root/server/server_frame/src/third/lua/llex.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/llex.c.o
+.PHONY : root/server/server_frame/src/third/lua/llex.c.o
 
-data/server_asio_frame/src/network/Connector.i: data/server_asio_frame/src/network/Connector.cpp.i
-.PHONY : data/server_asio_frame/src/network/Connector.i
+root/server/server_frame/src/third/lua/llex.i: root/server/server_frame/src/third/lua/llex.c.i
+.PHONY : root/server/server_frame/src/third/lua/llex.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/network/Connector.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/Connector.cpp.i
-.PHONY : data/server_asio_frame/src/network/Connector.cpp.i
+root/server/server_frame/src/third/lua/llex.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/llex.c.i
+.PHONY : root/server/server_frame/src/third/lua/llex.c.i
 
-data/server_asio_frame/src/network/Connector.s: data/server_asio_frame/src/network/Connector.cpp.s
-.PHONY : data/server_asio_frame/src/network/Connector.s
+root/server/server_frame/src/third/lua/llex.s: root/server/server_frame/src/third/lua/llex.c.s
+.PHONY : root/server/server_frame/src/third/lua/llex.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/network/Connector.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/Connector.cpp.s
-.PHONY : data/server_asio_frame/src/network/Connector.cpp.s
+root/server/server_frame/src/third/lua/llex.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/llex.c.s
+.PHONY : root/server/server_frame/src/third/lua/llex.c.s
 
-data/server_asio_frame/src/network/IOCPServer.o: data/server_asio_frame/src/network/IOCPServer.cpp.o
-.PHONY : data/server_asio_frame/src/network/IOCPServer.o
+root/server/server_frame/src/third/lua/lmathlib.o: root/server/server_frame/src/third/lua/lmathlib.c.o
+.PHONY : root/server/server_frame/src/third/lua/lmathlib.o
 
 # target to build an object file
-data/server_asio_frame/src/network/IOCPServer.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/IOCPServer.cpp.o
-.PHONY : data/server_asio_frame/src/network/IOCPServer.cpp.o
+root/server/server_frame/src/third/lua/lmathlib.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lmathlib.c.o
+.PHONY : root/server/server_frame/src/third/lua/lmathlib.c.o
 
-data/server_asio_frame/src/network/IOCPServer.i: data/server_asio_frame/src/network/IOCPServer.cpp.i
-.PHONY : data/server_asio_frame/src/network/IOCPServer.i
+root/server/server_frame/src/third/lua/lmathlib.i: root/server/server_frame/src/third/lua/lmathlib.c.i
+.PHONY : root/server/server_frame/src/third/lua/lmathlib.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/network/IOCPServer.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/IOCPServer.cpp.i
-.PHONY : data/server_asio_frame/src/network/IOCPServer.cpp.i
+root/server/server_frame/src/third/lua/lmathlib.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lmathlib.c.i
+.PHONY : root/server/server_frame/src/third/lua/lmathlib.c.i
 
-data/server_asio_frame/src/network/IOCPServer.s: data/server_asio_frame/src/network/IOCPServer.cpp.s
-.PHONY : data/server_asio_frame/src/network/IOCPServer.s
+root/server/server_frame/src/third/lua/lmathlib.s: root/server/server_frame/src/third/lua/lmathlib.c.s
+.PHONY : root/server/server_frame/src/third/lua/lmathlib.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/network/IOCPServer.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/IOCPServer.cpp.s
-.PHONY : data/server_asio_frame/src/network/IOCPServer.cpp.s
+root/server/server_frame/src/third/lua/lmathlib.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lmathlib.c.s
+.PHONY : root/server/server_frame/src/third/lua/lmathlib.c.s
 
-data/server_asio_frame/src/network/IoHandler.o: data/server_asio_frame/src/network/IoHandler.cpp.o
-.PHONY : data/server_asio_frame/src/network/IoHandler.o
+root/server/server_frame/src/third/lua/lmem.o: root/server/server_frame/src/third/lua/lmem.c.o
+.PHONY : root/server/server_frame/src/third/lua/lmem.o
 
 # target to build an object file
-data/server_asio_frame/src/network/IoHandler.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/IoHandler.cpp.o
-.PHONY : data/server_asio_frame/src/network/IoHandler.cpp.o
+root/server/server_frame/src/third/lua/lmem.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lmem.c.o
+.PHONY : root/server/server_frame/src/third/lua/lmem.c.o
 
-data/server_asio_frame/src/network/IoHandler.i: data/server_asio_frame/src/network/IoHandler.cpp.i
-.PHONY : data/server_asio_frame/src/network/IoHandler.i
+root/server/server_frame/src/third/lua/lmem.i: root/server/server_frame/src/third/lua/lmem.c.i
+.PHONY : root/server/server_frame/src/third/lua/lmem.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/network/IoHandler.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/IoHandler.cpp.i
-.PHONY : data/server_asio_frame/src/network/IoHandler.cpp.i
+root/server/server_frame/src/third/lua/lmem.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lmem.c.i
+.PHONY : root/server/server_frame/src/third/lua/lmem.c.i
 
-data/server_asio_frame/src/network/IoHandler.s: data/server_asio_frame/src/network/IoHandler.cpp.s
-.PHONY : data/server_asio_frame/src/network/IoHandler.s
+root/server/server_frame/src/third/lua/lmem.s: root/server/server_frame/src/third/lua/lmem.c.s
+.PHONY : root/server/server_frame/src/third/lua/lmem.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/network/IoHandler.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/IoHandler.cpp.s
-.PHONY : data/server_asio_frame/src/network/IoHandler.cpp.s
+root/server/server_frame/src/third/lua/lmem.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lmem.c.s
+.PHONY : root/server/server_frame/src/third/lua/lmem.c.s
 
-data/server_asio_frame/src/network/NetworkObject.o: data/server_asio_frame/src/network/NetworkObject.cpp.o
-.PHONY : data/server_asio_frame/src/network/NetworkObject.o
+root/server/server_frame/src/third/lua/loadlib.o: root/server/server_frame/src/third/lua/loadlib.c.o
+.PHONY : root/server/server_frame/src/third/lua/loadlib.o
 
 # target to build an object file
-data/server_asio_frame/src/network/NetworkObject.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/NetworkObject.cpp.o
-.PHONY : data/server_asio_frame/src/network/NetworkObject.cpp.o
+root/server/server_frame/src/third/lua/loadlib.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/loadlib.c.o
+.PHONY : root/server/server_frame/src/third/lua/loadlib.c.o
 
-data/server_asio_frame/src/network/NetworkObject.i: data/server_asio_frame/src/network/NetworkObject.cpp.i
-.PHONY : data/server_asio_frame/src/network/NetworkObject.i
+root/server/server_frame/src/third/lua/loadlib.i: root/server/server_frame/src/third/lua/loadlib.c.i
+.PHONY : root/server/server_frame/src/third/lua/loadlib.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/network/NetworkObject.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/NetworkObject.cpp.i
-.PHONY : data/server_asio_frame/src/network/NetworkObject.cpp.i
+root/server/server_frame/src/third/lua/loadlib.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/loadlib.c.i
+.PHONY : root/server/server_frame/src/third/lua/loadlib.c.i
 
-data/server_asio_frame/src/network/NetworkObject.s: data/server_asio_frame/src/network/NetworkObject.cpp.s
-.PHONY : data/server_asio_frame/src/network/NetworkObject.s
+root/server/server_frame/src/third/lua/loadlib.s: root/server/server_frame/src/third/lua/loadlib.c.s
+.PHONY : root/server/server_frame/src/third/lua/loadlib.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/network/NetworkObject.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/NetworkObject.cpp.s
-.PHONY : data/server_asio_frame/src/network/NetworkObject.cpp.s
+root/server/server_frame/src/third/lua/loadlib.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/loadlib.c.s
+.PHONY : root/server/server_frame/src/third/lua/loadlib.c.s
 
-data/server_asio_frame/src/network/Session.o: data/server_asio_frame/src/network/Session.cpp.o
-.PHONY : data/server_asio_frame/src/network/Session.o
+root/server/server_frame/src/third/lua/lobject.o: root/server/server_frame/src/third/lua/lobject.c.o
+.PHONY : root/server/server_frame/src/third/lua/lobject.o
 
 # target to build an object file
-data/server_asio_frame/src/network/Session.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/Session.cpp.o
-.PHONY : data/server_asio_frame/src/network/Session.cpp.o
+root/server/server_frame/src/third/lua/lobject.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lobject.c.o
+.PHONY : root/server/server_frame/src/third/lua/lobject.c.o
 
-data/server_asio_frame/src/network/Session.i: data/server_asio_frame/src/network/Session.cpp.i
-.PHONY : data/server_asio_frame/src/network/Session.i
+root/server/server_frame/src/third/lua/lobject.i: root/server/server_frame/src/third/lua/lobject.c.i
+.PHONY : root/server/server_frame/src/third/lua/lobject.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/network/Session.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/Session.cpp.i
-.PHONY : data/server_asio_frame/src/network/Session.cpp.i
+root/server/server_frame/src/third/lua/lobject.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lobject.c.i
+.PHONY : root/server/server_frame/src/third/lua/lobject.c.i
 
-data/server_asio_frame/src/network/Session.s: data/server_asio_frame/src/network/Session.cpp.s
-.PHONY : data/server_asio_frame/src/network/Session.s
+root/server/server_frame/src/third/lua/lobject.s: root/server/server_frame/src/third/lua/lobject.c.s
+.PHONY : root/server/server_frame/src/third/lua/lobject.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/network/Session.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/Session.cpp.s
-.PHONY : data/server_asio_frame/src/network/Session.cpp.s
+root/server/server_frame/src/third/lua/lobject.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lobject.c.s
+.PHONY : root/server/server_frame/src/third/lua/lobject.c.s
 
-data/server_asio_frame/src/network/SessionList.o: data/server_asio_frame/src/network/SessionList.cpp.o
-.PHONY : data/server_asio_frame/src/network/SessionList.o
+root/server/server_frame/src/third/lua/lopcodes.o: root/server/server_frame/src/third/lua/lopcodes.c.o
+.PHONY : root/server/server_frame/src/third/lua/lopcodes.o
 
 # target to build an object file
-data/server_asio_frame/src/network/SessionList.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/SessionList.cpp.o
-.PHONY : data/server_asio_frame/src/network/SessionList.cpp.o
+root/server/server_frame/src/third/lua/lopcodes.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lopcodes.c.o
+.PHONY : root/server/server_frame/src/third/lua/lopcodes.c.o
 
-data/server_asio_frame/src/network/SessionList.i: data/server_asio_frame/src/network/SessionList.cpp.i
-.PHONY : data/server_asio_frame/src/network/SessionList.i
+root/server/server_frame/src/third/lua/lopcodes.i: root/server/server_frame/src/third/lua/lopcodes.c.i
+.PHONY : root/server/server_frame/src/third/lua/lopcodes.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/network/SessionList.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/SessionList.cpp.i
-.PHONY : data/server_asio_frame/src/network/SessionList.cpp.i
+root/server/server_frame/src/third/lua/lopcodes.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lopcodes.c.i
+.PHONY : root/server/server_frame/src/third/lua/lopcodes.c.i
 
-data/server_asio_frame/src/network/SessionList.s: data/server_asio_frame/src/network/SessionList.cpp.s
-.PHONY : data/server_asio_frame/src/network/SessionList.s
+root/server/server_frame/src/third/lua/lopcodes.s: root/server/server_frame/src/third/lua/lopcodes.c.s
+.PHONY : root/server/server_frame/src/third/lua/lopcodes.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/network/SessionList.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/SessionList.cpp.s
-.PHONY : data/server_asio_frame/src/network/SessionList.cpp.s
+root/server/server_frame/src/third/lua/lopcodes.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lopcodes.c.s
+.PHONY : root/server/server_frame/src/third/lua/lopcodes.c.s
 
-data/server_asio_frame/src/network/SessionPool.o: data/server_asio_frame/src/network/SessionPool.cpp.o
-.PHONY : data/server_asio_frame/src/network/SessionPool.o
+root/server/server_frame/src/third/lua/loslib.o: root/server/server_frame/src/third/lua/loslib.c.o
+.PHONY : root/server/server_frame/src/third/lua/loslib.o
 
 # target to build an object file
-data/server_asio_frame/src/network/SessionPool.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/SessionPool.cpp.o
-.PHONY : data/server_asio_frame/src/network/SessionPool.cpp.o
+root/server/server_frame/src/third/lua/loslib.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/loslib.c.o
+.PHONY : root/server/server_frame/src/third/lua/loslib.c.o
 
-data/server_asio_frame/src/network/SessionPool.i: data/server_asio_frame/src/network/SessionPool.cpp.i
-.PHONY : data/server_asio_frame/src/network/SessionPool.i
+root/server/server_frame/src/third/lua/loslib.i: root/server/server_frame/src/third/lua/loslib.c.i
+.PHONY : root/server/server_frame/src/third/lua/loslib.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/network/SessionPool.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/SessionPool.cpp.i
-.PHONY : data/server_asio_frame/src/network/SessionPool.cpp.i
+root/server/server_frame/src/third/lua/loslib.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/loslib.c.i
+.PHONY : root/server/server_frame/src/third/lua/loslib.c.i
 
-data/server_asio_frame/src/network/SessionPool.s: data/server_asio_frame/src/network/SessionPool.cpp.s
-.PHONY : data/server_asio_frame/src/network/SessionPool.s
+root/server/server_frame/src/third/lua/loslib.s: root/server/server_frame/src/third/lua/loslib.c.s
+.PHONY : root/server/server_frame/src/third/lua/loslib.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/network/SessionPool.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/SessionPool.cpp.s
-.PHONY : data/server_asio_frame/src/network/SessionPool.cpp.s
+root/server/server_frame/src/third/lua/loslib.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/loslib.c.s
+.PHONY : root/server/server_frame/src/third/lua/loslib.c.s
 
-data/server_asio_frame/src/network/SocketOps.o: data/server_asio_frame/src/network/SocketOps.cpp.o
-.PHONY : data/server_asio_frame/src/network/SocketOps.o
+root/server/server_frame/src/third/lua/lparser.o: root/server/server_frame/src/third/lua/lparser.c.o
+.PHONY : root/server/server_frame/src/third/lua/lparser.o
 
 # target to build an object file
-data/server_asio_frame/src/network/SocketOps.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/SocketOps.cpp.o
-.PHONY : data/server_asio_frame/src/network/SocketOps.cpp.o
+root/server/server_frame/src/third/lua/lparser.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lparser.c.o
+.PHONY : root/server/server_frame/src/third/lua/lparser.c.o
 
-data/server_asio_frame/src/network/SocketOps.i: data/server_asio_frame/src/network/SocketOps.cpp.i
-.PHONY : data/server_asio_frame/src/network/SocketOps.i
+root/server/server_frame/src/third/lua/lparser.i: root/server/server_frame/src/third/lua/lparser.c.i
+.PHONY : root/server/server_frame/src/third/lua/lparser.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/network/SocketOps.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/SocketOps.cpp.i
-.PHONY : data/server_asio_frame/src/network/SocketOps.cpp.i
+root/server/server_frame/src/third/lua/lparser.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lparser.c.i
+.PHONY : root/server/server_frame/src/third/lua/lparser.c.i
 
-data/server_asio_frame/src/network/SocketOps.s: data/server_asio_frame/src/network/SocketOps.cpp.s
-.PHONY : data/server_asio_frame/src/network/SocketOps.s
+root/server/server_frame/src/third/lua/lparser.s: root/server/server_frame/src/third/lua/lparser.c.s
+.PHONY : root/server/server_frame/src/third/lua/lparser.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/network/SocketOps.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/SocketOps.cpp.s
-.PHONY : data/server_asio_frame/src/network/SocketOps.cpp.s
+root/server/server_frame/src/third/lua/lparser.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lparser.c.s
+.PHONY : root/server/server_frame/src/third/lua/lparser.c.s
 
-data/server_asio_frame/src/network/TLock.o: data/server_asio_frame/src/network/TLock.cpp.o
-.PHONY : data/server_asio_frame/src/network/TLock.o
+root/server/server_frame/src/third/lua/lstate.o: root/server/server_frame/src/third/lua/lstate.c.o
+.PHONY : root/server/server_frame/src/third/lua/lstate.o
 
 # target to build an object file
-data/server_asio_frame/src/network/TLock.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/TLock.cpp.o
-.PHONY : data/server_asio_frame/src/network/TLock.cpp.o
+root/server/server_frame/src/third/lua/lstate.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lstate.c.o
+.PHONY : root/server/server_frame/src/third/lua/lstate.c.o
 
-data/server_asio_frame/src/network/TLock.i: data/server_asio_frame/src/network/TLock.cpp.i
-.PHONY : data/server_asio_frame/src/network/TLock.i
+root/server/server_frame/src/third/lua/lstate.i: root/server/server_frame/src/third/lua/lstate.c.i
+.PHONY : root/server/server_frame/src/third/lua/lstate.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/network/TLock.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/TLock.cpp.i
-.PHONY : data/server_asio_frame/src/network/TLock.cpp.i
+root/server/server_frame/src/third/lua/lstate.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lstate.c.i
+.PHONY : root/server/server_frame/src/third/lua/lstate.c.i
 
-data/server_asio_frame/src/network/TLock.s: data/server_asio_frame/src/network/TLock.cpp.s
-.PHONY : data/server_asio_frame/src/network/TLock.s
+root/server/server_frame/src/third/lua/lstate.s: root/server/server_frame/src/third/lua/lstate.c.s
+.PHONY : root/server/server_frame/src/third/lua/lstate.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/network/TLock.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/TLock.cpp.s
-.PHONY : data/server_asio_frame/src/network/TLock.cpp.s
+root/server/server_frame/src/third/lua/lstate.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lstate.c.s
+.PHONY : root/server/server_frame/src/third/lua/lstate.c.s
 
-data/server_asio_frame/src/network/tcp_connector.o: data/server_asio_frame/src/network/tcp_connector.cpp.o
-.PHONY : data/server_asio_frame/src/network/tcp_connector.o
+root/server/server_frame/src/third/lua/lstring.o: root/server/server_frame/src/third/lua/lstring.c.o
+.PHONY : root/server/server_frame/src/third/lua/lstring.o
 
 # target to build an object file
-data/server_asio_frame/src/network/tcp_connector.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/tcp_connector.cpp.o
-.PHONY : data/server_asio_frame/src/network/tcp_connector.cpp.o
+root/server/server_frame/src/third/lua/lstring.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lstring.c.o
+.PHONY : root/server/server_frame/src/third/lua/lstring.c.o
 
-data/server_asio_frame/src/network/tcp_connector.i: data/server_asio_frame/src/network/tcp_connector.cpp.i
-.PHONY : data/server_asio_frame/src/network/tcp_connector.i
+root/server/server_frame/src/third/lua/lstring.i: root/server/server_frame/src/third/lua/lstring.c.i
+.PHONY : root/server/server_frame/src/third/lua/lstring.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/network/tcp_connector.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/tcp_connector.cpp.i
-.PHONY : data/server_asio_frame/src/network/tcp_connector.cpp.i
+root/server/server_frame/src/third/lua/lstring.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lstring.c.i
+.PHONY : root/server/server_frame/src/third/lua/lstring.c.i
 
-data/server_asio_frame/src/network/tcp_connector.s: data/server_asio_frame/src/network/tcp_connector.cpp.s
-.PHONY : data/server_asio_frame/src/network/tcp_connector.s
+root/server/server_frame/src/third/lua/lstring.s: root/server/server_frame/src/third/lua/lstring.c.s
+.PHONY : root/server/server_frame/src/third/lua/lstring.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/network/tcp_connector.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/network/tcp_connector.cpp.s
-.PHONY : data/server_asio_frame/src/network/tcp_connector.cpp.s
+root/server/server_frame/src/third/lua/lstring.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lstring.c.s
+.PHONY : root/server/server_frame/src/third/lua/lstring.c.s
 
-data/server_asio_frame/src/packet/inner_protobuf_pkg.o: data/server_asio_frame/src/packet/inner_protobuf_pkg.cpp.o
-.PHONY : data/server_asio_frame/src/packet/inner_protobuf_pkg.o
+root/server/server_frame/src/third/lua/lstrlib.o: root/server/server_frame/src/third/lua/lstrlib.c.o
+.PHONY : root/server/server_frame/src/third/lua/lstrlib.o
 
 # target to build an object file
-data/server_asio_frame/src/packet/inner_protobuf_pkg.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/packet/inner_protobuf_pkg.cpp.o
-.PHONY : data/server_asio_frame/src/packet/inner_protobuf_pkg.cpp.o
+root/server/server_frame/src/third/lua/lstrlib.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lstrlib.c.o
+.PHONY : root/server/server_frame/src/third/lua/lstrlib.c.o
 
-data/server_asio_frame/src/packet/inner_protobuf_pkg.i: data/server_asio_frame/src/packet/inner_protobuf_pkg.cpp.i
-.PHONY : data/server_asio_frame/src/packet/inner_protobuf_pkg.i
+root/server/server_frame/src/third/lua/lstrlib.i: root/server/server_frame/src/third/lua/lstrlib.c.i
+.PHONY : root/server/server_frame/src/third/lua/lstrlib.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/packet/inner_protobuf_pkg.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/packet/inner_protobuf_pkg.cpp.i
-.PHONY : data/server_asio_frame/src/packet/inner_protobuf_pkg.cpp.i
+root/server/server_frame/src/third/lua/lstrlib.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lstrlib.c.i
+.PHONY : root/server/server_frame/src/third/lua/lstrlib.c.i
 
-data/server_asio_frame/src/packet/inner_protobuf_pkg.s: data/server_asio_frame/src/packet/inner_protobuf_pkg.cpp.s
-.PHONY : data/server_asio_frame/src/packet/inner_protobuf_pkg.s
+root/server/server_frame/src/third/lua/lstrlib.s: root/server/server_frame/src/third/lua/lstrlib.c.s
+.PHONY : root/server/server_frame/src/third/lua/lstrlib.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/packet/inner_protobuf_pkg.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/packet/inner_protobuf_pkg.cpp.s
-.PHONY : data/server_asio_frame/src/packet/inner_protobuf_pkg.cpp.s
+root/server/server_frame/src/third/lua/lstrlib.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lstrlib.c.s
+.PHONY : root/server/server_frame/src/third/lua/lstrlib.c.s
 
-data/server_asio_frame/src/packet/protobuf_pkg.o: data/server_asio_frame/src/packet/protobuf_pkg.cpp.o
-.PHONY : data/server_asio_frame/src/packet/protobuf_pkg.o
+root/server/server_frame/src/third/lua/ltable.o: root/server/server_frame/src/third/lua/ltable.c.o
+.PHONY : root/server/server_frame/src/third/lua/ltable.o
 
 # target to build an object file
-data/server_asio_frame/src/packet/protobuf_pkg.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/packet/protobuf_pkg.cpp.o
-.PHONY : data/server_asio_frame/src/packet/protobuf_pkg.cpp.o
+root/server/server_frame/src/third/lua/ltable.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ltable.c.o
+.PHONY : root/server/server_frame/src/third/lua/ltable.c.o
 
-data/server_asio_frame/src/packet/protobuf_pkg.i: data/server_asio_frame/src/packet/protobuf_pkg.cpp.i
-.PHONY : data/server_asio_frame/src/packet/protobuf_pkg.i
+root/server/server_frame/src/third/lua/ltable.i: root/server/server_frame/src/third/lua/ltable.c.i
+.PHONY : root/server/server_frame/src/third/lua/ltable.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/packet/protobuf_pkg.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/packet/protobuf_pkg.cpp.i
-.PHONY : data/server_asio_frame/src/packet/protobuf_pkg.cpp.i
+root/server/server_frame/src/third/lua/ltable.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ltable.c.i
+.PHONY : root/server/server_frame/src/third/lua/ltable.c.i
 
-data/server_asio_frame/src/packet/protobuf_pkg.s: data/server_asio_frame/src/packet/protobuf_pkg.cpp.s
-.PHONY : data/server_asio_frame/src/packet/protobuf_pkg.s
+root/server/server_frame/src/third/lua/ltable.s: root/server/server_frame/src/third/lua/ltable.c.s
+.PHONY : root/server/server_frame/src/third/lua/ltable.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/packet/protobuf_pkg.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/packet/protobuf_pkg.cpp.s
-.PHONY : data/server_asio_frame/src/packet/protobuf_pkg.cpp.s
+root/server/server_frame/src/third/lua/ltable.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ltable.c.s
+.PHONY : root/server/server_frame/src/third/lua/ltable.c.s
 
-data/server_asio_frame/src/redis/redis.o: data/server_asio_frame/src/redis/redis.cpp.o
-.PHONY : data/server_asio_frame/src/redis/redis.o
+root/server/server_frame/src/third/lua/ltablib.o: root/server/server_frame/src/third/lua/ltablib.c.o
+.PHONY : root/server/server_frame/src/third/lua/ltablib.o
 
 # target to build an object file
-data/server_asio_frame/src/redis/redis.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/redis/redis.cpp.o
-.PHONY : data/server_asio_frame/src/redis/redis.cpp.o
+root/server/server_frame/src/third/lua/ltablib.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ltablib.c.o
+.PHONY : root/server/server_frame/src/third/lua/ltablib.c.o
 
-data/server_asio_frame/src/redis/redis.i: data/server_asio_frame/src/redis/redis.cpp.i
-.PHONY : data/server_asio_frame/src/redis/redis.i
+root/server/server_frame/src/third/lua/ltablib.i: root/server/server_frame/src/third/lua/ltablib.c.i
+.PHONY : root/server/server_frame/src/third/lua/ltablib.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/redis/redis.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/redis/redis.cpp.i
-.PHONY : data/server_asio_frame/src/redis/redis.cpp.i
+root/server/server_frame/src/third/lua/ltablib.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ltablib.c.i
+.PHONY : root/server/server_frame/src/third/lua/ltablib.c.i
 
-data/server_asio_frame/src/redis/redis.s: data/server_asio_frame/src/redis/redis.cpp.s
-.PHONY : data/server_asio_frame/src/redis/redis.s
+root/server/server_frame/src/third/lua/ltablib.s: root/server/server_frame/src/third/lua/ltablib.c.s
+.PHONY : root/server/server_frame/src/third/lua/ltablib.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/redis/redis.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/redis/redis.cpp.s
-.PHONY : data/server_asio_frame/src/redis/redis.cpp.s
+root/server/server_frame/src/third/lua/ltablib.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ltablib.c.s
+.PHONY : root/server/server_frame/src/third/lua/ltablib.c.s
 
-data/server_asio_frame/src/utility/basic_functions.o: data/server_asio_frame/src/utility/basic_functions.cpp.o
-.PHONY : data/server_asio_frame/src/utility/basic_functions.o
+root/server/server_frame/src/third/lua/ltm.o: root/server/server_frame/src/third/lua/ltm.c.o
+.PHONY : root/server/server_frame/src/third/lua/ltm.o
 
 # target to build an object file
-data/server_asio_frame/src/utility/basic_functions.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/basic_functions.cpp.o
-.PHONY : data/server_asio_frame/src/utility/basic_functions.cpp.o
+root/server/server_frame/src/third/lua/ltm.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ltm.c.o
+.PHONY : root/server/server_frame/src/third/lua/ltm.c.o
 
-data/server_asio_frame/src/utility/basic_functions.i: data/server_asio_frame/src/utility/basic_functions.cpp.i
-.PHONY : data/server_asio_frame/src/utility/basic_functions.i
+root/server/server_frame/src/third/lua/ltm.i: root/server/server_frame/src/third/lua/ltm.c.i
+.PHONY : root/server/server_frame/src/third/lua/ltm.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/utility/basic_functions.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/basic_functions.cpp.i
-.PHONY : data/server_asio_frame/src/utility/basic_functions.cpp.i
+root/server/server_frame/src/third/lua/ltm.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ltm.c.i
+.PHONY : root/server/server_frame/src/third/lua/ltm.c.i
 
-data/server_asio_frame/src/utility/basic_functions.s: data/server_asio_frame/src/utility/basic_functions.cpp.s
-.PHONY : data/server_asio_frame/src/utility/basic_functions.s
+root/server/server_frame/src/third/lua/ltm.s: root/server/server_frame/src/third/lua/ltm.c.s
+.PHONY : root/server/server_frame/src/third/lua/ltm.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/utility/basic_functions.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/basic_functions.cpp.s
-.PHONY : data/server_asio_frame/src/utility/basic_functions.cpp.s
+root/server/server_frame/src/third/lua/ltm.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/ltm.c.s
+.PHONY : root/server/server_frame/src/third/lua/ltm.c.s
 
-data/server_asio_frame/src/utility/cooling.o: data/server_asio_frame/src/utility/cooling.cpp.o
-.PHONY : data/server_asio_frame/src/utility/cooling.o
+root/server/server_frame/src/third/lua/lua.o: root/server/server_frame/src/third/lua/lua.c.o
+.PHONY : root/server/server_frame/src/third/lua/lua.o
 
 # target to build an object file
-data/server_asio_frame/src/utility/cooling.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/cooling.cpp.o
-.PHONY : data/server_asio_frame/src/utility/cooling.cpp.o
+root/server/server_frame/src/third/lua/lua.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lua.c.o
+.PHONY : root/server/server_frame/src/third/lua/lua.c.o
 
-data/server_asio_frame/src/utility/cooling.i: data/server_asio_frame/src/utility/cooling.cpp.i
-.PHONY : data/server_asio_frame/src/utility/cooling.i
+root/server/server_frame/src/third/lua/lua.i: root/server/server_frame/src/third/lua/lua.c.i
+.PHONY : root/server/server_frame/src/third/lua/lua.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/utility/cooling.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/cooling.cpp.i
-.PHONY : data/server_asio_frame/src/utility/cooling.cpp.i
+root/server/server_frame/src/third/lua/lua.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lua.c.i
+.PHONY : root/server/server_frame/src/third/lua/lua.c.i
 
-data/server_asio_frame/src/utility/cooling.s: data/server_asio_frame/src/utility/cooling.cpp.s
-.PHONY : data/server_asio_frame/src/utility/cooling.s
+root/server/server_frame/src/third/lua/lua.s: root/server/server_frame/src/third/lua/lua.c.s
+.PHONY : root/server/server_frame/src/third/lua/lua.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/utility/cooling.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/cooling.cpp.s
-.PHONY : data/server_asio_frame/src/utility/cooling.cpp.s
+root/server/server_frame/src/third/lua/lua.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lua.c.s
+.PHONY : root/server/server_frame/src/third/lua/lua.c.s
 
-data/server_asio_frame/src/utility/ipcutility.o: data/server_asio_frame/src/utility/ipcutility.cpp.o
-.PHONY : data/server_asio_frame/src/utility/ipcutility.o
+root/server/server_frame/src/third/lua/luac.o: root/server/server_frame/src/third/lua/luac.c.o
+.PHONY : root/server/server_frame/src/third/lua/luac.o
 
 # target to build an object file
-data/server_asio_frame/src/utility/ipcutility.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/ipcutility.cpp.o
-.PHONY : data/server_asio_frame/src/utility/ipcutility.cpp.o
+root/server/server_frame/src/third/lua/luac.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/luac.c.o
+.PHONY : root/server/server_frame/src/third/lua/luac.c.o
 
-data/server_asio_frame/src/utility/ipcutility.i: data/server_asio_frame/src/utility/ipcutility.cpp.i
-.PHONY : data/server_asio_frame/src/utility/ipcutility.i
+root/server/server_frame/src/third/lua/luac.i: root/server/server_frame/src/third/lua/luac.c.i
+.PHONY : root/server/server_frame/src/third/lua/luac.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/utility/ipcutility.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/ipcutility.cpp.i
-.PHONY : data/server_asio_frame/src/utility/ipcutility.cpp.i
+root/server/server_frame/src/third/lua/luac.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/luac.c.i
+.PHONY : root/server/server_frame/src/third/lua/luac.c.i
 
-data/server_asio_frame/src/utility/ipcutility.s: data/server_asio_frame/src/utility/ipcutility.cpp.s
-.PHONY : data/server_asio_frame/src/utility/ipcutility.s
+root/server/server_frame/src/third/lua/luac.s: root/server/server_frame/src/third/lua/luac.c.s
+.PHONY : root/server/server_frame/src/third/lua/luac.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/utility/ipcutility.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/ipcutility.cpp.s
-.PHONY : data/server_asio_frame/src/utility/ipcutility.cpp.s
+root/server/server_frame/src/third/lua/luac.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/luac.c.s
+.PHONY : root/server/server_frame/src/third/lua/luac.c.s
 
-data/server_asio_frame/src/utility/string_functions.o: data/server_asio_frame/src/utility/string_functions.cpp.o
-.PHONY : data/server_asio_frame/src/utility/string_functions.o
+root/server/server_frame/src/third/lua/lundump.o: root/server/server_frame/src/third/lua/lundump.c.o
+.PHONY : root/server/server_frame/src/third/lua/lundump.o
 
 # target to build an object file
-data/server_asio_frame/src/utility/string_functions.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/string_functions.cpp.o
-.PHONY : data/server_asio_frame/src/utility/string_functions.cpp.o
+root/server/server_frame/src/third/lua/lundump.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lundump.c.o
+.PHONY : root/server/server_frame/src/third/lua/lundump.c.o
 
-data/server_asio_frame/src/utility/string_functions.i: data/server_asio_frame/src/utility/string_functions.cpp.i
-.PHONY : data/server_asio_frame/src/utility/string_functions.i
+root/server/server_frame/src/third/lua/lundump.i: root/server/server_frame/src/third/lua/lundump.c.i
+.PHONY : root/server/server_frame/src/third/lua/lundump.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/utility/string_functions.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/string_functions.cpp.i
-.PHONY : data/server_asio_frame/src/utility/string_functions.cpp.i
+root/server/server_frame/src/third/lua/lundump.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lundump.c.i
+.PHONY : root/server/server_frame/src/third/lua/lundump.c.i
 
-data/server_asio_frame/src/utility/string_functions.s: data/server_asio_frame/src/utility/string_functions.cpp.s
-.PHONY : data/server_asio_frame/src/utility/string_functions.s
+root/server/server_frame/src/third/lua/lundump.s: root/server/server_frame/src/third/lua/lundump.c.s
+.PHONY : root/server/server_frame/src/third/lua/lundump.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/utility/string_functions.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/string_functions.cpp.s
-.PHONY : data/server_asio_frame/src/utility/string_functions.cpp.s
+root/server/server_frame/src/third/lua/lundump.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lundump.c.s
+.PHONY : root/server/server_frame/src/third/lua/lundump.c.s
 
-data/server_asio_frame/src/utility/stringutility.o: data/server_asio_frame/src/utility/stringutility.cpp.o
-.PHONY : data/server_asio_frame/src/utility/stringutility.o
+root/server/server_frame/src/third/lua/lutf8lib.o: root/server/server_frame/src/third/lua/lutf8lib.c.o
+.PHONY : root/server/server_frame/src/third/lua/lutf8lib.o
 
 # target to build an object file
-data/server_asio_frame/src/utility/stringutility.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/stringutility.cpp.o
-.PHONY : data/server_asio_frame/src/utility/stringutility.cpp.o
+root/server/server_frame/src/third/lua/lutf8lib.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lutf8lib.c.o
+.PHONY : root/server/server_frame/src/third/lua/lutf8lib.c.o
 
-data/server_asio_frame/src/utility/stringutility.i: data/server_asio_frame/src/utility/stringutility.cpp.i
-.PHONY : data/server_asio_frame/src/utility/stringutility.i
+root/server/server_frame/src/third/lua/lutf8lib.i: root/server/server_frame/src/third/lua/lutf8lib.c.i
+.PHONY : root/server/server_frame/src/third/lua/lutf8lib.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/utility/stringutility.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/stringutility.cpp.i
-.PHONY : data/server_asio_frame/src/utility/stringutility.cpp.i
+root/server/server_frame/src/third/lua/lutf8lib.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lutf8lib.c.i
+.PHONY : root/server/server_frame/src/third/lua/lutf8lib.c.i
 
-data/server_asio_frame/src/utility/stringutility.s: data/server_asio_frame/src/utility/stringutility.cpp.s
-.PHONY : data/server_asio_frame/src/utility/stringutility.s
+root/server/server_frame/src/third/lua/lutf8lib.s: root/server/server_frame/src/third/lua/lutf8lib.c.s
+.PHONY : root/server/server_frame/src/third/lua/lutf8lib.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/utility/stringutility.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/stringutility.cpp.s
-.PHONY : data/server_asio_frame/src/utility/stringutility.cpp.s
+root/server/server_frame/src/third/lua/lutf8lib.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lutf8lib.c.s
+.PHONY : root/server/server_frame/src/third/lua/lutf8lib.c.s
 
-data/server_asio_frame/src/utility/time_function.o: data/server_asio_frame/src/utility/time_function.cpp.o
-.PHONY : data/server_asio_frame/src/utility/time_function.o
+root/server/server_frame/src/third/lua/lvm.o: root/server/server_frame/src/third/lua/lvm.c.o
+.PHONY : root/server/server_frame/src/third/lua/lvm.o
 
 # target to build an object file
-data/server_asio_frame/src/utility/time_function.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/time_function.cpp.o
-.PHONY : data/server_asio_frame/src/utility/time_function.cpp.o
+root/server/server_frame/src/third/lua/lvm.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lvm.c.o
+.PHONY : root/server/server_frame/src/third/lua/lvm.c.o
 
-data/server_asio_frame/src/utility/time_function.i: data/server_asio_frame/src/utility/time_function.cpp.i
-.PHONY : data/server_asio_frame/src/utility/time_function.i
+root/server/server_frame/src/third/lua/lvm.i: root/server/server_frame/src/third/lua/lvm.c.i
+.PHONY : root/server/server_frame/src/third/lua/lvm.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/utility/time_function.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/time_function.cpp.i
-.PHONY : data/server_asio_frame/src/utility/time_function.cpp.i
+root/server/server_frame/src/third/lua/lvm.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lvm.c.i
+.PHONY : root/server/server_frame/src/third/lua/lvm.c.i
 
-data/server_asio_frame/src/utility/time_function.s: data/server_asio_frame/src/utility/time_function.cpp.s
-.PHONY : data/server_asio_frame/src/utility/time_function.s
+root/server/server_frame/src/third/lua/lvm.s: root/server/server_frame/src/third/lua/lvm.c.s
+.PHONY : root/server/server_frame/src/third/lua/lvm.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/utility/time_function.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/time_function.cpp.s
-.PHONY : data/server_asio_frame/src/utility/time_function.cpp.s
+root/server/server_frame/src/third/lua/lvm.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lvm.c.s
+.PHONY : root/server/server_frame/src/third/lua/lvm.c.s
 
-data/server_asio_frame/src/utility/timeutility.o: data/server_asio_frame/src/utility/timeutility.cpp.o
-.PHONY : data/server_asio_frame/src/utility/timeutility.o
+root/server/server_frame/src/third/lua/lzio.o: root/server/server_frame/src/third/lua/lzio.c.o
+.PHONY : root/server/server_frame/src/third/lua/lzio.o
 
 # target to build an object file
-data/server_asio_frame/src/utility/timeutility.cpp.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/timeutility.cpp.o
-.PHONY : data/server_asio_frame/src/utility/timeutility.cpp.o
+root/server/server_frame/src/third/lua/lzio.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lzio.c.o
+.PHONY : root/server/server_frame/src/third/lua/lzio.c.o
 
-data/server_asio_frame/src/utility/timeutility.i: data/server_asio_frame/src/utility/timeutility.cpp.i
-.PHONY : data/server_asio_frame/src/utility/timeutility.i
+root/server/server_frame/src/third/lua/lzio.i: root/server/server_frame/src/third/lua/lzio.c.i
+.PHONY : root/server/server_frame/src/third/lua/lzio.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/utility/timeutility.cpp.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/timeutility.cpp.i
-.PHONY : data/server_asio_frame/src/utility/timeutility.cpp.i
+root/server/server_frame/src/third/lua/lzio.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lzio.c.i
+.PHONY : root/server/server_frame/src/third/lua/lzio.c.i
 
-data/server_asio_frame/src/utility/timeutility.s: data/server_asio_frame/src/utility/timeutility.cpp.s
-.PHONY : data/server_asio_frame/src/utility/timeutility.s
+root/server/server_frame/src/third/lua/lzio.s: root/server/server_frame/src/third/lua/lzio.c.s
+.PHONY : root/server/server_frame/src/third/lua/lzio.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/utility/timeutility.cpp.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/utility/timeutility.cpp.s
-.PHONY : data/server_asio_frame/src/utility/timeutility.cpp.s
+root/server/server_frame/src/third/lua/lzio.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/lua/lzio.c.s
+.PHONY : root/server/server_frame/src/third/lua/lzio.c.s
 
-data/server_asio_frame/src/zlib/adler32.o: data/server_asio_frame/src/zlib/adler32.c.o
-.PHONY : data/server_asio_frame/src/zlib/adler32.o
+root/server/server_frame/src/third/zlib/adler32.o: root/server/server_frame/src/third/zlib/adler32.c.o
+.PHONY : root/server/server_frame/src/third/zlib/adler32.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/adler32.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/adler32.c.o
-.PHONY : data/server_asio_frame/src/zlib/adler32.c.o
+root/server/server_frame/src/third/zlib/adler32.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/adler32.c.o
+.PHONY : root/server/server_frame/src/third/zlib/adler32.c.o
 
-data/server_asio_frame/src/zlib/adler32.i: data/server_asio_frame/src/zlib/adler32.c.i
-.PHONY : data/server_asio_frame/src/zlib/adler32.i
+root/server/server_frame/src/third/zlib/adler32.i: root/server/server_frame/src/third/zlib/adler32.c.i
+.PHONY : root/server/server_frame/src/third/zlib/adler32.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/adler32.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/adler32.c.i
-.PHONY : data/server_asio_frame/src/zlib/adler32.c.i
+root/server/server_frame/src/third/zlib/adler32.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/adler32.c.i
+.PHONY : root/server/server_frame/src/third/zlib/adler32.c.i
 
-data/server_asio_frame/src/zlib/adler32.s: data/server_asio_frame/src/zlib/adler32.c.s
-.PHONY : data/server_asio_frame/src/zlib/adler32.s
+root/server/server_frame/src/third/zlib/adler32.s: root/server/server_frame/src/third/zlib/adler32.c.s
+.PHONY : root/server/server_frame/src/third/zlib/adler32.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/adler32.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/adler32.c.s
-.PHONY : data/server_asio_frame/src/zlib/adler32.c.s
+root/server/server_frame/src/third/zlib/adler32.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/adler32.c.s
+.PHONY : root/server/server_frame/src/third/zlib/adler32.c.s
 
-data/server_asio_frame/src/zlib/compress.o: data/server_asio_frame/src/zlib/compress.c.o
-.PHONY : data/server_asio_frame/src/zlib/compress.o
+root/server/server_frame/src/third/zlib/compress.o: root/server/server_frame/src/third/zlib/compress.c.o
+.PHONY : root/server/server_frame/src/third/zlib/compress.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/compress.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/compress.c.o
-.PHONY : data/server_asio_frame/src/zlib/compress.c.o
+root/server/server_frame/src/third/zlib/compress.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/compress.c.o
+.PHONY : root/server/server_frame/src/third/zlib/compress.c.o
 
-data/server_asio_frame/src/zlib/compress.i: data/server_asio_frame/src/zlib/compress.c.i
-.PHONY : data/server_asio_frame/src/zlib/compress.i
+root/server/server_frame/src/third/zlib/compress.i: root/server/server_frame/src/third/zlib/compress.c.i
+.PHONY : root/server/server_frame/src/third/zlib/compress.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/compress.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/compress.c.i
-.PHONY : data/server_asio_frame/src/zlib/compress.c.i
+root/server/server_frame/src/third/zlib/compress.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/compress.c.i
+.PHONY : root/server/server_frame/src/third/zlib/compress.c.i
 
-data/server_asio_frame/src/zlib/compress.s: data/server_asio_frame/src/zlib/compress.c.s
-.PHONY : data/server_asio_frame/src/zlib/compress.s
+root/server/server_frame/src/third/zlib/compress.s: root/server/server_frame/src/third/zlib/compress.c.s
+.PHONY : root/server/server_frame/src/third/zlib/compress.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/compress.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/compress.c.s
-.PHONY : data/server_asio_frame/src/zlib/compress.c.s
+root/server/server_frame/src/third/zlib/compress.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/compress.c.s
+.PHONY : root/server/server_frame/src/third/zlib/compress.c.s
 
-data/server_asio_frame/src/zlib/crc32.o: data/server_asio_frame/src/zlib/crc32.c.o
-.PHONY : data/server_asio_frame/src/zlib/crc32.o
+root/server/server_frame/src/third/zlib/crc32.o: root/server/server_frame/src/third/zlib/crc32.c.o
+.PHONY : root/server/server_frame/src/third/zlib/crc32.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/crc32.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/crc32.c.o
-.PHONY : data/server_asio_frame/src/zlib/crc32.c.o
+root/server/server_frame/src/third/zlib/crc32.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/crc32.c.o
+.PHONY : root/server/server_frame/src/third/zlib/crc32.c.o
 
-data/server_asio_frame/src/zlib/crc32.i: data/server_asio_frame/src/zlib/crc32.c.i
-.PHONY : data/server_asio_frame/src/zlib/crc32.i
+root/server/server_frame/src/third/zlib/crc32.i: root/server/server_frame/src/third/zlib/crc32.c.i
+.PHONY : root/server/server_frame/src/third/zlib/crc32.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/crc32.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/crc32.c.i
-.PHONY : data/server_asio_frame/src/zlib/crc32.c.i
+root/server/server_frame/src/third/zlib/crc32.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/crc32.c.i
+.PHONY : root/server/server_frame/src/third/zlib/crc32.c.i
 
-data/server_asio_frame/src/zlib/crc32.s: data/server_asio_frame/src/zlib/crc32.c.s
-.PHONY : data/server_asio_frame/src/zlib/crc32.s
+root/server/server_frame/src/third/zlib/crc32.s: root/server/server_frame/src/third/zlib/crc32.c.s
+.PHONY : root/server/server_frame/src/third/zlib/crc32.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/crc32.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/crc32.c.s
-.PHONY : data/server_asio_frame/src/zlib/crc32.c.s
+root/server/server_frame/src/third/zlib/crc32.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/crc32.c.s
+.PHONY : root/server/server_frame/src/third/zlib/crc32.c.s
 
-data/server_asio_frame/src/zlib/deflate.o: data/server_asio_frame/src/zlib/deflate.c.o
-.PHONY : data/server_asio_frame/src/zlib/deflate.o
+root/server/server_frame/src/third/zlib/deflate.o: root/server/server_frame/src/third/zlib/deflate.c.o
+.PHONY : root/server/server_frame/src/third/zlib/deflate.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/deflate.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/deflate.c.o
-.PHONY : data/server_asio_frame/src/zlib/deflate.c.o
+root/server/server_frame/src/third/zlib/deflate.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/deflate.c.o
+.PHONY : root/server/server_frame/src/third/zlib/deflate.c.o
 
-data/server_asio_frame/src/zlib/deflate.i: data/server_asio_frame/src/zlib/deflate.c.i
-.PHONY : data/server_asio_frame/src/zlib/deflate.i
+root/server/server_frame/src/third/zlib/deflate.i: root/server/server_frame/src/third/zlib/deflate.c.i
+.PHONY : root/server/server_frame/src/third/zlib/deflate.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/deflate.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/deflate.c.i
-.PHONY : data/server_asio_frame/src/zlib/deflate.c.i
+root/server/server_frame/src/third/zlib/deflate.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/deflate.c.i
+.PHONY : root/server/server_frame/src/third/zlib/deflate.c.i
 
-data/server_asio_frame/src/zlib/deflate.s: data/server_asio_frame/src/zlib/deflate.c.s
-.PHONY : data/server_asio_frame/src/zlib/deflate.s
+root/server/server_frame/src/third/zlib/deflate.s: root/server/server_frame/src/third/zlib/deflate.c.s
+.PHONY : root/server/server_frame/src/third/zlib/deflate.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/deflate.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/deflate.c.s
-.PHONY : data/server_asio_frame/src/zlib/deflate.c.s
+root/server/server_frame/src/third/zlib/deflate.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/deflate.c.s
+.PHONY : root/server/server_frame/src/third/zlib/deflate.c.s
 
-data/server_asio_frame/src/zlib/gzclose.o: data/server_asio_frame/src/zlib/gzclose.c.o
-.PHONY : data/server_asio_frame/src/zlib/gzclose.o
+root/server/server_frame/src/third/zlib/gzclose.o: root/server/server_frame/src/third/zlib/gzclose.c.o
+.PHONY : root/server/server_frame/src/third/zlib/gzclose.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/gzclose.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/gzclose.c.o
-.PHONY : data/server_asio_frame/src/zlib/gzclose.c.o
+root/server/server_frame/src/third/zlib/gzclose.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/gzclose.c.o
+.PHONY : root/server/server_frame/src/third/zlib/gzclose.c.o
 
-data/server_asio_frame/src/zlib/gzclose.i: data/server_asio_frame/src/zlib/gzclose.c.i
-.PHONY : data/server_asio_frame/src/zlib/gzclose.i
+root/server/server_frame/src/third/zlib/gzclose.i: root/server/server_frame/src/third/zlib/gzclose.c.i
+.PHONY : root/server/server_frame/src/third/zlib/gzclose.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/gzclose.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/gzclose.c.i
-.PHONY : data/server_asio_frame/src/zlib/gzclose.c.i
+root/server/server_frame/src/third/zlib/gzclose.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/gzclose.c.i
+.PHONY : root/server/server_frame/src/third/zlib/gzclose.c.i
 
-data/server_asio_frame/src/zlib/gzclose.s: data/server_asio_frame/src/zlib/gzclose.c.s
-.PHONY : data/server_asio_frame/src/zlib/gzclose.s
+root/server/server_frame/src/third/zlib/gzclose.s: root/server/server_frame/src/third/zlib/gzclose.c.s
+.PHONY : root/server/server_frame/src/third/zlib/gzclose.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/gzclose.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/gzclose.c.s
-.PHONY : data/server_asio_frame/src/zlib/gzclose.c.s
+root/server/server_frame/src/third/zlib/gzclose.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/gzclose.c.s
+.PHONY : root/server/server_frame/src/third/zlib/gzclose.c.s
 
-data/server_asio_frame/src/zlib/gzlib.o: data/server_asio_frame/src/zlib/gzlib.c.o
-.PHONY : data/server_asio_frame/src/zlib/gzlib.o
+root/server/server_frame/src/third/zlib/gzlib.o: root/server/server_frame/src/third/zlib/gzlib.c.o
+.PHONY : root/server/server_frame/src/third/zlib/gzlib.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/gzlib.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/gzlib.c.o
-.PHONY : data/server_asio_frame/src/zlib/gzlib.c.o
+root/server/server_frame/src/third/zlib/gzlib.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/gzlib.c.o
+.PHONY : root/server/server_frame/src/third/zlib/gzlib.c.o
 
-data/server_asio_frame/src/zlib/gzlib.i: data/server_asio_frame/src/zlib/gzlib.c.i
-.PHONY : data/server_asio_frame/src/zlib/gzlib.i
+root/server/server_frame/src/third/zlib/gzlib.i: root/server/server_frame/src/third/zlib/gzlib.c.i
+.PHONY : root/server/server_frame/src/third/zlib/gzlib.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/gzlib.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/gzlib.c.i
-.PHONY : data/server_asio_frame/src/zlib/gzlib.c.i
+root/server/server_frame/src/third/zlib/gzlib.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/gzlib.c.i
+.PHONY : root/server/server_frame/src/third/zlib/gzlib.c.i
 
-data/server_asio_frame/src/zlib/gzlib.s: data/server_asio_frame/src/zlib/gzlib.c.s
-.PHONY : data/server_asio_frame/src/zlib/gzlib.s
+root/server/server_frame/src/third/zlib/gzlib.s: root/server/server_frame/src/third/zlib/gzlib.c.s
+.PHONY : root/server/server_frame/src/third/zlib/gzlib.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/gzlib.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/gzlib.c.s
-.PHONY : data/server_asio_frame/src/zlib/gzlib.c.s
+root/server/server_frame/src/third/zlib/gzlib.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/gzlib.c.s
+.PHONY : root/server/server_frame/src/third/zlib/gzlib.c.s
 
-data/server_asio_frame/src/zlib/gzread.o: data/server_asio_frame/src/zlib/gzread.c.o
-.PHONY : data/server_asio_frame/src/zlib/gzread.o
+root/server/server_frame/src/third/zlib/gzread.o: root/server/server_frame/src/third/zlib/gzread.c.o
+.PHONY : root/server/server_frame/src/third/zlib/gzread.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/gzread.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/gzread.c.o
-.PHONY : data/server_asio_frame/src/zlib/gzread.c.o
+root/server/server_frame/src/third/zlib/gzread.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/gzread.c.o
+.PHONY : root/server/server_frame/src/third/zlib/gzread.c.o
 
-data/server_asio_frame/src/zlib/gzread.i: data/server_asio_frame/src/zlib/gzread.c.i
-.PHONY : data/server_asio_frame/src/zlib/gzread.i
+root/server/server_frame/src/third/zlib/gzread.i: root/server/server_frame/src/third/zlib/gzread.c.i
+.PHONY : root/server/server_frame/src/third/zlib/gzread.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/gzread.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/gzread.c.i
-.PHONY : data/server_asio_frame/src/zlib/gzread.c.i
+root/server/server_frame/src/third/zlib/gzread.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/gzread.c.i
+.PHONY : root/server/server_frame/src/third/zlib/gzread.c.i
 
-data/server_asio_frame/src/zlib/gzread.s: data/server_asio_frame/src/zlib/gzread.c.s
-.PHONY : data/server_asio_frame/src/zlib/gzread.s
+root/server/server_frame/src/third/zlib/gzread.s: root/server/server_frame/src/third/zlib/gzread.c.s
+.PHONY : root/server/server_frame/src/third/zlib/gzread.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/gzread.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/gzread.c.s
-.PHONY : data/server_asio_frame/src/zlib/gzread.c.s
+root/server/server_frame/src/third/zlib/gzread.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/gzread.c.s
+.PHONY : root/server/server_frame/src/third/zlib/gzread.c.s
 
-data/server_asio_frame/src/zlib/gzwrite.o: data/server_asio_frame/src/zlib/gzwrite.c.o
-.PHONY : data/server_asio_frame/src/zlib/gzwrite.o
+root/server/server_frame/src/third/zlib/gzwrite.o: root/server/server_frame/src/third/zlib/gzwrite.c.o
+.PHONY : root/server/server_frame/src/third/zlib/gzwrite.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/gzwrite.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/gzwrite.c.o
-.PHONY : data/server_asio_frame/src/zlib/gzwrite.c.o
+root/server/server_frame/src/third/zlib/gzwrite.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/gzwrite.c.o
+.PHONY : root/server/server_frame/src/third/zlib/gzwrite.c.o
 
-data/server_asio_frame/src/zlib/gzwrite.i: data/server_asio_frame/src/zlib/gzwrite.c.i
-.PHONY : data/server_asio_frame/src/zlib/gzwrite.i
+root/server/server_frame/src/third/zlib/gzwrite.i: root/server/server_frame/src/third/zlib/gzwrite.c.i
+.PHONY : root/server/server_frame/src/third/zlib/gzwrite.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/gzwrite.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/gzwrite.c.i
-.PHONY : data/server_asio_frame/src/zlib/gzwrite.c.i
+root/server/server_frame/src/third/zlib/gzwrite.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/gzwrite.c.i
+.PHONY : root/server/server_frame/src/third/zlib/gzwrite.c.i
 
-data/server_asio_frame/src/zlib/gzwrite.s: data/server_asio_frame/src/zlib/gzwrite.c.s
-.PHONY : data/server_asio_frame/src/zlib/gzwrite.s
+root/server/server_frame/src/third/zlib/gzwrite.s: root/server/server_frame/src/third/zlib/gzwrite.c.s
+.PHONY : root/server/server_frame/src/third/zlib/gzwrite.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/gzwrite.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/gzwrite.c.s
-.PHONY : data/server_asio_frame/src/zlib/gzwrite.c.s
+root/server/server_frame/src/third/zlib/gzwrite.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/gzwrite.c.s
+.PHONY : root/server/server_frame/src/third/zlib/gzwrite.c.s
 
-data/server_asio_frame/src/zlib/infback.o: data/server_asio_frame/src/zlib/infback.c.o
-.PHONY : data/server_asio_frame/src/zlib/infback.o
+root/server/server_frame/src/third/zlib/infback.o: root/server/server_frame/src/third/zlib/infback.c.o
+.PHONY : root/server/server_frame/src/third/zlib/infback.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/infback.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/infback.c.o
-.PHONY : data/server_asio_frame/src/zlib/infback.c.o
+root/server/server_frame/src/third/zlib/infback.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/infback.c.o
+.PHONY : root/server/server_frame/src/third/zlib/infback.c.o
 
-data/server_asio_frame/src/zlib/infback.i: data/server_asio_frame/src/zlib/infback.c.i
-.PHONY : data/server_asio_frame/src/zlib/infback.i
+root/server/server_frame/src/third/zlib/infback.i: root/server/server_frame/src/third/zlib/infback.c.i
+.PHONY : root/server/server_frame/src/third/zlib/infback.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/infback.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/infback.c.i
-.PHONY : data/server_asio_frame/src/zlib/infback.c.i
+root/server/server_frame/src/third/zlib/infback.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/infback.c.i
+.PHONY : root/server/server_frame/src/third/zlib/infback.c.i
 
-data/server_asio_frame/src/zlib/infback.s: data/server_asio_frame/src/zlib/infback.c.s
-.PHONY : data/server_asio_frame/src/zlib/infback.s
+root/server/server_frame/src/third/zlib/infback.s: root/server/server_frame/src/third/zlib/infback.c.s
+.PHONY : root/server/server_frame/src/third/zlib/infback.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/infback.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/infback.c.s
-.PHONY : data/server_asio_frame/src/zlib/infback.c.s
+root/server/server_frame/src/third/zlib/infback.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/infback.c.s
+.PHONY : root/server/server_frame/src/third/zlib/infback.c.s
 
-data/server_asio_frame/src/zlib/inffast.o: data/server_asio_frame/src/zlib/inffast.c.o
-.PHONY : data/server_asio_frame/src/zlib/inffast.o
+root/server/server_frame/src/third/zlib/inffast.o: root/server/server_frame/src/third/zlib/inffast.c.o
+.PHONY : root/server/server_frame/src/third/zlib/inffast.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/inffast.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/inffast.c.o
-.PHONY : data/server_asio_frame/src/zlib/inffast.c.o
+root/server/server_frame/src/third/zlib/inffast.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/inffast.c.o
+.PHONY : root/server/server_frame/src/third/zlib/inffast.c.o
 
-data/server_asio_frame/src/zlib/inffast.i: data/server_asio_frame/src/zlib/inffast.c.i
-.PHONY : data/server_asio_frame/src/zlib/inffast.i
+root/server/server_frame/src/third/zlib/inffast.i: root/server/server_frame/src/third/zlib/inffast.c.i
+.PHONY : root/server/server_frame/src/third/zlib/inffast.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/inffast.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/inffast.c.i
-.PHONY : data/server_asio_frame/src/zlib/inffast.c.i
+root/server/server_frame/src/third/zlib/inffast.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/inffast.c.i
+.PHONY : root/server/server_frame/src/third/zlib/inffast.c.i
 
-data/server_asio_frame/src/zlib/inffast.s: data/server_asio_frame/src/zlib/inffast.c.s
-.PHONY : data/server_asio_frame/src/zlib/inffast.s
+root/server/server_frame/src/third/zlib/inffast.s: root/server/server_frame/src/third/zlib/inffast.c.s
+.PHONY : root/server/server_frame/src/third/zlib/inffast.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/inffast.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/inffast.c.s
-.PHONY : data/server_asio_frame/src/zlib/inffast.c.s
+root/server/server_frame/src/third/zlib/inffast.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/inffast.c.s
+.PHONY : root/server/server_frame/src/third/zlib/inffast.c.s
 
-data/server_asio_frame/src/zlib/inflate.o: data/server_asio_frame/src/zlib/inflate.c.o
-.PHONY : data/server_asio_frame/src/zlib/inflate.o
+root/server/server_frame/src/third/zlib/inflate.o: root/server/server_frame/src/third/zlib/inflate.c.o
+.PHONY : root/server/server_frame/src/third/zlib/inflate.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/inflate.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/inflate.c.o
-.PHONY : data/server_asio_frame/src/zlib/inflate.c.o
+root/server/server_frame/src/third/zlib/inflate.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/inflate.c.o
+.PHONY : root/server/server_frame/src/third/zlib/inflate.c.o
 
-data/server_asio_frame/src/zlib/inflate.i: data/server_asio_frame/src/zlib/inflate.c.i
-.PHONY : data/server_asio_frame/src/zlib/inflate.i
+root/server/server_frame/src/third/zlib/inflate.i: root/server/server_frame/src/third/zlib/inflate.c.i
+.PHONY : root/server/server_frame/src/third/zlib/inflate.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/inflate.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/inflate.c.i
-.PHONY : data/server_asio_frame/src/zlib/inflate.c.i
+root/server/server_frame/src/third/zlib/inflate.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/inflate.c.i
+.PHONY : root/server/server_frame/src/third/zlib/inflate.c.i
 
-data/server_asio_frame/src/zlib/inflate.s: data/server_asio_frame/src/zlib/inflate.c.s
-.PHONY : data/server_asio_frame/src/zlib/inflate.s
+root/server/server_frame/src/third/zlib/inflate.s: root/server/server_frame/src/third/zlib/inflate.c.s
+.PHONY : root/server/server_frame/src/third/zlib/inflate.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/inflate.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/inflate.c.s
-.PHONY : data/server_asio_frame/src/zlib/inflate.c.s
+root/server/server_frame/src/third/zlib/inflate.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/inflate.c.s
+.PHONY : root/server/server_frame/src/third/zlib/inflate.c.s
 
-data/server_asio_frame/src/zlib/inftrees.o: data/server_asio_frame/src/zlib/inftrees.c.o
-.PHONY : data/server_asio_frame/src/zlib/inftrees.o
+root/server/server_frame/src/third/zlib/inftrees.o: root/server/server_frame/src/third/zlib/inftrees.c.o
+.PHONY : root/server/server_frame/src/third/zlib/inftrees.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/inftrees.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/inftrees.c.o
-.PHONY : data/server_asio_frame/src/zlib/inftrees.c.o
+root/server/server_frame/src/third/zlib/inftrees.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/inftrees.c.o
+.PHONY : root/server/server_frame/src/third/zlib/inftrees.c.o
 
-data/server_asio_frame/src/zlib/inftrees.i: data/server_asio_frame/src/zlib/inftrees.c.i
-.PHONY : data/server_asio_frame/src/zlib/inftrees.i
+root/server/server_frame/src/third/zlib/inftrees.i: root/server/server_frame/src/third/zlib/inftrees.c.i
+.PHONY : root/server/server_frame/src/third/zlib/inftrees.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/inftrees.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/inftrees.c.i
-.PHONY : data/server_asio_frame/src/zlib/inftrees.c.i
+root/server/server_frame/src/third/zlib/inftrees.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/inftrees.c.i
+.PHONY : root/server/server_frame/src/third/zlib/inftrees.c.i
 
-data/server_asio_frame/src/zlib/inftrees.s: data/server_asio_frame/src/zlib/inftrees.c.s
-.PHONY : data/server_asio_frame/src/zlib/inftrees.s
+root/server/server_frame/src/third/zlib/inftrees.s: root/server/server_frame/src/third/zlib/inftrees.c.s
+.PHONY : root/server/server_frame/src/third/zlib/inftrees.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/inftrees.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/inftrees.c.s
-.PHONY : data/server_asio_frame/src/zlib/inftrees.c.s
+root/server/server_frame/src/third/zlib/inftrees.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/inftrees.c.s
+.PHONY : root/server/server_frame/src/third/zlib/inftrees.c.s
 
-data/server_asio_frame/src/zlib/trees.o: data/server_asio_frame/src/zlib/trees.c.o
-.PHONY : data/server_asio_frame/src/zlib/trees.o
+root/server/server_frame/src/third/zlib/trees.o: root/server/server_frame/src/third/zlib/trees.c.o
+.PHONY : root/server/server_frame/src/third/zlib/trees.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/trees.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/trees.c.o
-.PHONY : data/server_asio_frame/src/zlib/trees.c.o
+root/server/server_frame/src/third/zlib/trees.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/trees.c.o
+.PHONY : root/server/server_frame/src/third/zlib/trees.c.o
 
-data/server_asio_frame/src/zlib/trees.i: data/server_asio_frame/src/zlib/trees.c.i
-.PHONY : data/server_asio_frame/src/zlib/trees.i
+root/server/server_frame/src/third/zlib/trees.i: root/server/server_frame/src/third/zlib/trees.c.i
+.PHONY : root/server/server_frame/src/third/zlib/trees.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/trees.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/trees.c.i
-.PHONY : data/server_asio_frame/src/zlib/trees.c.i
+root/server/server_frame/src/third/zlib/trees.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/trees.c.i
+.PHONY : root/server/server_frame/src/third/zlib/trees.c.i
 
-data/server_asio_frame/src/zlib/trees.s: data/server_asio_frame/src/zlib/trees.c.s
-.PHONY : data/server_asio_frame/src/zlib/trees.s
+root/server/server_frame/src/third/zlib/trees.s: root/server/server_frame/src/third/zlib/trees.c.s
+.PHONY : root/server/server_frame/src/third/zlib/trees.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/trees.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/trees.c.s
-.PHONY : data/server_asio_frame/src/zlib/trees.c.s
+root/server/server_frame/src/third/zlib/trees.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/trees.c.s
+.PHONY : root/server/server_frame/src/third/zlib/trees.c.s
 
-data/server_asio_frame/src/zlib/uncompr.o: data/server_asio_frame/src/zlib/uncompr.c.o
-.PHONY : data/server_asio_frame/src/zlib/uncompr.o
+root/server/server_frame/src/third/zlib/uncompr.o: root/server/server_frame/src/third/zlib/uncompr.c.o
+.PHONY : root/server/server_frame/src/third/zlib/uncompr.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/uncompr.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/uncompr.c.o
-.PHONY : data/server_asio_frame/src/zlib/uncompr.c.o
+root/server/server_frame/src/third/zlib/uncompr.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/uncompr.c.o
+.PHONY : root/server/server_frame/src/third/zlib/uncompr.c.o
 
-data/server_asio_frame/src/zlib/uncompr.i: data/server_asio_frame/src/zlib/uncompr.c.i
-.PHONY : data/server_asio_frame/src/zlib/uncompr.i
+root/server/server_frame/src/third/zlib/uncompr.i: root/server/server_frame/src/third/zlib/uncompr.c.i
+.PHONY : root/server/server_frame/src/third/zlib/uncompr.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/uncompr.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/uncompr.c.i
-.PHONY : data/server_asio_frame/src/zlib/uncompr.c.i
+root/server/server_frame/src/third/zlib/uncompr.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/uncompr.c.i
+.PHONY : root/server/server_frame/src/third/zlib/uncompr.c.i
 
-data/server_asio_frame/src/zlib/uncompr.s: data/server_asio_frame/src/zlib/uncompr.c.s
-.PHONY : data/server_asio_frame/src/zlib/uncompr.s
+root/server/server_frame/src/third/zlib/uncompr.s: root/server/server_frame/src/third/zlib/uncompr.c.s
+.PHONY : root/server/server_frame/src/third/zlib/uncompr.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/uncompr.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/uncompr.c.s
-.PHONY : data/server_asio_frame/src/zlib/uncompr.c.s
+root/server/server_frame/src/third/zlib/uncompr.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/uncompr.c.s
+.PHONY : root/server/server_frame/src/third/zlib/uncompr.c.s
 
-data/server_asio_frame/src/zlib/zutil.o: data/server_asio_frame/src/zlib/zutil.c.o
-.PHONY : data/server_asio_frame/src/zlib/zutil.o
+root/server/server_frame/src/third/zlib/zutil.o: root/server/server_frame/src/third/zlib/zutil.c.o
+.PHONY : root/server/server_frame/src/third/zlib/zutil.o
 
 # target to build an object file
-data/server_asio_frame/src/zlib/zutil.c.o:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/zutil.c.o
-.PHONY : data/server_asio_frame/src/zlib/zutil.c.o
+root/server/server_frame/src/third/zlib/zutil.c.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/zutil.c.o
+.PHONY : root/server/server_frame/src/third/zlib/zutil.c.o
 
-data/server_asio_frame/src/zlib/zutil.i: data/server_asio_frame/src/zlib/zutil.c.i
-.PHONY : data/server_asio_frame/src/zlib/zutil.i
+root/server/server_frame/src/third/zlib/zutil.i: root/server/server_frame/src/third/zlib/zutil.c.i
+.PHONY : root/server/server_frame/src/third/zlib/zutil.i
 
 # target to preprocess a source file
-data/server_asio_frame/src/zlib/zutil.c.i:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/zutil.c.i
-.PHONY : data/server_asio_frame/src/zlib/zutil.c.i
+root/server/server_frame/src/third/zlib/zutil.c.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/zutil.c.i
+.PHONY : root/server/server_frame/src/third/zlib/zutil.c.i
 
-data/server_asio_frame/src/zlib/zutil.s: data/server_asio_frame/src/zlib/zutil.c.s
-.PHONY : data/server_asio_frame/src/zlib/zutil.s
+root/server/server_frame/src/third/zlib/zutil.s: root/server/server_frame/src/third/zlib/zutil.c.s
+.PHONY : root/server/server_frame/src/third/zlib/zutil.s
 
 # target to generate assembly for a file
-data/server_asio_frame/src/zlib/zutil.c.s:
-	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/data/server_asio_frame/src/zlib/zutil.c.s
-.PHONY : data/server_asio_frame/src/zlib/zutil.c.s
+root/server/server_frame/src/third/zlib/zutil.c.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/third/zlib/zutil.c.s
+.PHONY : root/server/server_frame/src/third/zlib/zutil.c.s
+
+root/server/server_frame/src/time/cooling.o: root/server/server_frame/src/time/cooling.cpp.o
+.PHONY : root/server/server_frame/src/time/cooling.o
+
+# target to build an object file
+root/server/server_frame/src/time/cooling.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/time/cooling.cpp.o
+.PHONY : root/server/server_frame/src/time/cooling.cpp.o
+
+root/server/server_frame/src/time/cooling.i: root/server/server_frame/src/time/cooling.cpp.i
+.PHONY : root/server/server_frame/src/time/cooling.i
+
+# target to preprocess a source file
+root/server/server_frame/src/time/cooling.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/time/cooling.cpp.i
+.PHONY : root/server/server_frame/src/time/cooling.cpp.i
+
+root/server/server_frame/src/time/cooling.s: root/server/server_frame/src/time/cooling.cpp.s
+.PHONY : root/server/server_frame/src/time/cooling.s
+
+# target to generate assembly for a file
+root/server/server_frame/src/time/cooling.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/time/cooling.cpp.s
+.PHONY : root/server/server_frame/src/time/cooling.cpp.s
+
+root/server/server_frame/src/time/time_function.o: root/server/server_frame/src/time/time_function.cpp.o
+.PHONY : root/server/server_frame/src/time/time_function.o
+
+# target to build an object file
+root/server/server_frame/src/time/time_function.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/time/time_function.cpp.o
+.PHONY : root/server/server_frame/src/time/time_function.cpp.o
+
+root/server/server_frame/src/time/time_function.i: root/server/server_frame/src/time/time_function.cpp.i
+.PHONY : root/server/server_frame/src/time/time_function.i
+
+# target to preprocess a source file
+root/server/server_frame/src/time/time_function.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/time/time_function.cpp.i
+.PHONY : root/server/server_frame/src/time/time_function.cpp.i
+
+root/server/server_frame/src/time/time_function.s: root/server/server_frame/src/time/time_function.cpp.s
+.PHONY : root/server/server_frame/src/time/time_function.s
+
+# target to generate assembly for a file
+root/server/server_frame/src/time/time_function.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/time/time_function.cpp.s
+.PHONY : root/server/server_frame/src/time/time_function.cpp.s
+
+root/server/server_frame/src/time/timeutility.o: root/server/server_frame/src/time/timeutility.cpp.o
+.PHONY : root/server/server_frame/src/time/timeutility.o
+
+# target to build an object file
+root/server/server_frame/src/time/timeutility.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/time/timeutility.cpp.o
+.PHONY : root/server/server_frame/src/time/timeutility.cpp.o
+
+root/server/server_frame/src/time/timeutility.i: root/server/server_frame/src/time/timeutility.cpp.i
+.PHONY : root/server/server_frame/src/time/timeutility.i
+
+# target to preprocess a source file
+root/server/server_frame/src/time/timeutility.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/time/timeutility.cpp.i
+.PHONY : root/server/server_frame/src/time/timeutility.cpp.i
+
+root/server/server_frame/src/time/timeutility.s: root/server/server_frame/src/time/timeutility.cpp.s
+.PHONY : root/server/server_frame/src/time/timeutility.s
+
+# target to generate assembly for a file
+root/server/server_frame/src/time/timeutility.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/time/timeutility.cpp.s
+.PHONY : root/server/server_frame/src/time/timeutility.cpp.s
+
+root/server/server_frame/src/utility/basic_functions.o: root/server/server_frame/src/utility/basic_functions.cpp.o
+.PHONY : root/server/server_frame/src/utility/basic_functions.o
+
+# target to build an object file
+root/server/server_frame/src/utility/basic_functions.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/utility/basic_functions.cpp.o
+.PHONY : root/server/server_frame/src/utility/basic_functions.cpp.o
+
+root/server/server_frame/src/utility/basic_functions.i: root/server/server_frame/src/utility/basic_functions.cpp.i
+.PHONY : root/server/server_frame/src/utility/basic_functions.i
+
+# target to preprocess a source file
+root/server/server_frame/src/utility/basic_functions.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/utility/basic_functions.cpp.i
+.PHONY : root/server/server_frame/src/utility/basic_functions.cpp.i
+
+root/server/server_frame/src/utility/basic_functions.s: root/server/server_frame/src/utility/basic_functions.cpp.s
+.PHONY : root/server/server_frame/src/utility/basic_functions.s
+
+# target to generate assembly for a file
+root/server/server_frame/src/utility/basic_functions.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/utility/basic_functions.cpp.s
+.PHONY : root/server/server_frame/src/utility/basic_functions.cpp.s
+
+root/server/server_frame/src/utility/event_processor.o: root/server/server_frame/src/utility/event_processor.cpp.o
+.PHONY : root/server/server_frame/src/utility/event_processor.o
+
+# target to build an object file
+root/server/server_frame/src/utility/event_processor.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/utility/event_processor.cpp.o
+.PHONY : root/server/server_frame/src/utility/event_processor.cpp.o
+
+root/server/server_frame/src/utility/event_processor.i: root/server/server_frame/src/utility/event_processor.cpp.i
+.PHONY : root/server/server_frame/src/utility/event_processor.i
+
+# target to preprocess a source file
+root/server/server_frame/src/utility/event_processor.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/utility/event_processor.cpp.i
+.PHONY : root/server/server_frame/src/utility/event_processor.cpp.i
+
+root/server/server_frame/src/utility/event_processor.s: root/server/server_frame/src/utility/event_processor.cpp.s
+.PHONY : root/server/server_frame/src/utility/event_processor.s
+
+# target to generate assembly for a file
+root/server/server_frame/src/utility/event_processor.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/utility/event_processor.cpp.s
+.PHONY : root/server/server_frame/src/utility/event_processor.cpp.s
+
+root/server/server_frame/src/utility/profile_manager.o: root/server/server_frame/src/utility/profile_manager.cpp.o
+.PHONY : root/server/server_frame/src/utility/profile_manager.o
+
+# target to build an object file
+root/server/server_frame/src/utility/profile_manager.cpp.o:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/utility/profile_manager.cpp.o
+.PHONY : root/server/server_frame/src/utility/profile_manager.cpp.o
+
+root/server/server_frame/src/utility/profile_manager.i: root/server/server_frame/src/utility/profile_manager.cpp.i
+.PHONY : root/server/server_frame/src/utility/profile_manager.i
+
+# target to preprocess a source file
+root/server/server_frame/src/utility/profile_manager.cpp.i:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/utility/profile_manager.cpp.i
+.PHONY : root/server/server_frame/src/utility/profile_manager.cpp.i
+
+root/server/server_frame/src/utility/profile_manager.s: root/server/server_frame/src/utility/profile_manager.cpp.s
+.PHONY : root/server/server_frame/src/utility/profile_manager.s
+
+# target to generate assembly for a file
+root/server/server_frame/src/utility/profile_manager.cpp.s:
+	$(MAKE) -f CMakeFiles/svrlib.dir/build.make CMakeFiles/svrlib.dir/root/server/server_frame/src/utility/profile_manager.cpp.s
+.PHONY : root/server/server_frame/src/utility/profile_manager.cpp.s
 
 # Help Target
 help:
@@ -2595,315 +2739,333 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... svrlib"
-	@echo "... data/server_asio_frame/src/config/config.o"
-	@echo "... data/server_asio_frame/src/config/config.i"
-	@echo "... data/server_asio_frame/src/config/config.s"
-	@echo "... data/server_asio_frame/src/config/csvreader.o"
-	@echo "... data/server_asio_frame/src/config/csvreader.i"
-	@echo "... data/server_asio_frame/src/config/csvreader.s"
-	@echo "... data/server_asio_frame/src/crypt/aes.o"
-	@echo "... data/server_asio_frame/src/crypt/aes.i"
-	@echo "... data/server_asio_frame/src/crypt/aes.s"
-	@echo "... data/server_asio_frame/src/crypt/blowFish.o"
-	@echo "... data/server_asio_frame/src/crypt/blowFish.i"
-	@echo "... data/server_asio_frame/src/crypt/blowFish.s"
-	@echo "... data/server_asio_frame/src/crypt/crypt.o"
-	@echo "... data/server_asio_frame/src/crypt/crypt.i"
-	@echo "... data/server_asio_frame/src/crypt/crypt.s"
-	@echo "... data/server_asio_frame/src/crypt/mars.o"
-	@echo "... data/server_asio_frame/src/crypt/mars.i"
-	@echo "... data/server_asio_frame/src/crypt/mars.s"
-	@echo "... data/server_asio_frame/src/crypt/md5.o"
-	@echo "... data/server_asio_frame/src/crypt/md5.i"
-	@echo "... data/server_asio_frame/src/crypt/md5.s"
-	@echo "... data/server_asio_frame/src/crypt/net_encrypt.o"
-	@echo "... data/server_asio_frame/src/crypt/net_encrypt.i"
-	@echo "... data/server_asio_frame/src/crypt/net_encrypt.s"
-	@echo "... data/server_asio_frame/src/crypt/serpent.o"
-	@echo "... data/server_asio_frame/src/crypt/serpent.i"
-	@echo "... data/server_asio_frame/src/crypt/serpent.s"
-	@echo "... data/server_asio_frame/src/crypt/url_encode.o"
-	@echo "... data/server_asio_frame/src/crypt/url_encode.i"
-	@echo "... data/server_asio_frame/src/crypt/url_encode.s"
-	@echo "... data/server_asio_frame/src/dbmysql/db_task.o"
-	@echo "... data/server_asio_frame/src/dbmysql/db_task.i"
-	@echo "... data/server_asio_frame/src/dbmysql/db_task.s"
-	@echo "... data/server_asio_frame/src/dbmysql/db_wrap.o"
-	@echo "... data/server_asio_frame/src/dbmysql/db_wrap.i"
-	@echo "... data/server_asio_frame/src/dbmysql/db_wrap.s"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql.o"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql.i"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql.s"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql_exception.o"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql_exception.i"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql_exception.s"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql_result.o"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql_result.i"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql_result.s"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql_statement.o"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql_statement.i"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql_statement.s"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql_transaction.o"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql_transaction.i"
-	@echo "... data/server_asio_frame/src/dbmysql/dbmysql_transaction.s"
-	@echo "... data/server_asio_frame/src/dbmysql/test_client.o"
-	@echo "... data/server_asio_frame/src/dbmysql/test_client.i"
-	@echo "... data/server_asio_frame/src/dbmysql/test_client.s"
-	@echo "... data/server_asio_frame/src/framework/exception.o"
-	@echo "... data/server_asio_frame/src/framework/exception.i"
-	@echo "... data/server_asio_frame/src/framework/exception.s"
-	@echo "... data/server_asio_frame/src/framework/framework.o"
-	@echo "... data/server_asio_frame/src/framework/framework.i"
-	@echo "... data/server_asio_frame/src/framework/framework.s"
-	@echo "... data/server_asio_frame/src/framework/frameworkmain.o"
-	@echo "... data/server_asio_frame/src/framework/frameworkmain.i"
-	@echo "... data/server_asio_frame/src/framework/frameworkmain.s"
-	@echo "... data/server_asio_frame/src/helper/bufferStream.o"
-	@echo "... data/server_asio_frame/src/helper/bufferStream.i"
-	@echo "... data/server_asio_frame/src/helper/bufferStream.s"
-	@echo "... data/server_asio_frame/src/helper/fileStream.o"
-	@echo "... data/server_asio_frame/src/helper/fileStream.i"
-	@echo "... data/server_asio_frame/src/helper/fileStream.s"
-	@echo "... data/server_asio_frame/src/helper/filehelper.o"
-	@echo "... data/server_asio_frame/src/helper/filehelper.i"
-	@echo "... data/server_asio_frame/src/helper/filehelper.s"
-	@echo "... data/server_asio_frame/src/helper/helper.o"
-	@echo "... data/server_asio_frame/src/helper/helper.i"
-	@echo "... data/server_asio_frame/src/helper/helper.s"
-	@echo "... data/server_asio_frame/src/helper/streamBase.o"
-	@echo "... data/server_asio_frame/src/helper/streamBase.i"
-	@echo "... data/server_asio_frame/src/helper/streamBase.s"
-	@echo "... data/server_asio_frame/src/helper/stringStream.o"
-	@echo "... data/server_asio_frame/src/helper/stringStream.i"
-	@echo "... data/server_asio_frame/src/helper/stringStream.s"
-	@echo "... data/server_asio_frame/src/lua/lapi.o"
-	@echo "... data/server_asio_frame/src/lua/lapi.i"
-	@echo "... data/server_asio_frame/src/lua/lapi.s"
-	@echo "... data/server_asio_frame/src/lua/lauxlib.o"
-	@echo "... data/server_asio_frame/src/lua/lauxlib.i"
-	@echo "... data/server_asio_frame/src/lua/lauxlib.s"
-	@echo "... data/server_asio_frame/src/lua/lbaselib.o"
-	@echo "... data/server_asio_frame/src/lua/lbaselib.i"
-	@echo "... data/server_asio_frame/src/lua/lbaselib.s"
-	@echo "... data/server_asio_frame/src/lua/lbitlib.o"
-	@echo "... data/server_asio_frame/src/lua/lbitlib.i"
-	@echo "... data/server_asio_frame/src/lua/lbitlib.s"
-	@echo "... data/server_asio_frame/src/lua/lcode.o"
-	@echo "... data/server_asio_frame/src/lua/lcode.i"
-	@echo "... data/server_asio_frame/src/lua/lcode.s"
-	@echo "... data/server_asio_frame/src/lua/lcorolib.o"
-	@echo "... data/server_asio_frame/src/lua/lcorolib.i"
-	@echo "... data/server_asio_frame/src/lua/lcorolib.s"
-	@echo "... data/server_asio_frame/src/lua/lctype.o"
-	@echo "... data/server_asio_frame/src/lua/lctype.i"
-	@echo "... data/server_asio_frame/src/lua/lctype.s"
-	@echo "... data/server_asio_frame/src/lua/ldblib.o"
-	@echo "... data/server_asio_frame/src/lua/ldblib.i"
-	@echo "... data/server_asio_frame/src/lua/ldblib.s"
-	@echo "... data/server_asio_frame/src/lua/ldebug.o"
-	@echo "... data/server_asio_frame/src/lua/ldebug.i"
-	@echo "... data/server_asio_frame/src/lua/ldebug.s"
-	@echo "... data/server_asio_frame/src/lua/ldo.o"
-	@echo "... data/server_asio_frame/src/lua/ldo.i"
-	@echo "... data/server_asio_frame/src/lua/ldo.s"
-	@echo "... data/server_asio_frame/src/lua/ldump.o"
-	@echo "... data/server_asio_frame/src/lua/ldump.i"
-	@echo "... data/server_asio_frame/src/lua/ldump.s"
-	@echo "... data/server_asio_frame/src/lua/lfunc.o"
-	@echo "... data/server_asio_frame/src/lua/lfunc.i"
-	@echo "... data/server_asio_frame/src/lua/lfunc.s"
-	@echo "... data/server_asio_frame/src/lua/lgc.o"
-	@echo "... data/server_asio_frame/src/lua/lgc.i"
-	@echo "... data/server_asio_frame/src/lua/lgc.s"
-	@echo "... data/server_asio_frame/src/lua/linit.o"
-	@echo "... data/server_asio_frame/src/lua/linit.i"
-	@echo "... data/server_asio_frame/src/lua/linit.s"
-	@echo "... data/server_asio_frame/src/lua/liolib.o"
-	@echo "... data/server_asio_frame/src/lua/liolib.i"
-	@echo "... data/server_asio_frame/src/lua/liolib.s"
-	@echo "... data/server_asio_frame/src/lua/llex.o"
-	@echo "... data/server_asio_frame/src/lua/llex.i"
-	@echo "... data/server_asio_frame/src/lua/llex.s"
-	@echo "... data/server_asio_frame/src/lua/lmathlib.o"
-	@echo "... data/server_asio_frame/src/lua/lmathlib.i"
-	@echo "... data/server_asio_frame/src/lua/lmathlib.s"
-	@echo "... data/server_asio_frame/src/lua/lmem.o"
-	@echo "... data/server_asio_frame/src/lua/lmem.i"
-	@echo "... data/server_asio_frame/src/lua/lmem.s"
-	@echo "... data/server_asio_frame/src/lua/loadlib.o"
-	@echo "... data/server_asio_frame/src/lua/loadlib.i"
-	@echo "... data/server_asio_frame/src/lua/loadlib.s"
-	@echo "... data/server_asio_frame/src/lua/lobject.o"
-	@echo "... data/server_asio_frame/src/lua/lobject.i"
-	@echo "... data/server_asio_frame/src/lua/lobject.s"
-	@echo "... data/server_asio_frame/src/lua/lopcodes.o"
-	@echo "... data/server_asio_frame/src/lua/lopcodes.i"
-	@echo "... data/server_asio_frame/src/lua/lopcodes.s"
-	@echo "... data/server_asio_frame/src/lua/loslib.o"
-	@echo "... data/server_asio_frame/src/lua/loslib.i"
-	@echo "... data/server_asio_frame/src/lua/loslib.s"
-	@echo "... data/server_asio_frame/src/lua/lparser.o"
-	@echo "... data/server_asio_frame/src/lua/lparser.i"
-	@echo "... data/server_asio_frame/src/lua/lparser.s"
-	@echo "... data/server_asio_frame/src/lua/lstate.o"
-	@echo "... data/server_asio_frame/src/lua/lstate.i"
-	@echo "... data/server_asio_frame/src/lua/lstate.s"
-	@echo "... data/server_asio_frame/src/lua/lstring.o"
-	@echo "... data/server_asio_frame/src/lua/lstring.i"
-	@echo "... data/server_asio_frame/src/lua/lstring.s"
-	@echo "... data/server_asio_frame/src/lua/lstrlib.o"
-	@echo "... data/server_asio_frame/src/lua/lstrlib.i"
-	@echo "... data/server_asio_frame/src/lua/lstrlib.s"
-	@echo "... data/server_asio_frame/src/lua/ltable.o"
-	@echo "... data/server_asio_frame/src/lua/ltable.i"
-	@echo "... data/server_asio_frame/src/lua/ltable.s"
-	@echo "... data/server_asio_frame/src/lua/ltablib.o"
-	@echo "... data/server_asio_frame/src/lua/ltablib.i"
-	@echo "... data/server_asio_frame/src/lua/ltablib.s"
-	@echo "... data/server_asio_frame/src/lua/ltm.o"
-	@echo "... data/server_asio_frame/src/lua/ltm.i"
-	@echo "... data/server_asio_frame/src/lua/ltm.s"
-	@echo "... data/server_asio_frame/src/lua/lua.o"
-	@echo "... data/server_asio_frame/src/lua/lua.i"
-	@echo "... data/server_asio_frame/src/lua/lua.s"
-	@echo "... data/server_asio_frame/src/lua/luac.o"
-	@echo "... data/server_asio_frame/src/lua/luac.i"
-	@echo "... data/server_asio_frame/src/lua/luac.s"
-	@echo "... data/server_asio_frame/src/lua/lundump.o"
-	@echo "... data/server_asio_frame/src/lua/lundump.i"
-	@echo "... data/server_asio_frame/src/lua/lundump.s"
-	@echo "... data/server_asio_frame/src/lua/lutf8lib.o"
-	@echo "... data/server_asio_frame/src/lua/lutf8lib.i"
-	@echo "... data/server_asio_frame/src/lua/lutf8lib.s"
-	@echo "... data/server_asio_frame/src/lua/lvm.o"
-	@echo "... data/server_asio_frame/src/lua/lvm.i"
-	@echo "... data/server_asio_frame/src/lua/lvm.s"
-	@echo "... data/server_asio_frame/src/lua/lzio.o"
-	@echo "... data/server_asio_frame/src/lua/lzio.i"
-	@echo "... data/server_asio_frame/src/lua/lzio.s"
-	@echo "... data/server_asio_frame/src/lua_service/lua_service.o"
-	@echo "... data/server_asio_frame/src/lua_service/lua_service.i"
-	@echo "... data/server_asio_frame/src/lua_service/lua_service.s"
-	@echo "... data/server_asio_frame/src/math/math_functions.o"
-	@echo "... data/server_asio_frame/src/math/math_functions.i"
-	@echo "... data/server_asio_frame/src/math/math_functions.s"
-	@echo "... data/server_asio_frame/src/math/rand_table.o"
-	@echo "... data/server_asio_frame/src/math/rand_table.i"
-	@echo "... data/server_asio_frame/src/math/rand_table.s"
-	@echo "... data/server_asio_frame/src/modern/json_wrap.o"
-	@echo "... data/server_asio_frame/src/modern/json_wrap.i"
-	@echo "... data/server_asio_frame/src/modern/json_wrap.s"
-	@echo "... data/server_asio_frame/src/modern/tinyxml2.o"
-	@echo "... data/server_asio_frame/src/modern/tinyxml2.i"
-	@echo "... data/server_asio_frame/src/modern/tinyxml2.s"
-	@echo "... data/server_asio_frame/src/network/Acceptor.o"
-	@echo "... data/server_asio_frame/src/network/Acceptor.i"
-	@echo "... data/server_asio_frame/src/network/Acceptor.s"
-	@echo "... data/server_asio_frame/src/network/Connector.o"
-	@echo "... data/server_asio_frame/src/network/Connector.i"
-	@echo "... data/server_asio_frame/src/network/Connector.s"
-	@echo "... data/server_asio_frame/src/network/IOCPServer.o"
-	@echo "... data/server_asio_frame/src/network/IOCPServer.i"
-	@echo "... data/server_asio_frame/src/network/IOCPServer.s"
-	@echo "... data/server_asio_frame/src/network/IoHandler.o"
-	@echo "... data/server_asio_frame/src/network/IoHandler.i"
-	@echo "... data/server_asio_frame/src/network/IoHandler.s"
-	@echo "... data/server_asio_frame/src/network/NetworkObject.o"
-	@echo "... data/server_asio_frame/src/network/NetworkObject.i"
-	@echo "... data/server_asio_frame/src/network/NetworkObject.s"
-	@echo "... data/server_asio_frame/src/network/Session.o"
-	@echo "... data/server_asio_frame/src/network/Session.i"
-	@echo "... data/server_asio_frame/src/network/Session.s"
-	@echo "... data/server_asio_frame/src/network/SessionList.o"
-	@echo "... data/server_asio_frame/src/network/SessionList.i"
-	@echo "... data/server_asio_frame/src/network/SessionList.s"
-	@echo "... data/server_asio_frame/src/network/SessionPool.o"
-	@echo "... data/server_asio_frame/src/network/SessionPool.i"
-	@echo "... data/server_asio_frame/src/network/SessionPool.s"
-	@echo "... data/server_asio_frame/src/network/SocketOps.o"
-	@echo "... data/server_asio_frame/src/network/SocketOps.i"
-	@echo "... data/server_asio_frame/src/network/SocketOps.s"
-	@echo "... data/server_asio_frame/src/network/TLock.o"
-	@echo "... data/server_asio_frame/src/network/TLock.i"
-	@echo "... data/server_asio_frame/src/network/TLock.s"
-	@echo "... data/server_asio_frame/src/network/tcp_connector.o"
-	@echo "... data/server_asio_frame/src/network/tcp_connector.i"
-	@echo "... data/server_asio_frame/src/network/tcp_connector.s"
-	@echo "... data/server_asio_frame/src/packet/inner_protobuf_pkg.o"
-	@echo "... data/server_asio_frame/src/packet/inner_protobuf_pkg.i"
-	@echo "... data/server_asio_frame/src/packet/inner_protobuf_pkg.s"
-	@echo "... data/server_asio_frame/src/packet/protobuf_pkg.o"
-	@echo "... data/server_asio_frame/src/packet/protobuf_pkg.i"
-	@echo "... data/server_asio_frame/src/packet/protobuf_pkg.s"
-	@echo "... data/server_asio_frame/src/redis/redis.o"
-	@echo "... data/server_asio_frame/src/redis/redis.i"
-	@echo "... data/server_asio_frame/src/redis/redis.s"
-	@echo "... data/server_asio_frame/src/utility/basic_functions.o"
-	@echo "... data/server_asio_frame/src/utility/basic_functions.i"
-	@echo "... data/server_asio_frame/src/utility/basic_functions.s"
-	@echo "... data/server_asio_frame/src/utility/cooling.o"
-	@echo "... data/server_asio_frame/src/utility/cooling.i"
-	@echo "... data/server_asio_frame/src/utility/cooling.s"
-	@echo "... data/server_asio_frame/src/utility/ipcutility.o"
-	@echo "... data/server_asio_frame/src/utility/ipcutility.i"
-	@echo "... data/server_asio_frame/src/utility/ipcutility.s"
-	@echo "... data/server_asio_frame/src/utility/string_functions.o"
-	@echo "... data/server_asio_frame/src/utility/string_functions.i"
-	@echo "... data/server_asio_frame/src/utility/string_functions.s"
-	@echo "... data/server_asio_frame/src/utility/stringutility.o"
-	@echo "... data/server_asio_frame/src/utility/stringutility.i"
-	@echo "... data/server_asio_frame/src/utility/stringutility.s"
-	@echo "... data/server_asio_frame/src/utility/time_function.o"
-	@echo "... data/server_asio_frame/src/utility/time_function.i"
-	@echo "... data/server_asio_frame/src/utility/time_function.s"
-	@echo "... data/server_asio_frame/src/utility/timeutility.o"
-	@echo "... data/server_asio_frame/src/utility/timeutility.i"
-	@echo "... data/server_asio_frame/src/utility/timeutility.s"
-	@echo "... data/server_asio_frame/src/zlib/adler32.o"
-	@echo "... data/server_asio_frame/src/zlib/adler32.i"
-	@echo "... data/server_asio_frame/src/zlib/adler32.s"
-	@echo "... data/server_asio_frame/src/zlib/compress.o"
-	@echo "... data/server_asio_frame/src/zlib/compress.i"
-	@echo "... data/server_asio_frame/src/zlib/compress.s"
-	@echo "... data/server_asio_frame/src/zlib/crc32.o"
-	@echo "... data/server_asio_frame/src/zlib/crc32.i"
-	@echo "... data/server_asio_frame/src/zlib/crc32.s"
-	@echo "... data/server_asio_frame/src/zlib/deflate.o"
-	@echo "... data/server_asio_frame/src/zlib/deflate.i"
-	@echo "... data/server_asio_frame/src/zlib/deflate.s"
-	@echo "... data/server_asio_frame/src/zlib/gzclose.o"
-	@echo "... data/server_asio_frame/src/zlib/gzclose.i"
-	@echo "... data/server_asio_frame/src/zlib/gzclose.s"
-	@echo "... data/server_asio_frame/src/zlib/gzlib.o"
-	@echo "... data/server_asio_frame/src/zlib/gzlib.i"
-	@echo "... data/server_asio_frame/src/zlib/gzlib.s"
-	@echo "... data/server_asio_frame/src/zlib/gzread.o"
-	@echo "... data/server_asio_frame/src/zlib/gzread.i"
-	@echo "... data/server_asio_frame/src/zlib/gzread.s"
-	@echo "... data/server_asio_frame/src/zlib/gzwrite.o"
-	@echo "... data/server_asio_frame/src/zlib/gzwrite.i"
-	@echo "... data/server_asio_frame/src/zlib/gzwrite.s"
-	@echo "... data/server_asio_frame/src/zlib/infback.o"
-	@echo "... data/server_asio_frame/src/zlib/infback.i"
-	@echo "... data/server_asio_frame/src/zlib/infback.s"
-	@echo "... data/server_asio_frame/src/zlib/inffast.o"
-	@echo "... data/server_asio_frame/src/zlib/inffast.i"
-	@echo "... data/server_asio_frame/src/zlib/inffast.s"
-	@echo "... data/server_asio_frame/src/zlib/inflate.o"
-	@echo "... data/server_asio_frame/src/zlib/inflate.i"
-	@echo "... data/server_asio_frame/src/zlib/inflate.s"
-	@echo "... data/server_asio_frame/src/zlib/inftrees.o"
-	@echo "... data/server_asio_frame/src/zlib/inftrees.i"
-	@echo "... data/server_asio_frame/src/zlib/inftrees.s"
-	@echo "... data/server_asio_frame/src/zlib/trees.o"
-	@echo "... data/server_asio_frame/src/zlib/trees.i"
-	@echo "... data/server_asio_frame/src/zlib/trees.s"
-	@echo "... data/server_asio_frame/src/zlib/uncompr.o"
-	@echo "... data/server_asio_frame/src/zlib/uncompr.i"
-	@echo "... data/server_asio_frame/src/zlib/uncompr.s"
-	@echo "... data/server_asio_frame/src/zlib/zutil.o"
-	@echo "... data/server_asio_frame/src/zlib/zutil.i"
-	@echo "... data/server_asio_frame/src/zlib/zutil.s"
+	@echo "... root/server/server_frame/src/astar/astar.o"
+	@echo "... root/server/server_frame/src/astar/astar.i"
+	@echo "... root/server/server_frame/src/astar/astar.s"
+	@echo "... root/server/server_frame/src/astar/blockallocator.o"
+	@echo "... root/server/server_frame/src/astar/blockallocator.i"
+	@echo "... root/server/server_frame/src/astar/blockallocator.s"
+	@echo "... root/server/server_frame/src/config/csvreader.o"
+	@echo "... root/server/server_frame/src/config/csvreader.i"
+	@echo "... root/server/server_frame/src/config/csvreader.s"
+	@echo "... root/server/server_frame/src/crypt/aes.o"
+	@echo "... root/server/server_frame/src/crypt/aes.i"
+	@echo "... root/server/server_frame/src/crypt/aes.s"
+	@echo "... root/server/server_frame/src/crypt/blowFish.o"
+	@echo "... root/server/server_frame/src/crypt/blowFish.i"
+	@echo "... root/server/server_frame/src/crypt/blowFish.s"
+	@echo "... root/server/server_frame/src/crypt/mars.o"
+	@echo "... root/server/server_frame/src/crypt/mars.i"
+	@echo "... root/server/server_frame/src/crypt/mars.s"
+	@echo "... root/server/server_frame/src/crypt/md5.o"
+	@echo "... root/server/server_frame/src/crypt/md5.i"
+	@echo "... root/server/server_frame/src/crypt/md5.s"
+	@echo "... root/server/server_frame/src/crypt/net_encrypt.o"
+	@echo "... root/server/server_frame/src/crypt/net_encrypt.i"
+	@echo "... root/server/server_frame/src/crypt/net_encrypt.s"
+	@echo "... root/server/server_frame/src/crypt/serpent.o"
+	@echo "... root/server/server_frame/src/crypt/serpent.i"
+	@echo "... root/server/server_frame/src/crypt/serpent.s"
+	@echo "... root/server/server_frame/src/crypt/sha1.o"
+	@echo "... root/server/server_frame/src/crypt/sha1.i"
+	@echo "... root/server/server_frame/src/crypt/sha1.s"
+	@echo "... root/server/server_frame/src/crypt/url_encode.o"
+	@echo "... root/server/server_frame/src/crypt/url_encode.i"
+	@echo "... root/server/server_frame/src/crypt/url_encode.s"
+	@echo "... root/server/server_frame/src/dbmysql/db_task.o"
+	@echo "... root/server/server_frame/src/dbmysql/db_task.i"
+	@echo "... root/server/server_frame/src/dbmysql/db_task.s"
+	@echo "... root/server/server_frame/src/dbmysql/db_wrap.o"
+	@echo "... root/server/server_frame/src/dbmysql/db_wrap.i"
+	@echo "... root/server/server_frame/src/dbmysql/db_wrap.s"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql.o"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql.i"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql.s"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql_exception.o"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql_exception.i"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql_exception.s"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql_result.o"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql_result.i"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql_result.s"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql_statement.o"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql_statement.i"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql_statement.s"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql_transaction.o"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql_transaction.i"
+	@echo "... root/server/server_frame/src/dbmysql/dbmysql_transaction.s"
+	@echo "... root/server/server_frame/src/dbmysql/test_client.o"
+	@echo "... root/server/server_frame/src/dbmysql/test_client.i"
+	@echo "... root/server/server_frame/src/dbmysql/test_client.s"
+	@echo "... root/server/server_frame/src/ebus/event_bus.o"
+	@echo "... root/server/server_frame/src/ebus/event_bus.i"
+	@echo "... root/server/server_frame/src/ebus/event_bus.s"
+	@echo "... root/server/server_frame/src/framework/exception.o"
+	@echo "... root/server/server_frame/src/framework/exception.i"
+	@echo "... root/server/server_frame/src/framework/exception.s"
+	@echo "... root/server/server_frame/src/framework/framework.o"
+	@echo "... root/server/server_frame/src/framework/framework.i"
+	@echo "... root/server/server_frame/src/framework/framework.s"
+	@echo "... root/server/server_frame/src/framework/frameworkmain.o"
+	@echo "... root/server/server_frame/src/framework/frameworkmain.i"
+	@echo "... root/server/server_frame/src/framework/frameworkmain.s"
+	@echo "... root/server/server_frame/src/helper/bufferStream.o"
+	@echo "... root/server/server_frame/src/helper/bufferStream.i"
+	@echo "... root/server/server_frame/src/helper/bufferStream.s"
+	@echo "... root/server/server_frame/src/helper/fileStream.o"
+	@echo "... root/server/server_frame/src/helper/fileStream.i"
+	@echo "... root/server/server_frame/src/helper/fileStream.s"
+	@echo "... root/server/server_frame/src/helper/filehelper.o"
+	@echo "... root/server/server_frame/src/helper/filehelper.i"
+	@echo "... root/server/server_frame/src/helper/filehelper.s"
+	@echo "... root/server/server_frame/src/helper/helper.o"
+	@echo "... root/server/server_frame/src/helper/helper.i"
+	@echo "... root/server/server_frame/src/helper/helper.s"
+	@echo "... root/server/server_frame/src/helper/streamBase.o"
+	@echo "... root/server/server_frame/src/helper/streamBase.i"
+	@echo "... root/server/server_frame/src/helper/streamBase.s"
+	@echo "... root/server/server_frame/src/helper/stringStream.o"
+	@echo "... root/server/server_frame/src/helper/stringStream.i"
+	@echo "... root/server/server_frame/src/helper/stringStream.s"
+	@echo "... root/server/server_frame/src/lua_service/lua_bind.o"
+	@echo "... root/server/server_frame/src/lua_service/lua_bind.i"
+	@echo "... root/server/server_frame/src/lua_service/lua_bind.s"
+	@echo "... root/server/server_frame/src/lua_service/lua_service.o"
+	@echo "... root/server/server_frame/src/lua_service/lua_service.i"
+	@echo "... root/server/server_frame/src/lua_service/lua_service.s"
+	@echo "... root/server/server_frame/src/math/math_functions.o"
+	@echo "... root/server/server_frame/src/math/math_functions.i"
+	@echo "... root/server/server_frame/src/math/math_functions.s"
+	@echo "... root/server/server_frame/src/math/rand_table.o"
+	@echo "... root/server/server_frame/src/math/rand_table.i"
+	@echo "... root/server/server_frame/src/math/rand_table.s"
+	@echo "... root/server/server_frame/src/memory/ipcutility.o"
+	@echo "... root/server/server_frame/src/memory/ipcutility.i"
+	@echo "... root/server/server_frame/src/memory/ipcutility.s"
+	@echo "... root/server/server_frame/src/memory/shm_buff_queue.o"
+	@echo "... root/server/server_frame/src/memory/shm_buff_queue.i"
+	@echo "... root/server/server_frame/src/memory/shm_buff_queue.s"
+	@echo "... root/server/server_frame/src/modern/json_wrap.o"
+	@echo "... root/server/server_frame/src/modern/json_wrap.i"
+	@echo "... root/server/server_frame/src/modern/json_wrap.s"
+	@echo "... root/server/server_frame/src/modern/tinyxml2.o"
+	@echo "... root/server/server_frame/src/modern/tinyxml2.i"
+	@echo "... root/server/server_frame/src/modern/tinyxml2.s"
+	@echo "... root/server/server_frame/src/network/Acceptor.o"
+	@echo "... root/server/server_frame/src/network/Acceptor.i"
+	@echo "... root/server/server_frame/src/network/Acceptor.s"
+	@echo "... root/server/server_frame/src/network/Connector.o"
+	@echo "... root/server/server_frame/src/network/Connector.i"
+	@echo "... root/server/server_frame/src/network/Connector.s"
+	@echo "... root/server/server_frame/src/network/IOCPServer.o"
+	@echo "... root/server/server_frame/src/network/IOCPServer.i"
+	@echo "... root/server/server_frame/src/network/IOCPServer.s"
+	@echo "... root/server/server_frame/src/network/IoHandler.o"
+	@echo "... root/server/server_frame/src/network/IoHandler.i"
+	@echo "... root/server/server_frame/src/network/IoHandler.s"
+	@echo "... root/server/server_frame/src/network/NetworkObject.o"
+	@echo "... root/server/server_frame/src/network/NetworkObject.i"
+	@echo "... root/server/server_frame/src/network/NetworkObject.s"
+	@echo "... root/server/server_frame/src/network/Session.o"
+	@echo "... root/server/server_frame/src/network/Session.i"
+	@echo "... root/server/server_frame/src/network/Session.s"
+	@echo "... root/server/server_frame/src/network/SessionList.o"
+	@echo "... root/server/server_frame/src/network/SessionList.i"
+	@echo "... root/server/server_frame/src/network/SessionList.s"
+	@echo "... root/server/server_frame/src/network/SessionPool.o"
+	@echo "... root/server/server_frame/src/network/SessionPool.i"
+	@echo "... root/server/server_frame/src/network/SessionPool.s"
+	@echo "... root/server/server_frame/src/network/SocketOps.o"
+	@echo "... root/server/server_frame/src/network/SocketOps.i"
+	@echo "... root/server/server_frame/src/network/SocketOps.s"
+	@echo "... root/server/server_frame/src/network/TLock.o"
+	@echo "... root/server/server_frame/src/network/TLock.i"
+	@echo "... root/server/server_frame/src/network/TLock.s"
+	@echo "... root/server/server_frame/src/network/tcp_connector.o"
+	@echo "... root/server/server_frame/src/network/tcp_connector.i"
+	@echo "... root/server/server_frame/src/network/tcp_connector.s"
+	@echo "... root/server/server_frame/src/network_asio/tcp_client.o"
+	@echo "... root/server/server_frame/src/network_asio/tcp_client.i"
+	@echo "... root/server/server_frame/src/network_asio/tcp_client.s"
+	@echo "... root/server/server_frame/src/network_asio/tcp_conn.o"
+	@echo "... root/server/server_frame/src/network_asio/tcp_conn.i"
+	@echo "... root/server/server_frame/src/network_asio/tcp_conn.s"
+	@echo "... root/server/server_frame/src/network_asio/tcp_server.o"
+	@echo "... root/server/server_frame/src/network_asio/tcp_server.i"
+	@echo "... root/server/server_frame/src/network_asio/tcp_server.s"
+	@echo "... root/server/server_frame/src/string/string_functions.o"
+	@echo "... root/server/server_frame/src/string/string_functions.i"
+	@echo "... root/server/server_frame/src/string/string_functions.s"
+	@echo "... root/server/server_frame/src/string/stringutility.o"
+	@echo "... root/server/server_frame/src/string/stringutility.i"
+	@echo "... root/server/server_frame/src/string/stringutility.s"
+	@echo "... root/server/server_frame/src/third/lua/lapi.o"
+	@echo "... root/server/server_frame/src/third/lua/lapi.i"
+	@echo "... root/server/server_frame/src/third/lua/lapi.s"
+	@echo "... root/server/server_frame/src/third/lua/lauxlib.o"
+	@echo "... root/server/server_frame/src/third/lua/lauxlib.i"
+	@echo "... root/server/server_frame/src/third/lua/lauxlib.s"
+	@echo "... root/server/server_frame/src/third/lua/lbaselib.o"
+	@echo "... root/server/server_frame/src/third/lua/lbaselib.i"
+	@echo "... root/server/server_frame/src/third/lua/lbaselib.s"
+	@echo "... root/server/server_frame/src/third/lua/lbitlib.o"
+	@echo "... root/server/server_frame/src/third/lua/lbitlib.i"
+	@echo "... root/server/server_frame/src/third/lua/lbitlib.s"
+	@echo "... root/server/server_frame/src/third/lua/lcode.o"
+	@echo "... root/server/server_frame/src/third/lua/lcode.i"
+	@echo "... root/server/server_frame/src/third/lua/lcode.s"
+	@echo "... root/server/server_frame/src/third/lua/lcorolib.o"
+	@echo "... root/server/server_frame/src/third/lua/lcorolib.i"
+	@echo "... root/server/server_frame/src/third/lua/lcorolib.s"
+	@echo "... root/server/server_frame/src/third/lua/lctype.o"
+	@echo "... root/server/server_frame/src/third/lua/lctype.i"
+	@echo "... root/server/server_frame/src/third/lua/lctype.s"
+	@echo "... root/server/server_frame/src/third/lua/ldblib.o"
+	@echo "... root/server/server_frame/src/third/lua/ldblib.i"
+	@echo "... root/server/server_frame/src/third/lua/ldblib.s"
+	@echo "... root/server/server_frame/src/third/lua/ldebug.o"
+	@echo "... root/server/server_frame/src/third/lua/ldebug.i"
+	@echo "... root/server/server_frame/src/third/lua/ldebug.s"
+	@echo "... root/server/server_frame/src/third/lua/ldo.o"
+	@echo "... root/server/server_frame/src/third/lua/ldo.i"
+	@echo "... root/server/server_frame/src/third/lua/ldo.s"
+	@echo "... root/server/server_frame/src/third/lua/ldump.o"
+	@echo "... root/server/server_frame/src/third/lua/ldump.i"
+	@echo "... root/server/server_frame/src/third/lua/ldump.s"
+	@echo "... root/server/server_frame/src/third/lua/lfunc.o"
+	@echo "... root/server/server_frame/src/third/lua/lfunc.i"
+	@echo "... root/server/server_frame/src/third/lua/lfunc.s"
+	@echo "... root/server/server_frame/src/third/lua/lgc.o"
+	@echo "... root/server/server_frame/src/third/lua/lgc.i"
+	@echo "... root/server/server_frame/src/third/lua/lgc.s"
+	@echo "... root/server/server_frame/src/third/lua/linit.o"
+	@echo "... root/server/server_frame/src/third/lua/linit.i"
+	@echo "... root/server/server_frame/src/third/lua/linit.s"
+	@echo "... root/server/server_frame/src/third/lua/liolib.o"
+	@echo "... root/server/server_frame/src/third/lua/liolib.i"
+	@echo "... root/server/server_frame/src/third/lua/liolib.s"
+	@echo "... root/server/server_frame/src/third/lua/llex.o"
+	@echo "... root/server/server_frame/src/third/lua/llex.i"
+	@echo "... root/server/server_frame/src/third/lua/llex.s"
+	@echo "... root/server/server_frame/src/third/lua/lmathlib.o"
+	@echo "... root/server/server_frame/src/third/lua/lmathlib.i"
+	@echo "... root/server/server_frame/src/third/lua/lmathlib.s"
+	@echo "... root/server/server_frame/src/third/lua/lmem.o"
+	@echo "... root/server/server_frame/src/third/lua/lmem.i"
+	@echo "... root/server/server_frame/src/third/lua/lmem.s"
+	@echo "... root/server/server_frame/src/third/lua/loadlib.o"
+	@echo "... root/server/server_frame/src/third/lua/loadlib.i"
+	@echo "... root/server/server_frame/src/third/lua/loadlib.s"
+	@echo "... root/server/server_frame/src/third/lua/lobject.o"
+	@echo "... root/server/server_frame/src/third/lua/lobject.i"
+	@echo "... root/server/server_frame/src/third/lua/lobject.s"
+	@echo "... root/server/server_frame/src/third/lua/lopcodes.o"
+	@echo "... root/server/server_frame/src/third/lua/lopcodes.i"
+	@echo "... root/server/server_frame/src/third/lua/lopcodes.s"
+	@echo "... root/server/server_frame/src/third/lua/loslib.o"
+	@echo "... root/server/server_frame/src/third/lua/loslib.i"
+	@echo "... root/server/server_frame/src/third/lua/loslib.s"
+	@echo "... root/server/server_frame/src/third/lua/lparser.o"
+	@echo "... root/server/server_frame/src/third/lua/lparser.i"
+	@echo "... root/server/server_frame/src/third/lua/lparser.s"
+	@echo "... root/server/server_frame/src/third/lua/lstate.o"
+	@echo "... root/server/server_frame/src/third/lua/lstate.i"
+	@echo "... root/server/server_frame/src/third/lua/lstate.s"
+	@echo "... root/server/server_frame/src/third/lua/lstring.o"
+	@echo "... root/server/server_frame/src/third/lua/lstring.i"
+	@echo "... root/server/server_frame/src/third/lua/lstring.s"
+	@echo "... root/server/server_frame/src/third/lua/lstrlib.o"
+	@echo "... root/server/server_frame/src/third/lua/lstrlib.i"
+	@echo "... root/server/server_frame/src/third/lua/lstrlib.s"
+	@echo "... root/server/server_frame/src/third/lua/ltable.o"
+	@echo "... root/server/server_frame/src/third/lua/ltable.i"
+	@echo "... root/server/server_frame/src/third/lua/ltable.s"
+	@echo "... root/server/server_frame/src/third/lua/ltablib.o"
+	@echo "... root/server/server_frame/src/third/lua/ltablib.i"
+	@echo "... root/server/server_frame/src/third/lua/ltablib.s"
+	@echo "... root/server/server_frame/src/third/lua/ltm.o"
+	@echo "... root/server/server_frame/src/third/lua/ltm.i"
+	@echo "... root/server/server_frame/src/third/lua/ltm.s"
+	@echo "... root/server/server_frame/src/third/lua/lua.o"
+	@echo "... root/server/server_frame/src/third/lua/lua.i"
+	@echo "... root/server/server_frame/src/third/lua/lua.s"
+	@echo "... root/server/server_frame/src/third/lua/luac.o"
+	@echo "... root/server/server_frame/src/third/lua/luac.i"
+	@echo "... root/server/server_frame/src/third/lua/luac.s"
+	@echo "... root/server/server_frame/src/third/lua/lundump.o"
+	@echo "... root/server/server_frame/src/third/lua/lundump.i"
+	@echo "... root/server/server_frame/src/third/lua/lundump.s"
+	@echo "... root/server/server_frame/src/third/lua/lutf8lib.o"
+	@echo "... root/server/server_frame/src/third/lua/lutf8lib.i"
+	@echo "... root/server/server_frame/src/third/lua/lutf8lib.s"
+	@echo "... root/server/server_frame/src/third/lua/lvm.o"
+	@echo "... root/server/server_frame/src/third/lua/lvm.i"
+	@echo "... root/server/server_frame/src/third/lua/lvm.s"
+	@echo "... root/server/server_frame/src/third/lua/lzio.o"
+	@echo "... root/server/server_frame/src/third/lua/lzio.i"
+	@echo "... root/server/server_frame/src/third/lua/lzio.s"
+	@echo "... root/server/server_frame/src/third/zlib/adler32.o"
+	@echo "... root/server/server_frame/src/third/zlib/adler32.i"
+	@echo "... root/server/server_frame/src/third/zlib/adler32.s"
+	@echo "... root/server/server_frame/src/third/zlib/compress.o"
+	@echo "... root/server/server_frame/src/third/zlib/compress.i"
+	@echo "... root/server/server_frame/src/third/zlib/compress.s"
+	@echo "... root/server/server_frame/src/third/zlib/crc32.o"
+	@echo "... root/server/server_frame/src/third/zlib/crc32.i"
+	@echo "... root/server/server_frame/src/third/zlib/crc32.s"
+	@echo "... root/server/server_frame/src/third/zlib/deflate.o"
+	@echo "... root/server/server_frame/src/third/zlib/deflate.i"
+	@echo "... root/server/server_frame/src/third/zlib/deflate.s"
+	@echo "... root/server/server_frame/src/third/zlib/gzclose.o"
+	@echo "... root/server/server_frame/src/third/zlib/gzclose.i"
+	@echo "... root/server/server_frame/src/third/zlib/gzclose.s"
+	@echo "... root/server/server_frame/src/third/zlib/gzlib.o"
+	@echo "... root/server/server_frame/src/third/zlib/gzlib.i"
+	@echo "... root/server/server_frame/src/third/zlib/gzlib.s"
+	@echo "... root/server/server_frame/src/third/zlib/gzread.o"
+	@echo "... root/server/server_frame/src/third/zlib/gzread.i"
+	@echo "... root/server/server_frame/src/third/zlib/gzread.s"
+	@echo "... root/server/server_frame/src/third/zlib/gzwrite.o"
+	@echo "... root/server/server_frame/src/third/zlib/gzwrite.i"
+	@echo "... root/server/server_frame/src/third/zlib/gzwrite.s"
+	@echo "... root/server/server_frame/src/third/zlib/infback.o"
+	@echo "... root/server/server_frame/src/third/zlib/infback.i"
+	@echo "... root/server/server_frame/src/third/zlib/infback.s"
+	@echo "... root/server/server_frame/src/third/zlib/inffast.o"
+	@echo "... root/server/server_frame/src/third/zlib/inffast.i"
+	@echo "... root/server/server_frame/src/third/zlib/inffast.s"
+	@echo "... root/server/server_frame/src/third/zlib/inflate.o"
+	@echo "... root/server/server_frame/src/third/zlib/inflate.i"
+	@echo "... root/server/server_frame/src/third/zlib/inflate.s"
+	@echo "... root/server/server_frame/src/third/zlib/inftrees.o"
+	@echo "... root/server/server_frame/src/third/zlib/inftrees.i"
+	@echo "... root/server/server_frame/src/third/zlib/inftrees.s"
+	@echo "... root/server/server_frame/src/third/zlib/trees.o"
+	@echo "... root/server/server_frame/src/third/zlib/trees.i"
+	@echo "... root/server/server_frame/src/third/zlib/trees.s"
+	@echo "... root/server/server_frame/src/third/zlib/uncompr.o"
+	@echo "... root/server/server_frame/src/third/zlib/uncompr.i"
+	@echo "... root/server/server_frame/src/third/zlib/uncompr.s"
+	@echo "... root/server/server_frame/src/third/zlib/zutil.o"
+	@echo "... root/server/server_frame/src/third/zlib/zutil.i"
+	@echo "... root/server/server_frame/src/third/zlib/zutil.s"
+	@echo "... root/server/server_frame/src/time/cooling.o"
+	@echo "... root/server/server_frame/src/time/cooling.i"
+	@echo "... root/server/server_frame/src/time/cooling.s"
+	@echo "... root/server/server_frame/src/time/time_function.o"
+	@echo "... root/server/server_frame/src/time/time_function.i"
+	@echo "... root/server/server_frame/src/time/time_function.s"
+	@echo "... root/server/server_frame/src/time/timeutility.o"
+	@echo "... root/server/server_frame/src/time/timeutility.i"
+	@echo "... root/server/server_frame/src/time/timeutility.s"
+	@echo "... root/server/server_frame/src/utility/basic_functions.o"
+	@echo "... root/server/server_frame/src/utility/basic_functions.i"
+	@echo "... root/server/server_frame/src/utility/basic_functions.s"
+	@echo "... root/server/server_frame/src/utility/event_processor.o"
+	@echo "... root/server/server_frame/src/utility/event_processor.i"
+	@echo "... root/server/server_frame/src/utility/event_processor.s"
+	@echo "... root/server/server_frame/src/utility/profile_manager.o"
+	@echo "... root/server/server_frame/src/utility/profile_manager.i"
+	@echo "... root/server/server_frame/src/utility/profile_manager.s"
 .PHONY : help
 
 
