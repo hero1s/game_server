@@ -16,13 +16,17 @@ namespace svrlib {
 
         void export_lua_bind();
 
-        static void registerlib(lua_State *L, const char *name, lua_CFunction f);
+        void registerlib(const char *name, lua_CFunction f);
 
-        static void registerlib(lua_State *L, const char *name, const sol::table &);
+        void registerlib(const char *name, const sol::table &);
 
-        void add_lua_cpath(lua_State *L, std::vector<std::string> &cpaths);
+        void add_lua_cpath(std::vector<std::string> &cpaths);
 
-        void add_lua_path(lua_State *L, std::vector<std::string> &paths);
+        void add_lua_path(std::vector<std::string> &paths);
+
+        void reload_lua_file(std::string fileName);
+
+        void reload_lua_dir(std::string dirPath);
 
     protected:
         void bind_conf();

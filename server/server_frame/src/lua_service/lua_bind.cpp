@@ -3,6 +3,9 @@
 #include "lua_service/lua_service.h"
 #include "config/config.h"
 #include "svrlib.h"
+#include "modern/directory.hpp"
+
+namespace fs = std::experimental::filesystem;
 
 namespace svrlib {
     static const std::string LUA_PATH_STR = "/?.lua;";
@@ -23,7 +26,8 @@ namespace svrlib {
 
     }
 
-    void lua_bind::registerlib(lua_State *L, const char *name, lua_CFunction f) {
+    void lua_bind::registerlib(const char *name, lua_CFunction f) {
+        lua_State *L = lua.lua_state();
         lua_getglobal(L, "package");
         lua_getfield(L, -1, "preload"); /* get 'package.preload' */
         lua_pushcfunction(L, f);
@@ -31,7 +35,8 @@ namespace svrlib {
         lua_pop(L, 2); /* pop 'package' and 'preload' tables */
     }
 
-    void lua_bind::registerlib(lua_State *L, const char *name, const sol::table &module) {
+    void lua_bind::registerlib(const char *name, const sol::table &module) {
+        lua_State *L = lua.lua_state();
         lua_getglobal(L, "package");
         lua_getfield(L, -1, "loaded"); /* get 'package.preload' */
         module.push();
@@ -39,7 +44,7 @@ namespace svrlib {
         lua_pop(L, 2); /* pop 'package' and 'preload' tables */
     }
 
-    void lua_bind::add_lua_cpath(lua_State *L, std::vector<std::string> &cpaths) {
+    void lua_bind::add_lua_cpath(std::vector<std::string> &cpaths) {
         cpaths.emplace_back("./clib");
         std::string strpath;
         strpath.append("package.cpath ='");
@@ -49,9 +54,10 @@ namespace svrlib {
         }
         strpath.append("'..package.cpath");
         lua.script(strpath);
+        LOG_DEBUG("add lua cpath:{}", strpath);
     }
 
-    void lua_bind::add_lua_path(lua_State *L, std::vector<std::string> &paths) {
+    void lua_bind::add_lua_path(std::vector<std::string> &paths) {
         paths.emplace_back("./lualib");
         std::string strpath;
         strpath.append("package.path ='");
@@ -61,6 +67,23 @@ namespace svrlib {
         }
         strpath.append("'..package.path");
         lua.script(strpath);
+        LOG_DEBUG("add lua path:{}", strpath);
+    }
+
+    void lua_bind::reload_lua_file(std::string fileName) {
+        std::string reloadStr = CStringUtility::FormatToString("package.loaded[%s] = nil;require(%s);",
+                                                               fileName.c_str(), fileName.c_str());
+        lua.script(reloadStr);
+        LOG_DEBUG("reload lua file:{}", fileName);
+    }
+
+    void lua_bind::reload_lua_dir(std::string dirPath){
+        directory::traverse_folder(dirPath,10,[this](const fs::path& path,bool dir){
+            if(!dir){
+                LOG_DEBUG("file path is:{}",path.c_str());
+                this->reload_lua_file(path);
+            }
+        });
     }
 
     void lua_bind::bind_conf() {

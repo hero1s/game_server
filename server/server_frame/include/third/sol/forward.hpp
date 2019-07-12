@@ -20,8 +20,8 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // This file was generated with a script.
-// Generated 2019-05-21 23:28:10.944171 UTC
-// This header was generated with sol v3.0.2 (revision f701fd2)
+// Generated 2019-07-05 02:52:15.860848 UTC
+// This header was generated with sol v3.0.3 (revision fd4ba95)
 // https://github.com/ThePhD/sol2
 
 #ifndef SOL_SINGLE_INCLUDE_FORWARD_HPP
@@ -261,10 +261,12 @@ extern "C" {
 
 namespace sol {
 
+	class stateless_reference;
 	template <bool b>
 	class basic_reference;
 	using reference = basic_reference<false>;
 	using main_reference = basic_reference<true>;
+	class stateless_stack_reference;
 	class stack_reference;
 
 	template <typename A>
