@@ -1,14 +1,3 @@
--- 加载服务器逻辑脚本
-function load_logic_script()
-    log_debug("load_logic_script");
-
-    -- 全局设置随机数
-    math.randomseed(os.time())
-    reload_file("base.preload");
-    reload_file("main");
-    reload_file("player_handle");
-    return true;
-end
 
 function reload_file(filename)
     --卸载旧文件
@@ -30,5 +19,5 @@ function init_lua_service(lua_svr)
     lua_svr:set_dispatch(function(cmd,msg)
         log_debug("lua_service dispatch msg " .. cmd .. msg);
     end);
-
+    math.randomseed(os.time());
 end

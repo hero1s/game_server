@@ -1,6 +1,6 @@
 
 pb = require "protobuf"
-pb.register_file("../server_config/lua/cs_msg.pb")
+pb.register_file("lua/cs_msg.pb")
 
 
 -- 新的一天回调

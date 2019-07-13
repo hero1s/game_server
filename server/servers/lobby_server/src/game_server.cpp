@@ -35,7 +35,7 @@ bool CApplication::Initialize() {
     lubBind.add_lua_path({"lualib","lua","scp_lua"});
 
     lubBind.reload_lua_dir("lua");
-    //SOL_CALL_LUA(m_solLua["load_logic_script"]());
+
     SOL_CALL_LUA(m_solLua["init_lua_service"](m_luaService));
 
     bool bRet = m_solLua["lobby_config"](m_uiServerID, &GameServerConfig::Instance());
@@ -137,8 +137,6 @@ void CApplication::ConfigurationChanged() {
     // ÷ÿº”‘ÿ≈‰÷√
     LOG_INFO("configuration changed");
     CDataCfgMgr::Instance().Reload();
-
-    //SOL_CALL_LUA(m_solLua["load_logic_script"]());
 
     auto lubBind = lua_bind(m_solLua);
     lubBind.reload_lua_dir("lua");

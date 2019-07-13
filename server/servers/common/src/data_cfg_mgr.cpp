@@ -38,7 +38,7 @@ void CDataCfgMgr::ShutDown()
 bool CDataCfgMgr::Reload()
 {
 	//º”‘ÿΩ«…´≈‰÷√±Ì
-	string file_name = "../server_config/scp/roles.txt";
+	string file_name = "scp/roles.txt";
 	string strRoles = file::read_all(file_name);
 	conf::Roles roles;
 	if(google::protobuf::TextFormat::ParseFromString(strRoles,&roles)){
