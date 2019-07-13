@@ -10,6 +10,7 @@
 #include "utility/comm_macro.h"
 #include "time/timeutility.h"
 #include "utility/profile_manager.h"
+#include "lua_service/lua_bind.h"
 
 #include<unistd.h>
 #include<fcntl.h>
@@ -171,7 +172,7 @@ void CFrameWork::ReloadConfig(int iSig) {
     if (iSig == SIGUSR2) {
         LOG_DEBUG("program reload config...");
         CApplication::Instance().GetAsioContext().post([]() {
-            CApplication::Instance().GetSolLuaState().do_file(m_confFilename);
+            CFrameWork::Instance().LoadConfig();
             CApplication::Instance().ConfigurationChanged();
         });
     }

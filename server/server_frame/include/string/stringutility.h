@@ -251,6 +251,9 @@ public:
     */
     static bool IsSubStrAllContained(const std::string& strSrc, const std::vector<std::string>& sSubStr);
 
+    //移除字符串子串
+    static void DeleteSubStr(std::string &str,const std::string &sub);
+
     /**
          获得一个字符串的(中文)字符个数, 中文等双字节字符只算1个
         @param strWord  待处理串

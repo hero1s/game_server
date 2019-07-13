@@ -64,7 +64,7 @@ bool CApplication::PreInit() {
 }
 
 bool CApplication::OverPreInit(){
-    SOL_CALL_LUA(m_solLua["init_lua_service"](m_luaService));
+    //SOL_CALL_LUA(m_solLua["init_lua_service"](m_luaService));
     return true;
 }
 

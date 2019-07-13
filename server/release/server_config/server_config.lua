@@ -1,4 +1,4 @@
-dofile("../server_config/lua/main.lua");
+--dofile("../server_config/lua/main.lua");
 
 --- 设置脚本加载的搜索路径（添加新的所有路径）
 --package.path = package.path .. ";" .. "../server_config/lua/?.lua;"

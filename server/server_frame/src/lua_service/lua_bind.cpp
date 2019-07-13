@@ -45,7 +45,6 @@ namespace svrlib {
     }
 
     void lua_bind::add_lua_cpath(std::vector<std::string> cpaths) {
-        cpaths.emplace_back("./clib");
         std::string strpath;
         strpath.append("package.cpath ='");
         for (auto &v : cpaths) {
@@ -58,7 +57,6 @@ namespace svrlib {
     }
 
     void lua_bind::add_lua_path(std::vector<std::string> paths) {
-        paths.emplace_back("./lualib");
         std::string strpath;
         strpath.append("package.path ='");
         for (auto &v : paths) {
@@ -71,32 +69,40 @@ namespace svrlib {
     }
 
     void lua_bind::add_lua_dir_path(std::string dirPath) {
-        LOG_DEBUG("add root path:{}", fs::current_path().root_path().c_str());
-        directory::traverse_folder(dirPath, 10, [this](const fs::path &path, bool dir) {
+        std::string curDir = fs::current_path();
+        curDir.append("/");
+        //LOG_DEBUG("reload cur dir:{}", curDir);
+        directory::traverse_folder(dirPath, 10, [&](const fs::path &path, bool dir) {
             if (dir) {
-                LOG_DEBUG("file path dir is:{}", path.relative_path().c_str());
-                this->add_lua_path({path.relative_path()});
+                LOG_DEBUG("file path is:{}", path.c_str());
+                std::string fullName = path;
+                CStringUtility::DeleteSubStr(fullName, curDir);
+                this->add_lua_path({fullName});
             }
             return true;
         });
     }
 
     void lua_bind::reload_lua_file(std::string fileName) {
+        CStringUtility::DeleteSubStr(fileName,".lua");
+        CStringUtility::ReplaceStr(fileName,".","/");
         LOG_DEBUG("reload lua file:{}", fileName);
-        lua.script_file(fileName);
-
-        //std::string reloadStr = CStringUtility::FormatToString("package.loaded[%s] = nil;require(%s);",
-        //                                                       fileName.c_str(), fileName.c_str());
-        //lua.script(reloadStr);
+        std::string reloadStr = CStringUtility::FormatToString("package.loaded['%s'] = nil;require('%s');",
+                                                               fileName.c_str(), fileName.c_str());
+        lua.script(reloadStr);
     }
 
     void lua_bind::reload_lua_dir(std::string dirPath) {
-        LOG_DEBUG("reload root path:{}", fs::current_path().root_path().c_str());
-        directory::traverse_folder(dirPath, 10, [this](const fs::path &path, bool dir) {
+        std::string curDir = fs::current_path();
+        curDir.append("/");
+        //LOG_DEBUG("reload cur dir:{}", curDir);
+        directory::traverse_folder(dirPath, 10, [&](const fs::path &path, bool dir) {
             if (!dir) {
                 if (path.extension() == ".lua") {
-                    LOG_DEBUG("file path is:{}", path.relative_path().c_str());
-                    this->reload_lua_file(path.relative_path());
+                    //LOG_DEBUG("file path is:{}", path.c_str());
+                    std::string fullName = path;
+                    CStringUtility::DeleteSubStr(fullName, curDir);
+                    this->reload_lua_file(fullName);
                 }
             }
             return true;

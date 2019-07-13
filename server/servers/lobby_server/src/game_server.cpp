@@ -36,6 +36,8 @@ bool CApplication::Initialize() {
 
     lubBind.reload_lua_dir("lua");
     //SOL_CALL_LUA(m_solLua["load_logic_script"]());
+    SOL_CALL_LUA(m_solLua["init_lua_service"](m_luaService));
+
     bool bRet = m_solLua["lobby_config"](m_uiServerID, &GameServerConfig::Instance());
     if (bRet == false) {
         LOG_ERROR("load lobby_config fail ");
@@ -139,7 +141,7 @@ void CApplication::ConfigurationChanged() {
     //SOL_CALL_LUA(m_solLua["load_logic_script"]());
 
     auto lubBind = lua_bind(m_solLua);
-    lubBind.reload_lua_dir("./lua/");
+    lubBind.reload_lua_dir("lua");
 
 }
 
