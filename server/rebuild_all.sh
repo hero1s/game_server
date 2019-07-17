@@ -7,6 +7,7 @@ do
 	case $opt in
 		r)
             ./rebuild_common.sh -r
+            ./rebuild_game.sh -r
             ./rebuild_lobby.sh -r
             ./rebuild_center.sh -r
             ./rebuild_dbagent.sh -r
@@ -18,6 +19,7 @@ do
 done
 
 ./rebuild_common.sh
+./rebuild_game.sh
 ./rebuild_lobby.sh
 ./rebuild_center.sh
 ./rebuild_dbagent.sh

@@ -40,6 +40,13 @@ function lobby_config(sid, lobbyConfig)
     return true;
 end
 
+-- 游戏服务器配置
+function game_config(sid, gameConfig)
+    load_db_config(sid, gameConfig);
+    load_redis_config(sid, gameConfig);
+    return true;
+end
+
 -- 大厅服端口
 function get_lobby_listen(sid)
     return 7777;
