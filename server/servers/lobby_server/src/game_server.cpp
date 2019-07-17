@@ -20,8 +20,6 @@
 #include "player.h"
 #include "lua_service/lua_bind.h"
 
-#include "aoi/scene.h"
-
 using namespace svrlib;
 using namespace std;
 

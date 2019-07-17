@@ -9,10 +9,6 @@
 #include "servers_msg.pb.h"
 #include "server_connect/server_client.h"
 
-#include "network_asio/tcp_conn.h"
-#include "network_asio/tcp_server.h"
-#include "network_asio/byte_buffer.h"
-
 using namespace std;
 using namespace svrlib;
 using namespace Network;
@@ -28,7 +24,7 @@ public:
 
     virtual void ShutDown();
 private:
-    std::shared_ptr<NetworkAsio::TCPServer> m_tcpServer = nullptr;
+
 
 };
 

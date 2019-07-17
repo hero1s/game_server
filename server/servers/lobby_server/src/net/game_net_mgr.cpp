@@ -58,14 +58,14 @@ void CClientNetObj::OnDisconnect()
 int CClientNetObj::OnRecv(uint8_t* pMsg, uint16_t wSize)
 {
 	//test
-	LOG_DEBUG("data:{}",string((char*)(pMsg),wSize));
-	Send(pMsg,wSize);
-	return 0;
+//	LOG_DEBUG("data:{}",string((char*)(pMsg),wSize));
+//	Send(pMsg,wSize);
+//	return 0;
 
 	if (pMsg == NULL)
 		return -1;
-	//if (IsCanHandle(pMsg, wSize) == false)
-	//	return -1;
+	if (IsCanHandle(pMsg, wSize) == false)
+		return -1;
 
 	return CHandleClientMsg::Instance().OnHandleClientMsg(this, pMsg, wSize);
 }
