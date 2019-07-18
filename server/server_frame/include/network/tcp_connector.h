@@ -6,7 +6,6 @@
 
 #include "NetworkObject.h"
 #include "IOCPServer.h"
-#include "modern/timer_wheel.h"
 #include <string>
 
 namespace Network {

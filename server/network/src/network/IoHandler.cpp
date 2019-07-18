@@ -11,7 +11,7 @@
 #include "RecvBuffer.h"
 #include "network/IOCPServer.h"
 #include "network/NetworkObject.h"
-#include "svrlib.h"
+#include "utility/comm_macro.h"
 
 namespace Network {
     void* epoll_thread(void* param)

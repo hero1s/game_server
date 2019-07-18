@@ -6,7 +6,7 @@
 #include "RecvBuffer.h"
 #include "network/NetworkObject.h"
 #include "IoHandler.h"
-#include "svrlib.h"
+#include "utility/comm_macro.h"
 #include "crypt/base64.hpp"
 #include "crypt/sha1.h"
 #include "helper/bufferStream.h"
@@ -150,8 +150,9 @@ namespace Network {
         if (m_webSocket)
         {
             if (!shake_hands_)return false;
-            char *szBuff = new char[wSize + 16];
-            auto stream = CBufferStream(szBuff, wSize + 16);
+            vector<char> buff;
+            buff.reserve(wSize + 16);
+            auto stream = CBufferStream(buff.data(), buff.capacity());
             stream.write_((uint8_t) 0x82);//写头部
             //写长度
             if (wSize >= 126)
@@ -177,10 +178,8 @@ namespace Network {
             {
                 LOG_ERROR("m_pSendBuffer->Write fail. data length = {}, {},ip:{}", m_pSendBuffer->GetLength(), wSize, GetIP());
                 Remove();
-                SAFE_DELETE(szBuff);
                 return false;
             }
-            SAFE_DELETE(szBuff);
             return true;
         }
         if (m_pSendBuffer->Write(pMsg, wSize) == false)

@@ -8,7 +8,7 @@
 #include "RecvBuffer.h"
 #include "SessionList.h"
 #include "SessionPool.h"
-#include "svrlib.h"
+#include "utility/comm_macro.h"
 
 namespace Network {
 

@@ -7,6 +7,7 @@
 #include "unistd.h"
 #include <functional>
 #include "NetworkObject.h"
+#include "modern/timer_wheel.h"
 
 namespace Network {
     class IoHandler;
@@ -49,7 +50,7 @@ namespace Network {
 
         bool StartListen(uint32_t dwIoHandlerKey, const char *pIP, uint16_t wPort);
 
-        void Update();
+        void Update(uint64_t curTime);
 
         void Shutdown();
 
@@ -66,6 +67,10 @@ namespace Network {
 
         bool IsWhiteIP(uint32_t dwIoHandlerKey, uint32_t ip);
 
+        //定时器
+        void schedule(TimerEventInterface* event, uint64_t delta);
+
+        void schedule_in_range(TimerEventInterface* event, uint64_t start, uint64_t end);
     private:
         void CreateIoHandler(stIOHANDLER_DESC &lpDesc);
 
@@ -74,9 +79,14 @@ namespace Network {
         pthread_t m_hSendThread;
         int m_bShutdown;
         std::unordered_map<uint32_t, IoHandler *> m_mapIoHandlers;
+
+        uint64_t m_lastTick;              // 上次tick时间
+        uint64_t m_wheelTime;             // wheel时间
+        uint32_t m_wheelPrecision;        // wheel精度
+        TimerWheel m_timers;              // wheel定时器
     };
 
-    uint32_t getNetWorkTime();
+    uint32_t getNetWorkTime(bool flush = false);
 
 }
 

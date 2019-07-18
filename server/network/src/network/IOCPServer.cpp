@@ -3,7 +3,8 @@
 #include "network/IOCPServer.h"
 #include "IoHandler.h"
 #include "SessionList.h"
-#include "svrlib.h"
+#include "utility/comm_macro.h"
+#include <time.h>
 
 namespace Network {
 //=============================================================================================================================
@@ -31,6 +32,9 @@ namespace Network {
     IOCPServer::IOCPServer() {
         m_bShutdown = FALSE;
         m_hSendThread = 0;
+        m_lastTick = 0;
+        m_wheelTime = 0;
+        m_wheelPrecision = 10;
     }
 
     IOCPServer::~IOCPServer() {
@@ -88,7 +92,19 @@ namespace Network {
 			Accept Connect
 */
 //=============================================================================================================================
-    void IOCPServer::Update() {
+    void IOCPServer::Update(uint64_t curTime) {
+        getNetWorkTime(true);
+        if (m_lastTick == 0) {
+            m_lastTick = curTime;
+        }
+        int64_t delta = curTime - m_lastTick;
+        if (delta > 0) {
+            m_wheelTime += delta;
+            m_timers.advance(m_wheelTime/m_wheelPrecision);
+            m_wheelTime = m_wheelTime%m_wheelPrecision;
+            m_lastTick = curTime;
+        }
+
         for (auto &it : m_mapIoHandlers)
         {
             it.second->Update();
@@ -179,7 +195,20 @@ namespace Network {
         return it->second->IsWhiteIP(ip);
     }
 
-    uint32_t getNetWorkTime() { return getSysTime(); }
+    void IOCPServer::schedule(TimerEventInterface *event, uint64_t delta) {
+        m_timers.schedule(event, delta/m_wheelPrecision);
+    }
+
+    void IOCPServer::schedule_in_range(TimerEventInterface *event, uint64_t start, uint64_t end) {
+        m_timers.schedule_in_range(event, start/m_wheelPrecision, end/m_wheelPrecision);
+    }
+
+    uint32_t getNetWorkTime(bool flush) {
+        static uint32_t s_cur_time = 0;
+        if(!s_cur_time || flush)
+            s_cur_time = ::time(NULL);
+        return s_cur_time;
+    }
 
 
 }

@@ -45,8 +45,6 @@ int FrameworkMain(int argc, char *argv[]) {
 CApplication::CApplication() {
     m_status = 0;
     m_lastTick = 0;
-    m_wheelTime = 0;
-    m_wheelPrecision = 10;
     m_solLua.open_libraries();
     m_luaService = new svrlib::lua_service(&m_solLua);
 }
@@ -84,13 +82,8 @@ uint64_t CApplication::PreTick() {
     }
     uint64_t curTime = getSystemTick64();
     int64_t delta = curTime - m_lastTick;
-    if (delta > 0) {
-        m_wheelTime += delta;
-        m_timers.advance(m_wheelTime/m_wheelPrecision);
-        m_wheelTime = m_wheelTime%m_wheelPrecision;
-        m_lastTick = curTime;
-    }
-    m_iocpServer.Update();
+
+    m_iocpServer.Update(getSystemTick64());
     CheckNewDayEvent();
 
     return delta;
@@ -114,11 +107,11 @@ uint8_t CApplication::GetStatus() {
 }
 
 void CApplication::schedule(TimerEventInterface *event, uint64_t delta) {
-    m_timers.schedule(event, delta/m_wheelPrecision);
+    m_iocpServer.schedule(event, delta);
 }
 
 void CApplication::schedule_in_range(TimerEventInterface *event, uint64_t start, uint64_t end) {
-    m_timers.schedule_in_range(event, start/m_wheelPrecision, end/m_wheelPrecision);
+    m_iocpServer.schedule_in_range(event, start, end);
 }
 
 //ÍøÂçÄ£¿é
@@ -168,6 +161,4 @@ void CApplication::CheckNewDayEvent(){
         uProcessTime = uTime;
     }
 }
-void CApplication::InitWheelPrecision(uint32_t precision){
-    m_wheelPrecision = precision > 1 ? precision : 1;
-}
+

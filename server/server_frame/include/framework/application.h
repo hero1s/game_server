@@ -60,7 +60,6 @@ public:
 
 private:
     void CheckNewDayEvent();
-    void InitWheelPrecision(uint32_t precision);
 
 public:
 //具体实例去实现
@@ -78,9 +77,6 @@ private:
     uint32_t m_uiServerID;
     uint8_t m_status;                 // 服务器状态
     uint64_t m_lastTick;              // 上次tick时间
-    uint64_t m_wheelTime;             // wheel时间
-    uint32_t m_wheelPrecision;        // wheel精度
-    TimerWheel m_timers;              // wheel定时器
     IOCPServer m_iocpServer;          // 网络服务模块
     sol::state m_solLua;              // sol lua模块
     asio::io_context m_ioContext;
