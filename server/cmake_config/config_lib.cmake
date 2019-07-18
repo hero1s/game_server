@@ -21,7 +21,7 @@ set(RELEASE 0)
 #set( CMAKE_BUILD_TYPE "Debug" )
 #set( CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb" )
 #set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O2 -ggdb")
-set( CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O3" )
+set( CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O3 -static-libstdc++ -static-libgcc" )
 
 #set( CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O3 -Wall" )
 

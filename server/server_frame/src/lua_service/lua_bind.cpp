@@ -3,9 +3,7 @@
 #include "lua_service/lua_service.h"
 #include "config/config.h"
 #include "svrlib.h"
-#include "modern/directory.hpp"
-
-namespace fs = std::experimental::filesystem;
+#include "helper/filehelper.h"
 
 namespace svrlib {
     static const std::string LUA_PATH_STR = "/?.lua;";
@@ -69,18 +67,33 @@ namespace svrlib {
     }
 
     void lua_bind::add_lua_dir_path(std::string dirPath) {
-        std::string curDir = fs::current_path();
-        curDir.append("/");
-        //LOG_DEBUG("reload cur dir:{}", curDir);
-        directory::traverse_folder(dirPath, 10, [&](const fs::path &path, bool dir) {
-            if (dir) {
-                LOG_DEBUG("file path is:{}", path.c_str());
-                std::string fullName = path;
-                CStringUtility::DeleteSubStr(fullName, curDir);
-                this->add_lua_path({fullName});
-            }
-            return true;
-        });
+        if(!CFileHelper::SetCurrentDir(dirPath)){
+            LOG_ERROR("set cur dir error: {}",dirPath);
+            return;
+        }
+        std::string curDir;
+        CFileHelper::GetCurrentDir(curDir);
+        vector<std::string> filePaths;
+        CFileHelper::DirFiles(dirPath,filePaths,true,true);
+        for(auto path:filePaths){
+            LOG_DEBUG("file path is:{}", path);
+            std::string fullName = path;
+            CStringUtility::DeleteSubStr(fullName, curDir);
+            this->add_lua_path({fullName});
+        }
+
+//        std::string curDir = fs::current_path();
+//        curDir.append("/");
+//        //LOG_DEBUG("reload cur dir:{}", curDir);
+//        directory::traverse_folder(dirPath, 10, [&](const fs::path &path, bool dir) {
+//            if (dir) {
+//                LOG_DEBUG("file path is:{}", path.c_str());
+//                std::string fullName = path;
+//                CStringUtility::DeleteSubStr(fullName, curDir);
+//                this->add_lua_path({fullName});
+//            }
+//            return true;
+//        });
     }
 
     void lua_bind::reload_lua_file(std::string fileName) {
@@ -93,20 +106,39 @@ namespace svrlib {
     }
 
     void lua_bind::reload_lua_dir(std::string dirPath) {
-        std::string curDir = fs::current_path();
-        curDir.append("/");
-        //LOG_DEBUG("reload cur dir:{}", curDir);
-        directory::traverse_folder(dirPath, 10, [&](const fs::path &path, bool dir) {
-            if (!dir) {
-                if (path.extension() == ".lua") {
-                    //LOG_DEBUG("file path is:{}", path.c_str());
-                    std::string fullName = path;
-                    CStringUtility::DeleteSubStr(fullName, curDir);
-                    this->reload_lua_file(fullName);
-                }
+        if(!CFileHelper::SetCurrentDir(dirPath)){
+            LOG_ERROR("set cur dir error: {}",dirPath);
+            return;
+        }
+        std::string curDir;
+        CFileHelper::GetCurrentDir(curDir);
+        vector<std::string> filePaths;
+        CFileHelper::DirFiles(dirPath,filePaths,true,true);
+        for(auto path:filePaths){
+            LOG_DEBUG("file path is:{}", path);
+            std::string extName;
+            CFileHelper::ExtractFileExtName(path,extName);
+            if(extName == ".lua") {
+                std::string fullName = path;
+                CStringUtility::DeleteSubStr(fullName, curDir);
+                this->reload_lua_file(fullName);
             }
-            return true;
-        });
+        }
+
+//        std::string curDir = fs::current_path();
+//        curDir.append("/");
+//        //LOG_DEBUG("reload cur dir:{}", curDir);
+//        directory::traverse_folder(dirPath, 10, [&](const fs::path &path, bool dir) {
+//            if (!dir) {
+//                if (path.extension() == ".lua") {
+//                    //LOG_DEBUG("file path is:{}", path.c_str());
+//                    std::string fullName = path;
+//                    CStringUtility::DeleteSubStr(fullName, curDir);
+//                    this->reload_lua_file(fullName);
+//                }
+//            }
+//            return true;
+//        });
     }
 
     void lua_bind::bind_conf() {
