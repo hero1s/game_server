@@ -7,20 +7,20 @@ if [ $# -gt 0 ]; then
 	do
 		echo $arg
 		svrid=$arg
-		./stop.sh $svrid
+		sh ./stop.sh $svrid
 		sleep 2
-		./checkrun_server.sh $svrid
+		sh ./checkrun_server.sh $svrid
 	done
 else
 	echo "no param,restart all dbagent server"
-	./stop.sh
+	sh ./stop.sh
 	sleep 2
 	tLen=${#all_dbagent_svrs[@]}
     echo "dbagent svrs num:"${tLen}
     for ((i=0;i<${tLen};i++))
     do
         svrid=${all_dbagent_svrs[$i]}
-        ./checkrun_server.sh $svrid
+        sh ./checkrun_server.sh $svrid
     done
 fi
 

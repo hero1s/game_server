@@ -11,7 +11,7 @@ do
         do
                 dirname=${all_dir[$i]}
                 cd $dirname
-                ./checkrun_server.sh;
+                sh ./checkrun_server.sh;
                 cd $root_dir;
         done
 sleep 30

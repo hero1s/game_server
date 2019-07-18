@@ -18,7 +18,7 @@ do
 			do
 				dirname=${all_dir[$i]}
 				cd $dirname
-				./rebuild.sh -r;
+				sh ./rebuild.sh -r;
 				cd $root_dir;
 			done
 			
@@ -32,7 +32,7 @@ for ((i=0;i<${tLen};i++))
 do
 	dirname=${all_dir[$i]}
 	cd $dirname
-	./rebuild.sh;
+	sh ./rebuild.sh;
 	cd $root_dir;
 done
 

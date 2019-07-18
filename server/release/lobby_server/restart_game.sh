@@ -7,13 +7,13 @@ if [ $# -gt 0 ]; then
 	do
 		echo $arg
 		svrid=$arg
-		./stop.sh $svrid
+		sh ./stop.sh $svrid
 		sleep 2
-		./checkrun_server.sh $svrid
+		sh ./checkrun_server.sh $svrid
 	done
 else
 	echo "no param,restart all lobby server"
-	./stop.sh
+	sh ./stop.sh
 	sleep 2
 	#重启全部大厅服
 	tLen=${#all_lobby_svrs[@]}
@@ -21,6 +21,6 @@ else
     for ((i=0;i<${tLen};i++))
     do
         svrid=${all_lobby_svrs[$i]}
-        ./checkrun_server.sh $svrid
+        sh ./checkrun_server.sh $svrid
     done
 fi

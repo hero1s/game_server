@@ -39,7 +39,7 @@ void CTcpConnector::ShutDown()
 void CTcpConnector::OnTimer()
 {
 	ReConnect();
-	CApplication::Instance().schedule(&m_timer, 2000);
+	//CApplication::Instance().schedule(&m_timer, 2000);
 }
 void CTcpConnector::ReConnect()
 {
@@ -54,6 +54,7 @@ void CTcpConnector::OnDisconnect()
 {
 	m_netState = emNet_DISCONNECT;
 	ConnectorOnDisconnect();
+	CApplication::Instance().schedule(&m_timer, 2000);
 }
 void CTcpConnector::OnConnect(bool bSuccess)
 {
@@ -66,6 +67,7 @@ void CTcpConnector::OnConnect(bool bSuccess)
 	{
 		m_netState = emNet_DISCONNECT;
 		LOG_DEBUG("TcpConnector connect fail :{}--{}", m_szRemoteIp, m_RemotePort);
+		CApplication::Instance().schedule(&m_timer, 2000);
 	}
 	ConnectorOnConnect(bSuccess);
 }

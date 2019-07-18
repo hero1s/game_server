@@ -9,7 +9,7 @@ for ((i=0;i<${tLen};i++))
 do
 	dirname=${all_dir[$i]}
 	cd $dirname
-	./reload.sh;
+	sh ./reload.sh;
 	cd $root_dir;
 done
 
