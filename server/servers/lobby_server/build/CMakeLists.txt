@@ -30,7 +30,6 @@ add_link_path(${COMMON_LIBPATH})
 
 add_link_lib(common)
 add_link_lib(pb)
-add_link_lib(network)
 add_link_lib(svrlib)
 add_link_lib(protobuf)
 add_link_lib(stdc++fs)
