@@ -784,4 +784,4 @@ add_executable(server
         servers/pb/src/res.pb.cc
         servers/pb/src/res.pb.h
         servers/pb/src/servers_msg.pb.cc
-        servers/pb/src/servers_msg.pb.h)
+        servers/pb/src/servers_msg.pb.h server_frame/src/network_asio/tcp_callbacks.cpp)

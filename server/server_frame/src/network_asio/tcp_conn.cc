@@ -2,13 +2,15 @@
 #include "network_asio/tcp_conn.h"
 #include "network_asio/message_head.h"
 #include <assert.h>
+#include "utility/comm_macro.h"
 
 namespace NetworkAsio {
     TCPConn::TCPConn(asio::io_service &service_, tcp::socket &&socket, std::string name)
             : io_service_(service_), socket_(std::move(socket)), type_(kIncoming), status_(kDisconnected), name_(name),
               local_ep_(socket_.local_endpoint()), remote_ep_(socket_.remote_endpoint()), recv_buffer_(),
               async_writing_(false), write_buffer_(), writing_buffer_(), high_water_mark_(32 * 1024 * 1024),
-              conn_fn_(DefaultConnectionCallback), msg_fn_(DefaultMessageCallback), write_complete_fn_(nullptr), high_water_mark_fn_(nullptr),
+              conn_fn_(DefaultConnectionCallback), msg_fn_(DefaultMessageCallback), write_complete_fn_(nullptr),
+              high_water_mark_fn_(nullptr),
               close_fn_(nullptr) {
 
     }
@@ -22,17 +24,12 @@ namespace NetworkAsio {
         status_ = kDisconnecting;
         auto c = shared_from_this();
 
-        asio::error_code ec;
-        c->socket_.close(ec);
+        if (c->socket_.is_open()) {
+            asio::error_code ec;
+            c->socket_.shutdown(asio::ip::tcp::socket::shutdown_both, ec);
+            c->socket_.close(ec);
+        }
     }
-
-//    bool TCPConn::Update() {
-//        if (!socket_.is_open()) {
-//            return false;
-//        }
-//        return true;
-//    }
-
 
     void TCPConn::HandleClose() {
         if (status_ == kDisconnected) {
@@ -73,6 +70,7 @@ namespace NetworkAsio {
         status_ = kConnected;
         conn_fn_(shared_from_this());
         AsyncRead();
+        recvtime_ = Now();
     }
 
     void TCPConn::SetTCPNoDelay(bool on) {
@@ -80,7 +78,7 @@ namespace NetworkAsio {
         asio::error_code ec;
         socket_.set_option(option, ec);
         if (ec) {
-            // Log
+            LOG_ERROR("set tcp no delay error:{}", on);
         }
     }
 
@@ -90,6 +88,16 @@ namespace NetworkAsio {
 
     bool TCPConn::Send(const std::string &msg) {
         return SendInLoop(msg.c_str(), msg.size());
+    }
+    void TCPConn::Timeout(time_t now) {
+        if ((0 != timeout_) && (0 != recvtime_) && (now - recvtime_ > timeout_)) {
+            LOG_DEBUG("time out and close peer:{},{}", GetName(), timeout_);
+            Close();
+        }
+    }
+
+    time_t TCPConn::Now() {
+        return std::time(nullptr);
     }
 
     bool TCPConn::SendInLoop(const char *data, size_t sz) {
@@ -154,6 +162,7 @@ namespace NetworkAsio {
                 ByteBuffer buf;
                 buf.Write(msg->data_, msg->length_);
                 msg_fn_(shared_from_this(), buf);
+                recvtime_ = Now();
             }
         }
 

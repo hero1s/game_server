@@ -30,8 +30,6 @@ namespace NetworkAsio {
 
         void Close();
 
-//        bool Update();
-
         void SetMessageCallback(const MessageCallback &cb) { msg_fn_ = cb; }
 
         void SetConnCallback(const ConnCallback &cb) { conn_fn_ = cb; }
@@ -78,6 +76,9 @@ namespace NetworkAsio {
 
         uint32_t GetUID() { return uid_; }
 
+        void Timeout(time_t now);
+
+        static time_t Now();
     protected:
         void HandleClose();
 
@@ -106,6 +107,8 @@ namespace NetworkAsio {
         tcp::endpoint remote_ep_;
 
         ByteBuffer recv_buffer_;
+        time_t recvtime_ = 0;
+        uint32_t timeout_ = 0;
 
         bool async_writing_;
         ByteBuffer write_buffer_;

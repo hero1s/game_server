@@ -2,6 +2,7 @@
 #include "network_asio/tcp_server.h"
 #include "network_asio/tcp_conn.h"
 #include <assert.h>
+#include "utility/comm_macro.h"
 
 namespace NetworkAsio {
     using asio::ip::address;
@@ -31,6 +32,7 @@ namespace NetworkAsio {
 
     void TCPServer::StopInLoop() {
         asio::error_code ec;
+        acceptor_.cancel();
         acceptor_.close(ec);
 
         for (auto &c : conns_) {
@@ -56,6 +58,7 @@ namespace NetworkAsio {
                 this->HandleNewConn(std::move(*socket));
             } else {
                 // error notice
+                LOG_ERROR("accept error:{}",ec.message());
             }
             if (!closed_) {
                 this->AsyncAccept();
@@ -75,6 +78,11 @@ namespace NetworkAsio {
     }
 
     void TCPServer::HeartBeatTimer() {
+        time_t curTime = TCPConn::Now();
+        for(auto& conn:conns_){
+            conn.second->Timeout(curTime);
+        }
+
         heartbeat_timer_.expires_from_now(std::chrono::seconds(2));
         heartbeat_timer_.async_wait(std::bind(&TCPServer::HeartBeatTimer, this));
     }

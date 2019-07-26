@@ -9,7 +9,6 @@ namespace NetworkAsio {
     class TCPConn;
 
     typedef std::shared_ptr<TCPConn> TCPConnPtr;
-    typedef std::function<void()> TimerCallback;
 
     typedef std::function<void(const TCPConnPtr &)> ConnCallback;
 
@@ -20,8 +19,8 @@ namespace NetworkAsio {
 
     typedef std::function<void(const TCPConnPtr &, ByteBuffer &)> MessageCallback;
 
-    inline void DefaultConnectionCallback(const TCPConnPtr &) {}
+    inline void DefaultConnectionCallback(const TCPConnPtr & connPtr);
 
-    inline void DefaultMessageCallback(const TCPConnPtr &, ByteBuffer &) {}
+    inline void DefaultMessageCallback(const TCPConnPtr & connPtr, ByteBuffer &buffer);
 
 };
