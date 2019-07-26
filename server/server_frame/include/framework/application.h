@@ -5,16 +5,15 @@
 #include "utility/singleton.h"
 #include "modern/timer_wheel.h"
 #include "math/rand_table.h"
-#include "network/IOCPServer.h"
 #include "sol/sol.hpp"
 #include <memory>
-#include <map>
+#include <vector>
 #include "asio.hpp"
 #include "lua_service/lua_service.h"
 #include "ebus/event_bus.hpp"
+#include "network_asio/tcp_server.h"
 
 using namespace std;
-using namespace Network;
 
 extern int FrameworkMain(int argc, char* argv[]);
 
@@ -47,9 +46,6 @@ public:
 
     void schedule_in_range(TimerEventInterface* event, uint64_t start, uint64_t end);
 
-    //网络模块
-    IOCPServer& GetIOCPServer();
-
     //获得sol模块
     sol::state& GetSolLuaState();
 
@@ -77,11 +73,14 @@ private:
     uint32_t m_uiServerID;
     uint8_t m_status;                 // 服务器状态
     uint64_t m_lastTick;              // 上次tick时间
-    IOCPServer m_iocpServer;          // 网络服务模块
     sol::state m_solLua;              // sol lua模块
     asio::io_context m_ioContext;
     svrlib::lua_service* m_luaService;         // lua server
+    std::vector<std::shared_ptr<NetworkAsio::TCPServer>> m_tcpServers;
 
+    uint64_t m_wheelTime;             // wheel时间
+    uint32_t m_wheelPrecision;        // wheel精度
+    TimerWheel m_timers;              // wheel定时器
 };
 
 

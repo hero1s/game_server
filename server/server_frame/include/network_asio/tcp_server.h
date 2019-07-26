@@ -32,11 +32,11 @@ namespace NetworkAsio {
             return acceptor_.local_endpoint().address().to_string();
         }
 
+    protected:
         void StopInLoop();
 
         void RemoveConn(const TCPConnPtr &conn);
 
-    protected:
         void AsyncAccept();
 
         void HandleNewConn(tcp::socket &&socket);
@@ -55,9 +55,7 @@ namespace NetworkAsio {
 
         // always in the listening loop thread
         uint64_t next_conn_id_;
-        typedef std::unordered_map<std::string, TCPConnPtr> ConnectionMap;
-        ConnectionMap conns_;
-
+        std::unordered_map<std::string, TCPConnPtr> conns_;
         steady_timer heartbeat_timer_;
         uint32_t disconnect_time_;
     };

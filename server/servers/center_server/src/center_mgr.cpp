@@ -6,7 +6,7 @@
 #include "utility/profile_manager.h"
 
 using namespace svrlib;
-using namespace Network;
+using namespace NetworkAsio;
 
 namespace {
 

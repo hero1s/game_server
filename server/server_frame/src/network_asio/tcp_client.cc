@@ -2,6 +2,7 @@
 #include "network_asio/tcp_client.h"
 #include "network_asio/tcp_conn.h"
 #include <assert.h>
+#include "utility/comm_macro.h"
 
 namespace NetworkAsio {
     static const int default_max_reconnect_time = 5000;
@@ -9,8 +10,8 @@ namespace NetworkAsio {
     TCPClient::TCPClient(asio::io_service &service_, const std::string &remote_addr, uint16_t port,
                          const std::string &name)
             : io_service_(service_), socket_(io_service_), remote_addr_(remote_addr), remote_port_(port), name_(name),
-              reconnect_timer_(io_service_), auto_reconnect_(false), reconnect_interval_(3), reconnecting_times_(0),
-              conn_(), conn_fn_(nullptr), msg_fn_(nullptr) {
+              reconnect_timer_(io_service_), auto_reconnect_(true), reconnect_interval_(3), reconnecting_times_(0),
+              conn_(), conn_fn_(DefaultConnectionCallback), msg_fn_(DefaultMessageCallback) {
 
     }
 
@@ -44,10 +45,10 @@ namespace NetworkAsio {
                                     this->HandleConn(std::move(socket_));
                                 } else {
                                     if (auto_reconnect_ && reconnecting_times_ < default_max_reconnect_time) {
+                                        reconnect_timer_.expires_from_now(std::chrono::seconds(reconnect_interval_));
                                         reconnect_timer_.async_wait(std::bind(&TCPClient::Reconnect, this));
-                                        reconnect_timer_.expires_from_now(std::chrono::seconds() * reconnect_interval_);
                                     } else {
-                                        ///
+                                        LOG_DEBUG("not auto reconnect or times out:{},{}--{}",auto_reconnect_,reconnecting_times_,default_max_reconnect_time);
                                     }
                                 }
                             });
@@ -56,6 +57,7 @@ namespace NetworkAsio {
     void TCPClient::Reconnect() {
         ++reconnecting_times_;
         Connect();
+        LOG_DEBUG("tcp client reconnect:{}",reconnecting_times_);
     }
 
     void TCPClient::Disconnect() {
@@ -80,6 +82,7 @@ namespace NetworkAsio {
     void TCPClient::HandleConn(tcp::socket &&socket) {
         if (!socket.is_open()) {
             conn_fn_(TCPConnPtr(new TCPConn(io_service_, std::move(socket), name_)));
+            LOG_DEBUG("tcp handle conn is socket is open");
             return;
         }
 
@@ -88,10 +91,12 @@ namespace NetworkAsio {
         c->SetMessageCallback(msg_fn_);
         c->SetConnCallback(conn_fn_);
         c->SetCloseCallback(std::bind(&TCPClient::OnRemoveConn, this, std::placeholders::_1));
+        c->SetUID(GetUID());
 
         conn_ = c;
 
         c->OnAttachedToLoop();
+        LOG_DEBUG("tcp client new connector {}",conn_->GetUID());
     }
 
     void TCPClient::OnRemoveConn(const TCPConnPtr &c) {

@@ -4,11 +4,12 @@
 #include "svrlib.h"
 #include "db_struct_define.h"
 #include "msg_define.pb.h"
+#include "network_asio/tcp_conn.h"
 #include<bitset>
 
 using namespace svrlib;
 using namespace std;
-using namespace Network;
+using namespace NetworkAsio;
 
 enum PLAYER_TYPE {
     PLAYER_TYPE_ONLINE = 0,        // 在线玩家
@@ -51,9 +52,9 @@ public:
 
     uint8_t GetSex();
 
-    void SetSession(NetworkObject *pSession);
+    void SetSession(const TCPConnPtr& conn);
 
-    NetworkObject *GetSession();
+    TCPConnPtr GetSession();
 
     void SetIP(uint32_t ip);
 
@@ -97,7 +98,7 @@ private:
 protected:
     uint32_t m_uid;
     uint8_t m_bPlayerType;
-    NetworkObject *m_pSession;
+    TCPConnPtr m_pSession;
     uint8_t m_bPlayerState;
     bool m_needRecover;                             // 需要下线回收
     string m_loginKey;                              // 登陆key

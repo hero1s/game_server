@@ -8,18 +8,20 @@ namespace NetworkAsio {
 
     TCPServer::TCPServer(asio::io_service &service_, const std::string &bind_ip, uint16_t port, const std::string &name)
             : io_service_(service_), acceptor_(io_service_, tcp::endpoint(address::from_string(bind_ip), port)),
-              accept_socket_(io_service_), closed_(false), name_(name), conn_fn_(nullptr), msg_fn_(nullptr),
+              accept_socket_(io_service_), closed_(false), name_(name), conn_fn_(DefaultConnectionCallback), msg_fn_(DefaultMessageCallback),
               next_conn_id_(0), heartbeat_timer_(io_service_), disconnect_time_(0) {
+        acceptor_.set_option(asio::ip::tcp::acceptor::reuse_address(true));
 
     }
 
     TCPServer::~TCPServer() {
-        assert(conns_.empty());
-        assert(!acceptor_.is_open());
+        //assert(conns_.empty());
+        //assert(!acceptor_.is_open());
     }
 
     bool TCPServer::Start() {
         AsyncAccept();
+        HeartBeatTimer();
         return true;
     }
 
@@ -73,9 +75,8 @@ namespace NetworkAsio {
     }
 
     void TCPServer::HeartBeatTimer() {
-
+        heartbeat_timer_.expires_from_now(std::chrono::seconds(2));
         heartbeat_timer_.async_wait(std::bind(&TCPServer::HeartBeatTimer, this));
-        heartbeat_timer_.expires_from_now(std::chrono::seconds() * 2);
     }
 
 };

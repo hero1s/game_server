@@ -11,40 +11,14 @@
 
 using namespace std;
 using namespace svrlib;
-using namespace Network;
+using namespace NetworkAsio;
 
 class CServerClientMgr;
-
-// server 连接
-class CSvrCliNetObj : public NetworkObject {
-public:
-    CSvrCliNetObj(CServerClientMgr &host);
-
-    virtual ~CSvrCliNetObj();
-
-    virtual uint16_t GetHeadLen() {
-        return INNER_HEADER_SIZE;
-    };
-
-    virtual uint16_t GetPacketLen(const uint8_t *pData, uint16_t wLen) {
-        return pkg_inner::GetPacketLen(pData, wLen);
-    };
-protected:
-    virtual void OnDisconnect();
-
-    virtual int OnRecv(uint8_t *pMsg, uint16_t wSize);
-
-    virtual void OnConnect(bool bSuccess);
-
-protected:
-    CServerClientMgr &m_host;
-
-};
 
 // 服务器连接
 class CServerClient {
 public:
-    CServerClient(const net::svr::server_info &info, NetworkObject *pNetObj);
+    CServerClient(const net::svr::server_info &info, const TCPConnPtr& conn);
 
     virtual ~CServerClient();
 
@@ -52,7 +26,7 @@ public:
 
     void SendMsg(const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin);
 
-    NetworkObject *GetNetObj();
+    TCPConnPtr GetNetObj();
 
     uint16_t GetSvrID();
 
@@ -64,7 +38,7 @@ public:
 
 public:
     net::svr::server_info m_info;
-    NetworkObject *m_pNetObj;
+    TCPConnPtr m_pConnPtr;
 };
 
 // 服务器连接管理
@@ -80,11 +54,11 @@ public:
 
     virtual void ShutDown();
 
-    bool AddServer(NetworkObject *pNetObj, const net::svr::server_info &info);
+    bool AddServer(const TCPConnPtr& conn, const net::svr::server_info &info);
 
-    void RemoveServer(NetworkObject *pNetObj);
+    void RemoveServer(const TCPConnPtr& conn);
 
-    shared_ptr<CServerClient> GetServerBySocket(NetworkObject *pNetObj);
+    shared_ptr<CServerClient> GetServerBySocket(const TCPConnPtr& conn);
 
     shared_ptr<CServerClient> GetServerBySvrID(uint16_t svrID);
 

@@ -6,7 +6,6 @@
 */
 #include "game_define.h"
 #include "framework/application.h"
-#include "net/game_net_mgr.h"
 #include "data_cfg_mgr.h"
 #include "svrlib.h"
 #include <iostream>
@@ -19,6 +18,7 @@
 #include "redis_mgr.h"
 #include "player.h"
 #include "lua_service/lua_bind.h"
+#include "client_msg/msg_client_handle.h"
 
 using namespace svrlib;
 using namespace std;
@@ -48,35 +48,32 @@ bool CApplication::Initialize() {
         return false;
     }
     do {
-        // client处理端口
-        stIOHANDLER_DESC desc[2];
-        desc[0].ioHandlerKey = 0;
-        desc[0].maxConnectBuffSize = SERVER_SOCKET_BUFF_SIZE;
-        desc[0].sendBufferSize = PACKET_MAX_SIZE * 2;
-        desc[0].recvBufferSize = PACKET_MAX_SIZE;
-        desc[0].timeOut = 2000;
-        desc[0].maxPacketSize = PACKET_MAX_SIZE;
-        desc[0].allocFunc = []() { return new CClientNetObj(); };
-        desc[0].webSocket = true;
-
-        desc[1].ioHandlerKey = 1;
-        desc[1].maxConnectBuffSize = SERVER_SOCKET_BUFF_SIZE;
-        desc[1].sendBufferSize = SERVER_SOCKET_BUFF_SIZE;
-        desc[1].recvBufferSize = SERVER_SOCKET_BUFF_SIZE;
-        desc[1].timeOut = 60 * 60 * 24;
-        desc[1].maxPacketSize = INNER_MAX_SIZE;
-
-        if (!m_iocpServer.AddIoHandler(desc[0]) || !m_iocpServer.AddIoHandler(desc[1])) {
-            LOG_ERROR("IOCP Init fail");
-            return false;
-        }
-
         uint32_t port = m_solLua["get_lobby_listen"](m_uiServerID);
+        auto tcpSvr = std::make_shared<TCPServer>(m_ioContext, "0.0.0.0", port, "lobbyServer");
+        tcpSvr->SetConnectionCallback([](const TCPConnPtr& conn) {
+            if (conn->IsConnected()) {
+                LOG_DEBUG("{},connection accepted",conn->GetName());
+            }
+            else {
+                LOG_ERROR("client ondisconnect:{}--{}", conn->GetUID(), conn->GetRemoteAddress());
+                uint32_t uid = conn->GetUID();
+                CPlayer* pPlayer = (CPlayer*) CPlayerMgr::Instance().GetPlayer(uid);
+                if (pPlayer != NULL)
+                {
+                    // 不直接断线，保留一定时间
+                    pPlayer->SetSession(nullptr);
+                    conn->SetUID(0);
+                }
+                LOG_DEBUG("{},connection disconnecting",conn->GetName());
+            }
+        });
+        tcpSvr->SetMessageCallback([](const TCPConnPtr& conn, ByteBuffer& buffer) {
+            LOG_DEBUG("recv msg {}",std::string(buffer.Data(), buffer.Size()));
+            CHandleClientMsg::Instance().OnHandleClientMsg(conn,(uint8_t*)buffer.Data(),buffer.Size());
+        });
+        tcpSvr->Start();
+        m_tcpServers.push_back(tcpSvr);
 
-        if (!m_iocpServer.StartListen(0, "0.0.0.0", port)) {
-            LOG_ERROR("IOCP SERVER StartListen fail {}", port);
-            return false;
-        }
     } while (false);
 
     if (!CRedisMgr::Instance().Init(m_ioContext, GameServerConfig::Instance().redisConf)) {
@@ -93,13 +90,13 @@ bool CApplication::Initialize() {
 
     //连接中心服
     auto centerIp = m_solLua.get<sol::table>("server_config").get<sol::table>("center");
-    if (CCenterClientMgr::Instance().Init(1, info, centerIp.get<string>("ip"), centerIp.get<int>("port")) == false) {
+    if (CCenterClientMgr::Instance().Init(info, centerIp.get<string>("ip"), centerIp.get<int>("port")) == false) {
         LOG_ERROR("init center client mgr fail");
         return false;
     }
     //连接DBAgent
     auto dbagentIp = m_solLua.get<sol::table>("server_config").get<sol::table>("dbagent");
-    if (CDBAgentClientMgr::Instance().Init(1, info, dbagentIp.get<string>("ip"), dbagentIp.get<int>("port")) == false) {
+    if (CDBAgentClientMgr::Instance().Init(info, dbagentIp.get<string>("ip"), dbagentIp.get<int>("port")) == false) {
         LOG_ERROR("init dbagent client mgr fail");
         return false;
     }

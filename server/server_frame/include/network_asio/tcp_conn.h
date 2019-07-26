@@ -30,7 +30,7 @@ namespace NetworkAsio {
 
         void Close();
 
-        bool Update();
+//        bool Update();
 
         void SetMessageCallback(const MessageCallback &cb) { msg_fn_ = cb; }
 
@@ -52,9 +52,9 @@ namespace NetworkAsio {
 
         void SetTCPNoDelay(bool on);
 
-        void Send(const char *data, size_t sz);
+        bool Send(const char *data, size_t sz);
 
-        void Send(const std::string &msg);
+        bool Send(const std::string &msg);
 
         bool IsConnected() const { return status_ == kConnected; }
 
@@ -74,6 +74,10 @@ namespace NetworkAsio {
 
         std::string GetName() const { return name_; }
 
+        void SetUID(uint32_t uid) { uid_ = uid; }
+
+        uint32_t GetUID() { return uid_; }
+
     protected:
         void HandleClose();
 
@@ -87,9 +91,7 @@ namespace NetworkAsio {
 
         void HandleWrite(asio::error_code err, std::size_t trans_bytes);
 
-        void SendStringInLoop(const std::string &message);
-
-        void SendInLoop(const char *data, size_t sz);
+        bool SendInLoop(const char *data, size_t sz);
 
     private:
         asio::io_service &io_service_;
@@ -98,6 +100,7 @@ namespace NetworkAsio {
         Type type_;
         Status status_;
         std::string name_;
+        uint32_t uid_;
 
         tcp::endpoint local_ep_;
         tcp::endpoint remote_ep_;

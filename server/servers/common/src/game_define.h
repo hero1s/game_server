@@ -11,8 +11,6 @@ using namespace std;
 #define PRO_DENO_10000   10000
 #define PRO_DENO_100     100
 
-#define SERVER_SOCKET_BUFF_SIZE 1024*1024*2
-
 // 数据库标示
 enum DB_INDEX_TYPE
 {

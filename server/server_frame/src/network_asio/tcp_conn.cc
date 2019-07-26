@@ -8,14 +8,14 @@ namespace NetworkAsio {
             : io_service_(service_), socket_(std::move(socket)), type_(kIncoming), status_(kDisconnected), name_(name),
               local_ep_(socket_.local_endpoint()), remote_ep_(socket_.remote_endpoint()), recv_buffer_(),
               async_writing_(false), write_buffer_(), writing_buffer_(), high_water_mark_(32 * 1024 * 1024),
-              conn_fn_(nullptr), msg_fn_(nullptr), write_complete_fn_(nullptr), high_water_mark_fn_(nullptr),
+              conn_fn_(DefaultConnectionCallback), msg_fn_(DefaultMessageCallback), write_complete_fn_(nullptr), high_water_mark_fn_(nullptr),
               close_fn_(nullptr) {
 
     }
 
     TCPConn::~TCPConn() {
-        assert(status_ == kDisconnected);
-        assert(!socket_.is_open());
+        //assert(status_ == kDisconnected);
+        //assert(!socket_.is_open());
     }
 
     void TCPConn::Close() {
@@ -26,12 +26,12 @@ namespace NetworkAsio {
         c->socket_.close(ec);
     }
 
-    bool TCPConn::Update() {
-        if (!socket_.is_open()) {
-            return false;
-        }
-        return true;
-    }
+//    bool TCPConn::Update() {
+//        if (!socket_.is_open()) {
+//            return false;
+//        }
+//        return true;
+//    }
 
 
     void TCPConn::HandleClose() {
@@ -84,21 +84,17 @@ namespace NetworkAsio {
         }
     }
 
-    void TCPConn::Send(const char *data, size_t sz) {
-        SendInLoop(data, sz);
+    bool TCPConn::Send(const char *data, size_t sz) {
+        return SendInLoop(data, sz);
     }
 
-    void TCPConn::Send(const std::string &msg) {
-        SendInLoop(msg.c_str(), msg.size());
+    bool TCPConn::Send(const std::string &msg) {
+        return SendInLoop(msg.c_str(), msg.size());
     }
 
-    void TCPConn::SendStringInLoop(const std::string &message) {
-        SendInLoop(message.data(), message.size());
-    }
-
-    void TCPConn::SendInLoop(const char *data, size_t sz) {
+    bool TCPConn::SendInLoop(const char *data, size_t sz) {
         if (!socket_.is_open()) {
-            return;
+            return false;
         }
         std::shared_ptr<MessageBuffer> msg = CreateMessageWithHeader(data, sz);
         if (!async_writing_) {
@@ -117,6 +113,7 @@ namespace NetworkAsio {
                 }
             }
         }
+        return true;
     }
 
     void TCPConn::AsyncRead() {

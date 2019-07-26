@@ -40,31 +40,32 @@ bool CApplication::Initialize() {
         LOG_ERROR("init player cache mgr fail ");
         return false;
     }
-    do {
-        stIOHANDLER_DESC desc;
-        desc.ioHandlerKey = 0;
-        desc.maxConnectBuffSize = SERVER_SOCKET_BUFF_SIZE;
-        desc.sendBufferSize = SERVER_SOCKET_BUFF_SIZE;
-        desc.recvBufferSize = SERVER_SOCKET_BUFF_SIZE;
-        desc.timeOut = 60 * 60 * 24;
-        desc.maxPacketSize = INNER_MAX_SIZE;
-        desc.allocFunc = [](){ return new CSvrCliNetObj(CServerMgr::Instance()); };
-
-        if (!m_iocpServer.AddIoHandler(desc)) {
-            LOG_ERROR("IOCP Init fail");
-            return false;
-        }
-        auto dbagentIp = m_solLua.get<sol::table>("server_config").get<sol::table>("dbagent");
-        if (!m_iocpServer.StartListen(0, "0.0.0.0", dbagentIp.get<int>("port"))) {
-            LOG_ERROR("IOCP SERVER StartListen fail {}", dbagentIp.get<int>("port"));
-            return false;
-        }
-
-    } while (false);
     if (CServerMgr::Instance().Init() == false) {
         LOG_ERROR("CenterMgr init fail");
         return false;
     }
+
+    do {
+        auto dbagentIp = m_solLua.get<sol::table>("server_config").get<sol::table>("dbagent");
+        auto tcpSvr = std::make_shared<TCPServer>(m_ioContext, "0.0.0.0", dbagentIp.get<int>("port"), "dbagentServer");
+        tcpSvr->SetConnectionCallback([](const TCPConnPtr& conn) {
+            if (conn->IsConnected()) {
+                LOG_DEBUG("{},connection accepted",conn->GetName());
+            }
+            else {
+                CServerMgr::Instance().RemoveServer(conn);
+                LOG_DEBUG("{},connection disconnecting",conn->GetName());
+            }
+        });
+        tcpSvr->SetMessageCallback([](const TCPConnPtr& conn, ByteBuffer& buffer) {
+            LOG_DEBUG("recv msg {}",buffer.Size());
+            CServerMgr::Instance().OnHandleClientMsg(conn,(uint8_t*)buffer.Data(),buffer.Size());
+        });
+        tcpSvr->Start();
+        m_tcpServers.push_back(tcpSvr);
+
+    } while (false);
+
 
     LOG_INFO("dbagent server start is successed {}", m_uiServerID);
 

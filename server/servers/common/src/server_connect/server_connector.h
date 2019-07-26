@@ -3,46 +3,17 @@
 
 #include "svrlib.h"
 #include <string.h>
-#include "network/NetworkObject.h"
+#include "network_asio/tcp_conn.h"
 #include "packet/inner_protobuf_pkg.h"
 #include <unordered_map>
-#include "network/IOCPServer.h"
-#include "network/tcp_connector.h"
+#include "network_asio/tcp_client.h"
 #include "servers_msg.pb.h"
 
 using namespace std;
 using namespace svrlib;
-using namespace Network;
+using namespace NetworkAsio;
 
 class CSvrConnectorMgr;
-
-// server connector连接
-class CSvrConnectorNetObj : public CTcpConnector {
-public:
-    CSvrConnectorNetObj(CSvrConnectorMgr& host);
-
-    virtual ~CSvrConnectorNetObj();
-
-    virtual uint16_t GetHeadLen()
-    {
-        return INNER_HEADER_SIZE;
-    };
-
-    virtual uint16_t GetPacketLen(const uint8_t* pData, uint16_t wLen)
-    {
-        return pkg_inner::GetPacketLen(pData, wLen);
-    };
-protected:
-    virtual void ConnectorOnDisconnect();
-
-    virtual int OnRecv(uint8_t* pMsg, uint16_t wSize);
-
-    virtual void ConnectorOnConnect(bool bSuccess);
-
-protected:
-    CSvrConnectorMgr& m_host;
-
-};
 
 /******************server connector管理器****************************/
 class CSvrConnectorMgr : public CInnerMsgHanlde {
@@ -53,20 +24,20 @@ public:
 
     void OnTimer();
 
-    bool Init(int32_t ioKey, const net::svr::server_info& info, string ip, uint32_t port);
+    bool Init(const net::svr::server_info &info, string ip, uint32_t port);
 
     void Register();
 
     void RegisterRep(uint16_t svrid, bool rep);
 
-    void OnConnect(bool bSuccess, CSvrConnectorNetObj* pNetObj);
+    void OnConnect(bool bSuccess, const TCPConnPtr& conn);
 
-    void OnCloseClient(CSvrConnectorNetObj* pNetObj);
+    void OnCloseClient(const TCPConnPtr& conn);
 
     bool IsRun();
 
-    void SendMsg2Svr(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin = 0, uint8_t route = 0,
-            uint32_t routeID = 0);
+    void SendMsg2Svr(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin = 0, uint8_t route = 0,
+                     uint32_t routeID = 0);
 
     bool IsExistSvr(uint16_t sid);
 
@@ -79,10 +50,10 @@ protected:
 
 private:
     MemberTimerEvent<CSvrConnectorMgr, &CSvrConnectorMgr::OnTimer> m_timer;
-    CSvrConnectorNetObj* m_pNetObj;
+    std::shared_ptr<TCPClient> m_pClientPtr;
     bool m_isRun;
     net::svr::server_info m_curSvrInfo;
-    std::unordered_map<uint16_t,net::svr::server_info> m_allSvrList;
+    std::unordered_map<uint16_t, net::svr::server_info> m_allSvrList;
 
 };
 

@@ -8,7 +8,7 @@
 
 using namespace std;
 using namespace svrlib;
-using namespace Network;
+using namespace NetworkAsio;
 
 namespace {
 
@@ -24,7 +24,7 @@ CPlayerBase::CPlayerBase(uint8_t type)
 CPlayerBase::~CPlayerBase() {
     if (m_pSession != NULL) {
         m_pSession->SetUID(0);
-        m_pSession->Disconnect(false);
+        m_pSession->Close();
         m_pSession = NULL;
     }
 }
@@ -78,11 +78,11 @@ uint8_t CPlayerBase::GetSex() {
     return m_baseInfo.sex;
 }
 
-void CPlayerBase::SetSession(NetworkObject *pSession) {
-    m_pSession = pSession;
+void CPlayerBase::SetSession(const TCPConnPtr& conn) {
+    m_pSession = conn;
 }
 
-NetworkObject *CPlayerBase::GetSession() {
+TCPConnPtr CPlayerBase::GetSession() {
     return m_pSession;
 }
 

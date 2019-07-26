@@ -6,7 +6,7 @@
 
 class CPlayer;
 
-using namespace Network;
+using namespace NetworkAsio;
 
 class CHandleClientMsg : public CProtobufMsgHanlde, public AutoDeleteSingleton<CHandleClientMsg>
 {
@@ -20,7 +20,7 @@ protected:
 	// µÇÂ¼
 	int handle_msg_login();
 
-	CPlayer* GetPlayer(NetworkObject* pNetObj);
+	CPlayer* GetPlayer(const TCPConnPtr& connPtr);
 };
 
 

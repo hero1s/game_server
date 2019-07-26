@@ -15,20 +15,19 @@ include_directories(server_frame/include/helper)
 include_directories(server_frame/include/lua_service)
 include_directories(server_frame/include/math)
 include_directories(server_frame/include/modern)
-include_directories(server_frame/include/network)
+include_directories(server_frame/include/network_asio)
 include_directories(server_frame/include/packet)
 include_directories(server_frame/include/redisclient)
 include_directories(server_frame/include/redisclient/impl)
 include_directories(server_frame/include/utility)
 include_directories(server_frame/src/framework)
-include_directories(server_frame/src/network)
+include_directories(server_frame/src/network_asio)
 include_directories(servers/center_server/src)
 include_directories(servers/common/src)
 include_directories(servers/dbagent_server/src)
 include_directories(servers/lobby_server/src)
 include_directories(servers/pb/src)
 include_directories(server_frame/include/third)
-
 
 add_executable(server
         server_frame/include/aoi/quad_tree.hpp
@@ -97,9 +96,6 @@ add_executable(server
         server_frame/include/modern/thread_pool.h
         server_frame/include/modern/timer_wheel.h
         server_frame/include/modern/tinyxml2.h
-        server_frame/include/network/IOCPServer.h
-        server_frame/include/network/NetworkObject.h
-        server_frame/include/network/tcp_connector.h
         server_frame/include/network_asio/byte_buffer.h
         server_frame/include/network_asio/message_head.h
         server_frame/include/network_asio/tcp_callbacks.h
@@ -647,32 +643,6 @@ add_executable(server
         server_frame/src/memory/shm_buff_queue.cpp
         server_frame/src/modern/json_wrap.cpp
         server_frame/src/modern/tinyxml2.cpp
-        server_frame/src/network/Acceptor.cpp
-        server_frame/src/network/Acceptor.h
-        server_frame/src/network/CircuitQueue.h
-        server_frame/src/network/Connector.cpp
-        server_frame/src/network/Connector.h
-        server_frame/src/network/Double_List_T.h
-        server_frame/src/network/IOCPServer.cpp
-        server_frame/src/network/IoHandler.cpp
-        server_frame/src/network/IoHandler.h
-        server_frame/src/network/Message.h
-        server_frame/src/network/Network.h
-        server_frame/src/network/NetworkObject.cpp
-        server_frame/src/network/RecvBuffer.h
-        server_frame/src/network/SendBuffer.h
-        server_frame/src/network/Session.cpp
-        server_frame/src/network/Session.h
-        server_frame/src/network/SessionList.cpp
-        server_frame/src/network/SessionList.h
-        server_frame/src/network/SessionPool.cpp
-        server_frame/src/network/SessionPool.h
-        server_frame/src/network/Single_List_T.h
-        server_frame/src/network/SocketOps.cpp
-        server_frame/src/network/SocketOpt.h
-        server_frame/src/network/tcp_connector.cpp
-        server_frame/src/network/TLock.cpp
-        server_frame/src/network/TLock.h
         server_frame/src/network_asio/tcp_client.cc
         server_frame/src/network_asio/tcp_conn.cc
         server_frame/src/network_asio/tcp_server.cc
@@ -800,8 +770,6 @@ add_executable(server
         servers/lobby_server/src/net/center_client.h
         servers/lobby_server/src/net/dbagent_client.cpp
         servers/lobby_server/src/net/dbagent_client.h
-        servers/lobby_server/src/net/game_net_mgr.cpp
-        servers/lobby_server/src/net/game_net_mgr.h
         servers/lobby_server/src/game_server.cpp
         servers/lobby_server/src/player.cpp
         servers/lobby_server/src/player.h

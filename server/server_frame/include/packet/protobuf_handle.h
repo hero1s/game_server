@@ -6,7 +6,9 @@
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/message.h>
 #include "svrlib.h"
-#include "network/NetworkObject.h"
+#include "network_asio/tcp_conn.h"
+
+using namespace NetworkAsio;
 
 using handFunc = function<int()>;
 
@@ -27,7 +29,7 @@ public:
             return it->second();
         }
         for(auto p:m_subHands){
-            auto ret = p->OnDispatchMsg(_pNetObj,_pkt_buf,_buf_len,_head);
+            auto ret = p->OnDispatchMsg(_connPtr,_pkt_buf,_buf_len,_head);
             if(ret <= 0)return ret;
         }
 
@@ -53,8 +55,8 @@ public:
     }
 
 
-    int OnDispatchMsg(NetworkObject *pNetObj, const uint8_t *pkt_buf,uint16_t buf_len,Head * head){
-        _pNetObj = pNetObj;
+    int OnDispatchMsg(const TCPConnPtr& connPtr, const uint8_t *pkt_buf,uint16_t buf_len,Head * head){
+        _connPtr = connPtr;
         _head = head;
         _pkt_buf = pkt_buf;
         _buf_len = buf_len;
@@ -64,7 +66,7 @@ public:
 
 protected:
     std::unordered_map<uint32_t, handFunc> m_handlers;
-    NetworkObject *_pNetObj;
+    TCPConnPtr _connPtr;
     const uint8_t *_pkt_buf;
     uint16_t _buf_len;
     uint32_t _cmd;

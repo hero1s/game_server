@@ -3,34 +3,10 @@
 #include "msg_define.pb.h"
 #include "game_define.h"
 
-// server Á¬½Ó
-CSvrCliNetObj::CSvrCliNetObj(CServerClientMgr &host)
-        : m_host(host) {
-
-}
-
-CSvrCliNetObj::~CSvrCliNetObj() {
-
-}
-
-void CSvrCliNetObj::OnDisconnect() {
-    LOG_ERROR("server on disconnect:{}--{}", GetUID(), this->GetIP());
-    m_host.RemoveServer(this);
-}
-
-int CSvrCliNetObj::OnRecv(uint8_t *pMsg, uint16_t wSize) {
-    AutoProfile ap(__FUNCTION__);
-    return m_host.OnHandleClientMsg(this, pMsg, wSize);
-}
-
-void CSvrCliNetObj::OnConnect(bool bSuccess) {
-    LOG_DEBUG("server OnConnect,{},{}", bSuccess, this->GetIP());
-}
-
-CServerClient::CServerClient(const net::svr::server_info &info, NetworkObject *pNetObj) {
+CServerClient::CServerClient(const net::svr::server_info &info, const TCPConnPtr& conn) {
     m_info = info;
-    m_pNetObj = pNetObj;
-    m_pNetObj->SetUID(info.svrid());
+    m_pConnPtr = conn;
+    m_pConnPtr->SetUID(info.svrid());
 }
 
 CServerClient::~CServerClient() {
@@ -38,15 +14,15 @@ CServerClient::~CServerClient() {
 }
 
 void CServerClient::SendMsg(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin) {
-    pkg_inner::SendProtobufMsg(m_pNetObj, msg, msg_type, uin, 0, 0);
+    pkg_inner::SendProtobufMsg(m_pConnPtr, msg, msg_type, uin, 0, 0);
 }
 
 void CServerClient::SendMsg(const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin) {
-    pkg_inner::SendBuffMsg(m_pNetObj, pkt_buf, buf_len, msg_type, uin, 0, 0);
+    pkg_inner::SendBuffMsg(m_pConnPtr, pkt_buf, buf_len, msg_type, uin, 0, 0);
 }
 
-NetworkObject *CServerClient::GetNetObj() {
-    return m_pNetObj;
+TCPConnPtr CServerClient::GetNetObj() {
+    return m_pConnPtr;
 }
 
 uint16_t CServerClient::GetSvrID() {
@@ -102,32 +78,32 @@ void CServerClientMgr::ShutDown() {
     m_timer.cancel();
 }
 
-bool CServerClientMgr::AddServer(NetworkObject *pNetObj, const net::svr::server_info &info) {
-    auto pClient = std::make_shared<CServerClient>(info, pNetObj);
-    pNetObj->SetUID(info.svrid());
+bool CServerClientMgr::AddServer(const TCPConnPtr& conn, const net::svr::server_info &info) {
+    auto pClient = std::make_shared<CServerClient>(info, conn);
+    conn->SetUID(info.svrid());
     m_mpServers.insert(make_pair(info.svrid(), pClient));
     LOG_DEBUG("add server :svrid:{}--gameType:{},server size:{}", info.svrid(), info.game_type(), m_mpServers.size());
     UpdateServerList();
     return true;
 }
 
-void CServerClientMgr::RemoveServer(NetworkObject *pNetObj) {
+void CServerClientMgr::RemoveServer(const TCPConnPtr& conn) {
     for (auto &it : m_mpServers)
     {
         auto pServer = it.second;
-        if (pServer->GetNetObj() == pNetObj)
+        if (pServer->GetNetObj()->GetUID() == conn->GetUID())
         {
             LOG_DEBUG("remove server:{},server size:{}", it.first, m_mpServers.size());
             m_mpServers.erase(it.first);
-            pNetObj->SetUID(0);
+            conn->SetUID(0);
             break;
         }
     }
     UpdateServerList();
 }
 
-shared_ptr<CServerClient> CServerClientMgr::GetServerBySocket(NetworkObject *pNetObj) {
-    return GetServerBySvrID(pNetObj->GetUID());
+shared_ptr<CServerClient> CServerClientMgr::GetServerBySocket(const TCPConnPtr& conn) {
+    return GetServerBySvrID(conn->GetUID());
 }
 
 shared_ptr<CServerClient> CServerClientMgr::GetServerBySvrID(uint16_t svrID) {
@@ -258,14 +234,14 @@ int CServerClientMgr::handle_msg_register_svr() {
               msg.info().game_type(), msg.info().game_subtype());
     net::svr::msg_register_svr_rep repmsg;
 
-    bool bRet = AddServer(_pNetObj, msg.info());
+    bool bRet = AddServer(_connPtr, msg.info());
     if (!bRet)
     {
         LOG_ERROR("Register Server fail svrid:{}", msg.info().svrid());
     }
     repmsg.set_result(bRet);
 
-    pkg_inner::SendProtobufMsg(_pNetObj, &repmsg, net::svr::S2S_MSG_REGISTER_REP, 0, 0, 0);
+    pkg_inner::SendProtobufMsg(_connPtr, &repmsg, net::svr::S2S_MSG_REGISTER_REP, 0, 0, 0);
 
     return 0;
 }

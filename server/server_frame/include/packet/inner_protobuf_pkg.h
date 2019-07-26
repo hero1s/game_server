@@ -7,10 +7,10 @@
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/message.h>
 #include "svrlib.h"
-#include "network/NetworkObject.h"
 #include "protobuf_handle.h"
+#include "network_asio/tcp_conn.h"
 
-using namespace Network;
+using namespace NetworkAsio;
 
 #pragma  pack(1)
 //内部数据包头------------------------------------------------------------------------------------------------------------
@@ -51,20 +51,17 @@ public:
     }
 
     static bool
-    SendProtobufMsg(NetworkObject *pNetObj, const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin,
+    SendProtobufMsg(const TCPConnPtr& connPtr, const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin,
                  uint8_t route, uint32_t routeID) {
-        if (pNetObj == NULL) {
-            return false;
-        }
         static string sstr;
         msg->SerializeToString(&sstr);
-        return SendBuffMsg(pNetObj, sstr.c_str(), sstr.length(), msg_type, uin, route, routeID);
+        return SendBuffMsg(connPtr, sstr.c_str(), sstr.length(), msg_type, uin, route, routeID);
     }
 
     static bool
-    SendBuffMsg(NetworkObject *pNetObj, const void *msg, uint16_t msg_len, uint16_t msg_type, uint32_t uin,
+    SendBuffMsg(const TCPConnPtr& connPtr, const void *msg, uint16_t msg_len, uint16_t msg_type, uint32_t uin,
                      uint8_t route, uint32_t routeID) {
-        if (pNetObj == NULL) {
+        if (connPtr == nullptr) {
             return false;
         }
         static inner_protobuf pkt;
@@ -81,7 +78,7 @@ public:
         memcpy((void *) pkt.protobuf, msg, msg_len);
         pkt.header.datalen = msg_len;
 
-        return pNetObj->Send((uint8_t *) &pkt.header, pkt.header.datalen + INNER_HEADER_SIZE);
+        return connPtr->Send((char*) &pkt.header, pkt.header.datalen + INNER_HEADER_SIZE);
     }
 };
 
@@ -89,7 +86,7 @@ public:
 class CInnerMsgHanlde : public CProtobufHandleBase<INNERHEAD> {
 public:
 
-    int OnHandleClientMsg(NetworkObject *pNetObj, uint8_t *pData, size_t uiDataLen) {
+    int OnHandleClientMsg(TCPConnPtr connPtr, uint8_t *pData, size_t uiDataLen) {
         if (pData == NULL)
             return -1;
         inner_header_t *head = (inner_header_t *) pData;
@@ -97,7 +94,7 @@ public:
             LOG_ERROR("msg length is not right:{}--{}", uiDataLen, head->datalen);
             return -1;
         }
-        _pNetObj = pNetObj;
+        _connPtr = connPtr;
         _head = head;
         _pkt_buf = pData + INNER_HEADER_SIZE;
         _buf_len = head->datalen;
