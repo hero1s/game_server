@@ -34,6 +34,3 @@ do
 	cd $root_dir;
 done
 
-
-
-
