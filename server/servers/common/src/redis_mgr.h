@@ -25,7 +25,10 @@ public:
 
 protected:
     void test_client();
+    bool Reconnect(bool bSync,bool bAsync);
 
+    void HandSyncError(const std::string& err);
+    void HandAsyncError(const std::string& err);
 
 private:
     MemberTimerEvent<CRedisMgr, &CRedisMgr::OnTimer> m_timer;
