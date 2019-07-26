@@ -13,7 +13,7 @@
 using asio::steady_timer;
 using asio::ip::tcp;
 
-namespace NetworkAsio {
+namespace Network {
     class TCPServer {
     public:
         TCPServer(asio::io_service &service_, const std::string &bind_ip, uint16_t port, const std::string &name);

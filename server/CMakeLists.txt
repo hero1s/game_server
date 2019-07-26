@@ -15,13 +15,13 @@ include_directories(server_frame/include/helper)
 include_directories(server_frame/include/lua_service)
 include_directories(server_frame/include/math)
 include_directories(server_frame/include/modern)
-include_directories(server_frame/include/network_asio)
+include_directories(server_frame/include/network)
 include_directories(server_frame/include/packet)
 include_directories(server_frame/include/redisclient)
 include_directories(server_frame/include/redisclient/impl)
 include_directories(server_frame/include/utility)
 include_directories(server_frame/src/framework)
-include_directories(server_frame/src/network_asio)
+include_directories(server_frame/src/network)
 include_directories(servers/center_server/src)
 include_directories(servers/common/src)
 include_directories(servers/dbagent_server/src)
@@ -96,12 +96,12 @@ add_executable(server
         server_frame/include/modern/thread_pool.h
         server_frame/include/modern/timer_wheel.h
         server_frame/include/modern/tinyxml2.h
-        server_frame/include/network_asio/byte_buffer.h
-        server_frame/include/network_asio/message_head.h
-        server_frame/include/network_asio/tcp_callbacks.h
-        server_frame/include/network_asio/tcp_client.h
-        server_frame/include/network_asio/tcp_conn.h
-        server_frame/include/network_asio/tcp_server.h
+        server_frame/include/network/byte_buffer.h
+        server_frame/include/network/message_head.h
+        server_frame/include/network/tcp_callbacks.h
+        server_frame/include/network/tcp_client.h
+        server_frame/include/network/tcp_conn.h
+        server_frame/include/network/tcp_server.h
         server_frame/include/packet/inner_protobuf_pkg.h
         server_frame/include/packet/protobuf_handle.h
         server_frame/include/packet/protobuf_pkg.h
@@ -643,9 +643,9 @@ add_executable(server
         server_frame/src/memory/shm_buff_queue.cpp
         server_frame/src/modern/json_wrap.cpp
         server_frame/src/modern/tinyxml2.cpp
-        server_frame/src/network_asio/tcp_client.cc
-        server_frame/src/network_asio/tcp_conn.cc
-        server_frame/src/network_asio/tcp_server.cc
+        server_frame/src/network/tcp_client.cc
+        server_frame/src/network/tcp_conn.cc
+        server_frame/src/network/tcp_server.cc
         server_frame/src/string/string_functions.cpp
         server_frame/src/string/stringutility.cpp
         server_frame/src/third/lua/lapi.c
@@ -784,4 +784,4 @@ add_executable(server
         servers/pb/src/res.pb.cc
         servers/pb/src/res.pb.h
         servers/pb/src/servers_msg.pb.cc
-        servers/pb/src/servers_msg.pb.h server_frame/src/network_asio/tcp_callbacks.cpp)
+        servers/pb/src/servers_msg.pb.h server_frame/src/network/tcp_callbacks.cpp)

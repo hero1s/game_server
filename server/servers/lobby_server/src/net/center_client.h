@@ -10,7 +10,7 @@
 
 using namespace std;
 using namespace svrlib;
-using namespace NetworkAsio;
+using namespace Network;
 
 class CCenterClientMgr : public CSvrConnectorMgr, public AutoDeleteSingleton<CCenterClientMgr> {
 public:

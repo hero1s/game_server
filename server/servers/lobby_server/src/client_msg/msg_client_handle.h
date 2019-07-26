@@ -6,7 +6,7 @@
 
 class CPlayer;
 
-using namespace NetworkAsio;
+using namespace Network;
 
 class CHandleClientMsg : public CProtobufMsgHanlde, public AutoDeleteSingleton<CHandleClientMsg>
 {

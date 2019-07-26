@@ -3,15 +3,15 @@
 
 #include "svrlib.h"
 #include <string.h>
-#include "network_asio/tcp_conn.h"
+#include "network/tcp_conn.h"
 #include "packet/inner_protobuf_pkg.h"
 #include <unordered_map>
-#include "network_asio/tcp_client.h"
+#include "network/tcp_client.h"
 #include "servers_msg.pb.h"
 
 using namespace std;
 using namespace svrlib;
-using namespace NetworkAsio;
+using namespace Network;
 
 class CSvrConnectorMgr;
 

@@ -12,7 +12,7 @@
 #include "tcp_callbacks.h"
 
 using asio::ip::tcp;
-namespace NetworkAsio {
+namespace Network {
     class TCPClient {
     public:
         TCPClient(asio::io_service &service_, const std::string &remote_addr, uint16_t port, const std::string &name);

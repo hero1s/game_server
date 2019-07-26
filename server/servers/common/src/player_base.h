@@ -4,12 +4,12 @@
 #include "svrlib.h"
 #include "db_struct_define.h"
 #include "msg_define.pb.h"
-#include "network_asio/tcp_conn.h"
+#include "network/tcp_conn.h"
 #include<bitset>
 
 using namespace svrlib;
 using namespace std;
-using namespace NetworkAsio;
+using namespace Network;
 
 enum PLAYER_TYPE {
     PLAYER_TYPE_ONLINE = 0,        // ÔÚÏßÍæ¼Ò

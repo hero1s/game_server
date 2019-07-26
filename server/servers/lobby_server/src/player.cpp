@@ -8,7 +8,7 @@
 
 using namespace svrlib;
 using namespace std;
-using namespace NetworkAsio;
+using namespace Network;
 
 namespace {
     static const uint32_t s_OfflineTime = MINUTE*10; // 离线10分钟下线

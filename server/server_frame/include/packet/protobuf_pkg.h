@@ -6,9 +6,9 @@
 #include "svrlib.h"
 #include "zlib.h"
 #include "protobuf_handle.h"
-#include "network_asio/tcp_conn.h"
+#include "network/tcp_conn.h"
 
-using namespace NetworkAsio;
+using namespace Network;
 
 #pragma  pack(1)
 //对外数据包头

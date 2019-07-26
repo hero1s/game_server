@@ -1,10 +1,10 @@
 
-#include "network_asio/tcp_server.h"
-#include "network_asio/tcp_conn.h"
+#include "network/tcp_server.h"
+#include "network/tcp_conn.h"
 #include <assert.h>
 #include "utility/comm_macro.h"
 
-namespace NetworkAsio {
+namespace Network {
     using asio::ip::address;
 
     TCPServer::TCPServer(asio::io_service &service_, const std::string &bind_ip, uint16_t port, const std::string &name)

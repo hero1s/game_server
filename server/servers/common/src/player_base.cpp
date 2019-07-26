@@ -8,7 +8,7 @@
 
 using namespace std;
 using namespace svrlib;
-using namespace NetworkAsio;
+using namespace Network;
 
 namespace {
 

@@ -6,9 +6,9 @@
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/message.h>
 #include "svrlib.h"
-#include "network_asio/tcp_conn.h"
+#include "network/tcp_conn.h"
 
-using namespace NetworkAsio;
+using namespace Network;
 
 using handFunc = function<int()>;
 

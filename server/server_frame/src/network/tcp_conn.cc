@@ -1,10 +1,10 @@
 
-#include "network_asio/tcp_conn.h"
-#include "network_asio/message_head.h"
+#include "network/tcp_conn.h"
+#include "network/message_head.h"
 #include <assert.h>
 #include "utility/comm_macro.h"
 
-namespace NetworkAsio {
+namespace Network {
     TCPConn::TCPConn(asio::io_service &service_, tcp::socket &&socket, std::string name)
             : io_service_(service_), socket_(std::move(socket)), type_(kIncoming), status_(kDisconnected), name_(name),
               local_ep_(socket_.local_endpoint()), remote_ep_(socket_.remote_endpoint()), recv_buffer_(),

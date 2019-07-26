@@ -12,7 +12,7 @@
 // 在线玩家管理器
 using namespace svrlib;
 using namespace std;
-using namespace NetworkAsio;
+using namespace Network;
 
 class CPlayerMgr : public AutoDeleteSingleton<CPlayerMgr>
 {

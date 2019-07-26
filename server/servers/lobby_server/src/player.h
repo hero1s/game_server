@@ -11,7 +11,7 @@
 using namespace svrlib;
 using namespace std;
 using namespace net;
-using namespace NetworkAsio;
+using namespace Network;
 
 class CPlayer : public CPlayerBase, public ebus::EventHandler<ebus::NewDayEvent> {
     enum LIMIT_TIME {

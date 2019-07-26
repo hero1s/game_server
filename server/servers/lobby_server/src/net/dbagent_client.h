@@ -10,7 +10,7 @@
 
 using namespace std;
 using namespace svrlib;
-using namespace NetworkAsio;
+using namespace Network;
 
 /******************dbagentπ‹¿Ì∆˜****************************/
 class CDBAgentClientMgr : public CSvrConnectorMgr, public AutoDeleteSingleton<CDBAgentClientMgr> {

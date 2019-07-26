@@ -4,7 +4,7 @@
 #include <vector>
 #include <cstring>
 
-namespace NetworkAsio {
+namespace Network {
     class ByteBuffer {
         typedef std::vector<char>::size_type size_type;
     public:

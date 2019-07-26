@@ -11,7 +11,7 @@
 #include "asio.hpp"
 #include "lua_service/lua_service.h"
 #include "ebus/event_bus.hpp"
-#include "network_asio/tcp_server.h"
+#include "network/tcp_server.h"
 
 using namespace std;
 
@@ -76,7 +76,7 @@ private:
     sol::state m_solLua;              // sol lua模块
     asio::io_context m_ioContext;
     svrlib::lua_service* m_luaService;         // lua server
-    std::vector<std::shared_ptr<NetworkAsio::TCPServer>> m_tcpServers;
+    std::vector<std::shared_ptr<Network::TCPServer>> m_tcpServers;
 
     uint64_t m_wheelTime;             // wheel时间
     uint32_t m_wheelPrecision;        // wheel精度

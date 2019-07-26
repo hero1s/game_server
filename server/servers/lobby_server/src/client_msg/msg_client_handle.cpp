@@ -7,7 +7,7 @@
 #include "player_mgr.h"
 #include "common_logic.h"
 
-using namespace NetworkAsio;
+using namespace Network;
 using namespace svrlib;
 using namespace std;
 

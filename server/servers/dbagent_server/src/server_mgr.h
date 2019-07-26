@@ -11,7 +11,7 @@
 
 using namespace std;
 using namespace svrlib;
-using namespace NetworkAsio;
+using namespace Network;
 
 // 服务器管理器
 class CServerMgr : public CServerClientMgr, public AutoDeleteSingleton<CServerMgr> {

@@ -5,7 +5,7 @@
 
 using namespace svrlib;
 using namespace std;
-using namespace NetworkAsio;
+using namespace Network;
 
 CPlayerMgr::CPlayerMgr()
 		:m_timer(this)
