@@ -95,6 +95,16 @@ namespace Network {
             std::swap(rpos_, rhs.rpos_);
         }
 
+        inline bool read(uint32_t uBytes, void *outBuffer) {
+            if (Size() < uBytes) return false;
+            memcpy(outBuffer, ReadBegin(), uBytes);
+            ReadBytes(uBytes);
+            return true;
+        }
+
+        template<typename T>
+        inline bool Read_(T &t) { return read(sizeof(T), &t); }
+
     private:
         std::vector<char> &&Move() {
             wpos_ = 0;

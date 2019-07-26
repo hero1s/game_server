@@ -49,7 +49,7 @@ bool CApplication::Initialize() {
     }
     do {
         uint32_t port = m_solLua["get_lobby_listen"](m_uiServerID);
-        auto tcpSvr = std::make_shared<TCPServer>(m_ioContext, "0.0.0.0", port, "lobbyServer");
+        auto tcpSvr = std::make_shared<TCPServer>(m_ioContext, "0.0.0.0", port, "lobbyServer", true);
         tcpSvr->SetConnectionCallback([](const TCPConnPtr& conn) {
             if (conn->IsConnected()) {
                 LOG_DEBUG("{},connection accepted",conn->GetName());
@@ -69,6 +69,7 @@ bool CApplication::Initialize() {
         });
         tcpSvr->SetMessageCallback([](const TCPConnPtr& conn, ByteBuffer& buffer) {
             LOG_DEBUG("recv msg {}",std::string(buffer.Data(), buffer.Size()));
+            conn->Send(buffer.Data(), buffer.Size());
             CHandleClientMsg::Instance().OnHandleClientMsg(conn,(uint8_t*)buffer.Data(),buffer.Size());
         });
         tcpSvr->Start();

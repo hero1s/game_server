@@ -37,8 +37,8 @@ bool CSvrConnectorMgr::Init(const net::svr::server_info &info, string ip, uint32
             this->OnConnect(true, conn);
             LOG_DEBUG("{},connection accepted", conn->GetName());
         } else {
+            LOG_DEBUG("{},connection disconnecting",conn->GetName());
             this->OnCloseClient(conn);
-            LOG_DEBUG("{},connection disconnecting");
         }
     });
     m_pClientPtr->SetMessageCallback([this](const TCPConnPtr &conn, ByteBuffer &buffer) {

@@ -11,7 +11,7 @@ namespace Network {
                          const std::string &name)
             : io_service_(service_), socket_(io_service_), remote_addr_(remote_addr), remote_port_(port), name_(name),
               reconnect_timer_(io_service_), auto_reconnect_(true), reconnect_interval_(3), reconnecting_times_(0),
-              conn_(), conn_fn_(DefaultConnectionCallback), msg_fn_(DefaultMessageCallback) {
+              conn_(nullptr), conn_fn_(DefaultConnectionCallback), msg_fn_(DefaultMessageCallback) {
 
     }
 

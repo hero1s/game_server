@@ -16,7 +16,8 @@ using asio::ip::tcp;
 namespace Network {
     class TCPServer {
     public:
-        TCPServer(asio::io_service &service_, const std::string &bind_ip, uint16_t port, const std::string &name);
+        TCPServer(asio::io_service &service_, const std::string &bind_ip, uint16_t port, const std::string &name,
+                  bool bWebSocket = false);
 
         ~TCPServer();
 
@@ -58,6 +59,7 @@ namespace Network {
         std::unordered_map<std::string, TCPConnPtr> conns_;
         steady_timer heartbeat_timer_;
         uint32_t disconnect_time_;
+        bool bWebSocket_;
     };
 };
 

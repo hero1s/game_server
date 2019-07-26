@@ -7,11 +7,11 @@
 
 namespace Network {
 
-    inline void DefaultConnectionCallback(const TCPConnPtr & connPtr) {
+    void DefaultConnectionCallback(const TCPConnPtr & connPtr) {
         LOG_DEBUG("connect ev:{} from:{}:{}",connPtr->GetName(),connPtr->GetRemoteAddress(),connPtr->GetRemotePort());
     }
 
-    inline void DefaultMessageCallback(const TCPConnPtr & connPtr, ByteBuffer &buffer) {
+    void DefaultMessageCallback(const TCPConnPtr & connPtr, ByteBuffer &buffer) {
         LOG_DEBUG("recv {},msg from:{},{},size:{}",connPtr->GetName(),connPtr->GetRemoteAddress(),connPtr->GetRemotePort(),buffer.Size());
     }
 

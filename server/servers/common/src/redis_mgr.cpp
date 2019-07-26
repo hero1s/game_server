@@ -23,9 +23,9 @@ CRedisMgr::~CRedisMgr() {
 
 void CRedisMgr::OnTimer() {
     CApplication::Instance().schedule(&m_timer, 5000);
-    m_asyncClient->command("PING",{},[](const redisclient::RedisValue &v){
+    //m_asyncClient->command("PING",{},[](const redisclient::RedisValue &v){
         //LOG_DEBUG("PING repeat:{}",v.toString());
-    });
+    //});
 }
 
 bool CRedisMgr::Init(asio::io_context & context, stRedisConf & conf) {

@@ -7,10 +7,12 @@
 namespace Network {
     using asio::ip::address;
 
-    TCPServer::TCPServer(asio::io_service &service_, const std::string &bind_ip, uint16_t port, const std::string &name)
+    TCPServer::TCPServer(asio::io_service &service_, const std::string &bind_ip, uint16_t port, const std::string &name,
+                         bool bWebSocket)
             : io_service_(service_), acceptor_(io_service_, tcp::endpoint(address::from_string(bind_ip), port)),
-              accept_socket_(io_service_), closed_(false), name_(name), conn_fn_(DefaultConnectionCallback), msg_fn_(DefaultMessageCallback),
-              next_conn_id_(0), heartbeat_timer_(io_service_), disconnect_time_(0) {
+              accept_socket_(io_service_), closed_(false), name_(name), conn_fn_(DefaultConnectionCallback),
+              msg_fn_(DefaultMessageCallback),
+              next_conn_id_(0), heartbeat_timer_(io_service_), disconnect_time_(0), bWebSocket_(bWebSocket) {
         acceptor_.set_option(asio::ip::tcp::acceptor::reuse_address(true));
 
     }
@@ -58,7 +60,7 @@ namespace Network {
                 this->HandleNewConn(std::move(*socket));
             } else {
                 // error notice
-                LOG_ERROR("accept error:{}",ec.message());
+                LOG_ERROR("accept error:{}", ec.message());
             }
             if (!closed_) {
                 this->AsyncAccept();
@@ -68,7 +70,7 @@ namespace Network {
 
     void TCPServer::HandleNewConn(tcp::socket &&socket) {
         std::string cn = name_ + "-conn" + "#" + std::to_string(next_conn_id_++); // TODO use string buffer
-        TCPConnPtr conn = std::make_shared<TCPConn>(io_service_, std::move(socket), cn);
+        TCPConnPtr conn = std::make_shared<TCPConn>(io_service_, std::move(socket), cn, bWebSocket_);
         assert(conn->GetType() == TCPConn::kIncoming);
         conn->SetMessageCallback(msg_fn_);
         conn->SetConnCallback(conn_fn_);
@@ -79,8 +81,8 @@ namespace Network {
 
     void TCPServer::HeartBeatTimer() {
         time_t curTime = TCPConn::Now();
-        for(auto& conn:conns_){
-            conn.second->Timeout(curTime);
+        for (auto &conn:conns_) {
+            conn.second->TimeOut(curTime);
         }
 
         heartbeat_timer_.expires_from_now(std::chrono::seconds(2));

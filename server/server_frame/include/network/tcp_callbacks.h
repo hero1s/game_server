@@ -19,8 +19,8 @@ namespace Network {
 
     typedef std::function<void(const TCPConnPtr &, ByteBuffer &)> MessageCallback;
 
-    inline void DefaultConnectionCallback(const TCPConnPtr & connPtr);
+    void DefaultConnectionCallback(const TCPConnPtr & connPtr);
 
-    inline void DefaultMessageCallback(const TCPConnPtr & connPtr, ByteBuffer &buffer);
+    void DefaultMessageCallback(const TCPConnPtr & connPtr, ByteBuffer &buffer);
 
 };

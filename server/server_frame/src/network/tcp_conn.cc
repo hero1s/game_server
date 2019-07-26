@@ -3,9 +3,21 @@
 #include "network/message_head.h"
 #include <assert.h>
 #include "utility/comm_macro.h"
+#include "crypt/base64.hpp"
+#include "crypt/sha1.h"
+#include "helper/bufferStream.h"
+#include <arpa/inet.h>
+
+#ifdef HAVE_NETINET_IN_H
+#include <netinet/in.h>
+#endif
+
+#define WEB_SOCKET_HANDS_RE "HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: %s\r\n\r\n"
+#define MAGIC_KEY "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
+
 
 namespace Network {
-    TCPConn::TCPConn(asio::io_service &service_, tcp::socket &&socket, std::string name)
+    TCPConn::TCPConn(asio::io_service &service_, tcp::socket &&socket, std::string name, bool bWebSocket)
             : io_service_(service_), socket_(std::move(socket)), type_(kIncoming), status_(kDisconnected), name_(name),
               local_ep_(socket_.local_endpoint()), remote_ep_(socket_.remote_endpoint()), recv_buffer_(),
               async_writing_(false), write_buffer_(), writing_buffer_(), high_water_mark_(32 * 1024 * 1024),
@@ -13,6 +25,9 @@ namespace Network {
               high_water_mark_fn_(nullptr),
               close_fn_(nullptr) {
 
+        bWebSocket_ = bWebSocket;
+        shake_hands_ = false;
+        ws_head_.reset();
     }
 
     TCPConn::~TCPConn() {
@@ -26,6 +41,7 @@ namespace Network {
 
         if (c->socket_.is_open()) {
             asio::error_code ec;
+            c->socket_.cancel(ec);
             c->socket_.shutdown(asio::ip::tcp::socket::shutdown_both, ec);
             c->socket_.close(ec);
         }
@@ -82,29 +98,40 @@ namespace Network {
         }
     }
 
-    bool TCPConn::Send(const char *data, size_t sz) {
+    bool TCPConn::Send(const char *data, uint16_t sz) {
+        if (bWebSocket_) {
+            return SendWebSocketMsg(data, sz);
+        }
         return SendInLoop(data, sz);
     }
 
     bool TCPConn::Send(const std::string &msg) {
+        if (bWebSocket_) {
+            return SendWebSocketMsg(msg.c_str(), msg.size());
+        }
         return SendInLoop(msg.c_str(), msg.size());
     }
-    void TCPConn::Timeout(time_t now) {
+
+    void TCPConn::TimeOut(time_t now) {
         if ((0 != timeout_) && (0 != recvtime_) && (now - recvtime_ > timeout_)) {
             LOG_DEBUG("time out and close peer:{},{}", GetName(), timeout_);
             Close();
         }
     }
 
+    void TCPConn::SetHeartTimeOut(uint32_t second) {
+        timeout_ = second;
+    }
+
     time_t TCPConn::Now() {
         return std::time(nullptr);
     }
 
-    bool TCPConn::SendInLoop(const char *data, size_t sz) {
+    bool TCPConn::SendInLoop(const char *data, uint16_t sz, bool createHead) {
         if (!socket_.is_open()) {
             return false;
         }
-        std::shared_ptr<MessageBuffer> msg = CreateMessageWithHeader(data, sz);
+        std::shared_ptr<MessageBuffer> msg = createHead ? CreateMessageWithHeader(data, sz) : CreateMessage(data, sz);
         if (!async_writing_) {
             if (write_buffer_.Size() > 0) {
                 writing_buffer_.Swap(write_buffer_);
@@ -121,6 +148,32 @@ namespace Network {
                 }
             }
         }
+        return true;
+    }
+
+    bool TCPConn::SendWebSocketMsg(const char *data, uint16_t sz) {
+        if (!shake_hands_)return false;
+        vector<char> buff;
+        buff.reserve(sz + 16);
+        buff.clear();
+        auto stream = CBufferStream(buff.data(), buff.capacity());
+        stream.write_((uint8_t) 0x82);//写头部
+        //写长度
+        if (sz >= 126) {//7位放不下
+            if (sz <= 0xFFFF) {//16位放
+                stream.write_((uint8_t) 126);
+                stream.write_((uint16_t) htons((u_short) sz));
+            } else {//64位放
+                stream.write_((uint8_t) 127);
+                //stream.write_((uint64_t)OrderSwap64(wSize));
+            }
+        } else {
+            stream.write_((uint8_t) sz);
+        }
+        //写数据
+        stream.write(sz, data);
+        SendInLoop(stream.getBuffer(), stream.getPosition(), false);
+        LOG_DEBUG("send web msg:{},size:{}",sz,stream.getPosition());
         return true;
     }
 
@@ -144,28 +197,150 @@ namespace Network {
         if (err) {
             if (err == asio::error::eof) {
                 status_ = kDisconnecting;
+                LOG_DEBUG("handle read eof:{}",err.message());
                 HandleClose();
                 return;
             }
+            LOG_DEBUG("handle read error:{}",err.message());
             HandleError();
             return;
         }
         recv_buffer_.WriteBytes(trans_bytes);
-        if (recv_buffer_.Size() >= sizeof(message_head)) {
-            message_head *head = (message_head *) recv_buffer_.ReadBegin();
-            if (recv_buffer_.Size() >= head->length_ + sizeof(message_head)) {
-                //crc32 to do
-                std::shared_ptr<MessageBuffer> msg = CreateMessage(recv_buffer_.ReadBegin() + sizeof(message_head),
-                                                                   head->length_);
-                recv_buffer_.ReadBytes(head->length_ + sizeof(message_head));
+        if(bWebSocket_){
+            char *pPacket = nullptr;
+            if (!shake_hands_)
+            {
+                pPacket = recv_buffer_.Data();
+                ShakeHandsHandle(pPacket, recv_buffer_.Size());
+                if (shake_hands_)
+                {
+                    recv_buffer_.ReadBytes(recv_buffer_.Size());
+                    LOG_DEBUG("shake hand success,begin recv data");
+                    AsyncRead();
+                    return;
+                }
+                else
+                {
+                    LOG_DEBUG("shake hand fail");
+                    AsyncRead();
+                    return;
+                }
+            }
+            while (recv_buffer_.Size() > 0)
+            {
+                //LOG_DEBUG("recv msg:{}",recv_buffer_.Size());
+                //读取websocket固定包头
+                if (!ws_head_.rh)
+                {
+                    //这个包不够一个头部的大小
+                    if (recv_buffer_.Size() < 2)
+                    {
+                        //LOG_DEBUG("less head size:{}",recv_buffer_.Size());
+                        break;
+                    }
+                    //读取
+                    uint8_t head = 0;
+                    recv_buffer_.Read_(head);
+                    ws_head_.fin = head >> 7;
+                    ws_head_.opcode = head & 0xF;
+                    recv_buffer_.Read_(head);
+                    ws_head_.len = head & 0x7F;
+                    ws_head_.mask = head >> 7;
+                    ws_head_.rh = 1;//标记头部读取完成
+                }
+                //读取长度
+                if (!ws_head_.rl)
+                {
+                    uint8_t nsize = ws_head_.GetLenNeedByte();
+                    if (nsize)
+                    {
+                        //这个包不够一个长度
+                        if (recv_buffer_.Size() < nsize)
+                        {
+                            //LOG_DEBUG("less packet size:{} --- {}",recv_buffer_.Size(),nsize);
+                            break;
+                        }
+                        if (nsize == 2)
+                        {
+                            recv_buffer_.Read_(ws_head_.ex_len.v16);
+                            ws_head_.ex_len.v16 = ntohs(ws_head_.ex_len.v16);
+                        }
+                        else
+                        {
+                            recv_buffer_.Read_(ws_head_.ex_len.v64);
+                            ws_head_.ex_len.v64 = ntohl((u_long) ws_head_.ex_len.v64);
+                        }
+                    }
+                    ws_head_.rl = 1;
+                }
+                //读取MKEY
+                if (!ws_head_.rk)
+                {
+                    if (ws_head_.mask)
+                    {
+                        //这个包不够一个key
+                        if (recv_buffer_.Size() < 4)
+                        {
+                            //LOG_DEBUG("less key len:{}",recv_buffer_.Size());
+                            break;
+                        }
+                        recv_buffer_.Read_(ws_head_.mkey[0]);
+                        recv_buffer_.Read_(ws_head_.mkey[1]);
+                        recv_buffer_.Read_(ws_head_.mkey[2]);
+                        recv_buffer_.Read_(ws_head_.mkey[3]);
+                    }
+                    ws_head_.rk = 1;
+                }
+                //读取数据段
+                uint64_t data_len = ws_head_.GetLen();
+                if (recv_buffer_.Size() < data_len)
+                {
+                    //LOG_DEBUG("data len is less:{},{}",recv_buffer_.Size(),data_len);
+                    break;
+                }
 
                 ByteBuffer buf;
-                buf.Write(msg->data_, msg->length_);
+                buf.Write(recv_buffer_.ReadBegin(),data_len);
+                recv_buffer_.ReadBytes(data_len);
+                if (ws_head_.mask)
+                {
+                    for (size_t i = 0; i < data_len; ++i)
+                    {
+                        uint8_t tmp = buf.Data()[i];
+                        tmp = tmp ^ ws_head_.mkey[i % 4];
+                        buf.Data()[i] = tmp;
+                    }
+                }
+                LOG_DEBUG("recv web msg:{}--len:{}",string((char*)(buf.Data()),buf.Size()),data_len);
+                if (ws_head_.opcode == OPCODE_CLR)
+                {
+                    LOG_DEBUG("websocket closed");
+                    Close();
+                    break;
+                }
+                ws_head_.reset();
                 msg_fn_(shared_from_this(), buf);
                 recvtime_ = Now();
             }
-        }
 
+        }else{
+            if (recv_buffer_.Size() >= sizeof(message_head)) {
+                message_head *head = (message_head *) recv_buffer_.ReadBegin();
+                if (recv_buffer_.Size() >= head->length_ + sizeof(message_head)) {
+                    //crc32 to do
+//                    std::shared_ptr<MessageBuffer> msg = CreateMessage(recv_buffer_.ReadBegin() + sizeof(message_head),
+//                                                                       head->length_);
+//                    recv_buffer_.ReadBytes(head->length_ + sizeof(message_head));
+
+                    ByteBuffer buf;
+                    buf.Write(recv_buffer_.ReadBegin() + sizeof(message_head), head->length_);
+                    recv_buffer_.ReadBytes(head->length_ + sizeof(message_head));
+
+                    msg_fn_(shared_from_this(), buf);
+                    recvtime_ = Now();
+                }
+            }
+        }
         AsyncRead();
     }
 
@@ -191,5 +366,54 @@ namespace Network {
         }
 
     }
+
+    void TCPConn::ShakeHandsHandle(const char *buf, int buflen) {
+        char key[512];
+        memset(key, 0, 512);
+        for (int i = 0; i < buflen; ++i) {
+            if (FindHttpParam("Sec-WebSocket-Key", buf + i)) {
+                short k = i + 17, ki = 0;
+                while (*(buf + k) != '\r' && *(buf + k) != '\n') {
+                    if (*(buf + k) == ':' || *(buf + k) == ' ') {
+                        ++k;
+                        continue;
+                    } else {
+                        key[ki++] = *(buf + k);
+                    }
+                    ++k;
+                }
+                break;
+            }
+        }
+        //LOG_DEBUG("key:{}...", key);
+        memcpy(key + strlen(key), MAGIC_KEY, sizeof(MAGIC_KEY));
+        //LOG_DEBUG("megerkey:{}...", key);
+        //求哈希1
+        SHA1 sha;
+        unsigned int message_digest[5];
+        sha.Reset();
+        sha << key;
+        sha.Result(message_digest);
+        for (int i = 0; i < 5; i++) {
+            message_digest[i] = htonl(message_digest[i]);
+        }
+        memset(key, 0, 512);
+        svrlib::base64::encode(key, reinterpret_cast<const char *>(message_digest), 20);
+        char http_res[640] = "";
+        sprintf(http_res, WEB_SOCKET_HANDS_RE, key);
+        SendInLoop((char *) http_res, strlen(http_res), false);
+        shake_hands_ = true;
+        LOG_DEBUG("shake hand success");
+    }
+
+    bool TCPConn::FindHttpParam(const char *param, const char *buf) {
+        while (*param == *buf) {
+            if (*(param + 1) == '\0') return true;
+            ++param;
+            ++buf;
+        }
+        return false;
+    }
+
 
 };
