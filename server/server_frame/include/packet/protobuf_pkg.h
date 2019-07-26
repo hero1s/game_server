@@ -15,7 +15,6 @@ using namespace Network;
 typedef struct packet_header_t {
     uint32_t uin;           // uin(服务器内部转发用)
     uint16_t cmd;           // 消息id
-    uint16_t datalen;       // 消息数据长度(不包括包头)
 } PACKETHEAD;
 
 #define PACKET_MAX_SIZE             1024*8
@@ -30,21 +29,6 @@ typedef struct {
 
 class pkg_client {
 public:
-    static int GetProtobufPacketLen(const uint8_t *pData, uint16_t wLen) {
-        if (pData == NULL) {
-            return -1;
-        }
-        if (wLen < PACKET_HEADER_SIZE) {
-            return -1;
-        }
-        packet_header_t *head = (packet_header_t *) pData;
-        if (head->datalen < PACKET_MAX_DATA_SIZE) {
-            return head->datalen + PACKET_HEADER_SIZE;
-        }
-        LOG_ERROR("max packet len:{},uid:{},cmd:{}", head->datalen, head->uin, head->cmd);
-        return -1;
-    }
-
     static bool
     SendProtobufMsg(const TCPConnPtr& connPtr, const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin) {
         static string sstr;
@@ -67,10 +51,9 @@ public:
             return false;
         }
         memcpy((void *) pkt.protobuf, msg, msg_len);
-        pkt.header.datalen = msg_len;
 
         //LOG_DEBUG("Socket Send Msg To Client-cmd:%d--len:%d",pkt.header.cmd,pkt.header.datalen);
-        return connPtr->Send((char*) &pkt.header, pkt.header.datalen + PACKET_HEADER_SIZE);
+        return connPtr->Send((char*) &pkt.header, msg_len + PACKET_HEADER_SIZE);
     }
 };
 
@@ -81,14 +64,10 @@ public:
         if (pData == NULL)
             return -1;
         packet_header_t *head = (packet_header_t *) pData;
-        if (head->datalen > (uiDataLen - PACKET_HEADER_SIZE)) {
-            LOG_ERROR("msg length is not right:{}--{}", uiDataLen, head->datalen);
-            return -1;
-        }
         _connPtr = connPtr;
         _head = head;
         _pkt_buf = pData + PACKET_HEADER_SIZE;
-        _buf_len = head->datalen;
+        _buf_len = uiDataLen - PACKET_HEADER_SIZE;
         _cmd = head->cmd;
 
         return OnRecvClientMsg();

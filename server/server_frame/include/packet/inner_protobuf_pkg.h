@@ -35,21 +35,6 @@ typedef struct {
 
 class pkg_inner {
 public:
-    static int GetPacketLen(const uint8_t *pData, uint16_t wLen) {
-        if (pData == NULL) {
-            return -1;
-        }
-        if (wLen < INNER_HEADER_SIZE) {
-            return -1;
-        }
-        inner_header_t *head = (inner_header_t *) pData;
-        if (head->datalen < INNER_MAX_DATA_SIZE) {
-            return head->datalen + INNER_HEADER_SIZE;
-        }
-        LOG_ERROR("max packet len:{},uid:{},cmd:{}", head->datalen, head->uin, head->cmd);
-        return -1;
-    }
-
     static bool
     SendProtobufMsg(const TCPConnPtr& connPtr, const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin,
                  uint8_t route, uint32_t routeID) {
@@ -76,9 +61,7 @@ public:
             return false;
         }
         memcpy((void *) pkt.protobuf, msg, msg_len);
-        pkt.header.datalen = msg_len;
-
-        return connPtr->Send((char*) &pkt.header, pkt.header.datalen + INNER_HEADER_SIZE);
+        return connPtr->Send((char*) &pkt.header, msg_len + INNER_HEADER_SIZE);
     }
 };
 
@@ -90,14 +73,10 @@ public:
         if (pData == NULL)
             return -1;
         inner_header_t *head = (inner_header_t *) pData;
-        if (head->datalen > (uiDataLen - INNER_HEADER_SIZE)) {
-            LOG_ERROR("msg length is not right:{}--{}", uiDataLen, head->datalen);
-            return -1;
-        }
         _connPtr = connPtr;
         _head = head;
         _pkt_buf = pData + INNER_HEADER_SIZE;
-        _buf_len = head->datalen;
+        _buf_len = uiDataLen - INNER_HEADER_SIZE;
         _cmd = head->cmd;
 
         return OnRecvClientMsg();
