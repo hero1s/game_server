@@ -311,7 +311,7 @@ namespace Network {
                         buf.Data()[i] = tmp;
                     }
                 }
-                LOG_DEBUG("recv web msg:{}--len:{}",string((char*)(buf.Data()),buf.Size()),data_len);
+                //LOG_DEBUG("recv web msg:{}--len:{}",string((char*)(buf.Data()),buf.Size()),data_len);
                 if (ws_head_.opcode == OPCODE_CLR)
                 {
                     LOG_DEBUG("websocket closed");

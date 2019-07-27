@@ -24,7 +24,6 @@ public:
     void ShutDown();
 
 protected:
-    void test_client();
     bool Reconnect(bool bSync,bool bAsync);
 
     void HandSyncError(const std::string& err);
@@ -38,7 +37,8 @@ private:
     std::shared_ptr<redisclient::RedisAsyncClient>  m_asyncClient;
 
 };
-
+//同步客户端的断开不会回调到errorhandle处理,需要try cacth操作
+//异步的已实现断线重连,在重连期间要做try cacth处理
 
 
 
