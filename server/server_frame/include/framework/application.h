@@ -12,6 +12,7 @@
 #include "lua_service/lua_service.h"
 #include "ebus/event_bus.hpp"
 #include "network/tcp_server.h"
+#include <string>
 
 using namespace std;
 
@@ -35,6 +36,8 @@ public:
     void SetServerID(unsigned int svrid);
 
     uint32_t GetServerID();
+
+    string GetUUID();
 
     //状态
     void SetStatus(uint8_t status);
@@ -70,6 +73,7 @@ public:
     void ExceptionHandle();
 
 private:
+    string   m_uuid;                  // 进程唯一标识
     uint32_t m_uiServerID;
     uint8_t m_status;                 // 服务器状态
     uint64_t m_lastTick;              // 上次tick时间

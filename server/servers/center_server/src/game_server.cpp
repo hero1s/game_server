@@ -28,7 +28,7 @@ bool CApplication::Initialize()
 		LOG_ERROR("load center_config fail ");
 		return false;
 	}
-	LOG_INFO("load config is:id:{}", m_uiServerID);
+	LOG_INFO("load config is:id:{},uuid:{}", m_uiServerID,m_uuid);
 	if (CCenterMgr::Instance().Init() == false)
 	{
 		LOG_ERROR("CenterMgr init fail");

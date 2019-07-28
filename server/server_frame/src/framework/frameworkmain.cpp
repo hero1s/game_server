@@ -14,6 +14,7 @@
 #include "ebus/frame_event.hpp"
 #include <memory>
 #include "time/time.hpp"
+#include "utility/puid.hpp"
 
 using namespace svrlib;
 
@@ -50,6 +51,7 @@ CApplication::CApplication() {
     m_wheelPrecision = 10;
     m_solLua.open_libraries();
     m_luaService = new svrlib::lua_service(&m_solLua);
+    m_uuid = svrlib::uuid::generate();
 }
 
 CApplication::~CApplication() {
@@ -107,6 +109,10 @@ void CApplication::SetServerID(unsigned int svrid) {
 
 uint32_t CApplication::GetServerID() {
     return m_uiServerID;
+}
+
+string CApplication::GetUUID(){
+    return m_uuid;
 }
 
 //״̬

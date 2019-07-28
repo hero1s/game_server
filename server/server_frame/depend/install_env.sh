@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
 echo "install gcc 8.3 begin"
+yum install vim -y
 yum install cmake -y
 yum install dos2unix -y
 yum install readline-devel -y
 yum install mysql-devel -y
+yum install libuuid-devel -y
 
 yum install centos-release-scl -y
 yum install devtoolset-8-toolchain -y
