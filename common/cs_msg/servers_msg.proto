@@ -26,6 +26,7 @@ message server_info
 	optional uint32 svr_type     = 2;		// 服务器类型
 	optional uint32 game_type  	 = 3;		// 游戏类型
 	optional uint32 game_subtype = 4;		// 游戏子类型
+	optional bytes  uuid		 = 5;		// 服务器uuid
 }
 // 注册
 message msg_register_svr_req

@@ -153,6 +153,18 @@ class server_info : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 game_subtype() const;
   inline void set_game_subtype(::google::protobuf::uint32 value);
 
+  // optional bytes uuid = 5;
+  inline bool has_uuid() const;
+  inline void clear_uuid();
+  static const int kUuidFieldNumber = 5;
+  inline const ::std::string& uuid() const;
+  inline void set_uuid(const ::std::string& value);
+  inline void set_uuid(const char* value);
+  inline void set_uuid(const void* value, size_t size);
+  inline ::std::string* mutable_uuid();
+  inline ::std::string* release_uuid();
+  inline void set_allocated_uuid(::std::string* uuid);
+
   // @@protoc_insertion_point(class_scope:net.svr.server_info)
  private:
   inline void set_has_svrid();
@@ -163,6 +175,8 @@ class server_info : public ::google::protobuf::Message {
   inline void clear_has_game_type();
   inline void set_has_game_subtype();
   inline void clear_has_game_subtype();
+  inline void set_has_uuid();
+  inline void clear_has_uuid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -170,9 +184,10 @@ class server_info : public ::google::protobuf::Message {
   ::google::protobuf::uint32 svr_type_;
   ::google::protobuf::uint32 game_type_;
   ::google::protobuf::uint32 game_subtype_;
+  ::std::string* uuid_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
 
   friend void  protobuf_AddDesc_servers_5fmsg_2eproto();
   friend void protobuf_AssignDesc_servers_5fmsg_2eproto();
@@ -928,6 +943,76 @@ inline ::google::protobuf::uint32 server_info::game_subtype() const {
 inline void server_info::set_game_subtype(::google::protobuf::uint32 value) {
   set_has_game_subtype();
   game_subtype_ = value;
+}
+
+// optional bytes uuid = 5;
+inline bool server_info::has_uuid() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void server_info::set_has_uuid() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void server_info::clear_has_uuid() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void server_info::clear_uuid() {
+  if (uuid_ != &::google::protobuf::internal::kEmptyString) {
+    uuid_->clear();
+  }
+  clear_has_uuid();
+}
+inline const ::std::string& server_info::uuid() const {
+  return *uuid_;
+}
+inline void server_info::set_uuid(const ::std::string& value) {
+  set_has_uuid();
+  if (uuid_ == &::google::protobuf::internal::kEmptyString) {
+    uuid_ = new ::std::string;
+  }
+  uuid_->assign(value);
+}
+inline void server_info::set_uuid(const char* value) {
+  set_has_uuid();
+  if (uuid_ == &::google::protobuf::internal::kEmptyString) {
+    uuid_ = new ::std::string;
+  }
+  uuid_->assign(value);
+}
+inline void server_info::set_uuid(const void* value, size_t size) {
+  set_has_uuid();
+  if (uuid_ == &::google::protobuf::internal::kEmptyString) {
+    uuid_ = new ::std::string;
+  }
+  uuid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* server_info::mutable_uuid() {
+  set_has_uuid();
+  if (uuid_ == &::google::protobuf::internal::kEmptyString) {
+    uuid_ = new ::std::string;
+  }
+  return uuid_;
+}
+inline ::std::string* server_info::release_uuid() {
+  clear_has_uuid();
+  if (uuid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uuid_;
+    uuid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void server_info::set_allocated_uuid(::std::string* uuid) {
+  if (uuid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uuid_;
+  }
+  if (uuid) {
+    set_has_uuid();
+    uuid_ = uuid;
+  } else {
+    clear_has_uuid();
+    uuid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
 }
 
 // -------------------------------------------------------------------

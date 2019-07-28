@@ -88,6 +88,10 @@ bool CApplication::Initialize() {
 
     net::svr::server_info info;
     info.set_svrid(GetServerID());
+    info.set_game_type(0);
+    info.set_game_subtype(0);
+    info.set_svr_type(emSERVER_TYPE_LOBBY);
+    info.set_uuid(m_uuid);
 
     //连接中心服
     auto centerIp = m_solLua.get<sol::table>("server_config").get<sol::table>("center");

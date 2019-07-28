@@ -57,11 +57,12 @@ void protobuf_AssignDesc_servers_5fmsg_2eproto() {
       "servers_msg.proto");
   GOOGLE_CHECK(file != NULL);
   server_info_descriptor_ = file->message_type(0);
-  static const int server_info_offsets_[4] = {
+  static const int server_info_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(server_info, svrid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(server_info, svr_type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(server_info, game_type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(server_info, game_subtype_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(server_info, uuid_),
   };
   server_info_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -246,25 +247,26 @@ void protobuf_AddDesc_servers_5fmsg_2eproto() {
   ::net::protobuf_AddDesc_base_5fmsg_5fstruct_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\021servers_msg.proto\022\007net.svr\032\025base_msg_s"
-    "truct.proto\"W\n\013server_info\022\r\n\005svrid\030\001 \001("
+    "truct.proto\"e\n\013server_info\022\r\n\005svrid\030\001 \001("
     "\r\022\020\n\010svr_type\030\002 \001(\r\022\021\n\tgame_type\030\003 \001(\r\022\024"
-    "\n\014game_subtype\030\004 \001(\r\":\n\024msg_register_svr"
-    "_req\022\"\n\004info\030\001 \001(\0132\024.net.svr.server_info"
-    "\"&\n\024msg_register_svr_rep\022\016\n\006result\030\001 \001(\r"
-    "\"@\n\023msg_server_list_rep\022)\n\013server_list\030\001"
-    " \003(\0132\024.net.svr.server_info\"6\n\022msg_async_"
-    "exec_sql\022\017\n\007db_type\030\001 \001(\r\022\017\n\007sql_str\030\002 \001"
-    "(\014\"6\n\024msg_load_player_data\022\013\n\003uid\030\001 \001(\r\022"
-    "\021\n\tdata_type\030\002 \001(\r\"M\n\030msg_load_player_da"
-    "ta_rep\022\013\n\003uid\030\001 \001(\r\022\021\n\tdata_type\030\002 \001(\r\022\021"
-    "\n\tload_data\030\003 \001(\014\"I\n\024msg_save_player_dat"
-    "a\022\013\n\003uid\030\001 \001(\r\022\021\n\tdata_type\030\002 \001(\r\022\021\n\tsav"
-    "e_data\030\003 \001(\014*\331\001\n\rSERVER_MSG_ID\022\025\n\020S2S_MS"
-    "G_REGISTER\020\311\001\022\031\n\024S2S_MSG_REGISTER_REP\020\312\001"
-    "\022\034\n\027S2S_MSG_SERVER_LIST_REP\020\313\001\022\035\n\030S2DBA_"
-    "MSG_ASYNC_EXEC_SQL\020\266\002\022\033\n\026S2DBA_LOAD_PLAY"
-    "ER_DATA\020\267\002\022\037\n\032DBA2S_LOAD_PLAYER_DATA_REP"
-    "\020\270\002\022\033\n\026S2DBA_SAVE_PLAYER_DATA\020\271\002", 792);
+    "\n\014game_subtype\030\004 \001(\r\022\014\n\004uuid\030\005 \001(\014\":\n\024ms"
+    "g_register_svr_req\022\"\n\004info\030\001 \001(\0132\024.net.s"
+    "vr.server_info\"&\n\024msg_register_svr_rep\022\016"
+    "\n\006result\030\001 \001(\r\"@\n\023msg_server_list_rep\022)\n"
+    "\013server_list\030\001 \003(\0132\024.net.svr.server_info"
+    "\"6\n\022msg_async_exec_sql\022\017\n\007db_type\030\001 \001(\r\022"
+    "\017\n\007sql_str\030\002 \001(\014\"6\n\024msg_load_player_data"
+    "\022\013\n\003uid\030\001 \001(\r\022\021\n\tdata_type\030\002 \001(\r\"M\n\030msg_"
+    "load_player_data_rep\022\013\n\003uid\030\001 \001(\r\022\021\n\tdat"
+    "a_type\030\002 \001(\r\022\021\n\tload_data\030\003 \001(\014\"I\n\024msg_s"
+    "ave_player_data\022\013\n\003uid\030\001 \001(\r\022\021\n\tdata_typ"
+    "e\030\002 \001(\r\022\021\n\tsave_data\030\003 \001(\014*\331\001\n\rSERVER_MS"
+    "G_ID\022\025\n\020S2S_MSG_REGISTER\020\311\001\022\031\n\024S2S_MSG_R"
+    "EGISTER_REP\020\312\001\022\034\n\027S2S_MSG_SERVER_LIST_RE"
+    "P\020\313\001\022\035\n\030S2DBA_MSG_ASYNC_EXEC_SQL\020\266\002\022\033\n\026S"
+    "2DBA_LOAD_PLAYER_DATA\020\267\002\022\037\n\032DBA2S_LOAD_P"
+    "LAYER_DATA_REP\020\270\002\022\033\n\026S2DBA_SAVE_PLAYER_D"
+    "ATA\020\271\002", 806);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "servers_msg.proto", &protobuf_RegisterTypes);
   server_info::default_instance_ = new server_info();
@@ -319,6 +321,7 @@ const int server_info::kSvridFieldNumber;
 const int server_info::kSvrTypeFieldNumber;
 const int server_info::kGameTypeFieldNumber;
 const int server_info::kGameSubtypeFieldNumber;
+const int server_info::kUuidFieldNumber;
 #endif  // !_MSC_VER
 
 server_info::server_info()
@@ -341,6 +344,7 @@ void server_info::SharedCtor() {
   svr_type_ = 0u;
   game_type_ = 0u;
   game_subtype_ = 0u;
+  uuid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -349,6 +353,9 @@ server_info::~server_info() {
 }
 
 void server_info::SharedDtor() {
+  if (uuid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uuid_;
+  }
   if (this != default_instance_) {
   }
 }
@@ -380,6 +387,11 @@ void server_info::Clear() {
     svr_type_ = 0u;
     game_type_ = 0u;
     game_subtype_ = 0u;
+    if (has_uuid()) {
+      if (uuid_ != &::google::protobuf::internal::kEmptyString) {
+        uuid_->clear();
+      }
+    }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -450,6 +462,20 @@ bool server_info::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(42)) goto parse_uuid;
+        break;
+      }
+
+      // optional bytes uuid = 5;
+      case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_uuid:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_uuid()));
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -492,6 +518,12 @@ void server_info::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->game_subtype(), output);
   }
 
+  // optional bytes uuid = 5;
+  if (has_uuid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytes(
+      5, this->uuid(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -518,6 +550,13 @@ void server_info::SerializeWithCachedSizes(
   // optional uint32 game_subtype = 4;
   if (has_game_subtype()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->game_subtype(), target);
+  }
+
+  // optional bytes uuid = 5;
+  if (has_uuid()) {
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+        5, this->uuid(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -559,6 +598,13 @@ int server_info::ByteSize() const {
           this->game_subtype());
     }
 
+    // optional bytes uuid = 5;
+    if (has_uuid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->uuid());
+    }
+
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -598,6 +644,9 @@ void server_info::MergeFrom(const server_info& from) {
     if (from.has_game_subtype()) {
       set_game_subtype(from.game_subtype());
     }
+    if (from.has_uuid()) {
+      set_uuid(from.uuid());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -625,6 +674,7 @@ void server_info::Swap(server_info* other) {
     std::swap(svr_type_, other->svr_type_);
     std::swap(game_type_, other->game_type_);
     std::swap(game_subtype_, other->game_subtype_);
+    std::swap(uuid_, other->uuid_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
