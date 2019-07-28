@@ -1,6 +1,6 @@
 #pragma once
 
-#include "modern/rwlock.hpp"
+#include "thread/rwlock.hpp"
 #include <string>
 #include <unordered_map>
 

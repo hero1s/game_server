@@ -2,6 +2,8 @@
 #pragma once
 
 #include <stdint.h>
+#include <thread>
+
 #include "spdlog/spdlog.h"
 
 //@brief  条件检测
@@ -144,8 +146,9 @@ do { \
 
 #endif
 
-
-
+#ifndef thread_sleep
+#define thread_sleep(x)  std::this_thread::sleep_for(std::chrono::milliseconds(x));
+#endif
 
 
 

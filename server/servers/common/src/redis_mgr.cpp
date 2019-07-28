@@ -24,9 +24,15 @@ CRedisMgr::~CRedisMgr() {
 void CRedisMgr::OnTimer() {
     CApplication::Instance().schedule(&m_timer, 5000);
 
-    //m_asyncClient->command("PING",{},[](const redisclient::RedisValue &v){
+    m_asyncClient->command("PING",{},[](const redisclient::RedisValue &v){
     //LOG_DEBUG("PING repeat:{}",v.toString());
-    //});
+    });
+    try {
+        m_syncClient->command("PING",{});
+    }catch (const asio::system_error &e) {
+        LOG_ERROR("redis throw error:{}", e.what());
+        Reconnect(true, false);
+    }
 }
 
 bool CRedisMgr::Init(asio::io_context &context, stRedisConf &conf) {

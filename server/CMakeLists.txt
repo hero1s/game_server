@@ -66,7 +66,7 @@ add_executable(server
         server_frame/include/fundamental/variablehashtable.h
         server_frame/include/fundamental/variablelengthhashtable.h
         server_frame/include/helper/bufferStream.h
-        server_frame/include/helper/filehelper.h
+        server_frame/include/file/filehelper.h
         server_frame/include/helper/fileStream.h
         server_frame/include/helper/helper.h
         server_frame/include/helper/numberStream.h
@@ -85,17 +85,16 @@ add_executable(server
         server_frame/include/memory/object_pool.hpp
         server_frame/include/memory/shm_buff_queue.h
         server_frame/include/memory/shm_cache_mgr.h
-        server_frame/include/modern/coroutine.h
-        server_frame/include/modern/directory.hpp
-        server_frame/include/modern/file.hpp
-        server_frame/include/modern/httplib.h
-        server_frame/include/modern/locked_queue.h
+        server_frame/include/file/directory.hpp
+        server_frame/include/file/file.hpp
+        server_frame/include/third/http/httplib.h
+        server_frame/include/thread/locked_queue.h
         server_frame/include/modern/noncopyable.hpp
-        server_frame/include/modern/rwlock.hpp
-        server_frame/include/modern/spinlock.hpp
-        server_frame/include/modern/thread_pool.h
-        server_frame/include/modern/timer_wheel.h
-        server_frame/include/modern/tinyxml2.h
+        server_frame/include/thread/rwlock.hpp
+        server_frame/include/thread/spinlock.hpp
+        server_frame/include/thread/thread_pool.h
+        server_frame/include/third/timer/timer_wheel.h
+        server_frame/include/third/tinyxml/tinyxml2.h
         server_frame/include/network/byte_buffer.h
         server_frame/include/network/message_head.h
         server_frame/include/network/tcp_callbacks.h
@@ -599,7 +598,6 @@ add_executable(server
         server_frame/include/utility/basic_functions.h
         server_frame/include/utility/basic_types.h
         server_frame/include/utility/comm_macro.h
-        server_frame/include/utility/event_processor.h
         server_frame/include/utility/profile_manager.h
         server_frame/include/utility/puid.hpp
         server_frame/include/utility/singleton.h
@@ -642,7 +640,7 @@ add_executable(server
         server_frame/src/memory/ipcutility.cpp
         server_frame/src/memory/shm_buff_queue.cpp
         server_frame/src/modern/json_wrap.cpp
-        server_frame/src/modern/tinyxml2.cpp
+        server_frame/src/third/tinyxml/tinyxml2.cpp
         server_frame/src/network/tcp_client.cc
         server_frame/src/network/tcp_conn.cc
         server_frame/src/network/tcp_server.cc
@@ -732,7 +730,6 @@ add_executable(server
         server_frame/src/time/time_function.cpp
         server_frame/src/time/timeutility.cpp
         server_frame/src/utility/basic_functions.cpp
-        server_frame/src/utility/event_processor.cpp
         server_frame/src/utility/profile_manager.cpp
         servers/center_server/src/center_mgr.cpp
         servers/center_server/src/center_mgr.h

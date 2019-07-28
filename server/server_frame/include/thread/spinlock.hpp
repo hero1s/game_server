@@ -1,7 +1,7 @@
 #pragma once
 #include <atomic>
 #include <thread>
-#include "noncopyable.hpp"
+#include "modern/noncopyable.hpp"
 
 namespace svrlib
 {

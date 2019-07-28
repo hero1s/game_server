@@ -14,7 +14,7 @@
 #include <mutex>
 #include <thread>
 #include <chrono>
-#include "modern/locked_queue.h"
+#include "thread/locked_queue.h"
 #include "third/asio.hpp"
 
 using namespace std;

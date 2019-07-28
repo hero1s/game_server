@@ -3,7 +3,7 @@
 #include "lua_service/lua_service.h"
 #include "config/config.h"
 #include "svrlib.h"
-#include "modern/directory.hpp"
+#include "file/directory.hpp"
 
 namespace fs = std::experimental::filesystem;
 
