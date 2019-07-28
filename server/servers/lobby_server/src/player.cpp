@@ -32,7 +32,7 @@ CPlayer::~CPlayer()
 
 void CPlayer::OnLoginOut()
 {
-    LOG_DEBUG("玩家下线:{}", GetUID());
+    LOG_DEBUG("player login out:{}", GetUID());
     if (IsPlaying()) {
         // 保存数据
         SavePlayerBaseInfo();
