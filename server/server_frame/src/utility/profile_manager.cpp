@@ -333,7 +333,7 @@ bool ProfileManager::saveData(const char *servername, uint32_t serverid, uint32_
     }
     char data_path[MAX_PATH] = {'\0'};
 
-    time_t tt = time(NULL);
+    time_t tt = ::time(NULL);
     struct tm *lt = localtime(&tt);
 
     if (tid == 0) {

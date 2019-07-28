@@ -37,7 +37,7 @@ CHandleClientMsg::~CHandleClientMsg()
 int CHandleClientMsg::handle_msg_heart()
 {
 	net::cli::msg_heart_test msg;
-	msg.set_svr_time(getSysTime());
+	msg.set_svr_time(time::getSysTime());
 	pkg_client::SendProtobufMsg(_connPtr, &msg, net::C2S_MSG_HEART, 0);
 	return 0;
 }
@@ -51,7 +51,7 @@ int CHandleClientMsg::handle_msg_login()
 	LOG_ERROR("recv player login msg:uid:{}-deviceid:{}-key:{}", msg.uid(), msg.deviceid(), msg.key());
 	uint32_t             uid = msg.uid();
 	net::cli::msg_login_rep repmsg;
-	repmsg.set_server_time(getSysTime());
+	repmsg.set_server_time(time::getSysTime());
 
 	string strDecyPHP = msg.key();
 	CPlayer* pPlayerObj = (CPlayer*) CPlayerMgr::Instance().GetPlayer(_connPtr->GetUID());
@@ -61,10 +61,10 @@ int CHandleClientMsg::handle_msg_login()
 	if (pPlayerUid == NULL || pPlayerUid->GetLoginKey() != strDecyPHP)
 	{
 		string strDecy = CCommonLogic::VerifyPasswd(uid, msg.check_time());
-		if (strDecy != strDecyPHP || std::abs(int64_t(getSysTime()) - int64_t(msg.check_time())) > DAY)
+		if (strDecy != strDecyPHP || std::abs(int64_t(time::getSysTime()) - int64_t(msg.check_time())) > DAY)
 		{
 			LOG_ERROR("check passwd error {}-PHP:{}--c++:{}", uid, strDecyPHP, strDecy);
-			LOG_ERROR("the ip is:{},svrtime:{},sendtime:{}", _connPtr->GetRemoteAddress(), getSysTime(), msg.check_time());
+			LOG_ERROR("the ip is:{},svrtime:{},sendtime:{}", _connPtr->GetRemoteAddress(), time::getSysTime(), msg.check_time());
 			repmsg.set_result(-1);
 			pkg_client::SendProtobufMsg(_connPtr, &repmsg, net::S2C_MSG_LOGIN_REP, 0);
 			return -1;
@@ -104,7 +104,7 @@ int CHandleClientMsg::handle_msg_login()
 		if (pPlayerUid != NULL)// дкЭц
 		{
 			auto pOldSock = pPlayerUid->GetSession();
-			uint32_t diffTime = getSysTime() - pPlayerUid->GetReloginTime();
+			uint32_t diffTime = time::getSysTime() - pPlayerUid->GetReloginTime();
 			LOG_ERROR("remove old player :{} oldsock {},difftime {}", uid, pOldSock->GetRemoteAddress(), diffTime);
 			if (diffTime < 1)
 			{

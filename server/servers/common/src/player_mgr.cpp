@@ -44,11 +44,11 @@ void CPlayerMgr::ShutDown()
 void CPlayerMgr::OnTimeTick()
 {
 	static uint64_t uProcessTime = 0;
-	uint64_t        uTime        = getSysTime();
+	uint64_t        uTime        = time::getSysTime();
 	if (!uProcessTime)
 		uProcessTime = uTime;
 
-	bool bNewDay = (diffTimeDay(uProcessTime, uTime) != 0);
+	bool bNewDay = (time::diffTimeDay(uProcessTime, uTime) != 0);
 	for (auto& Iter : m_mpPlayers)
 	{
 		CPlayerBase* pPlayer = Iter.second;

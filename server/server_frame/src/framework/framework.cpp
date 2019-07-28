@@ -8,10 +8,9 @@
 #include "cmdline.h"
 #include "spdlog/spdlog.h"
 #include "utility/comm_macro.h"
-#include "time/timeutility.h"
 #include "utility/profile_manager.h"
 #include "lua_service/lua_bind.h"
-
+#include "time/time.hpp"
 #include<unistd.h>
 #include<fcntl.h>
 #include<sys/stat.h>
@@ -61,9 +60,9 @@ void CFrameWork::ShutDown() {
 
 void CFrameWork::TimerTick(const std::error_code &err) {
     if (!err) {
-        auto startTime = getTickCount64();
+        auto startTime = time::millisecond();
         CApplication::Instance().Tick(CApplication::Instance().PreTick());
-        auto costTime = getTickCount64() - startTime;
+        auto costTime = time::millisecond() - startTime;
         if (costTime > TICK_MAX_INTERVAL) {
             LOG_ERROR("************** preccess tick time out:{} *********", costTime);
             m_sleepTime = TICK_MIN_INTERVAL;
@@ -194,7 +193,7 @@ void CFrameWork::WritePidToFile() {
     CFileHelper oFile(strShFileName.c_str(), CFileHelper::MOD_WRONLY_TRUNC);
     oFile.Write(0, oss.str().c_str(), oss.str().length());
     oFile.Close();
-    CTimeUtility::Sleep(10);
+    time::sleep(10);
     oss.str("");
     oss << "chmod 777 " << strShFileName;
 

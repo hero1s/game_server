@@ -4,56 +4,70 @@
 #include <cmath>
 #include <sstream>
 #include <cctype>
+#include <string_view>
+#include <iomanip>
+#include <vector>
+#include <assert.h>
+#include <cinttypes>
+#include <stdlib.h>
+#include <sstream>
+#include <ctype.h>
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+
+using namespace std;
 
 namespace svrlib
 {
     template<class T>
-    T string_convert(const string_view_t& s);
+    T string_convert(const string_view& s);
 
     template<>
-    inline std::string string_convert< std::string>(const string_view_t& s)
+    inline std::string string_convert< std::string>(const string_view& s)
     {
         return std::string(s.data(), s.size());
     }
 
     template<>
-    inline string_view_t string_convert<string_view_t>(const string_view_t& s)
+    inline string_view string_convert<string_view>(const string_view& s)
     {
         return s;
     }
 
     template<>
-    inline int32_t string_convert<int32_t>(const string_view_t& s)
+    inline int32_t string_convert<int32_t>(const string_view& s)
     {
         return static_cast<int32_t>(std::stoi(std::string(s.data(), s.size())));
     }
 
     template<>
-    inline uint32_t string_convert<uint32_t>(const string_view_t& s)
+    inline uint32_t string_convert<uint32_t>(const string_view& s)
     {
         return static_cast<uint32_t>(std::stoul(std::string(s.data(), s.size())));
     }
 
     template<>
-    inline int64_t string_convert<int64_t>(const string_view_t& s)
+    inline int64_t string_convert<int64_t>(const string_view& s)
     {
         return std::stoll(std::string(s.data(), s.size()));
     }
 
     template<>
-    inline uint64_t string_convert<uint64_t>(const string_view_t& s)
+    inline uint64_t string_convert<uint64_t>(const string_view& s)
     {
         return std::stoull(std::string(s.data(), s.size()));
     }
 
     template<>
-    inline float string_convert<float>(const string_view_t& s)
+    inline float string_convert<float>(const string_view& s)
     {
         return std::stof(std::string(s.data(), s.size()));
     }
 
     template<>
-    inline double string_convert<double>(const string_view_t& s)
+    inline double string_convert<double>(const string_view& s)
     {
         return std::stod(std::string(s.data(), s.size()));
     }
@@ -143,18 +157,18 @@ namespace svrlib
     e. split("aa/bb/cc","/")
     */
     template<class T>
-    std::vector<T> split(const string_view_t& src, const string_view_t& sep)
+    std::vector<T> split(const string_view& src, const string_view& sep)
     {
         std::vector<T> r;
-        string_view_t::const_iterator b = src.begin();
-        string_view_t::const_iterator e = src.end();
+        string_view::const_iterator b = src.begin();
+        string_view::const_iterator e = src.end();
         for (auto i = src.begin(); i != src.end(); ++i)
         {
-            if (sep.find(*i) != string_view_t::npos)
+            if (sep.find(*i) != string_view::npos)
             {
                 if (b != e && b != i)
                 {
-                    r.push_back(string_convert<T>(string_view_t(std::addressof(*b), size_t(i - b))));
+                    r.push_back(string_convert<T>(string_view(std::addressof(*b), size_t(i - b))));
                 }
                 b = e;
             }
@@ -166,7 +180,7 @@ namespace svrlib
                 }
             }
         }
-        if (b != e) r.push_back(string_convert<T>(string_view_t(std::addressof(*b), size_t(e - b))));
+        if (b != e) r.push_back(string_convert<T>(string_view(std::addressof(*b), size_t(e - b))));
         return std::move(r);
     }
 
@@ -203,26 +217,26 @@ namespace svrlib
     }
 
     //" /t/n/r"
-    inline string_view_t trim_right(string_view_t v)
+    inline string_view trim_right(string_view v)
     {
         const auto words_end(v.find_last_not_of(" \t\n\r"));
-        if (words_end != string_view_t::npos) {
+        if (words_end != string_view::npos) {
             v.remove_suffix(v.size() - words_end - 1);
         }
         return v;
     }
 
-    inline string_view_t trim_left(string_view_t v)
+    inline string_view trim_left(string_view v)
     {
         const auto words_begin(v.find_first_not_of(" \t\n\r"));
         v.remove_prefix(std::min(words_begin, v.size()));
         return v;
     }
 
-    inline string_view_t trim_surrounding(string_view_t v)
+    inline string_view trim_surrounding(string_view v)
     {
         const auto words_end(v.find_last_not_of(" \t\n\r"));
-        if (words_end != string_view_t::npos) {
+        if (words_end != string_view::npos) {
             v.remove_suffix(v.size() - words_end - 1);
         }
         const auto words_begin(v.find_first_not_of(" \t\n\r"));
@@ -230,7 +244,7 @@ namespace svrlib
         return v;
     }
 
-    inline void replace(std::string& src, string_view_t old, string_view_t strnew)
+    inline void replace(std::string& src, string_view old, string_view strnew)
     {
         for (std::string::size_type pos(0); pos != std::string::npos; pos += strnew.size()) {
             if ((pos = src.find(old, pos)) != std::string::npos)
@@ -309,7 +323,7 @@ namespace svrlib
         return true;
     }
 
-    inline std::string hex_string(string_view_t s, string_view_t tok = "")
+    inline std::string hex_string(string_view s, string_view tok = "")
     {
         std::stringstream ss;
         ss << std::setiosflags(std::ios::uppercase) << std::hex;
@@ -334,7 +348,7 @@ namespace svrlib
     };
 
     using ihash_string_functor_t = ihash_string_functor<std::string>;
-    using ihash_string_view_functor_t = ihash_string_functor<string_view_t>;
+    using ihash_string_view_functor_t = ihash_string_functor<string_view>;
 
     template<typename TString>
     struct iequal_string_functor
@@ -346,5 +360,5 @@ namespace svrlib
     };
 
     using iequal_string_functor_t = iequal_string_functor<std::string>;
-    using iequal_string_view_functor_t = iequal_string_functor<string_view_t>;
+    using iequal_string_view_functor_t = iequal_string_functor<string_view>;
 };

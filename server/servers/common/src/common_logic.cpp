@@ -16,20 +16,20 @@ using namespace svrlib;
 bool CCommonLogic::IsJoinTime(string startTime, string endTime)
 {
 	time_t time;
-	if (CTimeUtility::GetTimeFromStr(startTime, time) == false)
+	if (time::get_time_from_str(startTime, time) == false)
 	{
 		LOG_ERROR("start time error:{}", startTime);
 		return false;
 	}
 	uint32_t startTick = time;
-	if (CTimeUtility::GetTimeFromStr(endTime, time) == false)
+	if (time::get_time_from_str(endTime, time) == false)
 	{
 		LOG_ERROR("end time error:{}", endTime);
 		return false;
 	}
 	uint32_t endTick = time;
 
-	return (startTick < getSysTime() && getSysTime() < endTick);
+	return (startTick < time::getSysTime() && time::getSysTime() < endTick);
 }
 // 获得校验码
 string CCommonLogic::VerifyPasswd(uint32_t uid, uint32_t checkTime)
@@ -39,7 +39,7 @@ string CCommonLogic::VerifyPasswd(uint32_t uid, uint32_t checkTime)
 	return strDecy;
 }
 // 判断是否重置信息
-bool CCommonLogic::IsNeedReset(uint32_t lastTime, uint32_t curTime)
+bool CCommonLogic::IsNeedReset(time_t lastTime, time_t curTime)
 {
 	if (lastTime == curTime)
 		return false;
@@ -48,8 +48,8 @@ bool CCommonLogic::IsNeedReset(uint32_t lastTime, uint32_t curTime)
 	static tm tm_late;
 	memset(&tm_early, 0, sizeof(tm_early));
 	memset(&tm_late, 0, sizeof(tm_late));
-	getLocalTime(&tm_early, lastTime);
-	getLocalTime(&tm_late, curTime);
+	time::localtime(lastTime, &tm_early);
+	time::localtime(curTime, &tm_late);
 
 	uint32_t diffDay = 0;
 	//同年同日

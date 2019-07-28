@@ -55,7 +55,7 @@ CServerClientMgr::~CServerClientMgr() {
 }
 
 void CServerClientMgr::OnTimer() {
-    if (getSysTime() - m_lastCountTime > MINUTE)
+    if (time::getSysTime() - m_lastCountTime > MINUTE)
     {
         m_msgMaxCount = std::max(m_msgMaxCount, m_msgMinCount);
         if (m_msgMinCount > 0)
@@ -63,7 +63,7 @@ void CServerClientMgr::OnTimer() {
             LOG_DEBUG("route msg count :msg {},max msg {}", m_msgMinCount, m_msgMaxCount);
             m_msgMinCount = 0;
         }
-        m_lastCountTime = getSysTime();
+        m_lastCountTime = time::getSysTime();
     }
     CApplication::Instance().schedule(&m_timer, MINUTE * 1000);
 }

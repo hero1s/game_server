@@ -10,7 +10,7 @@
 #include "center_mgr.h"
 #include "svrlib.h"
 #include <iostream>
-#include "time/time_function.h"
+#include "time/time.hpp"
 #include "msg_define.pb.h"
 #include "network/tcp_server.h"
 

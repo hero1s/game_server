@@ -23,7 +23,7 @@ public:
 	// 获得校验码
 	static string VerifyPasswd(uint32_t uid, uint32_t checkTime);
 	// 判断是否重置信息
-	static bool IsNeedReset(uint32_t lastTime, uint32_t curTime);
+	static bool IsNeedReset(time_t lastTime, time_t curTime);
 
 };
 

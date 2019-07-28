@@ -13,6 +13,7 @@
 #include "lua_service/lua_bind.h"
 #include "ebus/frame_event.hpp"
 #include <memory>
+#include "time/time.hpp"
 
 using namespace svrlib;
 
@@ -79,14 +80,14 @@ void CApplication::OverShutDown() {
 
 uint64_t CApplication::PreTick() {
     // 驱动时钟
-    setSystemTick64();// 更新tick
-    setSysTime();
-    std::srand(getSysTime());
-    g_RandGen.Reset(getSysTime());
+    time::getSystemTick64(true);// 更新tick
+    time::getSysTime(true);
+    std::srand(time::getSysTime());
+    g_RandGen.Reset(time::getSysTime());
     if (m_lastTick == 0) {
-        m_lastTick = getSystemTick64();
+        m_lastTick = time::getSystemTick64();
     }
-    uint64_t curTime = getSystemTick64();
+    uint64_t curTime = time::getSystemTick64();
     int64_t delta = curTime - m_lastTick;
     if (delta > 0) {
         m_wheelTime += delta;
@@ -118,11 +119,11 @@ uint8_t CApplication::GetStatus() {
 }
 
 void CApplication::schedule(TimerEventInterface *event, uint64_t delta) {
-    m_timers.schedule(event, delta);
+    m_timers.schedule(event, delta/m_wheelPrecision);
 }
 
 void CApplication::schedule_in_range(TimerEventInterface *event, uint64_t start, uint64_t end) {
-    m_timers.schedule_in_range(event, start, end);
+    m_timers.schedule_in_range(event, start/m_wheelPrecision, end/m_wheelPrecision);
 }
 
 //获得sol模块
@@ -140,18 +141,17 @@ svrlib::lua_service* CApplication::GetLuaService(){
 //----检测日期变更---
 void CApplication::CheckNewDayEvent(){
     static uint64_t uProcessTime = 0;
-    uint64_t uTime = getSysTime();
+    uint64_t uTime = time::getSysTime();
     if (!uProcessTime)
         uProcessTime = uTime;
     if (uTime != uProcessTime) {
-        bool bNewDay = (diffTimeDay(uProcessTime, uTime) != 0);
+        bool bNewDay = (time::diffTimeDay(uProcessTime, uTime) != 0);
         if (bNewDay) {
             bool bNewWeek = false;
             bool bNewMonth = false;
             // 新的一天
             tm local_time;
-            uint64_t uTime = getTime();
-            getLocalTime(&local_time, uTime);
+            time::localtime(time::second(),&local_time);
             // 跨周        0-6
             if (local_time.tm_wday == 0) {
                 bNewWeek = true;

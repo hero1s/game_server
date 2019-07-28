@@ -4,6 +4,7 @@
 #include "config/config.h"
 #include "svrlib.h"
 #include "file/directory.hpp"
+#include "time/time.hpp"
 
 namespace fs = std::experimental::filesystem;
 
@@ -129,13 +130,13 @@ namespace svrlib {
 
     void lua_bind::bind_util() {
         lua.set_function("getSysTime", []() {
-            return getSysTime();
+            return time::getSysTime();
         });
         lua.set_function("getTick", []() {
-            return getTickCount64();
+            return time::millisecond();
         });
         lua.set_function("curTimeStr", []() {
-            return time_format(getSysTime());
+            return time::time_format(time::getSysTime());
         });
 
     }

@@ -1,9 +1,11 @@
 
-#include "time/time_function.h"
+#include "time/time.hpp"
 #include "time/cooling.h"
 /*************************************************************/
 //-------------------------------------------------------------
-//------------------------------ 
+//------------------------------
+using namespace svrlib;
+
 CCooling::CCooling()
 {
     clearCool();
@@ -25,7 +27,7 @@ uint32_t CCooling::getCoolTick()
     if (!m_uBeginTick || !m_uEndTick)
         return 0;
 
-    uint64_t uTick = getSystemTick64();
+    uint64_t uTick = time::getSystemTick64();
     return (m_uEndTick>uTick ? uint32_t(m_uEndTick-uTick) : 0);
 }
 
@@ -34,7 +36,7 @@ uint32_t CCooling::getPassTick()
     if (!m_uBeginTick || !m_uEndTick)
         return 0;
 
-    uint64_t uTick = getSystemTick64();
+    uint64_t uTick = time::getSystemTick64();
     if (uTick>m_uBeginTick)
         return (uint32_t(uTick-m_uBeginTick));
     return 0;
@@ -57,7 +59,7 @@ bool CCooling::beginCooling(uint32_t uTick)
         m_uEndTick   = 0;
         return false;
     }
-    m_uBeginTick = getSystemTick64();
+    m_uBeginTick = time::getSystemTick64();
     m_uEndTick   = m_uBeginTick+uTick;
 
     return true;

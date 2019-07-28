@@ -40,7 +40,7 @@ struct stCacheData {
         cacheType = _cacheType;
         dateLen = data.length();
         memcpy(szData, data.data(), data.length());
-        lastUpdateTime = getSysTime();
+        lastUpdateTime = time::getSysTime();
         lastSaveTime = modify ? 0 : lastUpdateTime;
     }
 
@@ -117,7 +117,7 @@ public:
             }
         }
         // 记录更新时间
-        m_mapOnlines[key] = getSysTime();
+        m_mapOnlines[key] = time::getSysTime();
         return true;
     }
 
@@ -161,7 +161,7 @@ protected:
     }
 
     void CheckClearData() {
-        uint32_t curTick = getSysTime();
+        uint32_t curTick = time::getSysTime();
         m_hpPlayerCache.BeginIterate();
         const HASH_ITEM *pItem = m_hpPlayerCache.GetNext();
         while (pItem) {
@@ -177,7 +177,7 @@ protected:
     }
 
     void CheckSaveData() {
-        uint32_t curTick = getSysTime();
+        uint32_t curTick = time::getSysTime();
         vector<uint64_t> vecDels;
         for (auto[key, updateTime] : m_mapOnlines) {
             if (curTick - updateTime < save_time_sec)
@@ -222,7 +222,7 @@ private:
     void FlushSaveTime(uint64_t key) {
         stCacheData<data_len> *pData = m_hpPlayerCache.GetValuePtr(key);
         if (pData != NULL) {
-            pData->lastSaveTime = getSysTime();
+            pData->lastSaveTime = time::getSysTime();
         }
     }
 

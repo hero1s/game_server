@@ -11,7 +11,7 @@
 #include "dbmysql_mgr.h"
 #include "svrlib.h"
 #include <iostream>
-#include "time/time_function.h"
+#include "time/time.hpp"
 #include "msg_define.pb.h"
 
 using namespace svrlib;
@@ -35,7 +35,7 @@ bool CApplication::Initialize() {
     // 初始化共享内存缓存
     if (CPlayerCacheMgr::Instance().Init(m_ioContext, 110, false,
                                          [](uint32_t uid, uint8_t cacheType, const string &data) {
-                                             CDBMysqlMgr::Instance().SavePlayerDataInfo(uid,cacheType, data, getSysTime());
+                                             CDBMysqlMgr::Instance().SavePlayerDataInfo(uid,cacheType, data, time::getSysTime());
                                          }) == false) {
         LOG_ERROR("init player cache mgr fail ");
         return false;

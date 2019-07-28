@@ -50,7 +50,7 @@ void CPlayer::OnLogin()
     LOG_DEBUG("OnLogin:{}", GetUID());
     net::cli::msg_login_rep repmsg;
     repmsg.set_result(net::RESULT_CODE_SUCCESS);
-    repmsg.set_server_time(getSysTime());
+    repmsg.set_server_time(time::getSysTime());
     SendMsgToClient(&repmsg, net::S2C_MSG_LOGIN_REP);
     uint32_t uid = GetUID();
 
@@ -58,8 +58,8 @@ void CPlayer::OnLogin()
 
     SetPlayerState(PLAYER_STATE_LOAD_DATA);
 
-    m_loadTime = getSysTime();
-    m_reloginTime = getSysTime();
+    m_loadTime = time::getSysTime();
+    m_reloginTime = time::getSysTime();
 
 }
 
@@ -83,13 +83,13 @@ void CPlayer::ReLogin()
     LOG_DEBUG("player relogin:{}", GetUID());
     net::cli::msg_login_rep repmsg;
     repmsg.set_result(net::RESULT_CODE_SUCCESS);
-    repmsg.set_server_time(getSysTime());
+    repmsg.set_server_time(time::getSysTime());
     SendMsgToClient(&repmsg, net::S2C_MSG_LOGIN_REP);
 
     SendAllPlayerData2Client();
     NotifyEnterGame();
 
-    m_reloginTime = getSysTime();
+    m_reloginTime = time::getSysTime();
 }
 
 void CPlayer::OnTimeTick(uint64_t uTime, bool bNewDay)
@@ -105,7 +105,7 @@ void CPlayer::OnTimeTick(uint64_t uTime, bool bNewDay)
     // 新的一天
     if (bNewDay) {
         tm local_time;
-        getLocalTime(&local_time, uTime);
+        time::localtime(uTime, &local_time);
 
         // 跨周0星期天，1星期1
         if (local_time.tm_wday==0)
@@ -118,7 +118,7 @@ void CPlayer::OnTimeTick(uint64_t uTime, bool bNewDay)
     }
     if (m_pSession==NULL) {
         if (m_disconnectTime==0) {
-            m_disconnectTime = getSysTime();
+            m_disconnectTime = time::getSysTime();
         }
     }
     else {
@@ -151,7 +151,7 @@ bool CPlayer::NeedRecover()
     if (m_needRecover) {
         return true;
     }
-    if (GetPlayerState()==PLAYER_STATE_LOAD_DATA && (getSysTime()-m_loadTime)>MINUTE) {
+    if (GetPlayerState()==PLAYER_STATE_LOAD_DATA && (time::getSysTime()-m_loadTime)>MINUTE) {
         LOG_ERROR("load player data time out :{}", GetUID());
         return true;
     }
@@ -159,7 +159,7 @@ bool CPlayer::NeedRecover()
         return false;
 
     if (m_pSession==NULL) {
-        if ((getSysTime()-m_disconnectTime)>s_OfflineTime)// 不在游戏中，或者超时下线
+        if ((time::getSysTime()-m_disconnectTime)>s_OfflineTime)// 不在游戏中，或者超时下线
         {
             LOG_DEBUG("not playing,time out loginout {} time {}", GetUID(), s_OfflineTime);
             return true;
@@ -253,24 +253,24 @@ void CPlayer::BuildInit()
     LOG_DEBUG("player build init :{}", GetUID());
 
     // 检测日常
-    uint32_t uBuildTime = getSysTime();
+    uint32_t uBuildTime = time::getSysTime();
     uint32_t offlinetime = m_baseInfo.offline_time;
     uint32_t uOfflineSecond = ((offlinetime && uBuildTime>offlinetime) ? (uBuildTime-offlinetime) : 0);
     //跨天检查并清理
-    int32_t iOfflineDay = diffTimeDay(offlinetime, uBuildTime);
+    int32_t iOfflineDay = time::diffTimeDay(offlinetime, uBuildTime);
     if (offlinetime==0 && iOfflineDay<=0)//新上线绝对是第一天
     {
         DailyCleanup(2);
         iOfflineDay = 0;
     }
     //跨周检查并清理
-    int32_t iOfflineWeek = diffTimeWeek(offlinetime, uBuildTime);
+    int32_t iOfflineWeek = time::diffTimeWeek(offlinetime, uBuildTime);
     if (offlinetime==0 && iOfflineWeek<=0) {
         WeeklyCleanup();
         iOfflineWeek = 0;
     }
     //跨月检查并清理
-    int32_t iOfflineMonth = diffTimeMonth(offlinetime, uBuildTime);
+    int32_t iOfflineMonth = time::diffTimeMonth(offlinetime, uBuildTime);
     if (offlinetime==0 && iOfflineMonth<=0) {
         MonthlyCleanup();
         iOfflineMonth = 0;
@@ -305,8 +305,8 @@ uint32_t CPlayer::GetNetDelay()
 bool CPlayer::SetNetDelay(uint32_t netDelay)
 {
     m_netDelay = (m_netDelay+netDelay)/2;
-    if ((getSysTime()-m_limitTime[emLIMIT_TIME_NETDELAY])>MINUTE) {
-        m_limitTime[emLIMIT_TIME_NETDELAY] = getSysTime();
+    if ((time::getSysTime()-m_limitTime[emLIMIT_TIME_NETDELAY])>MINUTE) {
+        m_limitTime[emLIMIT_TIME_NETDELAY] = time::getSysTime();
         return true;
     }
     return false;

@@ -28,7 +28,8 @@ void CRedisMgr::OnTimer() {
     //LOG_DEBUG("PING repeat:{}",v.toString());
     });
     try {
-        m_syncClient->command("PING",{});
+        auto result = m_syncClient->command("PING",{});
+        LOG_DEBUG("PING rep:{}",result.toString());
     }catch (const asio::system_error &e) {
         LOG_ERROR("redis throw error:{}", e.what());
         Reconnect(true, false);

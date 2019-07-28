@@ -10,7 +10,7 @@
 #include "svrlib.h"
 #include <iostream>
 #include "game_server_config.h"
-#include "time/time_function.h"
+#include "time/time.hpp"
 #include "lua_logic/lua_logic.h"
 #include "net/center_client.h"
 #include "net/dbagent_client.h"

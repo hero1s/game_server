@@ -2,7 +2,7 @@
 #include <dbmysql/db_task.h>
 #include "svrlib.h"
 #include "string/stringutility.h"
-#include "time/time_function.h"
+#include "time/time.hpp"
 
 using namespace std;
 using namespace svrlib;
@@ -19,7 +19,7 @@ CDBTask::~CDBTask() {
 bool CDBTask::Init(const stDBConf &conf) {
     m_Counts = 0;
     m_maxCounts = 0;
-    m_lastCountTime = time(NULL);
+    m_lastCountTime = time::second();
     m_conf = conf;
 
     return ConnectDB();
@@ -27,7 +27,7 @@ bool CDBTask::Init(const stDBConf &conf) {
 
 void CDBTask::Start() {
     m_thread = thread(std::bind(&CDBTask::Run, this));
-    this_thread::sleep_for(std::chrono::milliseconds(500));
+    time::sleep(500);
 }
 
 //等待线程完成
@@ -111,13 +111,13 @@ void CDBTask::Run() {
 
 // 统计执行数量
 void CDBTask::StatExeCount() {
-    if ((getSysTime() - m_lastCountTime) > 300)
+    if ((time::getSysTime() - m_lastCountTime) > 300)
     {
         int32_t minCount = m_Counts / 5;
         m_maxCounts = std::max(m_maxCounts, minCount);
         LOG_DEBUG("********DBTask thread {} presss min:{} count*******max:{}", m_dbName, minCount, m_maxCounts);
         m_Counts = 0;
-        m_lastCountTime = getSysTime();
+        m_lastCountTime = time::getSysTime();
     }
 }
 

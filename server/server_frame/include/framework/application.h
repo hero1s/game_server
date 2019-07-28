@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "time/time_function.h"
+#include "time/time.hpp"
 #include "utility/singleton.h"
 #include "third/timer/timer_wheel.h"
 #include "math/rand_table.h"

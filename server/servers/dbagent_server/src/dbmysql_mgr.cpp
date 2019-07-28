@@ -153,12 +153,12 @@ void CDBMysqlMgr::AddAsyncDBEvent(uint8_t dbType, shared_ptr<CDBEventReq>& pReq)
 }
 string CDBMysqlMgr::GetDayGameTableName(int64_t time)
 {
-	return CStringUtility::FormatToString("daygame%s", date_format(time));
+	return CStringUtility::FormatToString("daygame%s", time::date_format(time));
 }
 
 string CDBMysqlMgr::GetDayTranscTableName(int64_t time)
 {
-	return CStringUtility::FormatToString("daytrans%s", date_format(time));
+	return CStringUtility::FormatToString("daytrans%s", time::date_format(time));
 }
 
 void CDBMysqlMgr::AsyncLoadPlayerData(uint32_t uid,uint8_t dataType, std::function<void(shared_ptr<CDBEventRep>& pRep)> callBack)

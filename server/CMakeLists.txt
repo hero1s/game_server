@@ -69,7 +69,6 @@ add_executable(server
         server_frame/include/file/filehelper.h
         server_frame/include/helper/fileStream.h
         server_frame/include/helper/helper.h
-        server_frame/include/helper/numberStream.h
         server_frame/include/helper/streamBase.h
         server_frame/include/helper/stringStream.h
         server_frame/include/lua_service/lua_bind.h
@@ -593,8 +592,6 @@ add_executable(server
         server_frame/include/third/zlib/zlib.h
         server_frame/include/third/asio.hpp
         server_frame/include/time/cooling.h
-        server_frame/include/time/time_function.h
-        server_frame/include/time/timeutility.h
         server_frame/include/utility/basic_functions.h
         server_frame/include/utility/basic_types.h
         server_frame/include/utility/comm_macro.h
@@ -727,8 +724,6 @@ add_executable(server
         server_frame/src/third/zlib/zutil.c
         server_frame/src/third/zlib/zutil.h
         server_frame/src/time/cooling.cpp
-        server_frame/src/time/time_function.cpp
-        server_frame/src/time/timeutility.cpp
         server_frame/src/utility/basic_functions.cpp
         server_frame/src/utility/profile_manager.cpp
         servers/center_server/src/center_mgr.cpp
