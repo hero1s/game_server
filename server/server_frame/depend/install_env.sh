@@ -3,7 +3,7 @@
 echo "install gcc 8.3 begin"
 yum install vim -y
 yum install dos2unix -y
-yum install readline-devel -y
+yum install readline-devel ncurses-devel -y
 yum install mysql-devel -y
 yum install libuuid-devel -y
 
