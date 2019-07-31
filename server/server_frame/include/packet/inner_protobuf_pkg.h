@@ -61,6 +61,7 @@ public:
             return false;
         }
         memcpy((void *) pkt.protobuf, msg, msg_len);
+        LOG_DEBUG("send msg:cmd:{},uid:{},len:{}",msg_type,uin,msg_len);
         return connPtr->Send((char*) &pkt.header, msg_len + INNER_HEADER_SIZE);
     }
 };

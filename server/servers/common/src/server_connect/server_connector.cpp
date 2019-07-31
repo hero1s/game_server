@@ -28,9 +28,9 @@ void CSvrConnectorMgr::OnTimer() {
     CApplication::Instance().schedule(&m_timer, 3000);
 }
 
-bool CSvrConnectorMgr::Init(const net::svr::server_info &info, string ip, uint32_t port) {
+bool CSvrConnectorMgr::Init(const net::svr::server_info &info, string ip, uint32_t port,string svrName) {
     LOG_DEBUG("server connector to :{}:{}", ip, port);
-    m_pClientPtr = std::make_shared<TCPClient>(CApplication::Instance().GetAsioContext(), ip, port, "svrconnector");
+    m_pClientPtr = std::make_shared<TCPClient>(CApplication::Instance().GetAsioContext(), ip, port, svrName);
     m_pClientPtr->SetUID(info.svrid());
     m_pClientPtr->SetConnCallback([this](const TCPConnPtr &conn) {
         if (conn->IsConnected()) {
@@ -43,7 +43,7 @@ bool CSvrConnectorMgr::Init(const net::svr::server_info &info, string ip, uint32
     });
     m_pClientPtr->SetMessageCallback([this](const TCPConnPtr &conn, ByteBuffer &buffer) {
         this->OnHandleClientMsg(conn, (uint8_t *) buffer.Data(), buffer.Size());
-        LOG_DEBUG("recv msg {}", buffer.Size());
+        LOG_DEBUG("{} recv msg {}",m_pClientPtr->GetName(), buffer.Size());
     });
 
     m_pClientPtr->Connect();

@@ -34,6 +34,7 @@
 #include <errno.h>
 #include "file/filehelper.h"
 #include "zlib/zlib.h"
+#include "snappy/snappy.h"
 #include "svrlib.h"
 
 using namespace svrlib;
@@ -325,11 +326,15 @@ std::string CHelper::ValueToIP(uint32_t ulAddr)
 }
 
 // 压缩解压
-int32_t CHelper::Uncompress(const char* pdata, uint32_t uLen, std::string& outStr)
+bool CHelper::Uncompress(const char* pdata, uint32_t uLen, std::string& outStr,bool isSnappy)
 {
+    if(isSnappy){
+        return snappy::Uncompress(pdata,uLen,&outStr);
+    }
+
 	int32_t nRes = Z_OK;
 	vector<uint8_t> s_LocalVecBuff;
-	s_LocalVecBuff.reserve(uLen*10);//解压，分配10倍空间
+	s_LocalVecBuff.reserve(uLen*20);//解压，分配20倍空间
 	uLong s_localLen = s_LocalVecBuff.capacity();
 	nRes       = uncompress((Bytef*) s_LocalVecBuff.data(), (uLongf*) &s_localLen, (const Bytef*) pdata, (uLong) uLen);
 	if (nRes == Z_OK)
@@ -340,13 +345,17 @@ int32_t CHelper::Uncompress(const char* pdata, uint32_t uLen, std::string& outSt
 	else
 	{
 		LOG_ERROR("uncompress data error:{} ", nRes);
-		return -1;
+		return false;
 	}
-	return s_localLen;
+	return true;
 }
 
-int32_t CHelper::Compress(const char* pData, uint32_t size, std::string& outStr)
+bool CHelper::Compress(const char* pData, uint32_t size, std::string& outStr,bool isSnappy)
 {
+    if(isSnappy){
+        return snappy::Compress(pData,size,&outStr);
+    }
+
 	int32_t nRes    = Z_OK;
 	vector<uint8_t> s_LocalVecBuff;
 	uLong destLen = size;
@@ -361,9 +370,9 @@ int32_t CHelper::Compress(const char* pData, uint32_t size, std::string& outStr)
 	else
 	{
 		LOG_ERROR("compress data error:{}", nRes);
-		return -1;
+		return false;
 	}
-	return s_localLen;
+	return true;
 }
 
 

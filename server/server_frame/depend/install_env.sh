@@ -2,7 +2,6 @@
 
 echo "install gcc 8.3 begin"
 yum install vim -y
-yum install cmake -y
 yum install dos2unix -y
 yum install readline-devel -y
 yum install mysql-devel -y
@@ -16,19 +15,28 @@ source ~/.bash_profile
 
 echo "install gcc 8.3 ok"
 
+tar -vxf cmake-3.15.1.tar.gz
+cd cmake-3.15.1/
+./configure
+make && make install
+cd ..
+rm cmake-3.15.1 -rf
+echo "install cmake 3.15 ok"
+
 tar -vxf jemalloc-5.2.0.tar.bz2
 cd jemalloc-5.2.0/
 ./configure
 make && make install
 cd ..
-rm protobuf-2.5.0 -rf
+rm jemalloc-5.2.0 -rf
 
 tar -vxf protobuf-2.5.0.tar.bz2
 cd protobuf-2.5.0/
 ./configure
 make && make install
 cd ..
-rm jemalloc-5.2.0 -rf
+rm protobuf-2.5.0 -rf
+
 
 echo "add lddconfig"
 

@@ -24,7 +24,7 @@ public:
 
     void OnTimer();
 
-    bool Init(const net::svr::server_info &info, string ip, uint32_t port);
+    bool Init(const net::svr::server_info &info, string ip, uint32_t port,string svrName);
 
     void Register();
 

@@ -14,7 +14,10 @@ using handFunc = function<int()>;
 
 #ifndef PARSE_MSG
 #define PARSE_MSG(msg)                   \
-    if(ParseMsg(msg)<0)return -1;
+    if(ParseMsg(msg)<0){                 \
+        LOG_DEBUG("PARSE_MSG fail");     \
+        return -1;                       \
+    }
 #endif // PARSE_MSG
 
 // 消息处理

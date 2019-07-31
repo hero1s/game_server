@@ -4,7 +4,8 @@
 # @author: toney
 # 2013-05-7
 # common cmake
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.1)
+project(pb VERSION 1.0 LANGUAGES C CXX)
 
 include(../../../cmake_config/config_lib.cmake)
 include(../../../cmake_config/macros.cmake)

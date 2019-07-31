@@ -5,6 +5,7 @@
 #include "player_mgr.h"
 #include "common_logic.h"
 #include "net/dbagent_client.h"
+#include "helper/helper.h"
 
 using namespace svrlib;
 using namespace std;
@@ -332,6 +333,26 @@ void CPlayer::SavePlayerBaseInfo()
     LOG_DEBUG("save player data uid:{},datalen:{},{}", GetUID(), baseData.length(), m_baseInfo.offline_time);
 
     CDBAgentClientMgr::Instance().SavePlayerData(GetUID(), emACCDATA_TYPE_BASE, baseData);
+
+
+    //test
+    baseData += baseData;
+    baseData += baseData;
+    baseData += baseData;
+    baseData += baseData;
+
+    string tmpStr;
+    CHelper::Compress(baseData.c_str(),baseData.length(),tmpStr);
+    LOG_DEBUG("compress datalen:{}",tmpStr.length());
+    string tmpStr2;
+    CHelper::Uncompress(tmpStr.c_str(),tmpStr.length(),tmpStr2);
+    LOG_DEBUG("uncompress datalen:{}",tmpStr2.length());
+
+    CHelper::Compress(baseData.c_str(),baseData.length(),tmpStr, false);
+    LOG_DEBUG("compress zlib datalen:{}",tmpStr.length());
+    CHelper::Uncompress(tmpStr.c_str(),tmpStr.length(),tmpStr2, false);
+    LOG_DEBUG("uncompress zlib datalen:{}",tmpStr2.length());
+
 }
 
 

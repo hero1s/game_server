@@ -95,13 +95,13 @@ bool CApplication::Initialize() {
 
     //连接中心服
     auto centerIp = m_solLua.get<sol::table>("server_config").get<sol::table>("center");
-    if (CCenterClientMgr::Instance().Init(info, centerIp.get<string>("ip"), centerIp.get<int>("port")) == false) {
+    if (CCenterClientMgr::Instance().Init(info, centerIp.get<string>("ip"), centerIp.get<int>("port"),"center_connector") == false) {
         LOG_ERROR("init center client mgr fail");
         return false;
     }
     //连接DBAgent
     auto dbagentIp = m_solLua.get<sol::table>("server_config").get<sol::table>("dbagent");
-    if (CDBAgentClientMgr::Instance().Init(info, dbagentIp.get<string>("ip"), dbagentIp.get<int>("port")) == false) {
+    if (CDBAgentClientMgr::Instance().Init(info, dbagentIp.get<string>("ip"), dbagentIp.get<int>("port"),"dbagent_connector") == false) {
         LOG_ERROR("init dbagent client mgr fail");
         return false;
     }
@@ -115,7 +115,7 @@ bool CApplication::Initialize() {
         CPlayerMgr::Instance().AddPlayer(pPlayer);
         pPlayer->OnLogin();
     });
-    schedule(&timer, 10000);
+    schedule(&timer, 20000);
 
     return true;
 }

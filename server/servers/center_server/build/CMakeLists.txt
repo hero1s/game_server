@@ -3,8 +3,8 @@
 # @author: toney
 # 2013-04-18
 # gameServer cmake
-
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.1)
+project(center VERSION 1.0 LANGUAGES C CXX)
 
 include(../../../cmake_config/config.cmake)
 include(../../../cmake_config/macros.cmake)
@@ -31,6 +31,7 @@ add_link_path(${COMMON_LIBPATH})
 add_link_lib(common)
 add_link_lib(pb)
 add_link_lib(svrlib)
+add_link_lib(snappy)
 add_link_lib(protobuf)
 add_link_lib(uuid)
 add_link_lib(stdc++fs)

@@ -24,6 +24,7 @@ CDBAgentClientMgr::~CDBAgentClientMgr()
 // 异步执行sql
 void CDBAgentClientMgr::AsyncExecSql(uint8_t dbType, string& sqlStr)
 {
+    LOG_DEBUG("async exec sql:{},{}",dbType,sqlStr);
     net::svr::msg_async_exec_sql msg;
     msg.set_db_type(dbType);
     msg.set_sql_str(sqlStr);
@@ -33,6 +34,7 @@ void CDBAgentClientMgr::AsyncExecSql(uint8_t dbType, string& sqlStr)
 // 请求玩家数据
 void CDBAgentClientMgr::LoadPlayerData(uint32_t uid, uint32_t data_type)
 {
+    LOG_DEBUG("req load player data:uid {},type {}",uid,data_type);
     net::svr::msg_load_player_data msg;
     msg.set_uid(uid);
     msg.set_data_type(data_type);
@@ -42,6 +44,7 @@ void CDBAgentClientMgr::LoadPlayerData(uint32_t uid, uint32_t data_type)
 // 保存玩家数据
 void CDBAgentClientMgr::SavePlayerData(uint32_t uid, uint32_t data_type, const string& saveData)
 {
+    LOG_DEBUG("save player data:uid {},type {},len {}",uid,data_type,saveData.length());
     net::svr::msg_save_player_data msg;
     msg.set_uid(uid);
     msg.set_data_type(data_type);
