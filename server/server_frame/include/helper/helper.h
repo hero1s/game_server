@@ -43,9 +43,9 @@ public:
 
     static std::string ValueToIP(uint32_t ulAddr);
     // —πÀıΩ‚—π
-    static int32_t Uncompress(const char* pdata, uint32_t uLen, uint8_t** pLocalBuff);
+    static int32_t Uncompress(const char* pdata, uint32_t uLen, std::string& outStr);
 
-    static int32_t Compress(const char* pData, uint32_t size, uint8_t** pLocalBuff);
+    static int32_t Compress(const char* pData, uint32_t size, std::string& outStr);
 
 };
 }

@@ -40,8 +40,7 @@ using namespace svrlib;
 
 namespace
 {
-	static vector<uint8_t> s_LocalVecBuff;
-	static uLong s_localLen = 0;
+
 };
 
 size_t CHelper::GetDirectoryFiles(std::string const& oPathDir, std::vector<std::string>& oFileNames)
@@ -326,18 +325,17 @@ std::string CHelper::ValueToIP(uint32_t ulAddr)
 }
 
 // 压缩解压
-int32_t CHelper::Uncompress(const char* pdata, uint32_t uLen, uint8_t** pLocalBuff)
+int32_t CHelper::Uncompress(const char* pdata, uint32_t uLen, std::string& outStr)
 {
 	int32_t nRes = Z_OK;
-	if(s_LocalVecBuff.size() < uLen*10){
-		s_LocalVecBuff.reserve(uLen*10);//解压，分配10倍空间
-	}
-	s_localLen = s_LocalVecBuff.capacity();
+	vector<uint8_t> s_LocalVecBuff;
+	s_LocalVecBuff.reserve(uLen*10);//解压，分配10倍空间
+	uLong s_localLen = s_LocalVecBuff.capacity();
 	nRes       = uncompress((Bytef*) s_LocalVecBuff.data(), (uLongf*) &s_localLen, (const Bytef*) pdata, (uLong) uLen);
 	if (nRes == Z_OK)
 	{
 		//LOG_DEBUG("uncompress data context size:{}--->{}", uLen, s_localLen);
-		*pLocalBuff = s_LocalVecBuff.data();
+		outStr = std::string((char*)s_LocalVecBuff.data(),s_localLen);
 	}
 	else
 	{
@@ -347,19 +345,18 @@ int32_t CHelper::Uncompress(const char* pdata, uint32_t uLen, uint8_t** pLocalBu
 	return s_localLen;
 }
 
-int32_t CHelper::Compress(const char* pData, uint32_t size, uint8_t** pLocalBuff)
+int32_t CHelper::Compress(const char* pData, uint32_t size, std::string& outStr)
 {
 	int32_t nRes    = Z_OK;
+	vector<uint8_t> s_LocalVecBuff;
 	uLong destLen = size;
-	if(s_LocalVecBuff.size() < size*2){
-		s_LocalVecBuff.reserve(size*2);//压缩，分配2倍空间
-	}
-	s_localLen = s_LocalVecBuff.capacity();
+	s_LocalVecBuff.reserve(size*2);//压缩，分配2倍空间
+	uLong s_localLen = s_LocalVecBuff.capacity();
 	nRes       = compress((Bytef*) s_LocalVecBuff.data(), (uLongf*) &s_localLen, (const Bytef*) pData, (uLong) destLen);
 	if (nRes == Z_OK)
 	{
 		//LOG_DEBUG("compress data context size:{} --->{}", size, s_localLen);
-		*pLocalBuff = s_LocalVecBuff.data();
+		outStr = std::string((char*)s_LocalVecBuff.data(),s_localLen);
 	}
 	else
 	{
