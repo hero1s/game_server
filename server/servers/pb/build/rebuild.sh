@@ -20,6 +20,7 @@ do
 	esac
 done
 
-make -j 8
+cpu=`cat /proc/cpuinfo| grep "processor"| wc -l`
+make -j${cpu}
 
 cd $root_dir
