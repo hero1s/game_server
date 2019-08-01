@@ -4,7 +4,6 @@
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/message.h>
 #include "svrlib.h"
-#include "zlib.h"
 #include "protobuf_handle.h"
 #include "network/tcp_conn.h"
 

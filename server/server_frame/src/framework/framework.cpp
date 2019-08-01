@@ -187,9 +187,7 @@ void CFrameWork::StopRun(int iSig) {
 void CFrameWork::WritePidToFile() {
     std::ostringstream oss;
     oss << getpid();
-    std::string strShFileName = CHelper::GetExeDir();
-    strShFileName = CStringUtility::FormatToString("pid_%d.txt", CApplication::Instance().GetServerID());
-
+    std::string strShFileName = CStringUtility::FormatToString("pid_%d.txt", CApplication::Instance().GetServerID());
     CFileHelper oFile(strShFileName.c_str(), CFileHelper::MOD_WRONLY_TRUNC);
     oFile.Write(0, oss.str().c_str(), oss.str().length());
     oFile.Close();

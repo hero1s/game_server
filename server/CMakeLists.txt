@@ -84,7 +84,6 @@ add_executable(server
         server_frame/include/math/rect.h
         server_frame/include/memory/ipcutility.h
         server_frame/include/memory/object_pool.hpp
-        server_frame/include/memory/shm_buff_queue.h
         server_frame/include/memory/shm_cache_mgr.h
         server_frame/include/modern/noncopyable.hpp
         server_frame/include/network/byte_buffer.h
@@ -164,7 +163,6 @@ add_executable(server
         server_frame/src/math/math_functions.cpp
         server_frame/src/math/rand_table.cpp
         server_frame/src/memory/ipcutility.cpp
-        server_frame/src/memory/shm_buff_queue.cpp
         server_frame/src/modern/json_wrap.cpp
         server_frame/src/network/tcp_callbacks.cpp
         server_frame/src/network/tcp_client.cc

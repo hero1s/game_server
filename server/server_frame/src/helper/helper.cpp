@@ -33,8 +33,6 @@
 #include <string.h>
 #include <errno.h>
 #include "file/filehelper.h"
-#include "zlib/zlib.h"
-#include "snappy/snappy.h"
 #include "svrlib.h"
 
 using namespace svrlib;
@@ -325,55 +323,7 @@ std::string CHelper::ValueToIP(uint32_t ulAddr)
 	return string(strTemp);
 }
 
-// 压缩解压
-bool CHelper::Uncompress(const char* pdata, uint32_t uLen, std::string& outStr,bool isSnappy)
-{
-    if(isSnappy){
-        return snappy::Uncompress(pdata,uLen,&outStr);
-    }
 
-	int32_t nRes = Z_OK;
-	vector<uint8_t> s_LocalVecBuff;
-	s_LocalVecBuff.reserve(uLen*20);//解压，分配20倍空间
-	uLong s_localLen = s_LocalVecBuff.capacity();
-	nRes       = uncompress((Bytef*) s_LocalVecBuff.data(), (uLongf*) &s_localLen, (const Bytef*) pdata, (uLong) uLen);
-	if (nRes == Z_OK)
-	{
-		//LOG_DEBUG("uncompress data context size:{}--->{}", uLen, s_localLen);
-		outStr = std::string((char*)s_LocalVecBuff.data(),s_localLen);
-	}
-	else
-	{
-		LOG_ERROR("uncompress data error:{} ", nRes);
-		return false;
-	}
-	return true;
-}
-
-bool CHelper::Compress(const char* pData, uint32_t size, std::string& outStr,bool isSnappy)
-{
-    if(isSnappy){
-        return snappy::Compress(pData,size,&outStr);
-    }
-
-	int32_t nRes    = Z_OK;
-	vector<uint8_t> s_LocalVecBuff;
-	uLong destLen = size;
-	s_LocalVecBuff.reserve(size*2);//压缩，分配2倍空间
-	uLong s_localLen = s_LocalVecBuff.capacity();
-	nRes       = compress((Bytef*) s_LocalVecBuff.data(), (uLongf*) &s_localLen, (const Bytef*) pData, (uLong) destLen);
-	if (nRes == Z_OK)
-	{
-		//LOG_DEBUG("compress data context size:{} --->{}", size, s_localLen);
-		outStr = std::string((char*)s_LocalVecBuff.data(),s_localLen);
-	}
-	else
-	{
-		LOG_ERROR("compress data error:{}", nRes);
-		return false;
-	}
-	return true;
-}
 
 
 
