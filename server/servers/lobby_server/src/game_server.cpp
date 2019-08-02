@@ -57,8 +57,8 @@ bool CApplication::Initialize() {
             else {
                 LOG_ERROR("client ondisconnect:{}--{}", conn->GetUID(), conn->GetRemoteAddress());
                 uint32_t uid = conn->GetUID();
-                CPlayer* pPlayer = (CPlayer*) CPlayerMgr::Instance().GetPlayer(uid);
-                if (pPlayer != NULL)
+                auto pPlayer = std::dynamic_pointer_cast<CPlayer>(CPlayerMgr::Instance().GetPlayer(uid));
+                if (pPlayer != nullptr)
                 {
                     // 不直接断线，保留一定时间
                     pPlayer->SetSession(nullptr);
@@ -110,7 +110,7 @@ bool CApplication::Initialize() {
 
     //test toney
     static TimerEvent<std::function<void()>> timer([]() {
-        CPlayer *pPlayer = new CPlayer(PLAYER_TYPE_ONLINE);
+        auto pPlayer = std::make_shared<CPlayer>(PLAYER_TYPE_ONLINE);
         pPlayer->SetUID(110);
         CPlayerMgr::Instance().AddPlayer(pPlayer);
         pPlayer->OnLogin();
@@ -124,7 +124,6 @@ void CApplication::ShutDown() {
 
     CPlayerMgr::Instance().ShutDown();
     CRedisMgr::Instance().ShutDown();
-
 
     m_luaService->exit();
 }

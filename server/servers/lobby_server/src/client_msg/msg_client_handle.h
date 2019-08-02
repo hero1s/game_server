@@ -20,7 +20,7 @@ protected:
 	// µÇÂ¼
 	int handle_msg_login();
 
-	CPlayer* GetPlayer(const TCPConnPtr& connPtr);
+	std::shared_ptr<CPlayer> GetPlayer(const TCPConnPtr& connPtr);
 };
 
 

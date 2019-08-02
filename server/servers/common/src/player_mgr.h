@@ -14,48 +14,48 @@ using namespace svrlib;
 using namespace std;
 using namespace Network;
 
-class CPlayerMgr : public AutoDeleteSingleton<CPlayerMgr>
-{
+class CPlayerMgr : public AutoDeleteSingleton<CPlayerMgr> {
 public:
-	CPlayerMgr();
+    CPlayerMgr();
 
-	~CPlayerMgr();
+    ~CPlayerMgr();
 
-	void OnTimer();
+    void OnTimer();
 
-	bool Init();
+    bool Init();
 
-	void ShutDown();
+    void ShutDown();
 
-	void OnTimeTick();
+    void OnTimeTick();
 
-	bool IsOnline(uint32_t uid);
+    bool IsOnline(uint32_t uid);
 
-	CPlayerBase* GetPlayer(uint32_t uid);
+    std::shared_ptr<CPlayerBase> GetPlayer(uint32_t uid);
 
-	bool AddPlayer(CPlayerBase* pPlayer);
+    bool AddPlayer(std::shared_ptr<CPlayerBase> pPlayer);
 
-	bool RemovePlayer(CPlayerBase* pPlayer);
+    bool RemovePlayer(std::shared_ptr<CPlayerBase> pPlayer);
 
-	void SendMsgToAll(const google::protobuf::Message* msg, uint16_t msg_type);
+    void SendMsgToAll(const google::protobuf::Message *msg, uint16_t msg_type);
 
-	void SendMsgToAll(const void* msg, uint16_t msg_len, uint16_t msg_type);
+    void SendMsgToAll(const void *msg, uint16_t msg_len, uint16_t msg_type);
 
-	bool SendMsgToPlayer(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uid);
+    bool SendMsgToPlayer(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uid);
 
-	bool SendMsgToPlayer(const void* msg, uint16_t msg_len, uint16_t msg_type, uint32_t uid);
+    bool SendMsgToPlayer(const void *msg, uint16_t msg_len, uint16_t msg_type, uint32_t uid);
 
-	uint32_t GetOnlines();
+    uint32_t GetOnlines();
 
-	void GetAllPlayers(vector<CPlayerBase*>& refVec);
+    void GetAllPlayers(vector<std::shared_ptr<CPlayerBase>> &refVec);
 
-	void RecoverPlayer(CPlayerBase* pPlayer);
+    void RecoverPlayer(std::shared_ptr<CPlayerBase> pPlayer);
+
 protected:
-	void CheckRecoverPlayer();
+    void CheckRecoverPlayer();
 
 private:
-	unordered_map<uint32_t, CPlayerBase*>                m_mpPlayers;
-	MemberTimerEvent<CPlayerMgr, &CPlayerMgr::OnTimer> m_timer;
+    unordered_map<uint32_t, std::shared_ptr<CPlayerBase>> m_mpPlayers;
+    MemberTimerEvent<CPlayerMgr, &CPlayerMgr::OnTimer> m_timer;
 
 };
 

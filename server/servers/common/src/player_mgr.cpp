@@ -32,7 +32,7 @@ bool CPlayerMgr::Init()
 void CPlayerMgr::ShutDown()
 {
 	m_timer.cancel();
-	vector<CPlayerBase*> vecPlayers;
+	vector<std::shared_ptr<CPlayerBase>> vecPlayers;
 	GetAllPlayers(vecPlayers);
 	for (uint32_t i = 0; i < vecPlayers.size(); ++i)
 	{
@@ -51,7 +51,7 @@ void CPlayerMgr::OnTimeTick()
 	bool bNewDay = (time::diffTimeDay(uProcessTime, uTime) != 0);
 	for (auto& Iter : m_mpPlayers)
 	{
-		CPlayerBase* pPlayer = Iter.second;
+		auto pPlayer = Iter.second;
 		pPlayer->OnTimeTick(uTime, bNewDay);
 	}
 	uProcessTime = uTime;
@@ -67,7 +67,7 @@ bool CPlayerMgr::IsOnline(uint32_t uid)
 	return false;
 }
 
-CPlayerBase* CPlayerMgr::GetPlayer(uint32_t dwUin)
+std::shared_ptr<CPlayerBase> CPlayerMgr::GetPlayer(uint32_t dwUin)
 {
 	auto Iter = m_mpPlayers.find(dwUin);
 	if (Iter != m_mpPlayers.end())
@@ -77,7 +77,7 @@ CPlayerBase* CPlayerMgr::GetPlayer(uint32_t dwUin)
 	return NULL;
 }
 
-bool CPlayerMgr::AddPlayer(CPlayerBase* pPlayer)
+bool CPlayerMgr::AddPlayer(std::shared_ptr<CPlayerBase> pPlayer)
 {
 	if (IsOnline(pPlayer->GetUID()))
 	{
@@ -88,7 +88,7 @@ bool CPlayerMgr::AddPlayer(CPlayerBase* pPlayer)
 	return true;
 }
 
-bool CPlayerMgr::RemovePlayer(CPlayerBase* pPlayer)
+bool CPlayerMgr::RemovePlayer(std::shared_ptr<CPlayerBase> pPlayer)
 {
 	m_mpPlayers.erase(pPlayer->GetUID());
 	return true;
@@ -98,7 +98,7 @@ void CPlayerMgr::SendMsgToAll(const google::protobuf::Message* msg, uint16_t msg
 {
 	for (auto& Iter : m_mpPlayers)
 	{
-		CPlayerBase* pPlayer = Iter.second;
+		auto pPlayer = Iter.second;
 		if (pPlayer->IsPlaying())
 		{
 			pPlayer->SendMsgToClient(msg, msg_type);
@@ -110,7 +110,7 @@ void CPlayerMgr::SendMsgToAll(const void* msg, uint16_t msg_len, uint16_t msg_ty
 {
 	for (auto& Iter : m_mpPlayers)
 	{
-		CPlayerBase* pPlayer = Iter.second;
+		auto pPlayer = Iter.second;
 		if (pPlayer->IsPlaying())
 		{
 			pPlayer->SendMsgToClient(msg, msg_len, msg_type);
@@ -120,8 +120,8 @@ void CPlayerMgr::SendMsgToAll(const void* msg, uint16_t msg_len, uint16_t msg_ty
 
 bool CPlayerMgr::SendMsgToPlayer(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uid)
 {
-	CPlayerBase* pPlayer = GetPlayer(uid);
-	if (pPlayer != NULL)
+	auto pPlayer = GetPlayer(uid);
+	if (pPlayer != nullptr)
 	{
 		pPlayer->SendMsgToClient(msg, msg_type);
 		return true;
@@ -131,8 +131,8 @@ bool CPlayerMgr::SendMsgToPlayer(const google::protobuf::Message* msg, uint16_t 
 
 bool CPlayerMgr::SendMsgToPlayer(const void* msg, uint16_t msg_len, uint16_t msg_type, uint32_t uid)
 {
-	CPlayerBase* pPlayer = GetPlayer(uid);
-	if (pPlayer != NULL)
+	auto pPlayer = GetPlayer(uid);
+	if (pPlayer != nullptr)
 	{
 		pPlayer->SendMsgToClient(msg, msg_len, msg_type);
 		return true;
@@ -145,24 +145,23 @@ uint32_t CPlayerMgr::GetOnlines()
 	return m_mpPlayers.size();
 }
 
-void CPlayerMgr::GetAllPlayers(vector<CPlayerBase*>& refVec)
+void CPlayerMgr::GetAllPlayers(vector<std::shared_ptr<CPlayerBase>>& refVec)
 {
 	for (auto& Iter : m_mpPlayers)
 	{
-		CPlayerBase* pPlayer = Iter.second;
+		auto pPlayer = Iter.second;
 		refVec.push_back(pPlayer);
 	}
 }
-void CPlayerMgr::RecoverPlayer(CPlayerBase* pPlayer)
+void CPlayerMgr::RecoverPlayer(std::shared_ptr<CPlayerBase> pPlayer)
 {
 	LOG_DEBUG("recover player£º{}", pPlayer->GetUID());
 	pPlayer->OnLoginOut();
 	RemovePlayer(pPlayer);
-	SAFE_DELETE(pPlayer);
 }
 void CPlayerMgr::CheckRecoverPlayer()
 {
-	vector<CPlayerBase*> vecPlayers;
+	vector<std::shared_ptr<CPlayerBase>> vecPlayers;
 	CPlayerMgr::Instance().GetAllPlayers(vecPlayers);
 	for (auto pPlayer : vecPlayers)
 	{

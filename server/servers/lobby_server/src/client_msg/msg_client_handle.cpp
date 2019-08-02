@@ -54,8 +54,8 @@ int CHandleClientMsg::handle_msg_login()
 	repmsg.set_server_time(time::getSysTime());
 
 	string strDecyPHP = msg.key();
-	CPlayer* pPlayerObj = (CPlayer*) CPlayerMgr::Instance().GetPlayer(_connPtr->GetUID());
-	CPlayer* pPlayerUid = (CPlayer*) CPlayerMgr::Instance().GetPlayer(uid);
+	auto pPlayerObj = std::dynamic_pointer_cast<CPlayer>(CPlayerMgr::Instance().GetPlayer(_connPtr->GetUID()));
+	auto pPlayerUid = std::dynamic_pointer_cast<CPlayer>(CPlayerMgr::Instance().GetPlayer(uid));
 
 	// 校验密码
 	if (pPlayerUid == NULL || pPlayerUid->GetLoginKey() != strDecyPHP)
@@ -134,7 +134,7 @@ int CHandleClientMsg::handle_msg_login()
 			return 0;
 		}
 	}
-	CPlayer* pPlayer = new CPlayer(PLAYER_TYPE_ONLINE);
+	auto pPlayer = std::make_shared<CPlayer>(PLAYER_TYPE_ONLINE);
 	_connPtr->SetUID(uid);
 	pPlayer->SetSession(_connPtr);
 	pPlayer->SetUID(uid);
@@ -145,9 +145,9 @@ int CHandleClientMsg::handle_msg_login()
 	return 0;
 }
 
-CPlayer* CHandleClientMsg::GetPlayer(const TCPConnPtr& connPtr)
+std::shared_ptr<CPlayer> CHandleClientMsg::GetPlayer(const TCPConnPtr& connPtr)
 {
-	CPlayer* pPlayer = (CPlayer*) CPlayerMgr::Instance().GetPlayer(connPtr->GetUID());
+	auto pPlayer = std::dynamic_pointer_cast<CPlayer>(CPlayerMgr::Instance().GetPlayer(connPtr->GetUID()));
 	if (pPlayer == NULL || !pPlayer->IsPlaying())
 	{
 		LOG_DEBUG("玩家不存在，或者玩家不在在线状态:{}", connPtr->GetUID());

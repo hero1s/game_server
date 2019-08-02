@@ -11,20 +11,17 @@ using namespace svrlib;
 //----------------------------------------------------------------------------------------------------------------------------
 
 CDBAgentClientMgr::CDBAgentClientMgr()
-        :CSvrConnectorMgr()
-{
+        : CSvrConnectorMgr() {
     bind_handler(this, net::svr::DBA2S_LOAD_PLAYER_DATA_REP, &CDBAgentClientMgr::handle_msg_load_data_rep);
 }
 
-CDBAgentClientMgr::~CDBAgentClientMgr()
-{
+CDBAgentClientMgr::~CDBAgentClientMgr() {
 
 }
 
 // 异步执行sql
-void CDBAgentClientMgr::AsyncExecSql(uint8_t dbType, string& sqlStr)
-{
-    LOG_DEBUG("async exec sql:{},{}",dbType,sqlStr);
+void CDBAgentClientMgr::AsyncExecSql(uint8_t dbType, string &sqlStr) {
+    LOG_DEBUG("async exec sql:{},{}", dbType, sqlStr);
     net::svr::msg_async_exec_sql msg;
     msg.set_db_type(dbType);
     msg.set_sql_str(sqlStr);
@@ -32,9 +29,8 @@ void CDBAgentClientMgr::AsyncExecSql(uint8_t dbType, string& sqlStr)
 }
 
 // 请求玩家数据
-void CDBAgentClientMgr::LoadPlayerData(uint32_t uid, uint32_t data_type)
-{
-    LOG_DEBUG("req load player data:uid {},type {}",uid,data_type);
+void CDBAgentClientMgr::LoadPlayerData(uint32_t uid, uint32_t data_type) {
+    LOG_DEBUG("req load player data:uid {},type {}", uid, data_type);
     net::svr::msg_load_player_data msg;
     msg.set_uid(uid);
     msg.set_data_type(data_type);
@@ -42,9 +38,8 @@ void CDBAgentClientMgr::LoadPlayerData(uint32_t uid, uint32_t data_type)
 }
 
 // 保存玩家数据
-void CDBAgentClientMgr::SavePlayerData(uint32_t uid, uint32_t data_type, const string& saveData)
-{
-    LOG_DEBUG("save player data:uid {},type {},len {}",uid,data_type,saveData.length());
+void CDBAgentClientMgr::SavePlayerData(uint32_t uid, uint32_t data_type, const string &saveData) {
+    LOG_DEBUG("save player data:uid {},type {},len {}", uid, data_type, saveData.length());
     net::svr::msg_save_player_data msg;
     msg.set_uid(uid);
     msg.set_data_type(data_type);
@@ -53,20 +48,18 @@ void CDBAgentClientMgr::SavePlayerData(uint32_t uid, uint32_t data_type, const s
 }
 
 //请求数据返回
-int CDBAgentClientMgr::handle_msg_load_data_rep()
-{
+int CDBAgentClientMgr::handle_msg_load_data_rep() {
     net::svr::msg_load_player_data_rep msg;
     PARSE_MSG(msg);
 
     LOG_DEBUG("DBAgent load player data rep:{}", msg.uid());
-    CPlayer* pPlayer = dynamic_cast<CPlayer*>(CPlayerMgr::Instance().GetPlayer(msg.uid()));
-    if (pPlayer!=NULL && pPlayer->GetPlayerState()==PLAYER_STATE_LOAD_DATA) {
+    auto pPlayer = std::dynamic_pointer_cast<CPlayer>(CPlayerMgr::Instance().GetPlayer(msg.uid()));
+    if (pPlayer != nullptr && pPlayer->GetPlayerState() == PLAYER_STATE_LOAD_DATA) {
         net::base_info baseInfo;//基础数据
         if (baseInfo.ParseFromString(msg.load_data())) {
             LOG_DEBUG("load base info success :{},datalen:{}", msg.uid(), msg.load_data().length());
             DUMP_PROTO_MSG_INFO(baseInfo);
-        }
-        else {
+        } else {
             LOG_ERROR("base info parase error :{} {}", msg.uid(), msg.load_data().length());
         }
 
@@ -77,8 +70,7 @@ int CDBAgentClientMgr::handle_msg_load_data_rep()
         if (pPlayer->IsLoadOver()) {
             pPlayer->OnGetAllData();
         }
-    }
-    else {
+    } else {
         LOG_DEBUG("the player is not find:{}", msg.uid());
     }
 
