@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "fundamental/common.h"
-#include "modern/noncopyable.hpp"
+#include "utility/noncopyable.hpp"
 
 namespace svrlib {
 #pragma pack(1)

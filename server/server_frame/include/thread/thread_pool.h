@@ -13,7 +13,7 @@
 
 class ThreadPool {
 public:
-    ThreadPool(size_t);
+    ThreadPool(size_t = std::thread::hardware_concurrency());
 
     template<class F, class... Args>
     auto enqueue(F&& f, Args&& ... args)

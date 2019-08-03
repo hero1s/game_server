@@ -85,7 +85,7 @@ add_executable(server
         server_frame/include/memory/ipcutility.h
         server_frame/include/memory/object_pool.hpp
         server_frame/include/memory/shm_cache_mgr.h
-        server_frame/include/modern/noncopyable.hpp
+        server_frame/include/utility/noncopyable.hpp
         server_frame/include/network/byte_buffer.h
         server_frame/include/network/message_head.h
         server_frame/include/network/tcp_callbacks.h

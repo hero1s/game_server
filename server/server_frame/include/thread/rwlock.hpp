@@ -2,7 +2,7 @@
 
 #include <atomic>
 #include <cstdint>
-#include "modern/noncopyable.hpp"
+#include "utility/noncopyable.hpp"
 #include <thread>
 /* read write lock */
 namespace svrlib
