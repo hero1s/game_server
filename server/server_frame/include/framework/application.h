@@ -4,7 +4,7 @@
 #include "time/time.hpp"
 #include "utility/singleton.h"
 #include "third/timer/timer_wheel.h"
-#include "math/rand_table.h"
+#include "math/random.hpp"
 #include "sol/sol.hpp"
 #include <memory>
 #include <vector>

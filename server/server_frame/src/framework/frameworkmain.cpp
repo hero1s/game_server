@@ -85,7 +85,6 @@ uint64_t CApplication::PreTick() {
     time::getSystemTick64(true);// ¸üÐÂtick
     time::getSysTime(true);
     std::srand(time::getSysTime());
-    g_RandGen.Reset(time::getSysTime());
     if (m_lastTick == 0) {
         m_lastTick = time::getSystemTick64();
     }

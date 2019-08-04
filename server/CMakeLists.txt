@@ -79,7 +79,7 @@ add_executable(server
         server_frame/include/math/math_functions.h
         server_frame/include/math/point2.h
         server_frame/include/math/point3.h
-        server_frame/include/math/rand_table.h
+        server_frame/include/math/random.hpp
         server_frame/include/math/rank.h
         server_frame/include/math/rect.h
         server_frame/include/memory/ipcutility.h
@@ -161,7 +161,6 @@ add_executable(server
         server_frame/src/lua_service/lua_bind.cpp
         server_frame/src/lua_service/lua_service.cpp
         server_frame/src/math/math_functions.cpp
-        server_frame/src/math/rand_table.cpp
         server_frame/src/memory/ipcutility.cpp
         server_frame/src/modern/json_wrap.cpp
         server_frame/src/network/tcp_callbacks.cpp
