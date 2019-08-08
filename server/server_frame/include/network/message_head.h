@@ -49,4 +49,4 @@ namespace Network {
 	}
 
 };
-
+// std::uint32_t crc = CRC::Calculate(myString, sizeof(myString), CRC::CRC_32()); crc example
