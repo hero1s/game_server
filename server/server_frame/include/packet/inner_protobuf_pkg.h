@@ -47,6 +47,7 @@ public:
     SendBuffMsg(const TCPConnPtr& connPtr, const void *msg, uint16_t msg_len, uint16_t msg_type, uint32_t uin,
                      uint8_t route, uint32_t routeID) {
         if (connPtr == nullptr) {
+            LOG_ERROR("the connPtr is nullptr");
             return false;
         }
         static inner_protobuf pkt;

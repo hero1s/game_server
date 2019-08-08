@@ -25,10 +25,10 @@ void CRedisMgr::OnTimer() {
     CApplication::Instance().schedule(&m_timer, 5000);
 
     m_asyncClient->command("PING",{},[](const redisclient::RedisValue &v){
-    //LOG_DEBUG("PING repeat:{}",v.toString());
+        //LOG_DEBUG("PING repeat:{}",v.toString());
     });
     try {
-        //auto result = m_syncClient->command("PING",{});
+        auto result = m_syncClient->command("PING",{});
         //LOG_DEBUG("PING rep:{}",result.toString());
     }catch (const asio::system_error &e) {
         LOG_ERROR("redis throw error:{}", e.what());
@@ -42,6 +42,8 @@ bool CRedisMgr::Init(asio::io_context &context, stRedisConf &conf) {
 
     //同步客户端
     m_syncClient = std::make_shared<redisclient::RedisSyncClient>(context);
+    m_syncClient->setConnectTimeout(std::chrono::seconds(3));
+    m_syncClient->setCommandTimeout(std::chrono::seconds(3));
     //异步客户端
     m_asyncClient = std::make_shared<redisclient::RedisAsyncClient>(context);
 

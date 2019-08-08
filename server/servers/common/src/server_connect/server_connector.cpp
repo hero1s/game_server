@@ -62,18 +62,18 @@ void CSvrConnectorMgr::Register() {
     *info = m_curSvrInfo;
 
     SendMsg2Svr(&msg, net::svr::S2S_MSG_REGISTER, 0);
-    LOG_DEBUG("register server svrid:{} svrtype:{}--gameType:{}", msg.info().svrid(), msg.info().svr_type(),
+    LOG_DEBUG("{} register server svrid:{} svrtype:{}--gameType:{}",m_pClientPtr->GetName(), msg.info().svrid(), msg.info().svr_type(),
               msg.info().game_type());
 }
 
 void CSvrConnectorMgr::RegisterRep(uint16_t svrid, bool rep) {
-    LOG_DEBUG("register center server Rep svrid:{}--res:{}", svrid, rep);
+    LOG_DEBUG("{} register server Rep svrid:{}--res:{}",m_pClientPtr->GetName(), svrid, rep);
 
     m_isRun = rep;
 }
 
 void CSvrConnectorMgr::OnConnect(bool bSuccess, const TCPConnPtr &conn) {
-    LOG_ERROR("center on connect {},{}", bSuccess, conn->GetUID());
+    LOG_ERROR("{} on connect {},{}",conn->GetName(), bSuccess, conn->GetUID());
     if (bSuccess) {
         m_isRun = true;
         Register();
@@ -81,7 +81,7 @@ void CSvrConnectorMgr::OnConnect(bool bSuccess, const TCPConnPtr &conn) {
 }
 
 void CSvrConnectorMgr::OnCloseClient(const TCPConnPtr &conn) {
-    LOG_ERROR("center OnClose:{}", conn->GetUID());
+    LOG_ERROR("{} OnClose:{}",conn->GetName(), conn->GetUID());
     m_isRun = false;
 }
 
@@ -91,7 +91,10 @@ bool CSvrConnectorMgr::IsRun() {
 
 void CSvrConnectorMgr::SendMsg2Svr(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin, uint8_t route,
                                    uint32_t routeID) {
-    if (!m_isRun || m_pClientPtr == nullptr)return;
+    if (!m_isRun || m_pClientPtr == nullptr){
+        LOG_ERROR("the connector is not runing");
+        return;
+    }
     pkg_inner::SendProtobufMsg(m_pClientPtr->GetTCPConn(), msg, msg_type, uin, route, routeID);
 }
 
@@ -104,7 +107,7 @@ int CSvrConnectorMgr::handle_msg_register_svr_rep() {
     net::svr::msg_register_svr_rep msg;
     PARSE_MSG(msg);
 
-    LOG_DEBUG("server register result :{}", msg.result());
+    LOG_DEBUG("{} server register result :{}",m_pClientPtr->GetName(), msg.result());
     if (msg.result() == 1) {
         RegisterRep(m_pClientPtr->GetTCPConn()->GetUID(), true);
     } else {
@@ -120,7 +123,7 @@ int CSvrConnectorMgr::handle_msg_server_list_rep() {
     net::svr::msg_server_list_rep msg;
     PARSE_MSG(msg);
 
-    LOG_DEBUG("center server rep svrlist :{}", msg.server_list_size());
+    LOG_DEBUG("{} server rep svrlist :{}",m_pClientPtr->GetName(), msg.server_list_size());
     m_allSvrList.clear();
     for (int i = 0; i < msg.server_list_size(); ++i) {
         m_allSvrList.insert(make_pair(msg.server_list(i).svrid(), msg.server_list(i)));

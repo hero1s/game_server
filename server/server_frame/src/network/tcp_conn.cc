@@ -129,6 +129,7 @@ namespace Network {
 
     bool TCPConn::SendInLoop(const char *data, uint16_t sz, bool createHead) {
         if (!socket_.is_open()) {
+            LOG_ERROR("the tcpConn is not open: {}",GetName());
             return false;
         }
         std::shared_ptr<MessageBuffer> msg = createHead ? CreateMessageWithHeader(data, sz) : CreateMessage(data, sz);

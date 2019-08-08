@@ -41,7 +41,7 @@ bool CApplication::Initialize()
 		tcpSvr->SetConnectionCallback([](const TCPConnPtr& conn) {
 			if (conn->IsConnected()) {
 				LOG_DEBUG("{},connection accepted",conn->GetName());
-				conn->SetHeartTimeOut(60);
+				//conn->SetHeartTimeOut(60);
 			}
 			else{
 				CCenterMgr::Instance().RemoveServer(conn);
