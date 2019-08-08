@@ -121,9 +121,10 @@ void protobuf_AssignDesc_servers_5fmsg_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(msg_server_list_rep));
   msg_async_exec_sql_descriptor_ = file->message_type(4);
-  static const int msg_async_exec_sql_offsets_[2] = {
+  static const int msg_async_exec_sql_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msg_async_exec_sql, db_type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msg_async_exec_sql, sql_str_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msg_async_exec_sql, is_compress_),
   };
   msg_async_exec_sql_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -254,19 +255,19 @@ void protobuf_AddDesc_servers_5fmsg_2eproto() {
     "vr.server_info\"&\n\024msg_register_svr_rep\022\016"
     "\n\006result\030\001 \001(\r\"@\n\023msg_server_list_rep\022)\n"
     "\013server_list\030\001 \003(\0132\024.net.svr.server_info"
-    "\"6\n\022msg_async_exec_sql\022\017\n\007db_type\030\001 \001(\r\022"
-    "\017\n\007sql_str\030\002 \001(\014\"6\n\024msg_load_player_data"
-    "\022\013\n\003uid\030\001 \001(\r\022\021\n\tdata_type\030\002 \001(\r\"M\n\030msg_"
-    "load_player_data_rep\022\013\n\003uid\030\001 \001(\r\022\021\n\tdat"
-    "a_type\030\002 \001(\r\022\021\n\tload_data\030\003 \001(\014\"I\n\024msg_s"
-    "ave_player_data\022\013\n\003uid\030\001 \001(\r\022\021\n\tdata_typ"
-    "e\030\002 \001(\r\022\021\n\tsave_data\030\003 \001(\014*\331\001\n\rSERVER_MS"
-    "G_ID\022\025\n\020S2S_MSG_REGISTER\020\311\001\022\031\n\024S2S_MSG_R"
-    "EGISTER_REP\020\312\001\022\034\n\027S2S_MSG_SERVER_LIST_RE"
-    "P\020\313\001\022\035\n\030S2DBA_MSG_ASYNC_EXEC_SQL\020\266\002\022\033\n\026S"
-    "2DBA_LOAD_PLAYER_DATA\020\267\002\022\037\n\032DBA2S_LOAD_P"
-    "LAYER_DATA_REP\020\270\002\022\033\n\026S2DBA_SAVE_PLAYER_D"
-    "ATA\020\271\002", 806);
+    "\"K\n\022msg_async_exec_sql\022\017\n\007db_type\030\001 \001(\r\022"
+    "\017\n\007sql_str\030\002 \001(\014\022\023\n\013is_compress\030\003 \001(\r\"6\n"
+    "\024msg_load_player_data\022\013\n\003uid\030\001 \001(\r\022\021\n\tda"
+    "ta_type\030\002 \001(\r\"M\n\030msg_load_player_data_re"
+    "p\022\013\n\003uid\030\001 \001(\r\022\021\n\tdata_type\030\002 \001(\r\022\021\n\tloa"
+    "d_data\030\003 \001(\014\"I\n\024msg_save_player_data\022\013\n\003"
+    "uid\030\001 \001(\r\022\021\n\tdata_type\030\002 \001(\r\022\021\n\tsave_dat"
+    "a\030\003 \001(\014*\331\001\n\rSERVER_MSG_ID\022\025\n\020S2S_MSG_REG"
+    "ISTER\020\311\001\022\031\n\024S2S_MSG_REGISTER_REP\020\312\001\022\034\n\027S"
+    "2S_MSG_SERVER_LIST_REP\020\313\001\022\035\n\030S2DBA_MSG_A"
+    "SYNC_EXEC_SQL\020\266\002\022\033\n\026S2DBA_LOAD_PLAYER_DA"
+    "TA\020\267\002\022\037\n\032DBA2S_LOAD_PLAYER_DATA_REP\020\270\002\022\033"
+    "\n\026S2DBA_SAVE_PLAYER_DATA\020\271\002", 827);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "servers_msg.proto", &protobuf_RegisterTypes);
   server_info::default_instance_ = new server_info();
@@ -1319,6 +1320,7 @@ void msg_server_list_rep::Swap(msg_server_list_rep* other) {
 #ifndef _MSC_VER
 const int msg_async_exec_sql::kDbTypeFieldNumber;
 const int msg_async_exec_sql::kSqlStrFieldNumber;
+const int msg_async_exec_sql::kIsCompressFieldNumber;
 #endif  // !_MSC_VER
 
 msg_async_exec_sql::msg_async_exec_sql()
@@ -1339,6 +1341,7 @@ void msg_async_exec_sql::SharedCtor() {
   _cached_size_ = 0;
   db_type_ = 0u;
   sql_str_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  is_compress_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1383,6 +1386,7 @@ void msg_async_exec_sql::Clear() {
         sql_str_->clear();
       }
     }
+    is_compress_ = 0u;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -1419,6 +1423,22 @@ bool msg_async_exec_sql::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(24)) goto parse_is_compress;
+        break;
+      }
+
+      // optional uint32 is_compress = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_is_compress:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &is_compress_)));
+          set_has_is_compress();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -1452,6 +1472,11 @@ void msg_async_exec_sql::SerializeWithCachedSizes(
       2, this->sql_str(), output);
   }
 
+  // optional uint32 is_compress = 3;
+  if (has_is_compress()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->is_compress(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1470,6 +1495,11 @@ void msg_async_exec_sql::SerializeWithCachedSizes(
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         2, this->sql_str(), target);
+  }
+
+  // optional uint32 is_compress = 3;
+  if (has_is_compress()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->is_compress(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1495,6 +1525,13 @@ int msg_async_exec_sql::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::BytesSize(
           this->sql_str());
+    }
+
+    // optional uint32 is_compress = 3;
+    if (has_is_compress()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->is_compress());
     }
 
   }
@@ -1530,6 +1567,9 @@ void msg_async_exec_sql::MergeFrom(const msg_async_exec_sql& from) {
     if (from.has_sql_str()) {
       set_sql_str(from.sql_str());
     }
+    if (from.has_is_compress()) {
+      set_is_compress(from.is_compress());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -1555,6 +1595,7 @@ void msg_async_exec_sql::Swap(msg_async_exec_sql* other) {
   if (other != this) {
     std::swap(db_type_, other->db_type_);
     std::swap(sql_str_, other->sql_str_);
+    std::swap(is_compress_, other->is_compress_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

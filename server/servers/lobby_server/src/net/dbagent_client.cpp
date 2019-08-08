@@ -4,6 +4,7 @@
 #include "player_mgr.h"
 #include "player_base.h"
 #include "player.h"
+#include "snappy/snappy.h"
 
 using namespace std;
 using namespace svrlib;
@@ -20,11 +21,18 @@ CDBAgentClientMgr::~CDBAgentClientMgr() {
 }
 
 // 异步执行sql
-void CDBAgentClientMgr::AsyncExecSql(uint8_t dbType, string &sqlStr) {
+void CDBAgentClientMgr::AsyncExecSql(uint8_t dbType, string &sqlStr, bool isCompress) {
     LOG_DEBUG("async exec sql:{},{}", dbType, sqlStr);
     net::svr::msg_async_exec_sql msg;
     msg.set_db_type(dbType);
-    msg.set_sql_str(sqlStr);
+    msg.set_is_compress(isCompress ? 1 : 0);
+    if(isCompress){
+        string outSql;
+        snappy::Compress(sqlStr.c_str(),sqlStr.length(),&outSql);
+        msg.set_sql_str(outSql);
+    }else{
+        msg.set_sql_str(sqlStr);
+    }
     SendMsg2Svr(&msg, net::svr::S2DBA_MSG_ASYNC_EXEC_SQL);
 }
 
@@ -54,12 +62,16 @@ int CDBAgentClientMgr::handle_msg_load_data_rep() {
 
     LOG_DEBUG("DBAgent load player data rep:{}", msg.uid());
     auto pPlayer = std::dynamic_pointer_cast<CPlayer>(CPlayerMgr::Instance().GetPlayer(msg.uid()));
-    if (pPlayer != nullptr && pPlayer->GetPlayerState() == PLAYER_STATE_LOAD_DATA) {
+    if (pPlayer != nullptr && pPlayer->GetPlayerState() == PLAYER_STATE_LOAD_DATA)
+    {
         net::base_info baseInfo;//基础数据
-        if (baseInfo.ParseFromString(msg.load_data())) {
+        if (baseInfo.ParseFromString(msg.load_data()))
+        {
             LOG_DEBUG("load base info success :{},datalen:{}", msg.uid(), msg.load_data().length());
             DUMP_PROTO_MSG_INFO(baseInfo);
-        } else {
+        }
+        else
+        {
             LOG_ERROR("base info parase error :{} {}", msg.uid(), msg.load_data().length());
         }
 
@@ -67,10 +79,13 @@ int CDBAgentClientMgr::handle_msg_load_data_rep() {
         pPlayer->SetOfflineTime(0);
         pPlayer->SetLoadState(emACCDATA_TYPE_BASE);
         pPlayer->SetLoadState(emACCDATA_TYPE_MISS);//test
-        if (pPlayer->IsLoadOver()) {
+        if (pPlayer->IsLoadOver())
+        {
             pPlayer->OnGetAllData();
         }
-    } else {
+    }
+    else
+    {
         LOG_DEBUG("the player is not find:{}", msg.uid());
     }
 

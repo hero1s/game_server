@@ -522,20 +522,30 @@ class msg_async_exec_sql : public ::google::protobuf::Message {
   inline ::std::string* release_sql_str();
   inline void set_allocated_sql_str(::std::string* sql_str);
 
+  // optional uint32 is_compress = 3;
+  inline bool has_is_compress() const;
+  inline void clear_is_compress();
+  static const int kIsCompressFieldNumber = 3;
+  inline ::google::protobuf::uint32 is_compress() const;
+  inline void set_is_compress(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:net.svr.msg_async_exec_sql)
  private:
   inline void set_has_db_type();
   inline void clear_has_db_type();
   inline void set_has_sql_str();
   inline void clear_has_sql_str();
+  inline void set_has_is_compress();
+  inline void clear_has_is_compress();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::std::string* sql_str_;
   ::google::protobuf::uint32 db_type_;
+  ::google::protobuf::uint32 is_compress_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
   friend void  protobuf_AddDesc_servers_5fmsg_2eproto();
   friend void protobuf_AssignDesc_servers_5fmsg_2eproto();
@@ -1206,6 +1216,28 @@ inline void msg_async_exec_sql::set_allocated_sql_str(::std::string* sql_str) {
     clear_has_sql_str();
     sql_str_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
+}
+
+// optional uint32 is_compress = 3;
+inline bool msg_async_exec_sql::has_is_compress() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void msg_async_exec_sql::set_has_is_compress() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void msg_async_exec_sql::clear_has_is_compress() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void msg_async_exec_sql::clear_is_compress() {
+  is_compress_ = 0u;
+  clear_has_is_compress();
+}
+inline ::google::protobuf::uint32 msg_async_exec_sql::is_compress() const {
+  return is_compress_;
+}
+inline void msg_async_exec_sql::set_is_compress(::google::protobuf::uint32 value) {
+  set_has_is_compress();
+  is_compress_ = value;
 }
 
 // -------------------------------------------------------------------

@@ -4,6 +4,7 @@
 #include "game_define.h"
 #include "dbmysql_mgr.h"
 #include "utility/profile_manager.h"
+#include "snappy/snappy.h"
 
 using namespace svrlib;
 using namespace Network;
@@ -29,8 +30,16 @@ CServerMgr::~CServerMgr() {
 int CServerMgr::handle_async_exec_sql() {
     net::svr::msg_async_exec_sql msg;
     PARSE_MSG(msg);
-    LOG_DEBUG("async exec sql:{}--{}", msg.db_type(), msg.sql_str());
-    CDBMysqlMgr::Instance().AddAsyncSql(msg.db_type(), msg.sql_str());
+    if(msg.is_compress() > 0)
+    {
+        std::string outdata;
+        snappy::Uncompress(msg.sql_str().c_str(), msg.sql_str().size(), &outdata);
+        LOG_DEBUG("async exec sql:{}--{}", msg.db_type(), outdata);
+        CDBMysqlMgr::Instance().AddAsyncSql(msg.db_type(), outdata);
+    }else{
+        LOG_DEBUG("async exec sql:{}--{}", msg.db_type(), msg.sql_str());
+        CDBMysqlMgr::Instance().AddAsyncSql(msg.db_type(), msg.sql_str());
+    }
     return 0;
 }
 

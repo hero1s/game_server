@@ -20,7 +20,7 @@ public:
     virtual ~CDBAgentClientMgr();
 
     // 异步执行sql
-    void AsyncExecSql(uint8_t dbType, string &sqlStr);
+    void AsyncExecSql(uint8_t dbType, string &sqlStr,bool isCompress = true);
 
     // 请求玩家数据
     void LoadPlayerData(uint32_t uid, uint32_t data_type);

@@ -49,7 +49,7 @@ message msg_async_exec_sql
 {
 	optional uint32 db_type = 1;
 	optional bytes  sql_str = 2;
-
+	optional uint32 is_compress = 3;
 }
 // 请求玩家数据
 message msg_load_player_data
