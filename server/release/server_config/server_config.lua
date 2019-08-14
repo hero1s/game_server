@@ -3,7 +3,7 @@
 --************ 服务器配置
 --*********************************************
 --数据库配置(改成只使用一个数据库地址toney)
-local database_config = { ip = "139.199.209.147", port = 3307, user = "root", passwd = "123456" };
+local database_config = { ip = "139.199.209.147", port = 3307, user = "root", passwd = "e23456" };
 local database_dbname = {}
 database_dbname[0] = "chess";
 database_dbname[1] = "chess_sysdata";
@@ -11,7 +11,7 @@ database_dbname[2] = "chess_center";
 database_dbname[3] = "chess_log";
 
 --redis配置
-local redis_config = { host = "139.199.209.147",port = 14000,passwd="e2345" };
+local redis_config = { host = "139.199.209.147",port = 13000,passwd="e2345" };
 --全局配置信息
 server_config =
 {
