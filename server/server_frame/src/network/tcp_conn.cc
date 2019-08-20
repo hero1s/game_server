@@ -325,7 +325,7 @@ namespace Network {
             }
 
         }else{
-            if (recv_buffer_.Size() >= sizeof(message_head)) {
+            while (recv_buffer_.Size() >= sizeof(message_head)) {
                 message_head *head = (message_head *) recv_buffer_.ReadBegin();
                 if (recv_buffer_.Size() >= head->length_ + sizeof(message_head)) {
                     //crc32 to do
@@ -339,6 +339,8 @@ namespace Network {
 
                     msg_fn_(shared_from_this(), buf);
                     recvtime_ = Now();
+                }else{
+                    break;
                 }
             }
         }
