@@ -66,7 +66,10 @@ public:
     // Execute command on Redis server with the list of arguments.
     REDIS_CLIENT_DECL RedisValue command(
             std::string cmd, std::deque<RedisBuffer> args,
-            asio::error_code &ec);
+
+            void (*ec)(const RedisValue &);
+
+    );
 
     // Create pipeline (see Pipeline)
     REDIS_CLIENT_DECL Pipeline pipelined();
