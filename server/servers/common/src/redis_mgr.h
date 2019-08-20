@@ -29,9 +29,6 @@ protected:
     void HandSyncError(const std::string& err);
     void HandAsyncError(const std::string& err);
 
-    void Test001(bool bLongLen);
-    void Test002(bool bLongLen);
-
 private:
     MemberTimerEvent<CRedisMgr, &CRedisMgr::OnTimer> m_timer;
     stRedisConf m_conf;

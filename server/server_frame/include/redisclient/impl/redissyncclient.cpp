@@ -224,10 +224,7 @@ RedisValue RedisSyncClient::command(std::string cmd, std::deque<RedisBuffer> arg
 }
 
 RedisValue RedisSyncClient::command(std::string cmd, std::deque<RedisBuffer> args,
-
-        void (*ec)(const RedisValue &);
-
-)
+            asio::error_code &ec)
 {
     if(stateValid())
     {
