@@ -40,8 +40,10 @@ private:
     std::shared_ptr<redisclient::RedisAsyncClient>  m_asyncClient;
 
 };
-//同步客户端的断开不会回调到errorhandle处理,需要try cacth操作
-//异步的已实现断线重连,在重连期间要做try cacth处理
+/*
+    注意：connect,commond,pileline命令报错会抛异常
+*/
+
 
 
 

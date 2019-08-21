@@ -24,7 +24,7 @@ CRedisMgr::~CRedisMgr() {
 }
 
 void CRedisMgr::OnTimer() {
-    CApplication::Instance().schedule(&m_timer, 10000);
+    CApplication::Instance().schedule(&m_timer, 5000);
 
     m_asyncClient->command("PING", {}, [](const redisclient::RedisValue &v)
     {
@@ -199,34 +199,37 @@ void CRedisMgr::Test001(bool bLongLen) {
     if(!m_syncClient->isConnected())
         return;
 
-    auto key = svrlib::uuid::generate();
-    auto value = svrlib::uuid::generate();
-    if (bLongLen)
+    for(int i=0;i<50;++i)
     {
-        auto maxlen = rand_range(1, 5);
-        for (int i = 0; i < maxlen; ++i)
+        auto key = svrlib::uuid::generate();
+        auto value = svrlib::uuid::generate();
+        if (bLongLen)
         {
-            value += value;
+            auto maxlen = rand_range(1, 10);
+            for (int i = 0; i < maxlen; ++i)
+            {
+                value += value;
+            }
         }
-    }
 
-    auto result = m_syncClient->command("SET", {key, value});
-    if (result.isError())
-    {
-        LOG_ERROR("sync set:{}--{},result:{}", key, value, result.toString());
-    }
-    auto resultGet = m_syncClient->command("GET", {key});
-    if (result.isError())
-    {
-        LOG_ERROR("sync get:{},result:{}", key, resultGet.toString());
-    }
-    else
-    {
-        if (resultGet.toString() != value)
+        auto result = m_syncClient->command("SET", {key, value});
+        if (result.isError())
         {
-            LOG_ERROR("get and set is not same:{}--{}", value, resultGet.toString());
+            LOG_ERROR("sync set:{}--{},result:{}", key, value, result.toString());
         }
-        m_syncClient->command("DEL",{key});
+        auto resultGet = m_syncClient->command("GET", {key});
+        if (result.isError())
+        {
+            LOG_ERROR("sync get:{},result:{}", key, resultGet.toString());
+        }
+        else
+        {
+            if (resultGet.toString() != value)
+            {
+                LOG_ERROR("get and set is not same:{}--{}", value, resultGet.toString());
+            }
+            m_syncClient->command("DEL", {key});
+        }
     }
 }
 
@@ -234,36 +237,39 @@ void CRedisMgr::Test002(bool bLongLen) {
     if(!m_asyncClient->isConnected())
         return;
 
-    auto key = svrlib::uuid::generate();
-    auto value = svrlib::uuid::generate();
-    if (bLongLen)
+    for(int i=0;i<100;++i)
     {
-        auto maxlen = rand_range(1, 5);
-        for (int i = 0; i < maxlen; ++i)
+        auto key = svrlib::uuid::generate();
+        auto value = svrlib::uuid::generate();
+        if (bLongLen)
         {
-            value += value;
+            auto maxlen = rand_range(1, 10);
+            for (int i = 0; i < maxlen; ++i)
+            {
+                value += value;
+            }
         }
-    }
-    m_asyncClient->command("SET", {key, value}, [this, key, value](const redisclient::RedisValue &v)
-    {
-        if (v.isError())
-        {
-            LOG_ERROR("async set:{}--{},result:{}", key, value, v.toString());
-        }
-        m_asyncClient->command("GET", {key}, [this, key, value](const redisclient::RedisValue &v)
+        m_asyncClient->command("SET", {key, value}, [this, key, value](const redisclient::RedisValue &v)
         {
             if (v.isError())
             {
-                LOG_ERROR("async get:{},result:{}", key, v.toString());
+                LOG_ERROR("async set:{}--{},result:{}", key, value, v.toString());
             }
-            else
+            m_asyncClient->command("GET", {key}, [this, key, value](const redisclient::RedisValue &v)
             {
-                if (v.toString() != value)
+                if (v.isError())
                 {
-                    LOG_ERROR("get and set is not same:{}--{}", value, v.toString());
+                    LOG_ERROR("async get:{},result:{}", key, v.toString());
                 }
-            }
-            m_asyncClient->command("DEL",{key});
+                else
+                {
+                    if (v.toString() != value)
+                    {
+                        LOG_ERROR("get and set is not same:{}--{}", value, v.toString());
+                    }
+                }
+                m_asyncClient->command("DEL", {key});
+            });
         });
-    });
+    }
 }
