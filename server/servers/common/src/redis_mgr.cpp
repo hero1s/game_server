@@ -39,6 +39,7 @@ void CRedisMgr::OnTimer() {
     {
         LOG_ERROR("redis throw error:{}", e.what());
         Reconnect(true, false);
+        return;
     }
     Test001(rand_range(0,1) == 0 ? true : false);
     Test002(rand_range(0,1)  == 0 ? true : false);
@@ -78,6 +79,7 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
         try
         {
             //同步客户端
+            m_syncClient->disconnect();
             m_syncClient->connect(endpoint, ec);
             if (ec)
             {
@@ -128,6 +130,7 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
         try
         {
             //异步客户端
+            m_asyncClient->disconnect();
             m_asyncClient->connect(endpoint, [this](asio::error_code ec)
             {
                 if (!ec)
@@ -182,17 +185,20 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
 
 void CRedisMgr::HandSyncError(const std::string &err) {
     LOG_ERROR("redis sync error:{}", err);
-    m_syncClient->disconnect();
+    //m_syncClient->disconnect();
     Reconnect(true, false);
 }
 
 void CRedisMgr::HandAsyncError(const std::string &err) {
     LOG_ERROR("redis async error:{}", err);
-    m_asyncClient->disconnect();
+    //m_asyncClient->disconnect();
     Reconnect(false, true);
 }
 
 void CRedisMgr::Test001(bool bLongLen) {
+    if(!m_syncClient->isConnected())
+        return;
+
     auto key = svrlib::uuid::generate();
     auto value = svrlib::uuid::generate();
     if (bLongLen)
@@ -203,6 +209,7 @@ void CRedisMgr::Test001(bool bLongLen) {
             value += value;
         }
     }
+
     auto result = m_syncClient->command("SET", {key, value});
     if (result.isError())
     {
@@ -224,6 +231,9 @@ void CRedisMgr::Test001(bool bLongLen) {
 }
 
 void CRedisMgr::Test002(bool bLongLen) {
+    if(!m_asyncClient->isConnected())
+        return;
+
     auto key = svrlib::uuid::generate();
     auto value = svrlib::uuid::generate();
     if (bLongLen)
