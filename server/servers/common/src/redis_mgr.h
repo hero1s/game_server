@@ -17,7 +17,7 @@ public:
 
     ~CRedisMgr();
 
-    void OnTimer();
+    void OnTimer(const std::error_code& err);
 
     bool Init(asio::io_context& context, stRedisConf& conf);
 
@@ -31,9 +31,10 @@ protected:
 
     void Test001(bool bLongLen);
     void Test002(bool bLongLen);
+    void TestPileline();
 
 private:
-    MemberTimerEvent<CRedisMgr, &CRedisMgr::OnTimer> m_timer;
+    std::shared_ptr<asio::system_timer> m_pTimer = nullptr;
     stRedisConf m_conf;
 
     std::shared_ptr<redisclient::RedisSyncClient>   m_syncClient;
@@ -41,7 +42,7 @@ private:
 
 };
 /*
-    注意：connect,commond,pileline命令报错会抛异常
+    注意：connect,commond,pipeline命令报错会抛异常
 */
 
 
