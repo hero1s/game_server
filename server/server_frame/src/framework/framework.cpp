@@ -56,6 +56,11 @@ void CFrameWork::ShutDown() {
     CApplication::Instance().ShutDown();
     CApplication::Instance().OverShutDown();
 
+    m_pTimer->cancel();
+    m_pTimer->expires_from_now(std::chrono::seconds(2));
+    m_pTimer->async_wait(std::bind([](const std::error_code &err){
+        CApplication::Instance().GetAsioContext().stop();
+    },std::placeholders::_1));
 }
 
 void CFrameWork::TimerTick(const std::error_code &err) {
@@ -180,7 +185,7 @@ void CFrameWork::ReloadConfig(int iSig) {
 void CFrameWork::StopRun(int iSig) {
     if (iSig == SIGUSR1) {
         LOG_DEBUG("signal program exiting...");
-        CApplication::Instance().GetAsioContext().stop();
+        CFrameWork::Instance().ShutDown();
     }
 }
 

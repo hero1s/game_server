@@ -59,7 +59,7 @@ bool CRedisMgr::Init(asio::io_context &context, stRedisConf &conf) {
 
     //同步客户端
     m_syncClient = std::make_shared<redisclient::RedisSyncClient>(context);
-    m_syncClient->setConnectTimeout(std::chrono::seconds(3)).setCommandTimeout(std::chrono::seconds(3));
+    m_syncClient->setConnectTimeout(std::chrono::seconds(5)).setCommandTimeout(std::chrono::seconds(5));
 
     //异步客户端
     m_asyncClient = std::make_shared<redisclient::RedisAsyncClient>(context);

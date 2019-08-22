@@ -30,8 +30,6 @@ int FrameworkMain(int argc, char *argv[]) {
 
         CFrameWork::Instance().Run();
         LOG_DEBUG("application shutdown");
-
-        CFrameWork::Instance().ShutDown();
     }
     catch (char const *what) {
         std::cout << what << std::endl;
