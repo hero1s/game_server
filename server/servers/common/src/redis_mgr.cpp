@@ -127,7 +127,7 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
         }
         catch (const asio::system_error &e)
         {
-            LOG_ERROR("redis throw error:{}", e.what());
+            LOG_ERROR("sync redis connect throw error:{}", e.what());
             return false;
         }
     }
@@ -183,7 +183,7 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
         }
         catch (const asio::system_error &e)
         {
-            LOG_ERROR("redis throw error:{}", e.what());
+            LOG_ERROR("async redis connect throw error:{}", e.what());
             return false;
         }
     }
@@ -244,7 +244,7 @@ void CRedisMgr::Test001(bool bLongLen) {
     catch (const asio::system_error &e)
     {
         LOG_ERROR("sync redis throw error:{}", e.what());
-        Reconnect(true, false);
+        //Reconnect(true, false);
     }
 }
 
@@ -288,12 +288,22 @@ void CRedisMgr::Test002(bool bLongLen) {
                     m_asyncClient->command("DEL", {key});
                 });
             });
+
+            auto testStr = R"({"uid":"756386_1565940975","room_id":528158,"club_id":1805991,
+                           "club_master":180599,"room_owner":330468,"create_time":1565940975,"room_ju":10,
+                            "played_ju":10,"game_type":"51",
+                            "isfinished":1,"pay_type":0,"colltype":2,"proxy_mid":180599,
+                            "fixed_index":4,"appid":112,"now_time":1565941413,"apptype":3,
+                            "room_players":[{"mid":330468,"seatno":1,"roomscore":46,"ranking":0,"partnerid":0},
+                            {"mid":182596,"seatno":2,"roomscore":-46,"ranking":0,"partnerid":0}],
+                            "pay_params":{"pay_type":0,"params":{"roomcost":8,"payplayer":180599,"payreal":8,"isproxy":1}}})";
+            m_asyncClient->command("LPUSH",{"testqueue",testStr});
         }
     }
     catch (const asio::system_error &e)
     {
         LOG_ERROR("async redis throw error:{}", e.what());
-        Reconnect(false, true);
+        //Reconnect(false, true);
     }
 }
 
@@ -327,7 +337,7 @@ void CRedisMgr::TestPileline() {
     catch (const asio::system_error &e)
     {
         LOG_ERROR("sync redis pipeline throw error:{}", e.what());
-        Reconnect(true, false);
+        //Reconnect(true, false);
     }
 }
 
