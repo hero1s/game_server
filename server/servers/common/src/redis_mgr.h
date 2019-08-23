@@ -17,7 +17,7 @@ public:
 
     ~CRedisMgr();
 
-    void OnTimer(const std::error_code& err);
+    void OnTimer();
 
     bool Init(asio::io_context& context, stRedisConf& conf);
 
@@ -34,7 +34,7 @@ protected:
     void TestPileline();
 
 private:
-    std::shared_ptr<asio::system_timer> m_pTimer = nullptr;
+    MemberTimerEvent<CRedisMgr, &CRedisMgr::OnTimer> m_timer;
     stRedisConf m_conf;
 
     std::shared_ptr<redisclient::RedisSyncClient>   m_syncClient;

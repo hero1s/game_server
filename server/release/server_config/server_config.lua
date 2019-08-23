@@ -11,7 +11,9 @@ database_dbname[2] = "chess_center";
 database_dbname[3] = "chess_log";
 
 --redis配置
-local redis_config = { host = "139.199.209.147",port = 13000,passwd="e2345" };
+--local redis_config = { host = "139.199.209.147",port = 13000,passwd="e2345" };
+local redis_config = { host = "192.168.1.153",port = 13000,passwd="e2345" };
+
 --全局配置信息
 server_config =
 {
