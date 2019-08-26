@@ -20,13 +20,17 @@ CRedisMgr::~CRedisMgr() {
 }
 
 void CRedisMgr::OnTimer() {
-    CApplication::Instance().schedule(&m_timer, 2000);
+    CApplication::Instance().schedule(&m_timer, 5000);
 
     try
     {
-        m_asyncClient->command("PING", {}, [](const redisclient::RedisValue &v)
+        m_asyncClient->command("PING", {}, [this](const redisclient::RedisValue &v)
         {
-            //LOG_DEBUG("PING repeat:{}",v.toString());
+            if(v.isError() || v.toString() != "PONG")
+            {
+                LOG_DEBUG("PING error rep:{}",v.toString());
+                Reconnect(true, false);
+            }
         });
     }
     catch (const asio::system_error &e)
@@ -38,7 +42,11 @@ void CRedisMgr::OnTimer() {
     try
     {
         auto result = m_syncClient->command("PING", {});
-        //LOG_DEBUG("PING rep:{}",result.toString());
+        if(result.isError() || result.toString() != "PONG")
+        {
+            LOG_DEBUG("PING error rep:{}",result.toString());
+            Reconnect(true, false);
+        }
     }
     catch (const asio::system_error &e)
     {
@@ -46,7 +54,7 @@ void CRedisMgr::OnTimer() {
         Reconnect(true, false);
         return;
     }
-    for(auto i=0;i<100;++i)
+    for(auto i=0;i<50;++i)
     {
         Test001(rand_range(0, 1) == 0 ? true : false);
         Test002(rand_range(0, 1) == 0 ? true : false);
@@ -91,7 +99,7 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
             m_syncClient->connect(endpoint, ec);
             if (ec)
             {
-                LOG_ERROR("Can't connect to redis: {}", ec.message());
+                LOG_ERROR("Can't connect to redis: {},{}", ec.message(),endpoint.address().to_string());
                 return false;
             }
             else
@@ -99,7 +107,7 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
                 result = m_syncClient->command("AUTH", {m_conf.redisPasswd});
                 if (result.isOk() && result.toString() == "OK")
                 {
-                    LOG_DEBUG("connect redis ok and auth is ok");
+                    LOG_DEBUG("connect redis {} ok and auth is ok",endpoint.address().to_string());
                     {//test
                         redisclient::RedisValue result;
                         result = m_syncClient->command("SET", {"key", "value"});
@@ -128,7 +136,7 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
         }
         catch (const asio::system_error &e)
         {
-            LOG_ERROR("sync redis connect throw error:{}", e.what());
+            LOG_ERROR("sync redis connect throw error:{},{}", e.what(),endpoint.address().to_string());
             return false;
         }
     }
@@ -143,7 +151,7 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
             {
                 if (!ec)
                 {
-                    m_asyncClient->command("AUTH", {m_conf.redisPasswd}, [this](const redisclient::RedisValue &v)
+                    m_asyncClient->command("AUTH", {m_conf.redisPasswd}, [&](const redisclient::RedisValue &v)
                     {
                         if (v.isOk() && v.toString() == "OK")
                         {
@@ -184,7 +192,7 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
         }
         catch (const asio::system_error &e)
         {
-            LOG_ERROR("async redis connect throw error:{}", e.what());
+            LOG_ERROR("async redis connect throw error:{},{}", e.what(),endpoint.address().to_string());
             return false;
         }
     }
@@ -210,7 +218,7 @@ void CRedisMgr::Test001(bool bLongLen) {
         auto value = svrlib::uuid::generate();
         if (bLongLen)
         {
-            auto maxlen = rand_range(1, 10);
+            auto maxlen = rand_range(1, 5);
             for (int i = 0; i < maxlen; ++i)
             {
                 value += value;
@@ -260,7 +268,7 @@ void CRedisMgr::Test002(bool bLongLen) {
         auto value = svrlib::uuid::generate();
         if (bLongLen)
         {
-            auto maxlen = rand_range(1, 10);
+            auto maxlen = rand_range(1, 5);
             for (int i = 0; i < maxlen; ++i)
             {
                 value += value;
