@@ -15,7 +15,7 @@ namespace {
     static const uint32_t s_OfflineTime = MINUTE*10; // 离线10分钟下线
 };
 
-CPlayer::CPlayer(uint8_t type)
+CPlayer::CPlayer(PLAYER_TYPE type)
         :CPlayerBase(type)
 {
     m_disconnectTime = 0;

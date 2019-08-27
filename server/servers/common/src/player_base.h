@@ -22,9 +22,11 @@ enum PLAYER_STATE {
     PLAYER_STATE_LOGINOUT,          // 下线
 };
 
+using uid_type = std::uint32_t;
+
 class CPlayerBase {
 public:
-    CPlayerBase(uint8_t type);
+    CPlayerBase(PLAYER_TYPE type);
 
     virtual ~CPlayerBase();
 
@@ -42,11 +44,11 @@ public:
 
     bool IsPlaying();
 
-    uint32_t GetUID();
+    uid_type GetUID();
 
-    void SetUID(uint32_t uid);
+    void SetUID(uid_type uid);
 
-    uint8_t GetPlayerType();
+    PLAYER_TYPE GetPlayerType();
 
     string GetPlayerName();
 
@@ -96,8 +98,8 @@ public:
 private:
 
 protected:
-    uint32_t m_uid;
-    uint8_t m_bPlayerType;
+    uid_type m_uid;
+    PLAYER_TYPE m_bPlayerType;
     TCPConnPtr m_pSession;
     uint8_t m_bPlayerState;
     bool m_needRecover;                             // 需要下线回收

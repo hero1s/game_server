@@ -57,7 +57,7 @@ void CPlayerMgr::OnTimeTick()
 	uProcessTime = uTime;
 }
 
-bool CPlayerMgr::IsOnline(uint32_t uid)
+bool CPlayerMgr::IsOnline(uid_type uid)
 {
 	auto Iter = m_mpPlayers.find(uid);
 	if (Iter != m_mpPlayers.end())
@@ -67,9 +67,9 @@ bool CPlayerMgr::IsOnline(uint32_t uid)
 	return false;
 }
 
-std::shared_ptr<CPlayerBase> CPlayerMgr::GetPlayer(uint32_t dwUin)
+std::shared_ptr<CPlayerBase> CPlayerMgr::GetPlayer(uid_type uid)
 {
-	auto Iter = m_mpPlayers.find(dwUin);
+	auto Iter = m_mpPlayers.find(uid);
 	if (Iter != m_mpPlayers.end())
 	{
 		return Iter->second;
@@ -118,7 +118,7 @@ void CPlayerMgr::SendMsgToAll(const void* msg, uint16_t msg_len, uint16_t msg_ty
 	}
 }
 
-bool CPlayerMgr::SendMsgToPlayer(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uid)
+bool CPlayerMgr::SendMsgToPlayer(const google::protobuf::Message* msg, uint16_t msg_type, uid_type uid)
 {
 	auto pPlayer = GetPlayer(uid);
 	if (pPlayer != nullptr)
@@ -129,7 +129,7 @@ bool CPlayerMgr::SendMsgToPlayer(const google::protobuf::Message* msg, uint16_t 
 	return false;
 }
 
-bool CPlayerMgr::SendMsgToPlayer(const void* msg, uint16_t msg_len, uint16_t msg_type, uint32_t uid)
+bool CPlayerMgr::SendMsgToPlayer(const void* msg, uint16_t msg_len, uint16_t msg_type, uid_type uid)
 {
 	auto pPlayer = GetPlayer(uid);
 	if (pPlayer != nullptr)

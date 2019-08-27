@@ -14,7 +14,7 @@ namespace {
 
 };
 
-CPlayerBase::CPlayerBase(uint8_t type)
+CPlayerBase::CPlayerBase(PLAYER_TYPE type)
         : m_bPlayerType(type), m_pSession(NULL), m_bPlayerState(PLAYER_STATE_NULL) {
     m_uid = 0;
     m_loadState.reset();
@@ -58,15 +58,15 @@ bool CPlayerBase::IsPlaying() {
     return m_bPlayerState == PLAYER_STATE_PLAYING;
 }
 
-uint32_t CPlayerBase::GetUID() {
+uid_type CPlayerBase::GetUID() {
     return m_uid;
 }
 
-void CPlayerBase::SetUID(uint32_t uid) {
+void CPlayerBase::SetUID(uid_type uid) {
     m_uid = uid;
 }
 
-uint8_t CPlayerBase::GetPlayerType() {
+PLAYER_TYPE CPlayerBase::GetPlayerType() {
     return m_bPlayerType;
 }
 

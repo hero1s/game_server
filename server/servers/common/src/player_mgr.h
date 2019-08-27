@@ -28,9 +28,9 @@ public:
 
     void OnTimeTick();
 
-    bool IsOnline(uint32_t uid);
+    bool IsOnline(uid_type uid);
 
-    std::shared_ptr<CPlayerBase> GetPlayer(uint32_t uid);
+    std::shared_ptr<CPlayerBase> GetPlayer(uid_type uid);
 
     bool AddPlayer(std::shared_ptr<CPlayerBase> pPlayer);
 
@@ -40,9 +40,9 @@ public:
 
     void SendMsgToAll(const void *msg, uint16_t msg_len, uint16_t msg_type);
 
-    bool SendMsgToPlayer(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uid);
+    bool SendMsgToPlayer(const google::protobuf::Message *msg, uint16_t msg_type, uid_type uid);
 
-    bool SendMsgToPlayer(const void *msg, uint16_t msg_len, uint16_t msg_type, uint32_t uid);
+    bool SendMsgToPlayer(const void *msg, uint16_t msg_len, uint16_t msg_type, uid_type uid);
 
     uint32_t GetOnlines();
 
@@ -54,7 +54,7 @@ protected:
     void CheckRecoverPlayer();
 
 private:
-    unordered_map<uint32_t, std::shared_ptr<CPlayerBase>> m_mpPlayers;
+    unordered_map<uid_type, std::shared_ptr<CPlayerBase>> m_mpPlayers;
     MemberTimerEvent<CPlayerMgr, &CPlayerMgr::OnTimer> m_timer;
 
 };

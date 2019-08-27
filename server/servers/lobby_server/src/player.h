@@ -19,7 +19,7 @@ class CPlayer : public CPlayerBase, public ebus::EventHandler<ebus::NewDayEvent>
         emLIMIT_TIME_MAX,
     };
 public:
-    CPlayer(uint8_t type);
+    CPlayer(PLAYER_TYPE type);
 
     virtual ~CPlayer();
 
