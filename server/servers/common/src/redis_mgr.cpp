@@ -12,8 +12,8 @@ namespace {
 };
 
 CRedisMgr::CRedisMgr()
-        : m_timer(this)
-{
+        : m_timer(this) {
+    m_asyncConnecting = false;
 }
 
 CRedisMgr::~CRedisMgr() {
@@ -26,9 +26,9 @@ void CRedisMgr::OnTimer() {
     {
         m_asyncClient->command("PING", {}, [this](const redisclient::RedisValue &v)
         {
-            if(v.isError() || v.toString() != "PONG")
+            if (v.isError() || v.toString() != "PONG")
             {
-                LOG_DEBUG("PING error rep:{}",v.toString());
+                LOG_DEBUG("PING error rep:{}", v.toString());
                 Reconnect(true, false);
             }
         });
@@ -42,9 +42,9 @@ void CRedisMgr::OnTimer() {
     try
     {
         auto result = m_syncClient->command("PING", {});
-        if(result.isError() || result.toString() != "PONG")
+        if (result.isError() || result.toString() != "PONG")
         {
-            LOG_DEBUG("PING error rep:{}",result.toString());
+            LOG_DEBUG("PING error rep:{}", result.toString());
             Reconnect(true, false);
         }
     }
@@ -54,7 +54,7 @@ void CRedisMgr::OnTimer() {
         Reconnect(true, false);
         return;
     }
-    for(auto i=0;i<50;++i)
+    for (auto i = 0; i < 50; ++i)
     {
         Test001(rand_range(0, 1) == 0 ? true : false);
         Test002(rand_range(0, 1) == 0 ? true : false);
@@ -99,7 +99,7 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
             m_syncClient->connect(endpoint, ec);
             if (ec)
             {
-                LOG_ERROR("Can't connect to redis: {},{}", ec.message(),endpoint.address().to_string());
+                LOG_ERROR("Can't connect to redis: {},{}", ec.message(), endpoint.address().to_string());
                 return false;
             }
             else
@@ -107,36 +107,19 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
                 result = m_syncClient->command("AUTH", {m_conf.redisPasswd});
                 if (result.isOk() && result.toString() == "OK")
                 {
-                    LOG_DEBUG("connect redis {} ok and auth is ok",endpoint.address().to_string());
-                    {//test
-                        redisclient::RedisValue result;
-                        result = m_syncClient->command("SET", {"key", "value"});
-                        if (result.isError())
-                        {
-                            LOG_ERROR("SET error: {}", result.toString());
-                            return false;
-                        }
-                        result = m_syncClient->command("GET", {"key"});
-                        if (result.isOk())
-                        {
-                            LOG_DEBUG("GET: {}", result.toString());
-                        }
-                        else
-                        {
-                            LOG_ERROR("GET error: {}", result.toString());
-                            return false;
-                        }
-                    }
+                    LOG_DEBUG("connect redis {} ok and auth is ok", endpoint.address().to_string());
+                    TestConnect(true, false);
                 }
                 else
                 {
                     LOG_ERROR("redis auth is error:{}", result.toString());
+                    return false;
                 }
             }
         }
         catch (const asio::system_error &e)
         {
-            LOG_ERROR("sync redis connect throw error:{},{}", e.what(),endpoint.address().to_string());
+            LOG_ERROR("sync redis connect throw error:{},{}", e.what(), endpoint.address().to_string());
             return false;
         }
     }
@@ -146,6 +129,12 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
         try
         {
             //Òì²½¿Í»§¶Ë
+            if (m_asyncConnecting)
+            {
+                LOG_ERROR("asyncConnecting...");
+                return false;
+            }
+            m_asyncConnecting = true;
             m_asyncClient->disconnect();
             m_asyncClient->connect(endpoint, [this](asio::error_code ec)
             {
@@ -153,30 +142,11 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
                 {
                     m_asyncClient->command("AUTH", {m_conf.redisPasswd}, [&](const redisclient::RedisValue &v)
                     {
+                        m_asyncConnecting = false;
                         if (v.isOk() && v.toString() == "OK")
                         {
                             LOG_DEBUG("async redis client connect ok and auth ok");
-                            {//test
-                                try
-                                {
-                                    redisclient::RedisValue result;
-                                    m_asyncClient->command("SET", {"key", "value"},
-                                                           [this](const redisclient::RedisValue &v)
-                                                           {
-                                                               LOG_DEBUG("async SET: {}", v.toString());
-                                                               m_asyncClient->command("GET", {"key"},
-                                                                                      [this](const redisclient::RedisValue &v)
-                                                                                      {
-                                                                                          LOG_DEBUG("async GET: {}",
-                                                                                                    v.toString());
-                                                                                      });
-                                                           });
-                                }
-                                catch (const asio::system_error &e)
-                                {
-                                    LOG_ERROR("redis throw error:{}", e.what());
-                                }
-                            }
+                            TestConnect(false, true);
                         }
                         else
                         {
@@ -186,17 +156,55 @@ bool CRedisMgr::Reconnect(bool bSync, bool bAsync) {
                 }
                 else
                 {
+                    m_asyncConnecting = false;
                     LOG_ERROR("Can't connect to redis: {}", ec.message());
                 }
             });
         }
         catch (const asio::system_error &e)
         {
-            LOG_ERROR("async redis connect throw error:{},{}", e.what(),endpoint.address().to_string());
+            LOG_ERROR("async redis connect throw error:{},{}", e.what(), endpoint.address().to_string());
+            m_asyncConnecting = false;
             return false;
         }
     }
     return true;
+}
+
+void CRedisMgr::TestConnect(bool bSync, bool bAsync) {
+    if (bSync)
+    {
+        auto result = SafeSyncCommond("SET", {"key", "value"});
+        if (result.isError())
+        {
+            LOG_ERROR("SET error: {}", result.toString());
+            return;
+        }
+        result = SafeSyncCommond("GET", {"key"});
+        if (result.isOk())
+        {
+            LOG_DEBUG("GET: {}", result.toString());
+        }
+        else
+        {
+            LOG_ERROR("GET error: {}", result.toString());
+            return;
+        }
+    }
+    if (bAsync)
+    {
+        SafeAsyncCommond("SET", {"key", "value"},
+                         [this](const redisclient::RedisValue &v)
+                         {
+                             LOG_DEBUG("async SET: {}", v.toString());
+                             SafeAsyncCommond("GET", {"key"},
+                                              [this](const redisclient::RedisValue &v)
+                                              {
+                                                  LOG_DEBUG("async GET: {}",
+                                                            v.toString());
+                                              });
+                         });
+    }
 }
 
 void CRedisMgr::HandSyncError(const std::string &err) {
@@ -212,92 +220,75 @@ void CRedisMgr::HandAsyncError(const std::string &err) {
 }
 
 void CRedisMgr::Test001(bool bLongLen) {
-    try
-    {
-        auto key = svrlib::uuid::generate();
-        auto value = svrlib::uuid::generate();
-        if (bLongLen)
-        {
-            auto maxlen = rand_range(1, 5);
-            for (int i = 0; i < maxlen; ++i)
-            {
-                value += value;
-            }
-        }
 
-        auto result = m_syncClient->command("SET", {key, value});
-        if (result.isError())
-        {
-            LOG_ERROR("sync set:{}--{},result:{}", key, value, result.toString());
-        }
-        auto resultGet = m_syncClient->command("GET", {key});
-        if (result.isError())
-        {
-            LOG_ERROR("sync get:{},result:{}", key, resultGet.toString());
-        }
-        else
-        {
-            if (resultGet.toString() != value)
-            {
-                LOG_ERROR("get and set is not same:{}--{}", value, resultGet.toString());
-            }
-            m_syncClient->command("DEL", {key});
-        }
-
-//        auto testStr = R"({"uid":"756386_1565940975","room_id":528158,"club_id":1805991,
-//                           "club_master":180599,"room_owner":330468,"create_time":1565940975,"room_ju":10,
-//                            "played_ju":10,"game_type":"51",
-//                            "isfinished":1,"pay_type":0,"colltype":2,"proxy_mid":180599,
-//                            "fixed_index":4,"appid":112,"now_time":1565941413,"apptype":3,
-//                            "room_players":[{"mid":330468,"seatno":1,"roomscore":46,"ranking":0,"partnerid":0},
-//                            {"mid":182596,"seatno":2,"roomscore":-46,"ranking":0,"partnerid":0}],
-//                            "pay_params":{"pay_type":0,"params":{"roomcost":8,"payplayer":180599,"payreal":8,"isproxy":1}}})";
-//        m_syncClient->command("LPUSH", {"testqueue", testStr});
-    }
-    catch (const asio::system_error &e)
+    auto key = svrlib::uuid::generate();
+    auto value = svrlib::uuid::generate();
+    if (bLongLen)
     {
-        LOG_ERROR("sync redis throw error:{}", e.what());
-        //Reconnect(true, false);
+        auto maxlen = rand_range(1, 5);
+        for (int i = 0; i < maxlen; ++i)
+        {
+            value += value;
+        }
     }
+
+    auto result = SafeSyncCommond("SET", {key, value});
+    if (result.isError())
+    {
+        LOG_ERROR("sync set:{}--{},result:{}", key, value, result.toString());
+    }
+    auto resultGet = SafeSyncCommond("GET", {key});
+    if (result.isError())
+    {
+        LOG_ERROR("sync get:{},result:{}", key, resultGet.toString());
+    }
+    else
+    {
+        if (resultGet.toString() != value)
+        {
+            LOG_ERROR("get and set is not same:{}--{}", value, resultGet.toString());
+        }
+        SafeSyncCommond("DEL", {key});
+    }
+
 }
 
 void CRedisMgr::Test002(bool bLongLen) {
-    try
+
+    auto key = svrlib::uuid::generate();
+    auto value = svrlib::uuid::generate();
+    if (bLongLen)
     {
-        auto key = svrlib::uuid::generate();
-        auto value = svrlib::uuid::generate();
-        if (bLongLen)
+        auto maxlen = rand_range(1, 5);
+        for (int i = 0; i < maxlen; ++i)
         {
-            auto maxlen = rand_range(1, 5);
-            for (int i = 0; i < maxlen; ++i)
-            {
-                value += value;
-            }
+            value += value;
         }
-        m_asyncClient->command("SET", {key, value}, [this, key, value](const redisclient::RedisValue &v)
+    }
+    SafeAsyncCommond("SET", {key, value}, [this, key, value](const redisclient::RedisValue &v)
+    {
+        if (v.isError())
+        {
+            LOG_ERROR("async set:{}--{},result:{}", key, value, v.toString());
+        }
+        SafeAsyncCommond("GET", {key}, [this, key, value](const redisclient::RedisValue &v)
         {
             if (v.isError())
             {
-                LOG_ERROR("async set:{}--{},result:{}", key, value, v.toString());
+                LOG_ERROR("async get:{},result:{}", key, v.toString());
             }
-            m_asyncClient->command("GET", {key}, [this, key, value](const redisclient::RedisValue &v)
+            else
             {
-                if (v.isError())
+                if (v.toString() != value)
                 {
-                    LOG_ERROR("async get:{},result:{}", key, v.toString());
+                    LOG_ERROR("get and set is not same:{}--{}", value, v.toString());
                 }
-                else
-                {
-                    if (v.toString() != value)
-                    {
-                        LOG_ERROR("get and set is not same:{}--{}", value, v.toString());
-                    }
-                }
-                m_asyncClient->command("DEL", {key});
-            });
+            }
+            SafeAsyncCommond("DEL", {key});
         });
+    });
 
-        auto testStr = R"({"uid":"756386_1565940975","room_id":528158,"club_id":1805991,
+    auto testStr = R"({"uid":"756386_1565940975","room_id":528158,"club_id":1805991,
                            "club_master":180599,"room_owner":330468,"create_time":1565940975,"room_ju":10,
                             "played_ju":10,"game_type":"51",
                             "isfinished":1,"pay_type":0,"colltype":2,"proxy_mid":180599,
@@ -305,9 +296,31 @@ void CRedisMgr::Test002(bool bLongLen) {
                             "room_players":[{"mid":330468,"seatno":1,"roomscore":46,"ranking":0,"partnerid":0},
                             {"mid":182596,"seatno":2,"roomscore":-46,"ranking":0,"partnerid":0}],
                             "pay_params":{"pay_type":0,"params":{"roomcost":8,"payplayer":180599,"payreal":8,"isproxy":1}}})";
-        m_asyncClient->command("LPUSH", {"testqueue", testStr},[this, key, value](const redisclient::RedisValue &v){
-            //LOG_DEBUG("LPUSH :{}",v.toString());
-        });
+    SafeAsyncCommond("LPUSH", {"testqueue", testStr}, [this, key, value](const redisclient::RedisValue &v)
+    {
+        //LOG_DEBUG("LPUSH :{}",v.toString());
+    });
+
+}
+
+redisclient::RedisValue CRedisMgr::SafeSyncCommond(const std::string &cmd, std::deque<redisclient::RedisBuffer> args) {
+    try
+    {
+        return m_syncClient->command(cmd, args);
+    }
+    catch (const asio::system_error &e)
+    {
+        LOG_ERROR("sync redis throw error:{}", e.what());
+    }
+    redisclient::RedisValue::ErrorTag tag;
+    return redisclient::RedisValue({}, tag);
+}
+
+void CRedisMgr::SafeAsyncCommond(const std::string &cmd, std::deque<redisclient::RedisBuffer> args,
+                                 std::function<void(redisclient::RedisValue)> handler) {
+    try
+    {
+        m_asyncClient->command(cmd, args, handler);
     }
     catch (const asio::system_error &e)
     {
@@ -346,7 +359,6 @@ void CRedisMgr::TestPileline() {
         //Reconnect(true, false);
     }
 }
-
 
 
 
