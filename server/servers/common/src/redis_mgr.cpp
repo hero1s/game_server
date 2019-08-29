@@ -58,8 +58,8 @@ void CRedisMgr::OnTimer() {
     {
         Test001(rand_range(0, 1) == 0 ? true : false);
         Test002(rand_range(0, 1) == 0 ? true : false);
-        TestPileline();
     }
+    //TestPileline();
 }
 
 bool CRedisMgr::Init(asio::io_context &context, stRedisConf &conf) {
@@ -236,11 +236,13 @@ void CRedisMgr::Test001(bool bLongLen) {
     if (result.isError())
     {
         LOG_ERROR("sync set:{}--{},result:{}", key, value, result.toString());
+        return;
     }
     auto resultGet = SafeSyncCommond("GET", {key});
     if (result.isError())
     {
         LOG_ERROR("sync get:{},result:{}", key, resultGet.toString());
+        return;
     }
     else
     {
@@ -310,7 +312,8 @@ redisclient::RedisValue CRedisMgr::SafeSyncCommond(const std::string &cmd, std::
     }
     catch (const asio::system_error &e)
     {
-        LOG_ERROR("sync redis throw error:{}", e.what());
+        LOG_ERROR("sync redis:{}, throw error:{}",cmd, e.what());
+        Reconnect(true, false);
     }
     redisclient::RedisValue::ErrorTag tag;
     return redisclient::RedisValue({}, tag);
@@ -324,7 +327,7 @@ void CRedisMgr::SafeAsyncCommond(const std::string &cmd, std::deque<redisclient:
     }
     catch (const asio::system_error &e)
     {
-        LOG_ERROR("async redis throw error:{}", e.what());
+        LOG_ERROR("async redis:{}, throw error:{}",cmd, e.what());
         //Reconnect(false, true);
     }
 }
@@ -350,7 +353,7 @@ void CRedisMgr::TestPileline() {
         }
         else
         {
-            LOG_ERROR("GET error: {}", result.toString());
+            LOG_ERROR("pipe GET error: {}", result.toString());
         }
     }
     catch (const asio::system_error &e)
