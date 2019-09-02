@@ -1,6 +1,8 @@
 #!/bin/sh
 source ../config.sh
 
+ulimit -c unlimited
+
 if [ $# -gt 0 ]; then
 	echo "param num:"$#
 	for arg in $*
