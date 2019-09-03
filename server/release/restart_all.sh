@@ -3,17 +3,11 @@
 source ./config.sh
 root_dir=`pwd`
 
-tLen=${#all_dir[@]}
-for ((i=0;i<${tLen};i++))
+for var in ${all_dir[*]}
 do
-	dirname=${all_dir[$i]}
+	dirname=${var}
 	enter_exec_shell_ $root_dir $dirname "restart_game.sh"
 done
-
-
-
-
-
 
 
 
