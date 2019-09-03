@@ -1,16 +1,12 @@
 #!/bin/bash
-
+source ./config.sh
 root_dir=`pwd`
-
-all_dir=("./lobby_server" "./center_server/" "./dbagent_server")
 
 tLen=${#all_dir[@]}
 for ((i=0;i<${tLen};i++))
 do
 	dirname=${all_dir[$i]}
-	cd $dirname
-	sh ./reload.sh;
-	cd $root_dir;
+	enter_exec_shell_ $root_dir $dirname "reload.sh";
 done
 
 

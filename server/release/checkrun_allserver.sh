@@ -1,18 +1,14 @@
 #!/bin/bash
+source ./config.sh
 root_dir=`pwd`
 
-all_dir=("./lobby_server" "./center_server/" "./dbagent_server" )
-
-#!/bin/bash
 while true
 do
         tLen=${#all_dir[@]}
         for ((i=0;i<${tLen};i++))
         do
                 dirname=${all_dir[$i]}
-                cd $dirname
-                sh ./checkrun_server.sh;
-                cd $root_dir;
+                enter_exec_shell_ $root_dir $dirname "checkrun_server.sh";
         done
 sleep 30
 done

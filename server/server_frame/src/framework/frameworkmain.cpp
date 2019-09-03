@@ -25,11 +25,8 @@ int FrameworkMain(int argc, char *argv[]) {
     //mallopt(M_ARENA_MAX, 1);
 
     try {
-
         CFrameWork::Instance().InitializeEnvironment(argc, argv);
-
         CFrameWork::Instance().Run();
-        LOG_DEBUG("application shutdown");
     }
     catch (char const *what) {
         std::cout << what << std::endl;
@@ -39,6 +36,7 @@ int FrameworkMain(int argc, char *argv[]) {
         std::cout << "sol error " << e.what() << std::endl;
         LOG_ERROR("sol error:{}", e.what());
     }
+    spdlog::drop_all();
     return 0;
 }
 
@@ -74,8 +72,6 @@ void CApplication::OverShutDown() {
         s->Stop();
     }
     m_tcpServers.clear();
-
-    spdlog::drop_all();
 }
 
 uint64_t CApplication::PreTick() {

@@ -1,16 +1,13 @@
 #!/bin/bash
 
+source ./config.sh
 root_dir=`pwd`
-
-all_dir=("./center_server" "./lobby_server" "./dbagent_server" )
 
 tLen=${#all_dir[@]}
 for ((i=0;i<${tLen};i++))
 do
 	dirname=${all_dir[$i]}
-	cd $dirname
-	sh ./restart_game.sh;
-	cd $root_dir;
+	enter_exec_shell_ $root_dir $dirname "restart_game.sh"
 done
 
 
