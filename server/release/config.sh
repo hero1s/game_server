@@ -23,3 +23,20 @@ function enter_exec_shell_(){
 	sh ./$exesh;
 	cd $root_dir;
 }
+#进入目录组执行脚本
+function enter_group_exec_shell_(){
+    root_dir=$1
+    dirnames=$2
+    exesh=$3
+    for var in ${dirnames[*]}
+    do
+        cd $var
+        sh ./$exesh
+        cd ../
+    done
+	cd $root_dir;
+}
+
+
+
+

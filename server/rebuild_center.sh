@@ -6,14 +6,13 @@ rm ./release/center_server/centerServer -f
 all_dir=("./servers/center_server/build"
 	     )
 
-tLen=${#all_dir[@]}
 while getopts rR opt
 do
 	case $opt in
 		r)
-			for ((i=0;i<${tLen};i++))
+			for var in ${all_dir[*]}
 			do
-				dirname=${all_dir[$i]}
+				dirname=${var}
 				cd $dirname
 				sh ./rebuild.sh -r;
 				cd $root_dir;
@@ -25,9 +24,9 @@ do
 			;;
 	esac
 done
-for ((i=0;i<${tLen};i++))
+for var in ${all_dir[*]}
 do
-	dirname=${all_dir[$i]}
+	dirname=${var}
 	cd $dirname
 	sh ./rebuild.sh;
 	cd $root_dir;

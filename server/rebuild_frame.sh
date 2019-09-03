@@ -4,15 +4,13 @@ root_dir=`pwd`
 
 all_dir=("./server_frame/build")
 
-
-tLen=${#all_dir[@]}
 while getopts rR opt
 do
 	case $opt in
 		r)
-			for ((i=0;i<${tLen};i++))
+			for var in ${all_dir[*]}
 			do
-				dirname=${all_dir[$i]}
+				dirname=${var}
 				cd $dirname
 				echo $dirname
 				sh ./rebuild.sh -r;
@@ -25,9 +23,9 @@ do
 			;;
 	esac
 done
-for ((i=0;i<${tLen};i++))
+for var in ${all_dir[*]}
 do
-	dirname=${all_dir[$i]}
+	dirname=${var}
 	cd $dirname
 	sh ./rebuild.sh;
 	cd $root_dir;
