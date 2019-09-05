@@ -96,7 +96,7 @@ public:
     // 进入游戏服数据
     void SetPlayerGameData(const net::svr::msg_enter_into_game_svr& info);
 
-    void GetPlayerGameData(uint16_t gameType, net::svr::msg_enter_into_game_svr* pInfo);
+    void GetPlayerGameData(net::svr::msg_enter_into_game_svr* pInfo);
 
     void SetOfflineTime(uint32_t _time) { m_baseInfo.offline_time = _time; };
 

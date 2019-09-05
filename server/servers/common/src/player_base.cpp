@@ -184,7 +184,7 @@ void CPlayerBase::SetPlayerGameData(const net::svr::msg_enter_into_game_svr& inf
     SetPlayerBaseData(info.base_data());
 }
 
-void CPlayerBase::GetPlayerGameData(uint16_t gameType, net::svr::msg_enter_into_game_svr* pInfo)
+void CPlayerBase::GetPlayerGameData(net::svr::msg_enter_into_game_svr* pInfo)
 {
     GetPlayerBaseData(pInfo->mutable_base_data());
 }

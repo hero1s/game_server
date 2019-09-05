@@ -38,6 +38,9 @@ public:
     // 是否需要回收
     virtual bool NeedRecover();
 
+    // 返回大厅回调
+    virtual void BackLobby();
+
     bool CanModifyData();
 
     //--- 每日清理
@@ -62,6 +65,17 @@ public:
     void BuildInit();
 
 public:
+    // 是否在大厅中
+    bool IsInLobby();
+    bool SendMsgToGameSvr(const google::protobuf::Message* msg, uint16_t msg_type);
+    bool SendMsgToGameSvr(const void* msg, uint16_t msg_len, uint16_t msg_type);
+    // 通知网络状态
+    void NotifyNetState2GameSvr(uint8_t state);
+    // 请求返回大厅
+    void ActionReqBackLobby(uint8_t action);
+    // 进入游戏服务器
+    uint16_t EnterGameSvr(uint16_t svrID, uint16_t playType);
+
     // 获得relogin时间
     uint32_t GetReloginTime();
 
