@@ -24,7 +24,7 @@ public:
 
     void OnTimer();
 
-    bool Init(const net::svr::server_info &info, string ip, uint32_t port,string svrName);
+    bool Init(const net::svr::server_info &info, string ip, uint32_t port,string svrName,uint16_t svrid);
 
     void Register();
 
@@ -35,6 +35,8 @@ public:
     void OnCloseClient(const TCPConnPtr& conn);
 
     bool IsRun();
+
+    uint16_t GetSvrID();
 
     void SendMsg2Svr(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin = 0, uint8_t route = 0,
                      uint32_t routeID = 0);
@@ -52,6 +54,7 @@ private:
     MemberTimerEvent<CSvrConnectorMgr, &CSvrConnectorMgr::OnTimer> m_timer;
     std::shared_ptr<TCPClient> m_pClientPtr;
     bool m_isRun;
+    uint16_t m_svrID;
     net::svr::server_info m_curSvrInfo;
     std::unordered_map<uint16_t, net::svr::server_info> m_allSvrList;
 

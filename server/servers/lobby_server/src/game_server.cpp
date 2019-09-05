@@ -19,6 +19,7 @@
 #include "player.h"
 #include "lua_service/lua_bind.h"
 #include "client_msg/msg_client_handle.h"
+#include "net/game_server_mgr.h"
 
 using namespace svrlib;
 using namespace std;
@@ -47,9 +48,18 @@ bool CApplication::Initialize() {
         LOG_ERROR("init datamgr fail ");
         return false;
     }
+    if (CGameServerMgr::Instance().Init() == false)
+    {
+        LOG_ERROR("GameServerMgr init fail");
+        return false;
+    }
+
     do {
-        uint32_t port = m_solLua["get_lobby_listen"](m_uiServerID);
-        auto tcpSvr = std::make_shared<TCPServer>(m_ioContext, "0.0.0.0", port, "lobbyServer", true);
+        auto lobbyIp = CApplication::Instance().GetSolLuaState().get<sol::table>("server_config").get<sol::table>("lobby");
+        uint32_t port = lobbyIp.get<int>("port");
+        uint32_t in_port = lobbyIp.get<int>("in_port");
+        // 客户端对外端口
+        auto tcpSvr = std::make_shared<TCPServer>(m_ioContext, "0.0.0.0", port, "lobbyServerCli");
         tcpSvr->SetConnectionCallback([](const TCPConnPtr& conn) {
             if (conn->IsConnected()) {
                 LOG_DEBUG("{},connection accepted",conn->GetName());
@@ -69,8 +79,25 @@ bool CApplication::Initialize() {
         });
         tcpSvr->SetMessageCallback([](const TCPConnPtr& conn, ByteBuffer& buffer) {
             LOG_DEBUG("recv msg {}",std::string(buffer.Data(), buffer.Size()));
-            conn->Send(buffer.Data(), buffer.Size());
             CHandleClientMsg::Instance().OnHandleClientMsg(conn,(uint8_t*)buffer.Data(),buffer.Size());
+        });
+        tcpSvr->Start();
+        m_tcpServers.push_back(tcpSvr);
+
+        //游戏服端口
+        tcpSvr = std::make_shared<TCPServer>(m_ioContext, "0.0.0.0", in_port, "lobbyServerSvr");
+        tcpSvr->SetConnectionCallback([](const TCPConnPtr& conn) {
+            if (conn->IsConnected()) {
+                LOG_DEBUG("{},connection accepted",conn->GetName());
+            }
+            else {
+                LOG_ERROR("gameServer ondisconnect:{}--{}", conn->GetUID(), conn->GetRemoteAddress());
+                CGameServerMgr::Instance().RemoveServer(conn);
+            }
+        });
+        tcpSvr->SetMessageCallback([](const TCPConnPtr& conn, ByteBuffer& buffer) {
+            LOG_DEBUG("recv msg {}",std::string(buffer.Data(), buffer.Size()));
+            CGameServerMgr::Instance().OnHandleClientMsg(conn,(uint8_t*)buffer.Data(),buffer.Size());
         });
         tcpSvr->Start();
         m_tcpServers.push_back(tcpSvr);
@@ -95,13 +122,13 @@ bool CApplication::Initialize() {
 
     //连接中心服
     auto centerIp = m_solLua.get<sol::table>("server_config").get<sol::table>("center");
-    if (CCenterClientMgr::Instance().Init(info, centerIp.get<string>("ip"), centerIp.get<int>("port"),"center_connector") == false) {
+    if (CCenterClientMgr::Instance().Init(info, centerIp.get<string>("ip"), centerIp.get<int>("port"),"center_connector",1) == false) {
         LOG_ERROR("init center client mgr fail");
         return false;
     }
     //连接DBAgent
     auto dbagentIp = m_solLua.get<sol::table>("server_config").get<sol::table>("dbagent");
-    if (CDBAgentClientMgr::Instance().Init(info, dbagentIp.get<string>("ip"), dbagentIp.get<int>("port"),"dbagent_connector") == false) {
+    if (CDBAgentClientMgr::Instance().Init(info, dbagentIp.get<string>("ip"), dbagentIp.get<int>("port"),"dbagent_connector",1) == false) {
         LOG_ERROR("init dbagent client mgr fail");
         return false;
     }

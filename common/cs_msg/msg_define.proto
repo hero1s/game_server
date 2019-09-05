@@ -18,6 +18,14 @@ enum  CLIENT_MSG_ID
 	S2C_MSG_ENTER_GAME					= 1010;	// 通知进入游戏
 	S2C_MSG_PLAYER_INFO					= 1011;	// 玩家信息
 
+	C2S_MSG_REQ_SVRS_INFO				= 1100;	// 请求服务器信息
+	S2C_MSG_SVRS_INFO					= 1101;	// 发送游戏服务器信息	
+	C2S_MSG_ENTER_SVR					= 1102;	// 进入游戏服务器
+	S2C_MSG_ENTER_SVR_REP				= 1103;	// 进入游戏服务器返回
+	
+	C2S_MSG_BACK_LOBBY					= 2003; // 返回大厅
+	S2C_MSG_BACK_LOBBY_REP				= 2004; // 返回大厅反馈
+	
 }
 
 

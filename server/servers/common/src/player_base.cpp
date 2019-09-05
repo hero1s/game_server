@@ -179,8 +179,34 @@ void CPlayerBase::SetPlayerBaseData(const net::base_info &info) {
     m_baseInfo.offline_time = info.offline_time();
 }
 
+void CPlayerBase::SetPlayerGameData(const net::svr::msg_enter_into_game_svr& info)
+{
+    SetPlayerBaseData(info.base_data());
+}
 
+void CPlayerBase::GetPlayerGameData(uint16_t gameType, net::svr::msg_enter_into_game_svr* pInfo)
+{
+    GetPlayerBaseData(pInfo->mutable_base_data());
+}
 
+void CPlayerBase::SetLoginLobbySvrID(uint16_t svrID)
+{
+    m_loginLobbySvrID = svrID;
+}
+
+uint16_t CPlayerBase::GetLoginLobbySvrID()
+{
+    return m_loginLobbySvrID;
+}
+// сно╥╥Ч
+void CPlayerBase::SetGameSvrID(uint16_t svrID)
+{
+    m_curSvrID = svrID;
+}
+uint16_t CPlayerBase::GetGameSvrID()
+{
+    return m_curSvrID;
+}
 
 
 

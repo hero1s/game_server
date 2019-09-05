@@ -28,10 +28,10 @@ void CSvrConnectorMgr::OnTimer() {
     CApplication::Instance().schedule(&m_timer, 3000);
 }
 
-bool CSvrConnectorMgr::Init(const net::svr::server_info &info, string ip, uint32_t port,string svrName) {
+bool CSvrConnectorMgr::Init(const net::svr::server_info &info, string ip, uint32_t port,string svrName,uint16_t svrid) {
     LOG_DEBUG("server connector to :{}:{}", ip, port);
     m_pClientPtr = std::make_shared<TCPClient>(CApplication::Instance().GetAsioContext(), ip, port, svrName);
-    m_pClientPtr->SetUID(info.svrid());
+    m_pClientPtr->SetUID(svrid);
     m_pClientPtr->SetConnCallback([this](const TCPConnPtr &conn) {
         if (conn->IsConnected()) {
             this->OnConnect(true, conn);
@@ -50,6 +50,7 @@ bool CSvrConnectorMgr::Init(const net::svr::server_info &info, string ip, uint32
 
     m_curSvrInfo = info;
     m_isRun = false;
+    m_svrID = svrid;
 
     CApplication::Instance().schedule(&m_timer, 3000);
 
@@ -89,6 +90,10 @@ bool CSvrConnectorMgr::IsRun() {
     return m_isRun;
 }
 
+uint16_t CSvrConnectorMgr::GetSvrID()
+{
+    return m_svrID;
+}
 void CSvrConnectorMgr::SendMsg2Svr(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin, uint8_t route,
                                    uint32_t routeID) {
     if (!m_isRun || m_pClientPtr == nullptr){

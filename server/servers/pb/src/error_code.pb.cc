@@ -58,9 +58,22 @@ void protobuf_AddDesc_error_5fcode_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\020error_code.proto\022\003net*<\n\013RESULT_CODE\022\024"
-    "\n\020RESULT_CODE_FAIL\020\000\022\027\n\023RESULT_CODE_SUCC"
-    "ESS\020\001", 85);
+    "\n\020error_code.proto\022\003net*\321\004\n\013RESULT_CODE\022"
+    "\024\n\020RESULT_CODE_FAIL\020\000\022\027\n\023RESULT_CODE_SUC"
+    "CESS\020\001\022\032\n\026RESULT_CODE_CION_ERROR\020\003\022\034\n\030RE"
+    "SULT_CODE_PASSWD_ERROR\020\004\022\034\n\030RESULT_CODE_"
+    "NEED_INLOBBY\020\005\022\032\n\026RESULT_CODE_REPEAT_GET"
+    "\020\006\022\030\n\024RESULT_CODE_NOT_COND\020\007\022\033\n\027RESULT_C"
+    "ODE_ERROR_PARAM\020\010\022\031\n\025RESULT_CODE_NOT_TAB"
+    "LE\020\t\022\030\n\024RESULT_CODE_NOT_OWER\020\n\022\031\n\025RESULT"
+    "_CODE_BLACKLIST\020\013\022\033\n\027RESULT_CODE_NOT_DIA"
+    "MOND\020\014\022\036\n\032RESULT_CODE_ERROR_PLAYERID\020\r\022\032"
+    "\n\026RESULT_CODE_TABLE_FULL\020\016\022\027\n\023RESULT_COD"
+    "E_GAMEING\020\017\022\033\n\027RESULT_CODE_ERROR_STATE\020\020"
+    "\022\033\n\027RESULT_CODE_LOGIN_OTHER\020\021\022\032\n\026RESULT_"
+    "CODE_SVR_REPAIR\020\022\022\025\n\021RESULT_CODE_CDING\020\023"
+    "\022\031\n\025RESULT_CODE_EXIST_OBJ\020\024\022\036\n\032RESULT_CO"
+    "DE_ENTER_SVR_FAIL\020\025", 619);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "error_code.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_error_5fcode_2eproto);
@@ -80,6 +93,25 @@ bool RESULT_CODE_IsValid(int value) {
   switch(value) {
     case 0:
     case 1:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
       return true;
     default:
       return false;

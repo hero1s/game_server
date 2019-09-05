@@ -63,11 +63,15 @@ void protobuf_AddDesc_msg_5fdefine_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\020msg_define.proto\022\003net\032\020error_code.prot"
     "o\032\025base_msg_struct.proto\032\026client_logic_m"
-    "sg.proto*\274\001\n\rCLIENT_MSG_ID\022\022\n\rC2S_MSG_HE"
+    "sg.proto*\332\002\n\rCLIENT_MSG_ID\022\022\n\rC2S_MSG_HE"
     "ART\020\350\007\022\022\n\rC2S_MSG_LOGIN\020\351\007\022\026\n\021S2C_MSG_LO"
     "GIN_REP\020\352\007\022\031\n\024S2C_MSG_LOGINOUT_REP\020\353\007\022\035\n"
     "\030S2C_MSG_VERSION_INFO_REP\020\354\007\022\027\n\022S2C_MSG_"
-    "ENTER_GAME\020\362\007\022\030\n\023S2C_MSG_PLAYER_INFO\020\363\007", 279);
+    "ENTER_GAME\020\362\007\022\030\n\023S2C_MSG_PLAYER_INFO\020\363\007\022"
+    "\032\n\025C2S_MSG_REQ_SVRS_INFO\020\314\010\022\026\n\021S2C_MSG_S"
+    "VRS_INFO\020\315\010\022\026\n\021C2S_MSG_ENTER_SVR\020\316\010\022\032\n\025S"
+    "2C_MSG_ENTER_SVR_REP\020\317\010\022\027\n\022C2S_MSG_BACK_"
+    "LOBBY\020\323\017\022\033\n\026S2C_MSG_BACK_LOBBY_REP\020\324\017", 437);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "msg_define.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_msg_5fdefine_2eproto);
@@ -92,6 +96,12 @@ bool CLIENT_MSG_ID_IsValid(int value) {
     case 1004:
     case 1010:
     case 1011:
+    case 1100:
+    case 1101:
+    case 1102:
+    case 1103:
+    case 2003:
+    case 2004:
       return true;
     default:
       return false;

@@ -19,6 +19,7 @@ server_config =
 {
     center = { ip = "127.0.0.1",port = 8888},
     dbagent= { ip = "127.0.0.1",port = 9999},
+    lobby  = { ip = "127.0.0.1",port = 7777,in_port = 7778},
 }
 
 -- 中心服务器配置

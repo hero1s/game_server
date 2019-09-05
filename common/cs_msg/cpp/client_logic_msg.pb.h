@@ -42,6 +42,12 @@ class msg_loginout_rep;
 class msg_version_info_rep;
 class msg_enter_game_rep;
 class msg_player_data_rep;
+class msg_svrs_info_req;
+class msg_svrs_info_rep;
+class msg_enter_gamesvr_req;
+class msg_enter_gamesvr_rep;
+class msg_back_lobby_req;
+class msg_back_lobby_rep;
 
 // ===================================================================
 
@@ -704,6 +710,541 @@ class msg_player_data_rep : public ::google::protobuf::Message {
   void InitAsDefaultInstance();
   static msg_player_data_rep* default_instance_;
 };
+// -------------------------------------------------------------------
+
+class msg_svrs_info_req : public ::google::protobuf::Message {
+ public:
+  msg_svrs_info_req();
+  virtual ~msg_svrs_info_req();
+
+  msg_svrs_info_req(const msg_svrs_info_req& from);
+
+  inline msg_svrs_info_req& operator=(const msg_svrs_info_req& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_svrs_info_req& default_instance();
+
+  void Swap(msg_svrs_info_req* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_svrs_info_req* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_svrs_info_req& from);
+  void MergeFrom(const msg_svrs_info_req& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 game_type = 1;
+  inline bool has_game_type() const;
+  inline void clear_game_type();
+  static const int kGameTypeFieldNumber = 1;
+  inline ::google::protobuf::uint32 game_type() const;
+  inline void set_game_type(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:net.cli.msg_svrs_info_req)
+ private:
+  inline void set_has_game_type();
+  inline void clear_has_game_type();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 game_type_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+
+  friend void  protobuf_AddDesc_client_5flogic_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_client_5flogic_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_client_5flogic_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_svrs_info_req* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class msg_svrs_info_rep : public ::google::protobuf::Message {
+ public:
+  msg_svrs_info_rep();
+  virtual ~msg_svrs_info_rep();
+
+  msg_svrs_info_rep(const msg_svrs_info_rep& from);
+
+  inline msg_svrs_info_rep& operator=(const msg_svrs_info_rep& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_svrs_info_rep& default_instance();
+
+  void Swap(msg_svrs_info_rep* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_svrs_info_rep* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_svrs_info_rep& from);
+  void MergeFrom(const msg_svrs_info_rep& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .net.svr_info svrs = 1;
+  inline int svrs_size() const;
+  inline void clear_svrs();
+  static const int kSvrsFieldNumber = 1;
+  inline const ::net::svr_info& svrs(int index) const;
+  inline ::net::svr_info* mutable_svrs(int index);
+  inline ::net::svr_info* add_svrs();
+  inline const ::google::protobuf::RepeatedPtrField< ::net::svr_info >&
+      svrs() const;
+  inline ::google::protobuf::RepeatedPtrField< ::net::svr_info >*
+      mutable_svrs();
+
+  // optional uint32 cur_svrid = 2;
+  inline bool has_cur_svrid() const;
+  inline void clear_cur_svrid();
+  static const int kCurSvridFieldNumber = 2;
+  inline ::google::protobuf::uint32 cur_svrid() const;
+  inline void set_cur_svrid(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:net.cli.msg_svrs_info_rep)
+ private:
+  inline void set_has_cur_svrid();
+  inline void clear_has_cur_svrid();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::RepeatedPtrField< ::net::svr_info > svrs_;
+  ::google::protobuf::uint32 cur_svrid_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  friend void  protobuf_AddDesc_client_5flogic_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_client_5flogic_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_client_5flogic_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_svrs_info_rep* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class msg_enter_gamesvr_req : public ::google::protobuf::Message {
+ public:
+  msg_enter_gamesvr_req();
+  virtual ~msg_enter_gamesvr_req();
+
+  msg_enter_gamesvr_req(const msg_enter_gamesvr_req& from);
+
+  inline msg_enter_gamesvr_req& operator=(const msg_enter_gamesvr_req& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_enter_gamesvr_req& default_instance();
+
+  void Swap(msg_enter_gamesvr_req* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_enter_gamesvr_req* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_enter_gamesvr_req& from);
+  void MergeFrom(const msg_enter_gamesvr_req& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 svrid = 1;
+  inline bool has_svrid() const;
+  inline void clear_svrid();
+  static const int kSvridFieldNumber = 1;
+  inline ::google::protobuf::uint32 svrid() const;
+  inline void set_svrid(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:net.cli.msg_enter_gamesvr_req)
+ private:
+  inline void set_has_svrid();
+  inline void clear_has_svrid();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 svrid_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+
+  friend void  protobuf_AddDesc_client_5flogic_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_client_5flogic_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_client_5flogic_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_enter_gamesvr_req* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class msg_enter_gamesvr_rep : public ::google::protobuf::Message {
+ public:
+  msg_enter_gamesvr_rep();
+  virtual ~msg_enter_gamesvr_rep();
+
+  msg_enter_gamesvr_rep(const msg_enter_gamesvr_rep& from);
+
+  inline msg_enter_gamesvr_rep& operator=(const msg_enter_gamesvr_rep& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_enter_gamesvr_rep& default_instance();
+
+  void Swap(msg_enter_gamesvr_rep* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_enter_gamesvr_rep* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_enter_gamesvr_rep& from);
+  void MergeFrom(const msg_enter_gamesvr_rep& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 result = 1;
+  inline bool has_result() const;
+  inline void clear_result();
+  static const int kResultFieldNumber = 1;
+  inline ::google::protobuf::uint32 result() const;
+  inline void set_result(::google::protobuf::uint32 value);
+
+  // optional uint32 svrid = 2;
+  inline bool has_svrid() const;
+  inline void clear_svrid();
+  static const int kSvridFieldNumber = 2;
+  inline ::google::protobuf::uint32 svrid() const;
+  inline void set_svrid(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:net.cli.msg_enter_gamesvr_rep)
+ private:
+  inline void set_has_result();
+  inline void clear_has_result();
+  inline void set_has_svrid();
+  inline void clear_has_svrid();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 result_;
+  ::google::protobuf::uint32 svrid_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  friend void  protobuf_AddDesc_client_5flogic_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_client_5flogic_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_client_5flogic_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_enter_gamesvr_rep* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class msg_back_lobby_req : public ::google::protobuf::Message {
+ public:
+  msg_back_lobby_req();
+  virtual ~msg_back_lobby_req();
+
+  msg_back_lobby_req(const msg_back_lobby_req& from);
+
+  inline msg_back_lobby_req& operator=(const msg_back_lobby_req& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_back_lobby_req& default_instance();
+
+  void Swap(msg_back_lobby_req* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_back_lobby_req* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_back_lobby_req& from);
+  void MergeFrom(const msg_back_lobby_req& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 uid = 1;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 1;
+  inline ::google::protobuf::uint32 uid() const;
+  inline void set_uid(::google::protobuf::uint32 value);
+
+  // optional uint32 is_action = 2;
+  inline bool has_is_action() const;
+  inline void clear_is_action();
+  static const int kIsActionFieldNumber = 2;
+  inline ::google::protobuf::uint32 is_action() const;
+  inline void set_is_action(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:net.cli.msg_back_lobby_req)
+ private:
+  inline void set_has_uid();
+  inline void clear_has_uid();
+  inline void set_has_is_action();
+  inline void clear_has_is_action();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 uid_;
+  ::google::protobuf::uint32 is_action_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  friend void  protobuf_AddDesc_client_5flogic_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_client_5flogic_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_client_5flogic_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_back_lobby_req* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class msg_back_lobby_rep : public ::google::protobuf::Message {
+ public:
+  msg_back_lobby_rep();
+  virtual ~msg_back_lobby_rep();
+
+  msg_back_lobby_rep(const msg_back_lobby_rep& from);
+
+  inline msg_back_lobby_rep& operator=(const msg_back_lobby_rep& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_back_lobby_rep& default_instance();
+
+  void Swap(msg_back_lobby_rep* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_back_lobby_rep* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_back_lobby_rep& from);
+  void MergeFrom(const msg_back_lobby_rep& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 result = 1;
+  inline bool has_result() const;
+  inline void clear_result();
+  static const int kResultFieldNumber = 1;
+  inline ::google::protobuf::uint32 result() const;
+  inline void set_result(::google::protobuf::uint32 value);
+
+  // optional uint32 reason = 2;
+  inline bool has_reason() const;
+  inline void clear_reason();
+  static const int kReasonFieldNumber = 2;
+  inline ::google::protobuf::uint32 reason() const;
+  inline void set_reason(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:net.cli.msg_back_lobby_rep)
+ private:
+  inline void set_has_result();
+  inline void clear_has_result();
+  inline void set_has_reason();
+  inline void clear_has_reason();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 result_;
+  ::google::protobuf::uint32 reason_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  friend void  protobuf_AddDesc_client_5flogic_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_client_5flogic_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_client_5flogic_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_back_lobby_rep* default_instance_;
+};
 // ===================================================================
 
 
@@ -1275,6 +1816,253 @@ inline void msg_player_data_rep::set_allocated_base_data(::net::base_info* base_
   } else {
     clear_has_base_data();
   }
+}
+
+// -------------------------------------------------------------------
+
+// msg_svrs_info_req
+
+// optional uint32 game_type = 1;
+inline bool msg_svrs_info_req::has_game_type() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void msg_svrs_info_req::set_has_game_type() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void msg_svrs_info_req::clear_has_game_type() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void msg_svrs_info_req::clear_game_type() {
+  game_type_ = 0u;
+  clear_has_game_type();
+}
+inline ::google::protobuf::uint32 msg_svrs_info_req::game_type() const {
+  return game_type_;
+}
+inline void msg_svrs_info_req::set_game_type(::google::protobuf::uint32 value) {
+  set_has_game_type();
+  game_type_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// msg_svrs_info_rep
+
+// repeated .net.svr_info svrs = 1;
+inline int msg_svrs_info_rep::svrs_size() const {
+  return svrs_.size();
+}
+inline void msg_svrs_info_rep::clear_svrs() {
+  svrs_.Clear();
+}
+inline const ::net::svr_info& msg_svrs_info_rep::svrs(int index) const {
+  return svrs_.Get(index);
+}
+inline ::net::svr_info* msg_svrs_info_rep::mutable_svrs(int index) {
+  return svrs_.Mutable(index);
+}
+inline ::net::svr_info* msg_svrs_info_rep::add_svrs() {
+  return svrs_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::net::svr_info >&
+msg_svrs_info_rep::svrs() const {
+  return svrs_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::net::svr_info >*
+msg_svrs_info_rep::mutable_svrs() {
+  return &svrs_;
+}
+
+// optional uint32 cur_svrid = 2;
+inline bool msg_svrs_info_rep::has_cur_svrid() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void msg_svrs_info_rep::set_has_cur_svrid() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void msg_svrs_info_rep::clear_has_cur_svrid() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void msg_svrs_info_rep::clear_cur_svrid() {
+  cur_svrid_ = 0u;
+  clear_has_cur_svrid();
+}
+inline ::google::protobuf::uint32 msg_svrs_info_rep::cur_svrid() const {
+  return cur_svrid_;
+}
+inline void msg_svrs_info_rep::set_cur_svrid(::google::protobuf::uint32 value) {
+  set_has_cur_svrid();
+  cur_svrid_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// msg_enter_gamesvr_req
+
+// optional uint32 svrid = 1;
+inline bool msg_enter_gamesvr_req::has_svrid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void msg_enter_gamesvr_req::set_has_svrid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void msg_enter_gamesvr_req::clear_has_svrid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void msg_enter_gamesvr_req::clear_svrid() {
+  svrid_ = 0u;
+  clear_has_svrid();
+}
+inline ::google::protobuf::uint32 msg_enter_gamesvr_req::svrid() const {
+  return svrid_;
+}
+inline void msg_enter_gamesvr_req::set_svrid(::google::protobuf::uint32 value) {
+  set_has_svrid();
+  svrid_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// msg_enter_gamesvr_rep
+
+// optional uint32 result = 1;
+inline bool msg_enter_gamesvr_rep::has_result() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void msg_enter_gamesvr_rep::set_has_result() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void msg_enter_gamesvr_rep::clear_has_result() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void msg_enter_gamesvr_rep::clear_result() {
+  result_ = 0u;
+  clear_has_result();
+}
+inline ::google::protobuf::uint32 msg_enter_gamesvr_rep::result() const {
+  return result_;
+}
+inline void msg_enter_gamesvr_rep::set_result(::google::protobuf::uint32 value) {
+  set_has_result();
+  result_ = value;
+}
+
+// optional uint32 svrid = 2;
+inline bool msg_enter_gamesvr_rep::has_svrid() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void msg_enter_gamesvr_rep::set_has_svrid() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void msg_enter_gamesvr_rep::clear_has_svrid() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void msg_enter_gamesvr_rep::clear_svrid() {
+  svrid_ = 0u;
+  clear_has_svrid();
+}
+inline ::google::protobuf::uint32 msg_enter_gamesvr_rep::svrid() const {
+  return svrid_;
+}
+inline void msg_enter_gamesvr_rep::set_svrid(::google::protobuf::uint32 value) {
+  set_has_svrid();
+  svrid_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// msg_back_lobby_req
+
+// optional uint32 uid = 1;
+inline bool msg_back_lobby_req::has_uid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void msg_back_lobby_req::set_has_uid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void msg_back_lobby_req::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void msg_back_lobby_req::clear_uid() {
+  uid_ = 0u;
+  clear_has_uid();
+}
+inline ::google::protobuf::uint32 msg_back_lobby_req::uid() const {
+  return uid_;
+}
+inline void msg_back_lobby_req::set_uid(::google::protobuf::uint32 value) {
+  set_has_uid();
+  uid_ = value;
+}
+
+// optional uint32 is_action = 2;
+inline bool msg_back_lobby_req::has_is_action() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void msg_back_lobby_req::set_has_is_action() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void msg_back_lobby_req::clear_has_is_action() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void msg_back_lobby_req::clear_is_action() {
+  is_action_ = 0u;
+  clear_has_is_action();
+}
+inline ::google::protobuf::uint32 msg_back_lobby_req::is_action() const {
+  return is_action_;
+}
+inline void msg_back_lobby_req::set_is_action(::google::protobuf::uint32 value) {
+  set_has_is_action();
+  is_action_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// msg_back_lobby_rep
+
+// optional uint32 result = 1;
+inline bool msg_back_lobby_rep::has_result() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void msg_back_lobby_rep::set_has_result() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void msg_back_lobby_rep::clear_has_result() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void msg_back_lobby_rep::clear_result() {
+  result_ = 0u;
+  clear_has_result();
+}
+inline ::google::protobuf::uint32 msg_back_lobby_rep::result() const {
+  return result_;
+}
+inline void msg_back_lobby_rep::set_result(::google::protobuf::uint32 value) {
+  set_has_result();
+  result_ = value;
+}
+
+// optional uint32 reason = 2;
+inline bool msg_back_lobby_rep::has_reason() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void msg_back_lobby_rep::set_has_reason() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void msg_back_lobby_rep::clear_has_reason() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void msg_back_lobby_rep::clear_reason() {
+  reason_ = 0u;
+  clear_has_reason();
+}
+inline ::google::protobuf::uint32 msg_back_lobby_rep::reason() const {
+  return reason_;
+}
+inline void msg_back_lobby_rep::set_reason(::google::protobuf::uint32 value) {
+  set_has_reason();
+  reason_ = value;
 }
 
 

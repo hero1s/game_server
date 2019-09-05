@@ -12,7 +12,7 @@ all_center_svrs=(8888 )
 #db服
 all_dbagent_svrs=(9999 )
 
-all_dir=("./center_server" "./lobby_server" "./dbagent_server" )
+all_dir=("./center_server" "./lobby_server" "./dbagent_server" "./game_server")
 
 #进入目录执行脚本
 function enter_exec_shell_(){

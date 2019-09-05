@@ -23,6 +23,9 @@ namespace {
 const ::google::protobuf::Descriptor* base_info_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   base_info_reflection_ = NULL;
+const ::google::protobuf::Descriptor* svr_info_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  svr_info_reflection_ = NULL;
 
 }  // namespace
 
@@ -57,6 +60,25 @@ void protobuf_AssignDesc_base_5fmsg_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(base_info));
+  svr_info_descriptor_ = file->message_type(1);
+  static const int svr_info_offsets_[5] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(svr_info, svrid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(svr_info, svr_type_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(svr_info, game_type_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(svr_info, game_subtype_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(svr_info, uuid_),
+  };
+  svr_info_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      svr_info_descriptor_,
+      svr_info::default_instance_,
+      svr_info_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(svr_info, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(svr_info, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(svr_info));
 }
 
 namespace {
@@ -71,6 +93,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     base_info_descriptor_, &base_info::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    svr_info_descriptor_, &svr_info::default_instance());
 }
 
 }  // namespace
@@ -78,6 +102,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
 void protobuf_ShutdownFile_base_5fmsg_5fstruct_2eproto() {
   delete base_info::default_instance_;
   delete base_info_reflection_;
+  delete svr_info::default_instance_;
+  delete svr_info_reflection_;
 }
 
 void protobuf_AddDesc_base_5fmsg_5fstruct_2eproto() {
@@ -92,11 +118,15 @@ void protobuf_AddDesc_base_5fmsg_5fstruct_2eproto() {
     "(\r\022\014\n\004coin\030\005 \001(\003\022\013\n\003vip\030\007 \001(\r\022\016\n\006clogin\030"
     "\t \001(\r\022\021\n\tweeklogin\030\n \001(\r\022\020\n\010login_ip\030\016 \001"
     "(\r\022\026\n\016all_login_days\030\017 \001(\r\022\024\n\014offline_ti"
-    "me\030\020 \001(\r", 208);
+    "me\030\020 \001(\r\"b\n\010svr_info\022\r\n\005svrid\030\001 \001(\r\022\020\n\010s"
+    "vr_type\030\002 \001(\r\022\021\n\tgame_type\030\003 \001(\r\022\024\n\014game"
+    "_subtype\030\004 \001(\r\022\014\n\004uuid\030\005 \001(\014", 308);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "base_msg_struct.proto", &protobuf_RegisterTypes);
   base_info::default_instance_ = new base_info();
+  svr_info::default_instance_ = new svr_info();
   base_info::default_instance_->InitAsDefaultInstance();
+  svr_info::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_base_5fmsg_5fstruct_2eproto);
 }
 
@@ -685,6 +715,382 @@ void base_info::Swap(base_info* other) {
   ::google::protobuf::Metadata metadata;
   metadata.descriptor = base_info_descriptor_;
   metadata.reflection = base_info_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int svr_info::kSvridFieldNumber;
+const int svr_info::kSvrTypeFieldNumber;
+const int svr_info::kGameTypeFieldNumber;
+const int svr_info::kGameSubtypeFieldNumber;
+const int svr_info::kUuidFieldNumber;
+#endif  // !_MSC_VER
+
+svr_info::svr_info()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void svr_info::InitAsDefaultInstance() {
+}
+
+svr_info::svr_info(const svr_info& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void svr_info::SharedCtor() {
+  _cached_size_ = 0;
+  svrid_ = 0u;
+  svr_type_ = 0u;
+  game_type_ = 0u;
+  game_subtype_ = 0u;
+  uuid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+svr_info::~svr_info() {
+  SharedDtor();
+}
+
+void svr_info::SharedDtor() {
+  if (uuid_ != &::google::protobuf::internal::kEmptyString) {
+    delete uuid_;
+  }
+  if (this != default_instance_) {
+  }
+}
+
+void svr_info::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* svr_info::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return svr_info_descriptor_;
+}
+
+const svr_info& svr_info::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_base_5fmsg_5fstruct_2eproto();
+  return *default_instance_;
+}
+
+svr_info* svr_info::default_instance_ = NULL;
+
+svr_info* svr_info::New() const {
+  return new svr_info;
+}
+
+void svr_info::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    svrid_ = 0u;
+    svr_type_ = 0u;
+    game_type_ = 0u;
+    game_subtype_ = 0u;
+    if (has_uuid()) {
+      if (uuid_ != &::google::protobuf::internal::kEmptyString) {
+        uuid_->clear();
+      }
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool svr_info::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 svrid = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &svrid_)));
+          set_has_svrid();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_svr_type;
+        break;
+      }
+
+      // optional uint32 svr_type = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_svr_type:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &svr_type_)));
+          set_has_svr_type();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(24)) goto parse_game_type;
+        break;
+      }
+
+      // optional uint32 game_type = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_game_type:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &game_type_)));
+          set_has_game_type();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(32)) goto parse_game_subtype;
+        break;
+      }
+
+      // optional uint32 game_subtype = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_game_subtype:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &game_subtype_)));
+          set_has_game_subtype();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(42)) goto parse_uuid;
+        break;
+      }
+
+      // optional bytes uuid = 5;
+      case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_uuid:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_uuid()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void svr_info::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional uint32 svrid = 1;
+  if (has_svrid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->svrid(), output);
+  }
+
+  // optional uint32 svr_type = 2;
+  if (has_svr_type()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->svr_type(), output);
+  }
+
+  // optional uint32 game_type = 3;
+  if (has_game_type()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->game_type(), output);
+  }
+
+  // optional uint32 game_subtype = 4;
+  if (has_game_subtype()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->game_subtype(), output);
+  }
+
+  // optional bytes uuid = 5;
+  if (has_uuid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytes(
+      5, this->uuid(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* svr_info::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional uint32 svrid = 1;
+  if (has_svrid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->svrid(), target);
+  }
+
+  // optional uint32 svr_type = 2;
+  if (has_svr_type()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->svr_type(), target);
+  }
+
+  // optional uint32 game_type = 3;
+  if (has_game_type()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->game_type(), target);
+  }
+
+  // optional uint32 game_subtype = 4;
+  if (has_game_subtype()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->game_subtype(), target);
+  }
+
+  // optional bytes uuid = 5;
+  if (has_uuid()) {
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+        5, this->uuid(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int svr_info::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 svrid = 1;
+    if (has_svrid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->svrid());
+    }
+
+    // optional uint32 svr_type = 2;
+    if (has_svr_type()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->svr_type());
+    }
+
+    // optional uint32 game_type = 3;
+    if (has_game_type()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->game_type());
+    }
+
+    // optional uint32 game_subtype = 4;
+    if (has_game_subtype()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->game_subtype());
+    }
+
+    // optional bytes uuid = 5;
+    if (has_uuid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->uuid());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void svr_info::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const svr_info* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const svr_info*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void svr_info::MergeFrom(const svr_info& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_svrid()) {
+      set_svrid(from.svrid());
+    }
+    if (from.has_svr_type()) {
+      set_svr_type(from.svr_type());
+    }
+    if (from.has_game_type()) {
+      set_game_type(from.game_type());
+    }
+    if (from.has_game_subtype()) {
+      set_game_subtype(from.game_subtype());
+    }
+    if (from.has_uuid()) {
+      set_uuid(from.uuid());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void svr_info::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void svr_info::CopyFrom(const svr_info& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool svr_info::IsInitialized() const {
+
+  return true;
+}
+
+void svr_info::Swap(svr_info* other) {
+  if (other != this) {
+    std::swap(svrid_, other->svrid_);
+    std::swap(svr_type_, other->svr_type_);
+    std::swap(game_type_, other->game_type_);
+    std::swap(game_subtype_, other->game_subtype_);
+    std::swap(uuid_, other->uuid_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata svr_info::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = svr_info_descriptor_;
+  metadata.reflection = svr_info_reflection_;
   return metadata;
 }
 

@@ -44,6 +44,10 @@ class msg_async_exec_sql;
 class msg_load_player_data;
 class msg_load_player_data_rep;
 class msg_save_player_data;
+class msg_report_svr_info;
+class msg_leave_svr;
+class msg_notify_net_state;
+class msg_enter_into_game_svr;
 
 enum SERVER_MSG_ID {
   S2S_MSG_REGISTER = 201,
@@ -52,11 +56,15 @@ enum SERVER_MSG_ID {
   S2DBA_MSG_ASYNC_EXEC_SQL = 310,
   S2DBA_LOAD_PLAYER_DATA = 311,
   DBA2S_LOAD_PLAYER_DATA_REP = 312,
-  S2DBA_SAVE_PLAYER_DATA = 313
+  S2DBA_SAVE_PLAYER_DATA = 313,
+  GS2L_MSG_REPORT = 503,
+  GS2L_MSG_LEAVE_SVR = 504,
+  L2GS_MSG_NOTIFY_NET_STATE = 505,
+  L2GS_MSG_ENTER_INTO_SVR = 506
 };
 bool SERVER_MSG_ID_IsValid(int value);
 const SERVER_MSG_ID SERVER_MSG_ID_MIN = S2S_MSG_REGISTER;
-const SERVER_MSG_ID SERVER_MSG_ID_MAX = S2DBA_SAVE_PLAYER_DATA;
+const SERVER_MSG_ID SERVER_MSG_ID_MAX = L2GS_MSG_ENTER_INTO_SVR;
 const int SERVER_MSG_ID_ARRAYSIZE = SERVER_MSG_ID_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* SERVER_MSG_ID_descriptor();
@@ -860,6 +868,386 @@ class msg_save_player_data : public ::google::protobuf::Message {
   void InitAsDefaultInstance();
   static msg_save_player_data* default_instance_;
 };
+// -------------------------------------------------------------------
+
+class msg_report_svr_info : public ::google::protobuf::Message {
+ public:
+  msg_report_svr_info();
+  virtual ~msg_report_svr_info();
+
+  msg_report_svr_info(const msg_report_svr_info& from);
+
+  inline msg_report_svr_info& operator=(const msg_report_svr_info& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_report_svr_info& default_instance();
+
+  void Swap(msg_report_svr_info* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_report_svr_info* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_report_svr_info& from);
+  void MergeFrom(const msg_report_svr_info& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 onlines = 1;
+  inline bool has_onlines() const;
+  inline void clear_onlines();
+  static const int kOnlinesFieldNumber = 1;
+  inline ::google::protobuf::uint32 onlines() const;
+  inline void set_onlines(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:net.svr.msg_report_svr_info)
+ private:
+  inline void set_has_onlines();
+  inline void clear_has_onlines();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 onlines_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+
+  friend void  protobuf_AddDesc_servers_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_servers_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_servers_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_report_svr_info* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class msg_leave_svr : public ::google::protobuf::Message {
+ public:
+  msg_leave_svr();
+  virtual ~msg_leave_svr();
+
+  msg_leave_svr(const msg_leave_svr& from);
+
+  inline msg_leave_svr& operator=(const msg_leave_svr& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_leave_svr& default_instance();
+
+  void Swap(msg_leave_svr* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_leave_svr* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_leave_svr& from);
+  void MergeFrom(const msg_leave_svr& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 uid = 1;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 1;
+  inline ::google::protobuf::uint32 uid() const;
+  inline void set_uid(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:net.svr.msg_leave_svr)
+ private:
+  inline void set_has_uid();
+  inline void clear_has_uid();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 uid_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+
+  friend void  protobuf_AddDesc_servers_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_servers_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_servers_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_leave_svr* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class msg_notify_net_state : public ::google::protobuf::Message {
+ public:
+  msg_notify_net_state();
+  virtual ~msg_notify_net_state();
+
+  msg_notify_net_state(const msg_notify_net_state& from);
+
+  inline msg_notify_net_state& operator=(const msg_notify_net_state& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_notify_net_state& default_instance();
+
+  void Swap(msg_notify_net_state* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_notify_net_state* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_notify_net_state& from);
+  void MergeFrom(const msg_notify_net_state& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 uid = 1;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 1;
+  inline ::google::protobuf::uint32 uid() const;
+  inline void set_uid(::google::protobuf::uint32 value);
+
+  // optional uint32 state = 2;
+  inline bool has_state() const;
+  inline void clear_state();
+  static const int kStateFieldNumber = 2;
+  inline ::google::protobuf::uint32 state() const;
+  inline void set_state(::google::protobuf::uint32 value);
+
+  // optional uint32 newip = 3;
+  inline bool has_newip() const;
+  inline void clear_newip();
+  static const int kNewipFieldNumber = 3;
+  inline ::google::protobuf::uint32 newip() const;
+  inline void set_newip(::google::protobuf::uint32 value);
+
+  // optional uint32 no_player = 4;
+  inline bool has_no_player() const;
+  inline void clear_no_player();
+  static const int kNoPlayerFieldNumber = 4;
+  inline ::google::protobuf::uint32 no_player() const;
+  inline void set_no_player(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:net.svr.msg_notify_net_state)
+ private:
+  inline void set_has_uid();
+  inline void clear_has_uid();
+  inline void set_has_state();
+  inline void clear_has_state();
+  inline void set_has_newip();
+  inline void clear_has_newip();
+  inline void set_has_no_player();
+  inline void clear_has_no_player();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 uid_;
+  ::google::protobuf::uint32 state_;
+  ::google::protobuf::uint32 newip_;
+  ::google::protobuf::uint32 no_player_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+
+  friend void  protobuf_AddDesc_servers_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_servers_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_servers_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_notify_net_state* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class msg_enter_into_game_svr : public ::google::protobuf::Message {
+ public:
+  msg_enter_into_game_svr();
+  virtual ~msg_enter_into_game_svr();
+
+  msg_enter_into_game_svr(const msg_enter_into_game_svr& from);
+
+  inline msg_enter_into_game_svr& operator=(const msg_enter_into_game_svr& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_enter_into_game_svr& default_instance();
+
+  void Swap(msg_enter_into_game_svr* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_enter_into_game_svr* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_enter_into_game_svr& from);
+  void MergeFrom(const msg_enter_into_game_svr& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 player_type = 1;
+  inline bool has_player_type() const;
+  inline void clear_player_type();
+  static const int kPlayerTypeFieldNumber = 1;
+  inline ::google::protobuf::uint32 player_type() const;
+  inline void set_player_type(::google::protobuf::uint32 value);
+
+  // optional .net.base_info base_data = 2;
+  inline bool has_base_data() const;
+  inline void clear_base_data();
+  static const int kBaseDataFieldNumber = 2;
+  inline const ::net::base_info& base_data() const;
+  inline ::net::base_info* mutable_base_data();
+  inline ::net::base_info* release_base_data();
+  inline void set_allocated_base_data(::net::base_info* base_data);
+
+  // optional uint32 play_type = 3;
+  inline bool has_play_type() const;
+  inline void clear_play_type();
+  static const int kPlayTypeFieldNumber = 3;
+  inline ::google::protobuf::uint32 play_type() const;
+  inline void set_play_type(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:net.svr.msg_enter_into_game_svr)
+ private:
+  inline void set_has_player_type();
+  inline void clear_has_player_type();
+  inline void set_has_base_data();
+  inline void clear_has_base_data();
+  inline void set_has_play_type();
+  inline void clear_has_play_type();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::net::base_info* base_data_;
+  ::google::protobuf::uint32 player_type_;
+  ::google::protobuf::uint32 play_type_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void  protobuf_AddDesc_servers_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_servers_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_servers_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_enter_into_game_svr* default_instance_;
+};
 // ===================================================================
 
 
@@ -1522,6 +1910,236 @@ inline void msg_save_player_data::set_allocated_save_data(::std::string* save_da
     clear_has_save_data();
     save_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
+}
+
+// -------------------------------------------------------------------
+
+// msg_report_svr_info
+
+// optional uint32 onlines = 1;
+inline bool msg_report_svr_info::has_onlines() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void msg_report_svr_info::set_has_onlines() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void msg_report_svr_info::clear_has_onlines() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void msg_report_svr_info::clear_onlines() {
+  onlines_ = 0u;
+  clear_has_onlines();
+}
+inline ::google::protobuf::uint32 msg_report_svr_info::onlines() const {
+  return onlines_;
+}
+inline void msg_report_svr_info::set_onlines(::google::protobuf::uint32 value) {
+  set_has_onlines();
+  onlines_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// msg_leave_svr
+
+// optional uint32 uid = 1;
+inline bool msg_leave_svr::has_uid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void msg_leave_svr::set_has_uid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void msg_leave_svr::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void msg_leave_svr::clear_uid() {
+  uid_ = 0u;
+  clear_has_uid();
+}
+inline ::google::protobuf::uint32 msg_leave_svr::uid() const {
+  return uid_;
+}
+inline void msg_leave_svr::set_uid(::google::protobuf::uint32 value) {
+  set_has_uid();
+  uid_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// msg_notify_net_state
+
+// optional uint32 uid = 1;
+inline bool msg_notify_net_state::has_uid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void msg_notify_net_state::set_has_uid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void msg_notify_net_state::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void msg_notify_net_state::clear_uid() {
+  uid_ = 0u;
+  clear_has_uid();
+}
+inline ::google::protobuf::uint32 msg_notify_net_state::uid() const {
+  return uid_;
+}
+inline void msg_notify_net_state::set_uid(::google::protobuf::uint32 value) {
+  set_has_uid();
+  uid_ = value;
+}
+
+// optional uint32 state = 2;
+inline bool msg_notify_net_state::has_state() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void msg_notify_net_state::set_has_state() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void msg_notify_net_state::clear_has_state() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void msg_notify_net_state::clear_state() {
+  state_ = 0u;
+  clear_has_state();
+}
+inline ::google::protobuf::uint32 msg_notify_net_state::state() const {
+  return state_;
+}
+inline void msg_notify_net_state::set_state(::google::protobuf::uint32 value) {
+  set_has_state();
+  state_ = value;
+}
+
+// optional uint32 newip = 3;
+inline bool msg_notify_net_state::has_newip() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void msg_notify_net_state::set_has_newip() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void msg_notify_net_state::clear_has_newip() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void msg_notify_net_state::clear_newip() {
+  newip_ = 0u;
+  clear_has_newip();
+}
+inline ::google::protobuf::uint32 msg_notify_net_state::newip() const {
+  return newip_;
+}
+inline void msg_notify_net_state::set_newip(::google::protobuf::uint32 value) {
+  set_has_newip();
+  newip_ = value;
+}
+
+// optional uint32 no_player = 4;
+inline bool msg_notify_net_state::has_no_player() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void msg_notify_net_state::set_has_no_player() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void msg_notify_net_state::clear_has_no_player() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void msg_notify_net_state::clear_no_player() {
+  no_player_ = 0u;
+  clear_has_no_player();
+}
+inline ::google::protobuf::uint32 msg_notify_net_state::no_player() const {
+  return no_player_;
+}
+inline void msg_notify_net_state::set_no_player(::google::protobuf::uint32 value) {
+  set_has_no_player();
+  no_player_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// msg_enter_into_game_svr
+
+// optional uint32 player_type = 1;
+inline bool msg_enter_into_game_svr::has_player_type() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void msg_enter_into_game_svr::set_has_player_type() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void msg_enter_into_game_svr::clear_has_player_type() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void msg_enter_into_game_svr::clear_player_type() {
+  player_type_ = 0u;
+  clear_has_player_type();
+}
+inline ::google::protobuf::uint32 msg_enter_into_game_svr::player_type() const {
+  return player_type_;
+}
+inline void msg_enter_into_game_svr::set_player_type(::google::protobuf::uint32 value) {
+  set_has_player_type();
+  player_type_ = value;
+}
+
+// optional .net.base_info base_data = 2;
+inline bool msg_enter_into_game_svr::has_base_data() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void msg_enter_into_game_svr::set_has_base_data() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void msg_enter_into_game_svr::clear_has_base_data() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void msg_enter_into_game_svr::clear_base_data() {
+  if (base_data_ != NULL) base_data_->::net::base_info::Clear();
+  clear_has_base_data();
+}
+inline const ::net::base_info& msg_enter_into_game_svr::base_data() const {
+  return base_data_ != NULL ? *base_data_ : *default_instance_->base_data_;
+}
+inline ::net::base_info* msg_enter_into_game_svr::mutable_base_data() {
+  set_has_base_data();
+  if (base_data_ == NULL) base_data_ = new ::net::base_info;
+  return base_data_;
+}
+inline ::net::base_info* msg_enter_into_game_svr::release_base_data() {
+  clear_has_base_data();
+  ::net::base_info* temp = base_data_;
+  base_data_ = NULL;
+  return temp;
+}
+inline void msg_enter_into_game_svr::set_allocated_base_data(::net::base_info* base_data) {
+  delete base_data_;
+  base_data_ = base_data;
+  if (base_data) {
+    set_has_base_data();
+  } else {
+    clear_has_base_data();
+  }
+}
+
+// optional uint32 play_type = 3;
+inline bool msg_enter_into_game_svr::has_play_type() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void msg_enter_into_game_svr::set_has_play_type() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void msg_enter_into_game_svr::clear_has_play_type() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void msg_enter_into_game_svr::clear_play_type() {
+  play_type_ = 0u;
+  clear_has_play_type();
+}
+inline ::google::protobuf::uint32 msg_enter_into_game_svr::play_type() const {
+  return play_type_;
+}
+inline void msg_enter_into_game_svr::set_play_type(::google::protobuf::uint32 value) {
+  set_has_play_type();
+  play_type_ = value;
 }
 
 

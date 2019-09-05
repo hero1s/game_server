@@ -46,8 +46,42 @@ message msg_player_data_rep
 	optional base_info  base_data = 1;	// 基本信息		
 }
 
-
-
+// 请求服务器信息
+message msg_svrs_info_req
+{
+	optional uint32  game_type = 1;	
+} 
+// 发送游戏服务器信息
+message msg_svrs_info_rep
+{
+	repeated svr_info svrs 			= 1; // 游戏服务器信息
+	optional uint32   cur_svrid 	= 2; // 当前游戏服务器ID(断线重连处理)
+}
+// 进入游戏服务器
+message msg_enter_gamesvr_req
+{
+	optional uint32 svrid 		= 1; // 游戏服务器ID
+	
+}
+// 进入游戏服务器返回
+message msg_enter_gamesvr_rep
+{
+	optional uint32 result 		= 1;
+	optional uint32 svrid  		= 2;
+	
+}
+// 返回大厅
+message msg_back_lobby_req
+{
+	optional uint32 uid 	  = 1;
+	optional uint32 is_action = 2;// 是否服务器主动
+}
+// 返回大厅反馈
+message msg_back_lobby_rep
+{
+	optional uint32 result = 1;	
+	optional uint32 reason = 2; // 返回原因
+}
 
 
 

@@ -33,13 +33,14 @@ add_link_lib(pb)
 add_link_lib(svrlib)
 add_link_lib(snappy)
 add_link_lib(lua)
+add_link_lib(mysqlclient)
 add_link_lib(protobuf)
 add_link_lib(uuid)
 add_link_lib(stdc++fs)
 add_link_lib(rt)
 add_link_lib(pthread)
 add_link_lib(dl)
-#add_link_lib(jemalloc)
+
 
 
 build_executable(lobbyServer ../../../release/lobby_server/)
