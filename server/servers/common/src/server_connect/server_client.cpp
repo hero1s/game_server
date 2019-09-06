@@ -213,13 +213,13 @@ int CServerClientMgr::OnRecvClientMsg() {
 int CServerClientMgr::OnRouteDispMsg() {
     switch (_head->route)
     {
-        case emROUTE_TYPE_ALL_GAME:
+        case emROUTE_TYPE_ALL_SERVER:
         {
             //LOG_DEBUG("转发全部游戏服{}", head->cmd);
             SendMsg2AllGameServer(_head->routeID, _pkt_buf, _buf_len, _head->cmd, _head->uin);
             break;
         }
-        case emROUTE_TYPE_ONE_GAME:
+        case emROUTE_TYPE_ONE_SERVER:
         {
             //LOG_DEBUG("转发单个游戏服{}--{}--{}", head->cmd, head->routeMain, head->routeSub);
             SendMsg2Server(_head->routeID, _pkt_buf, _buf_len, _head->cmd, _head->uin);

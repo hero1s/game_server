@@ -170,7 +170,16 @@ bool CGamePlayer::IsInGamePlaying()
 
 	return false;
 }
-
+// 消息处理
+int CGamePlayer::OnMessage(uint16_t cmdID, const uint8_t* pkt_buf, uint16_t buf_len)
+{
+	//	CGameTable* pGameTable = GetTable();
+//	if (pGameTable != NULL)
+//	{
+//		pGameTable->OnMessage(this, _head->cmd, _pkt_buf, _buf_len);
+//	}
+	return 0;
+}
 uint8_t CGamePlayer::GetNetState()
 {
 	return m_netState;

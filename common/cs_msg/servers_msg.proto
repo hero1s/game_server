@@ -22,7 +22,7 @@ enum  SERVER_MSG_ID
 	GS2L_MSG_LEAVE_SVR					= 504;	// 返回大厅	
 	L2GS_MSG_NOTIFY_NET_STATE			= 505;	// 通知网络状态
 	L2GS_MSG_ENTER_INTO_SVR				= 506;	// 进入游戏服务器
-	
+	GS2L_MSG_NOTIFY_PLAYER_LOBBY_LOGIN   = 507;	// 登录通知
 }
 
 // -------------------------------------------------------------------------------------
@@ -107,7 +107,12 @@ message msg_enter_into_game_svr
 	optional uint32				play_type		= 3;	// 玩法类型
 	
 }
-
+// 通知登录
+message msg_notify_player_lobby_login
+{
+	optional uint32 lobby_id		= 1;	// 大厅服务器ID
+	optional uint32 uid				= 2;	// 玩家ID
+}
 
 
 

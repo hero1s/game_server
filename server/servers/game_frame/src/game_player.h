@@ -43,7 +43,8 @@ public:
 
 	// 是否正在游戏中
 	bool IsInGamePlaying();
-
+	// 消息处理
+	int OnMessage(uint16_t cmdID, const uint8_t* pkt_buf, uint16_t buf_len);
 public:
 	uint8_t GetNetState();
 	void SetNetState(uint8_t state);

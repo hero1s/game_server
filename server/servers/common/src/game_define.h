@@ -41,8 +41,9 @@ enum emSERVER_TYPE
 // 路由类型
 enum emROUTE_TYPE
 {
-  emROUTE_TYPE_ALL_GAME  = 1,// 全部游戏服
-  emROUTE_TYPE_ONE_GAME  = 2,// 指定游戏服
+  emROUTE_TYPE_ALL_SERVER  = 1,// 全部游戏服
+  emROUTE_TYPE_ONE_SERVER  = 2,// 指定游戏服
+
 
 };
 

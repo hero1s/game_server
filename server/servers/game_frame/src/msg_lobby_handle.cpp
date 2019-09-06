@@ -6,6 +6,7 @@
 #include "game_define.h"
 #include "game_player.h"
 #include "player_mgr.h"
+#include "net/center_client.h"
 
 using namespace Network;
 using namespace svrlib;
@@ -43,11 +44,8 @@ int CHandleLobbyMsg::handle_msg_gameing_oper()
 	{
 		return 0;
 	}
-//	CGameTable* pGameTable = pGamePlayer->GetTable();
-//	if (pGameTable != NULL)
-//	{
-//		pGameTable->OnMessage(pGamePlayer, _head->cmd, _pkt_buf, _buf_len);
-//	}
+	pGamePlayer->OnMessage(_head->cmd, _pkt_buf, _buf_len);
+
 	return 0;
 }
 
@@ -112,6 +110,9 @@ int CHandleLobbyMsg::handle_msg_enter_svr()
 	msgrep.set_svrid(CApplication::Instance().GetServerID());
 
 	pGamePlayer->SendMsgToClient(&msgrep, net::S2C_MSG_ENTER_SVR_REP);
+
+	//测试中心服转发消息给指定玩家 test toney
+	CCenterClientMgr::Instance().SendMsg2Svr(&msgrep, net::S2C_MSG_ENTER_SVR_REP,uid,emROUTE_TYPE_ALL_SERVER,emSERVER_TYPE_LOBBY);
 
 	return 0;
 }

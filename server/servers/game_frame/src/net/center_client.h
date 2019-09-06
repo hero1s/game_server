@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include "servers_msg.pb.h"
 #include "server_connect/server_connector.h"
+#include "game_player.h"
 
 using namespace std;
 using namespace svrlib;
@@ -18,9 +19,13 @@ public:
 
     virtual ~CCenterClientMgr();
 
+    virtual int OnRecvClientMsg();
 protected:
+    // 转发给客户端
+    int route_to_client();
 
 
+    std::shared_ptr<CGamePlayer> GetPlayer();
 
 };
 /*

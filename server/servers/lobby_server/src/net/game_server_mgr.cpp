@@ -17,7 +17,7 @@ namespace {
 //--------------------------------------------------------------------------------------------
 CGameServerMgr::CGameServerMgr() {
     bind_handler(this,net::svr::GS2L_MSG_REPORT,&CGameServerMgr::handle_msg_report);
-
+    bind_handler(this, net::svr::GS2L_MSG_LEAVE_SVR, &CGameServerMgr::handle_msg_leave_svr);
 }
 
 CGameServerMgr::~CGameServerMgr() {

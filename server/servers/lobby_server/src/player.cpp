@@ -6,6 +6,7 @@
 #include "common_logic.h"
 #include "net/dbagent_client.h"
 #include "net/game_server_mgr.h"
+#include "net/center_client.h"
 
 using namespace svrlib;
 using namespace std;
@@ -22,13 +23,12 @@ CPlayer::CPlayer(PLAYER_TYPE type)
     m_reloginTime = 0;
     m_netDelay = 0;
     m_limitTime.fill(0);
-    m_dayEventReg = ebus::EventBus::AddHandler<ebus::NewDayEvent>(*this);
+
 }
 
 CPlayer::~CPlayer()
 {
-    m_dayEventReg->removeHandler();
-    SAFE_DELETE(m_dayEventReg);
+
 }
 
 void CPlayer::OnLoginOut()
@@ -75,6 +75,7 @@ void CPlayer::OnGetAllData()
     // 发送数据到客户端
     SendAllPlayerData2Client();
     NotifyEnterGame();
+    NotifyLobbyLogin();
 
     SOL_CALL_LUA(CApplication::Instance().GetSolLuaState()["login_on"](this));
 
@@ -128,18 +129,6 @@ void CPlayer::OnTimeTick(uint64_t uTime, bool bNewDay)
     }
     else {
         m_disconnectTime = 0;
-    }
-}
-
-void CPlayer::onEvent(ebus::NewDayEvent& e)
-{
-    LOG_DEBUG("new day event {}", GetUID());
-    DailyCleanup(1);
-    if (e.isNewWeek()) {
-        LOG_DEBUG("new week event {}", GetUID());
-    }
-    if (e.isNewMonth()) {
-        LOG_DEBUG("new month event {}", GetUID());
     }
 }
 
@@ -266,7 +255,15 @@ void CPlayer::NotifyClientBackLobby(uint8_t result, uint8_t reason)
     rep.set_reason(reason);
     SendMsgToClient(&rep, net::S2C_MSG_BACK_LOBBY_REP);
 }
-
+// 广播通知登录
+void CPlayer::NotifyLobbyLogin()
+{
+    net::svr::msg_notify_player_lobby_login msg;
+    msg.set_lobby_id(CApplication::Instance().GetServerID());
+    msg.set_uid(GetUID());
+    //广播全部大厅
+    CCenterClientMgr::Instance().SendMsg2Svr(&msg, net::svr::GS2L_MSG_NOTIFY_PLAYER_LOBBY_LOGIN, GetUID(), emROUTE_TYPE_ALL_SERVER,emSERVER_TYPE_LOBBY);
+}
 // 构建初始化
 void CPlayer::BuildInit()
 {
