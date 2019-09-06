@@ -44,6 +44,8 @@ void CPlayer::OnLoginOut()
     }
 
     SOL_CALL_LUA(CApplication::Instance().GetSolLuaState()["login_out"](this));
+
+    ActionReqBackLobby(0);//test toney
 }
 
 void CPlayer::OnLogin()
@@ -76,7 +78,8 @@ void CPlayer::OnGetAllData()
 
     SOL_CALL_LUA(CApplication::Instance().GetSolLuaState()["login_on"](this));
 
-    SavePlayerBaseInfo();//test
+    SavePlayerBaseInfo();//test toney
+    EnterGameSvr(13);//test toney
 }
 
 void CPlayer::ReLogin()
@@ -89,6 +92,7 @@ void CPlayer::ReLogin()
 
     SendAllPlayerData2Client();
     NotifyEnterGame();
+    NotifyNetState2GameSvr(1);
 
     m_reloginTime = time::getSysTime();
 }
@@ -353,10 +357,9 @@ void CPlayer::ActionReqBackLobby(uint8_t action)
 uint16_t CPlayer::EnterGameSvr(uint16_t svrID)
 {
     auto pServer = CGameServerMgr::Instance().GetServerBySvrID(svrID);
-    if (pServer == nullptr || (GetGameSvrID() != svrID))
+    if (pServer == nullptr)
     {
-        BackLobby();
-        LOG_DEBUG("服务器不存在:{}", svrID);
+        LOG_DEBUG("服务器不存在:{}--{}",GetGameSvrID(),svrID);
         return RESULT_CODE_SVR_REPAIR;
     }
     if (GetGameSvrID() != 0 && GetGameSvrID() != svrID)

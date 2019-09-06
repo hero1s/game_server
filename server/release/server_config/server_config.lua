@@ -50,12 +50,6 @@ function game_config(sid, gameConfig)
     return true;
 end
 
--- 大厅服端口
-function get_lobby_listen(sid)
-    return 7777;
-end
-
-
 -- 加载数据库
 function load_db_config(sid, serviceConfig)
     for k, v in pairs(database_dbname) do

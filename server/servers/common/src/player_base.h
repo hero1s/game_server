@@ -92,7 +92,7 @@ public:
     // 基础数据
     void GetPlayerBaseData(net::base_info *pInfo);
 
-    void SetPlayerBaseData(const net::base_info &info);
+    void SetPlayerBaseData(const net::base_info &info, bool bSetUid = true);
     // 进入游戏服数据
     void SetPlayerGameData(const net::svr::msg_enter_into_game_svr& info);
 
@@ -112,12 +112,12 @@ private:
 protected:
     uid_type m_uid;
     PLAYER_TYPE m_bPlayerType;
-    TCPConnPtr m_pSession;
+    TCPConnPtr m_pSession = nullptr;
     uint8_t m_bPlayerState;
     bool m_needRecover;                             // 需要下线回收
-    string m_loginKey;                              // 登陆key
-    uint16_t m_loginLobbySvrID;                     // 登录大厅服务器
-    uint16_t m_curSvrID;                            // 当前所在服务器ID
+    string m_loginKey = "";                         // 登陆key
+    uint16_t m_loginLobbySvrID = 0;                 // 登录大厅服务器
+    uint16_t m_curSvrID = 0;                        // 当前所在服务器ID
     stBaseInfo m_baseInfo;                          // 基础信息
     std::bitset<emACCDATA_TYPE_MAX> m_loadState;    // 数据加载状态
 

@@ -15,7 +15,7 @@ namespace {
 };
 
 CPlayerBase::CPlayerBase(PLAYER_TYPE type)
-        : m_bPlayerType(type), m_pSession(NULL), m_bPlayerState(PLAYER_STATE_NULL) {
+        : m_bPlayerType(type), m_pSession(nullptr), m_bPlayerState(PLAYER_STATE_NULL) {
     m_uid = 0;
     m_loadState.reset();
     m_needRecover = false;
@@ -156,6 +156,7 @@ string CPlayerBase::GetLoginKey() {
 }
 
 void CPlayerBase::GetPlayerBaseData(net::base_info *pInfo) {
+    pInfo->set_uid(GetUID());
     pInfo->set_name(m_baseInfo.name);
     pInfo->set_sex(m_baseInfo.sex);
     pInfo->set_coin(m_baseInfo.coin);
@@ -167,7 +168,11 @@ void CPlayerBase::GetPlayerBaseData(net::base_info *pInfo) {
     pInfo->set_offline_time(m_baseInfo.offline_time);
 }
 
-void CPlayerBase::SetPlayerBaseData(const net::base_info &info) {
+void CPlayerBase::SetPlayerBaseData(const net::base_info &info, bool bSetUid) {
+    if(bSetUid)
+    {
+        SetUID(info.uid());
+    }
     m_baseInfo.name = info.name();
     m_baseInfo.sex = info.sex();
     m_baseInfo.coin = info.coin();

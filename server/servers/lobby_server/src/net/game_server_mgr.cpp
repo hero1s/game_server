@@ -69,7 +69,7 @@ int CGameServerMgr::handle_msg_report()
 
     uint32_t players = msg.onlines();
 
-    LOG_DEBUG("游戏服上报信息:sid {}--{}",_connPtr->GetUID(),players);
+    //LOG_DEBUG("游戏服上报信息:sid {}--{}",_connPtr->GetUID(),players);
 
     return 0;
 }

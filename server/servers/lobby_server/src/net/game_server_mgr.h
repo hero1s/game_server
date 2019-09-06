@@ -36,8 +36,9 @@ private:
 
     std::shared_ptr<CPlayer> GetPlayer();
 };
-
-
+/*
+ * 游戏服务器连接大厅服务器的管理及消息处理
+*/
 
 
 

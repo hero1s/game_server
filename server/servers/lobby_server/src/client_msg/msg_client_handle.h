@@ -29,7 +29,9 @@ protected:
 
 	std::shared_ptr<CPlayer> GetPlayer(const TCPConnPtr& connPtr);
 };
-
+/*
+ * 客户端玩家的连接管理及消息处理
+*/
 
 
 
