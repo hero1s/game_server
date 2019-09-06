@@ -254,6 +254,15 @@ bool CPlayer::SendAccData2Client()
     return true;
 }
 
+// 通知返回大厅
+void CPlayer::NotifyClientBackLobby(uint8_t result, uint8_t reason)
+{
+    net::cli::msg_back_lobby_rep rep;
+    rep.set_result(result);
+    rep.set_reason(reason);
+    SendMsgToClient(&rep, net::S2C_MSG_BACK_LOBBY_REP);
+}
+
 // 构建初始化
 void CPlayer::BuildInit()
 {
@@ -341,7 +350,7 @@ void CPlayer::ActionReqBackLobby(uint8_t action)
     SendMsgToGameSvr(&msg, net::C2S_MSG_BACK_LOBBY);
 }
 // 进入游戏服务器
-uint16_t CPlayer::EnterGameSvr(uint16_t svrID, uint16_t playType)
+uint16_t CPlayer::EnterGameSvr(uint16_t svrID)
 {
     auto pServer = CGameServerMgr::Instance().GetServerBySvrID(svrID);
     if (pServer == nullptr || (GetGameSvrID() != svrID))

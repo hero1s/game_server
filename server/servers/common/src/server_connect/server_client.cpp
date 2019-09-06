@@ -40,6 +40,9 @@ uint16_t CServerClient::GetGameType() {
 uint16_t CServerClient::GetGameSubType() {
     return m_info.game_subtype();
 }
+string CServerClient::GetUUID(){
+    return m_info.uuid();
+}
 
 //--------------------------------------------------------------------------------------------
 CServerClientMgr::CServerClientMgr()
@@ -187,6 +190,13 @@ void CServerClientMgr::UpdateServerList() {
     }
 
     SendMsg2All(&svrList, net::svr::S2S_MSG_SERVER_LIST_REP, 0);
+}
+// 获取所有服务器列表
+void CServerClientMgr::GetAllServerInfo(vector<shared_ptr<CServerClient>>& svrlist){
+    for (auto &it : m_mpServers)
+    {
+        svrlist.push_back(it.second);
+    }
 }
 
 int CServerClientMgr::OnRecvClientMsg() {

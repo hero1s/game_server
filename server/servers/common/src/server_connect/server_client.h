@@ -36,6 +36,7 @@ public:
 
     uint16_t GetGameSubType();
 
+    string GetUUID();
 public:
     net::svr::server_info m_info;
     TCPConnPtr m_pConnPtr;
@@ -79,6 +80,8 @@ public:
 
     // 更新服务器列表给全部服务器
     void UpdateServerList();
+    // 获取所有服务器列表
+    void GetAllServerInfo(vector<shared_ptr<CServerClient>>& svrlist);
 
     virtual int OnRecvClientMsg();
 

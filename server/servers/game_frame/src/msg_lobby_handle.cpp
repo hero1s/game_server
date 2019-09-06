@@ -83,7 +83,7 @@ int CHandleLobbyMsg::handle_msg_enter_svr()
 	net::svr::msg_enter_into_game_svr msg;
 	PARSE_MSG(msg);
 	uint32_t uid = _head->uin;
-	//LOG_DEBUG("进入游戏服务器:{}",uid);
+	LOG_DEBUG("进入游戏服务器:{}",uid);
 
 	auto pGamePlayer = GetGamePlayer();
 	if (pGamePlayer != nullptr)

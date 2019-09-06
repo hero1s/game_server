@@ -60,6 +60,9 @@ public:
     bool SendAllPlayerData2Client();
 
     bool SendAccData2Client();
+    // 通知返回大厅
+    void NotifyClientBackLobby(uint8_t result, uint8_t reason);
+
 
     // 构建初始化
     void BuildInit();
@@ -74,7 +77,7 @@ public:
     // 请求返回大厅
     void ActionReqBackLobby(uint8_t action);
     // 进入游戏服务器
-    uint16_t EnterGameSvr(uint16_t svrID, uint16_t playType);
+    uint16_t EnterGameSvr(uint16_t svrID);
 
     // 获得relogin时间
     uint32_t GetReloginTime();
