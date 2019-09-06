@@ -10,7 +10,6 @@
 #include <vector>
 #include "asio.hpp"
 #include "lua_service/lua_service.h"
-#include "ebus/event_bus.hpp"
 #include "network/tcp_server.h"
 #include <string>
 
@@ -18,7 +17,7 @@ using namespace std;
 
 extern int FrameworkMain(int argc, char* argv[]);
 
-class CApplication : public ebus::Object, public AutoDeleteSingleton<CApplication> {
+class CApplication : public AutoDeleteSingleton<CApplication> {
 public:
     CApplication();
 
@@ -58,7 +57,7 @@ public:
     svrlib::lua_service* GetLuaService();
 
 private:
-    void CheckNewDayEvent();
+
 
 public:
 //具体实例去实现

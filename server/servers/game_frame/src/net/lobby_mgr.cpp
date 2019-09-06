@@ -2,7 +2,7 @@
 #include "lobby_mgr.h"
 #include "game_server_config.h"
 #include "game_define.h"
-#include "msg_lobby_handle.h"
+#include "net/msg_lobby_handle.h"
 #include "player_mgr.h"
 
 using namespace svrlib;

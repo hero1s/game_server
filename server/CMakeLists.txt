@@ -685,10 +685,10 @@ add_executable(server
     servers/game_frame/src/net/dbagent_client.h
     servers/game_frame/src/game_player.cpp
     servers/game_frame/src/game_player.h
-    servers/game_frame/src/lobby_mgr.cpp
-    servers/game_frame/src/lobby_mgr.h
-    servers/game_frame/src/msg_lobby_handle.cpp
-    servers/game_frame/src/msg_lobby_handle.h
+        servers/game_frame/src/net/lobby_mgr.cpp
+        servers/game_frame/src/net/lobby_mgr.h
+        servers/game_frame/src/net/msg_lobby_handle.cpp
+        servers/game_frame/src/net/msg_lobby_handle.h
     servers/game_server/src/game_server.cpp
     servers/lobby_server/src/client_msg/msg_client_handle.cpp
     servers/lobby_server/src/client_msg/msg_client_handle.h

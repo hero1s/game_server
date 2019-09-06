@@ -91,8 +91,6 @@ uint64_t CApplication::PreTick() {
         m_lastTick = curTime;
     }
 
-    CheckNewDayEvent();
-
     return delta;
 }
 
@@ -137,33 +135,5 @@ asio::io_context &CApplication::GetAsioContext() {
 svrlib::lua_service* CApplication::GetLuaService(){
     return m_luaService;
 }
-//----检测日期变更---
-void CApplication::CheckNewDayEvent(){
-    static uint64_t uProcessTime = 0;
-    uint64_t uTime = time::getSysTime();
-    if (!uProcessTime)
-        uProcessTime = uTime;
-    if (uTime != uProcessTime) {
-        bool bNewDay = (time::diffTimeDay(uProcessTime, uTime) != 0);
-        if (bNewDay) {
-            bool bNewWeek = false;
-            bool bNewMonth = false;
-            // 新的一天
-            tm local_time;
-            time::localtime(time::second(),&local_time);
-            // 跨周        0-6
-            if (local_time.tm_wday == 0) {
-                bNewWeek = true;
-            }
-            // 跨月        1-31
-            if (local_time.tm_mday == 1) {
-                bNewMonth = true;
-            }
 
-            ebus::NewDayEvent ev(*this,bNewWeek,bNewMonth);
-            ebus::EventBus::FireEvent(ev);
-        }
-        uProcessTime = uTime;
-    }
-}
 

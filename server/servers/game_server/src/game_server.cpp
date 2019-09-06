@@ -16,7 +16,7 @@
 #include "net/dbagent_client.h"
 #include "redis_mgr.h"
 #include "player_mgr.h"
-#include "lobby_mgr.h"
+#include "net/lobby_mgr.h"
 
 using namespace svrlib;
 using namespace std;

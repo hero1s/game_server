@@ -2,7 +2,7 @@
 #include "game_player.h"
 #include "helper/bufferStream.h"
 #include "time/time.hpp"
-#include "lobby_mgr.h"
+#include "net/lobby_mgr.h"
 
 using namespace svrlib;
 using namespace std;
