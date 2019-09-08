@@ -55,7 +55,7 @@ private:
     bool m_asyncConnecting = false;
 };
 /*
-    注意：connect,commond,pipeline命令报错会抛异常
+    注意：connect,commond,pipeline命令报错会抛异常,考虑合并功能到框架中
 */
 
 
