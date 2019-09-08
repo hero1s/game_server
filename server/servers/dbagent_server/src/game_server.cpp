@@ -28,7 +28,7 @@ bool CApplication::Initialize() {
     }
     LOG_INFO("load config is:id:{},uuid:{}", m_uiServerID,m_uuid);
     // db
-    if (CDBMysqlMgr::Instance().Init(GameServerConfig::Instance().DBConf) == false) {
+    if (CDBMysqlMgr::Instance().Init(GameServerConfig::Instance().DBConfs) == false) {
         LOG_ERROR("init mysqlmgr fail ");
         return false;
     }

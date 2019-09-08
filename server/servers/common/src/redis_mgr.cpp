@@ -62,8 +62,10 @@ void CRedisMgr::OnTimer() {
     //TestPileline();
 }
 
-bool CRedisMgr::Init(asio::io_context &context, stRedisConf &conf) {
-    m_conf = conf;
+bool CRedisMgr::Init(asio::io_context &context, vector<stRedisConf> &confs) {
+    if(confs.size() < 1)
+        return false;
+    m_conf = confs[0];//暂时先处理一个redis服务
     CApplication::Instance().schedule(&m_timer, 20000);
 
     //同步客户端

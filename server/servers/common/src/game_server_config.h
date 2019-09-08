@@ -19,29 +19,33 @@ using namespace svrlib;
 struct GameServerConfig : public AutoDeleteSingleton<GameServerConfig>
 {
 public:
-	stDBConf DBConf[DB_INDEX_TYPE_MAX];
-	stRedisConf redisConf;
+	vector<stDBConf> DBConfs;
+	vector<stRedisConf> redisConfs;
 
 	stDBConf* GetDBConf(uint8_t index)
 	{
-		if (index < DB_INDEX_TYPE_MAX)
+		if (DBConfs.size() < (size_t)(index+1))
 		{
-			return &DBConf[index];
+			DBConfs.resize(index+1);
 		}
-		return NULL;
+        return &DBConfs[index];
 	}
 
 	string GetDBName(uint8_t index)
 	{
-		if (index < DB_INDEX_TYPE_MAX)
+		if (index < DBConfs.size())
 		{
-			return DBConf[index].sDBName;
+			return DBConfs[index].sDBName;
 		}
 		return "";
 	}
-	stRedisConf* GetRedisConf()
+	stRedisConf* GetRedisConf(uint8_t index)
 	{
-		return &redisConf;
+        if(redisConfs.size() < (size_t)(index+1))
+        {
+            redisConfs.resize(index+1);
+        }
+		return &redisConfs[index];
 	}
 
 };

@@ -58,8 +58,8 @@ function load_db_config(sid, serviceConfig)
     end
 end
 -- 加载redis
-function load_redis_config(serverID,serviceConfig)
-    local cfg = serviceConfig:GetRedisConf();
+function load_redis_config(sid,serviceConfig)
+    local cfg = serviceConfig:GetRedisConf(0);
     cfg:SetRedisHost(redis_config.host, redis_config.port,redis_config.passwd);
 end
 -- 设置服务器基础信息

@@ -21,7 +21,7 @@ public:
 
     void OnTimer();
 
-    bool Init(asio::io_context &context, stRedisConf &conf);
+    bool Init(asio::io_context &context, vector<stRedisConf> &confs);
 
     void ShutDown();
 
