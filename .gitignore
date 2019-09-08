@@ -1,4 +1,4 @@
 _gsdata_/
 server/cmake-build-debug/
 
-server/release/dbagent_server/dbagentServer
+server/server_frame
