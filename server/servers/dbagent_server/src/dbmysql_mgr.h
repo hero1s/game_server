@@ -27,7 +27,7 @@ public:
 
 	void OnTimer();
 
-	bool Init(stDBConf szDBConf[]);
+	bool Init(const vector<stDBConf>& DBConfs);
 
 	void ShutDown();
 
@@ -67,9 +67,9 @@ private:
 	// 同步数据库操作
 	CDBOperator m_syncDBOper;                           // 同步数据库
 	// 异步数据库操作
-	CDBTask* m_pAsyncTask[DB_INDEX_TYPE_MAX];           // 异步数据库线程
+	vector<shared_ptr<CDBTask>> m_pAsyncTasks;          // 异步数据库线程
 
-	stDBConf m_DBConf[DB_INDEX_TYPE_MAX];               // 数据库配置信息
+	vector<stDBConf> m_DBConfs;               			// 数据库配置信息
 
 	uint16_t                                             m_svrID;
 	MemberTimerEvent<CDBMysqlMgr, &CDBMysqlMgr::OnTimer> m_reportTimer;

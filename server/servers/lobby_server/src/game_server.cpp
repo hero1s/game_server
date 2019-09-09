@@ -1,7 +1,7 @@
 /*
 * game_server.cpp
 *
-*  modify on: 2015-12-2
+*  modify on: 2019-9-6
 *      Author: toney
 */
 #include "game_define.h"
@@ -73,12 +73,13 @@ bool CApplication::Initialize() {
                     // 不直接断线，保留一定时间
                     pPlayer->SetSession(nullptr);
                     conn->SetUID(0);
+                    pPlayer->NotifyNetState2GameSvr(0);
                 }
                 LOG_DEBUG("{},connection disconnecting",conn->GetName());
             }
         });
         tcpSvr->SetMessageCallback([](const TCPConnPtr& conn, ByteBuffer& buffer) {
-            LOG_DEBUG("recv msg {}",std::string(buffer.Data(), buffer.Size()));
+            //LOG_DEBUG("recv msg {}",std::string(buffer.Data(), buffer.Size()));
             CHandleClientMsg::Instance().OnHandleClientMsg(conn,(uint8_t*)buffer.Data(),buffer.Size());
         });
         tcpSvr->Start();
@@ -96,7 +97,7 @@ bool CApplication::Initialize() {
             }
         });
         tcpSvr->SetMessageCallback([](const TCPConnPtr& conn, ByteBuffer& buffer) {
-            LOG_DEBUG("recv msg {}",std::string(buffer.Data(), buffer.Size()));
+            //LOG_DEBUG("recv msg {}",std::string(buffer.Data(), buffer.Size()));
             CGameServerMgr::Instance().OnHandleClientMsg(conn,(uint8_t*)buffer.Data(),buffer.Size());
         });
         tcpSvr->Start();
@@ -104,7 +105,7 @@ bool CApplication::Initialize() {
 
     } while (false);
 
-    if (!CRedisMgr::Instance().Init(m_ioContext, GameServerConfig::Instance().redisConf)) {
+    if (!CRedisMgr::Instance().Init(m_ioContext, GameServerConfig::Instance().redisConfs[0])) {
         LOG_ERROR("init redis fail");
         return false;
     }
@@ -126,6 +127,7 @@ bool CApplication::Initialize() {
         LOG_ERROR("init center client mgr fail");
         return false;
     }
+
     //连接DBAgent
     auto dbagentIp = m_solLua.get<sol::table>("server_config").get<sol::table>("dbagent");
     if (CDBAgentClientMgr::Instance().Init(info, dbagentIp.get<string>("ip"), dbagentIp.get<int>("port"),"dbagent_connector",1) == false) {

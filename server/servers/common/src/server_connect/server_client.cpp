@@ -40,6 +40,9 @@ uint16_t CServerClient::GetGameType() {
 uint16_t CServerClient::GetGameSubType() {
     return m_info.game_subtype();
 }
+string CServerClient::GetUUID(){
+    return m_info.uuid();
+}
 
 //--------------------------------------------------------------------------------------------
 CServerClientMgr::CServerClientMgr()
@@ -188,6 +191,13 @@ void CServerClientMgr::UpdateServerList() {
 
     SendMsg2All(&svrList, net::svr::S2S_MSG_SERVER_LIST_REP, 0);
 }
+// 获取所有服务器列表
+void CServerClientMgr::GetAllServerInfo(vector<shared_ptr<CServerClient>>& svrlist){
+    for (auto &it : m_mpServers)
+    {
+        svrlist.push_back(it.second);
+    }
+}
 
 int CServerClientMgr::OnRecvClientMsg() {
     m_msgMinCount++;
@@ -203,13 +213,13 @@ int CServerClientMgr::OnRecvClientMsg() {
 int CServerClientMgr::OnRouteDispMsg() {
     switch (_head->route)
     {
-        case emROUTE_TYPE_ALL_GAME:
+        case emROUTE_TYPE_ALL_SERVER:
         {
             //LOG_DEBUG("转发全部游戏服{}", head->cmd);
             SendMsg2AllGameServer(_head->routeID, _pkt_buf, _buf_len, _head->cmd, _head->uin);
             break;
         }
-        case emROUTE_TYPE_ONE_GAME:
+        case emROUTE_TYPE_ONE_SERVER:
         {
             //LOG_DEBUG("转发单个游戏服{}--{}--{}", head->cmd, head->routeMain, head->routeSub);
             SendMsg2Server(_head->routeID, _pkt_buf, _buf_len, _head->cmd, _head->uin);

@@ -50,12 +50,6 @@ function game_config(sid, gameConfig)
     return true;
 end
 
--- 大厅服端口
-function get_lobby_listen(sid)
-    return 7777;
-end
-
-
 -- 加载数据库
 function load_db_config(sid, serviceConfig)
     for k, v in pairs(database_dbname) do
@@ -64,8 +58,8 @@ function load_db_config(sid, serviceConfig)
     end
 end
 -- 加载redis
-function load_redis_config(serverID,serviceConfig)
-    local cfg = serviceConfig:GetRedisConf();
+function load_redis_config(sid,serviceConfig)
+    local cfg = serviceConfig:GetRedisConf(0);
     cfg:SetRedisHost(redis_config.host, redis_config.port,redis_config.passwd);
 end
 -- 设置服务器基础信息

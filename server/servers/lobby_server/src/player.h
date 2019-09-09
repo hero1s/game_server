@@ -5,15 +5,13 @@
 #include "player_base.h"
 #include "game_define.h"
 #include "msg_define.pb.h"
-#include "ebus/frame_event.hpp"
-#include "ebus/event_bus.hpp"
 
 using namespace svrlib;
 using namespace std;
 using namespace net;
 using namespace Network;
 
-class CPlayer : public CPlayerBase, public ebus::EventHandler<ebus::NewDayEvent> {
+class CPlayer : public CPlayerBase {
     enum LIMIT_TIME {
         emLIMIT_TIME_NETDELAY,
         emLIMIT_TIME_MAX,
@@ -33,10 +31,11 @@ public:
 
     virtual void OnTimeTick(uint64_t uTime, bool bNewDay);
 
-    virtual void onEvent(ebus::NewDayEvent &e) override;
-
     // 是否需要回收
     virtual bool NeedRecover();
+
+    // 返回大厅回调
+    virtual void BackLobby();
 
     bool CanModifyData();
 
@@ -57,11 +56,26 @@ public:
     bool SendAllPlayerData2Client();
 
     bool SendAccData2Client();
+    // 通知返回大厅
+    void NotifyClientBackLobby(uint8_t result, uint8_t reason);
+    // 广播通知登录
+    void NotifyLobbyLogin();
 
     // 构建初始化
     void BuildInit();
 
 public:
+    // 是否在大厅中
+    bool IsInLobby();
+    bool SendMsgToGameSvr(const google::protobuf::Message* msg, uint16_t msg_type);
+    bool SendMsgToGameSvr(const void* msg, uint16_t msg_len, uint16_t msg_type);
+    // 通知网络状态
+    void NotifyNetState2GameSvr(uint8_t state);
+    // 请求返回大厅
+    void ActionReqBackLobby(uint8_t action);
+    // 进入游戏服务器
+    uint16_t EnterGameSvr(uint16_t svrID);
+
     // 获得relogin时间
     uint32_t GetReloginTime();
 
@@ -80,7 +94,6 @@ protected:
     uint32_t m_loadTime;                      // 加载数据时间
     uint32_t m_netDelay;                      // 网络延迟
     std::array<uint32_t, emLIMIT_TIME_MAX> m_limitTime;                    // 限制时间
-    ebus::HandlerRegistration *m_dayEventReg;
 
 };
 

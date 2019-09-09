@@ -2,6 +2,7 @@
 #include "game_player.h"
 #include "helper/bufferStream.h"
 #include "time/time.hpp"
+#include "net/lobby_mgr.h"
 
 using namespace svrlib;
 using namespace std;
@@ -32,7 +33,7 @@ bool CGamePlayer::SendMsgToClient(const google::protobuf::Message* msg, uint16_t
 		return false;
 	}
 
-	//CLobbyMgr::Instance().SendMsg2Client(msg, msg_type, GetUID(), GetLoginLobbySvrID());
+	CLobbyMgr::Instance().SendMsg2Client(msg, msg_type, GetUID(), GetLoginLobbySvrID());
 	return true;
 }
 
@@ -69,10 +70,10 @@ void CGamePlayer::ReLogin()
 void CGamePlayer::NotifyLeaveGameSvr()
 {
 	LOG_DEBUG("notify leave game:{}", GetUID());
-//	net::msg_leave_svr msg;
-//	msg.set_uid(GetUID());
-//
-//	SendMsgToClient(&msg, S2L_MSG_LEAVE_SVR);
+	net::svr::msg_leave_svr msg;
+	msg.set_uid(GetUID());
+
+	SendMsgToClient(&msg, net::svr::GS2L_MSG_LEAVE_SVR);
 }
 
 // 能否退出
@@ -169,7 +170,16 @@ bool CGamePlayer::IsInGamePlaying()
 
 	return false;
 }
-
+// 消息处理
+int CGamePlayer::OnMessage(uint16_t cmdID, const uint8_t* pkt_buf, uint16_t buf_len)
+{
+	//	CGameTable* pGameTable = GetTable();
+//	if (pGameTable != NULL)
+//	{
+//		pGameTable->OnMessage(this, _head->cmd, _pkt_buf, _buf_len);
+//	}
+	return 0;
+}
 uint8_t CGamePlayer::GetNetState()
 {
 	return m_netState;

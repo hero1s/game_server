@@ -1,7 +1,7 @@
 /*
 * game_server.cpp
 *
-*  modify on: 2018-5-23
+*  modify on: 2019-9-6
 *      Author: toney
 */
 #include "game_define.h"
@@ -49,7 +49,7 @@ bool CApplication::Initialize()
 			}
 		});
 		tcpSvr->SetMessageCallback([](const TCPConnPtr& conn, ByteBuffer& buffer) {
-			LOG_DEBUG("recv msg {}",buffer.Size());
+			//LOG_DEBUG("recv msg {}",buffer.Size());
 			CCenterMgr::Instance().OnHandleClientMsg(conn,(uint8_t*)buffer.Data(),buffer.Size());
 		});
 		tcpSvr->Start();

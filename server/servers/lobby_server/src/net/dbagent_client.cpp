@@ -75,7 +75,7 @@ int CDBAgentClientMgr::handle_msg_load_data_rep() {
             LOG_ERROR("base info parase error :{} {}", msg.uid(), msg.load_data().length());
         }
 
-        pPlayer->SetPlayerBaseData(baseInfo);
+        pPlayer->SetPlayerBaseData(baseInfo, false);
         pPlayer->SetOfflineTime(0);
         pPlayer->SetLoadState(emACCDATA_TYPE_BASE);
         pPlayer->SetLoadState(emACCDATA_TYPE_MISS);//test

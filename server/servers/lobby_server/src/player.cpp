@@ -5,7 +5,8 @@
 #include "player_mgr.h"
 #include "common_logic.h"
 #include "net/dbagent_client.h"
-#include "snappy/snappy.h"
+#include "net/game_server_mgr.h"
+#include "net/center_client.h"
 
 using namespace svrlib;
 using namespace std;
@@ -22,13 +23,12 @@ CPlayer::CPlayer(PLAYER_TYPE type)
     m_reloginTime = 0;
     m_netDelay = 0;
     m_limitTime.fill(0);
-    m_dayEventReg = ebus::EventBus::AddHandler<ebus::NewDayEvent>(*this);
+
 }
 
 CPlayer::~CPlayer()
 {
-    m_dayEventReg->removeHandler();
-    SAFE_DELETE(m_dayEventReg);
+
 }
 
 void CPlayer::OnLoginOut()
@@ -44,6 +44,8 @@ void CPlayer::OnLoginOut()
     }
 
     SOL_CALL_LUA(CApplication::Instance().GetSolLuaState()["login_out"](this));
+
+    ActionReqBackLobby(0);//test toney
 }
 
 void CPlayer::OnLogin()
@@ -73,10 +75,12 @@ void CPlayer::OnGetAllData()
     // 发送数据到客户端
     SendAllPlayerData2Client();
     NotifyEnterGame();
+    NotifyLobbyLogin();
 
     SOL_CALL_LUA(CApplication::Instance().GetSolLuaState()["login_on"](this));
 
-    SavePlayerBaseInfo();//test
+    SavePlayerBaseInfo();//test toney
+    EnterGameSvr(13);//test toney
 }
 
 void CPlayer::ReLogin()
@@ -89,6 +93,7 @@ void CPlayer::ReLogin()
 
     SendAllPlayerData2Client();
     NotifyEnterGame();
+    NotifyNetState2GameSvr(1);
 
     m_reloginTime = time::getSysTime();
 }
@@ -127,18 +132,6 @@ void CPlayer::OnTimeTick(uint64_t uTime, bool bNewDay)
     }
 }
 
-void CPlayer::onEvent(ebus::NewDayEvent& e)
-{
-    LOG_DEBUG("new day event {}", GetUID());
-    DailyCleanup(1);
-    if (e.isNewWeek()) {
-        LOG_DEBUG("new week event {}", GetUID());
-    }
-    if (e.isNewMonth()) {
-        LOG_DEBUG("new month event {}", GetUID());
-    }
-}
-
 // 是否需要回收
 bool CPlayer::NeedRecover()
 {
@@ -168,6 +161,12 @@ bool CPlayer::NeedRecover()
     }
 
     return false;
+}
+
+// 返回大厅回调
+void CPlayer::BackLobby()
+{
+    SetGameSvrID(0);
 }
 
 bool CPlayer::CanModifyData()
@@ -248,6 +247,23 @@ bool CPlayer::SendAccData2Client()
     return true;
 }
 
+// 通知返回大厅
+void CPlayer::NotifyClientBackLobby(uint8_t result, uint8_t reason)
+{
+    net::cli::msg_back_lobby_rep rep;
+    rep.set_result(result);
+    rep.set_reason(reason);
+    SendMsgToClient(&rep, net::S2C_MSG_BACK_LOBBY_REP);
+}
+// 广播通知登录
+void CPlayer::NotifyLobbyLogin()
+{
+    net::svr::msg_notify_player_lobby_login msg;
+    msg.set_lobby_id(CApplication::Instance().GetServerID());
+    msg.set_uid(GetUID());
+    //广播全部大厅
+    CCenterClientMgr::Instance().SendMsg2Svr(&msg, net::svr::GS2L_MSG_NOTIFY_PLAYER_LOBBY_LOGIN, GetUID(), emROUTE_TYPE_ALL_SERVER,emSERVER_TYPE_LOBBY);
+}
 // 构建初始化
 void CPlayer::BuildInit()
 {
@@ -291,6 +307,79 @@ void CPlayer::BuildInit()
 
 }
 
+// 是否在大厅中
+bool CPlayer::IsInLobby()
+{
+    if (m_curSvrID != 0)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool CPlayer::SendMsgToGameSvr(const google::protobuf::Message* msg, uint16_t msg_type)
+{
+    if (m_curSvrID == 0)
+        return false;
+    CGameServerMgr::Instance().SendMsg2Server(m_curSvrID, msg, msg_type, GetUID());
+    return true;
+}
+
+bool CPlayer::SendMsgToGameSvr(const void* msg, uint16_t msg_len, uint16_t msg_type)
+{
+    if (m_curSvrID == 0)
+        return false;
+    CGameServerMgr::Instance().SendMsg2Server(m_curSvrID, (uint8_t*) msg, msg_len, msg_type, GetUID());
+    return true;
+}
+// 通知网络状态
+void CPlayer::NotifyNetState2GameSvr(uint8_t state)
+{
+    net::svr::msg_notify_net_state msg;
+    msg.set_uid(GetUID());
+    msg.set_state(state);
+    msg.set_newip(m_baseInfo.login_ip);
+    msg.set_no_player(0);
+    SendMsgToGameSvr(&msg, net::svr::L2GS_MSG_NOTIFY_NET_STATE);
+}
+// 请求返回大厅
+void CPlayer::ActionReqBackLobby(uint8_t action)
+{
+    net::cli::msg_back_lobby_req msg;
+    msg.set_uid(GetUID());
+    msg.set_is_action(action);
+    SendMsgToGameSvr(&msg, net::C2S_MSG_BACK_LOBBY);
+}
+// 进入游戏服务器
+uint16_t CPlayer::EnterGameSvr(uint16_t svrID)
+{
+    auto pServer = CGameServerMgr::Instance().GetServerBySvrID(svrID);
+    if (pServer == nullptr)
+    {
+        LOG_DEBUG("服务器不存在:{}--{}",GetGameSvrID(),svrID);
+        return RESULT_CODE_SVR_REPAIR;
+    }
+    if (GetGameSvrID() != 0 && GetGameSvrID() != svrID)
+    {
+        LOG_DEBUG("进入服务器失败:uid {}--cur {}-->{}", GetUID(), GetGameSvrID(), svrID);
+        ActionReqBackLobby(1);
+        return RESULT_CODE_NEED_INLOBBY;
+    }
+
+    SetGameSvrID(svrID);
+
+    // 发送游戏数据到游戏服
+    net::svr::msg_enter_into_game_svr msg;
+    msg.set_player_type(GetPlayerType());
+    msg.set_play_type(0);
+    GetPlayerGameData(&msg);
+    SendMsgToGameSvr(&msg, net::svr::L2GS_MSG_ENTER_INTO_SVR);
+    LOG_DEBUG("进入游戏服务器:{}-->{}", GetUID(), svrID);
+
+    return RESULT_CODE_SUCCESS;
+}
+
+
 // 获得relogin时间
 uint32_t CPlayer::GetReloginTime()
 {
@@ -333,21 +422,6 @@ void CPlayer::SavePlayerBaseInfo()
     LOG_DEBUG("save player data uid:{},datalen:{},{}", GetUID(), baseData.length(), m_baseInfo.offline_time);
 
     CDBAgentClientMgr::Instance().SavePlayerData(GetUID(), emACCDATA_TYPE_BASE, baseData);
-
-
-    //test
-    baseData += baseData;
-    baseData += baseData;
-    baseData += baseData;
-    baseData += baseData;
-
-    string tmpStr;
-    snappy::Compress(baseData.c_str(),baseData.length(),&tmpStr);
-    LOG_DEBUG("compress datalen:{}",tmpStr.length());
-    string tmpStr2;
-    snappy::Uncompress(tmpStr.c_str(),tmpStr.length(),&tmpStr2);
-    LOG_DEBUG("uncompress datalen:{}",tmpStr2.length());
-
 }
 
 

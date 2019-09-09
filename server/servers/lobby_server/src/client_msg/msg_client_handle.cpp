@@ -6,6 +6,8 @@
 #include "player.h"
 #include "player_mgr.h"
 #include "common_logic.h"
+#include "server_connect/server_client.h"
+#include "net/game_server_mgr.h"
 
 using namespace Network;
 using namespace svrlib;
@@ -26,16 +28,42 @@ CHandleClientMsg::~CHandleClientMsg()
 
 }
 
+int CHandleClientMsg::OnRecvClientMsg()
+{
+	if (CProtobufHandleBase::OnRecvClientMsg() == 1)
+	{
+		return route_to_game_svr();
+	}
+	return 0;
+}
+
 #ifndef CHECK_PLAYER_PLAY
 #define CHECK_PLAYER_PLAY   \
-    CPlayer* pPlayer = GetPlayer(pNetObj);\
-    if(pPlayer == NULL || !pPlayer->IsPlaying())\
+    auto pPlayer = GetPlayer(_connPtr);\
+    if(pPlayer == nullptr || !pPlayer->IsPlaying())\
         return -1;
 #endif
+
+// 转发给游戏服
+int CHandleClientMsg::route_to_game_svr()
+{
+	CHECK_PLAYER_PLAY
+
+	if (pPlayer->GetGameSvrID() > 0)
+	{
+		pPlayer->SendMsgToGameSvr(_pkt_buf,_buf_len,_head->cmd);
+	}
+	else
+	{
+		LOG_DEBUG("玩家不在游戏服uid:{}--cursid {}--cmd:{}", pPlayer->GetUID(), pPlayer->GetGameSvrID(), _head->cmd);
+	}
+	return 0;
+}
 
 // 心跳包
 int CHandleClientMsg::handle_msg_heart()
 {
+	LOG_DEBUG("心跳包:{}",_connPtr->GetUID());
 	net::cli::msg_heart_test msg;
 	msg.set_svr_time(time::getSysTime());
 	pkg_client::SendProtobufMsg(_connPtr, &msg, net::C2S_MSG_HEART, 0);
@@ -141,6 +169,50 @@ int CHandleClientMsg::handle_msg_login()
 	CPlayerMgr::Instance().AddPlayer(pPlayer);
 	pPlayer->OnLogin();
 	pPlayer->SetLoginKey(strDecyPHP);
+
+	return 0;
+}
+// 请求服务器信息
+int CHandleClientMsg::handle_msg_req_svrs_info()
+{
+	CHECK_PLAYER_PLAY
+	LOG_DEBUG("请求服务器信息:{}", pPlayer->GetUID());
+	net::cli::msg_svrs_info_rep info;
+	info.set_cur_svrid(pPlayer->GetGameSvrID());
+	vector<shared_ptr<CServerClient>> svrlist;
+	CGameServerMgr::Instance().GetAllServerInfo(svrlist);
+	for (auto& it : svrlist)
+	{
+		net::svr_info* pSvr = info.add_svrs();
+		pSvr->set_svrid(it->GetSvrID());
+		pSvr->set_svr_type(it->GetSvrType());
+		pSvr->set_game_type(it->GetGameType());
+		pSvr->set_game_subtype(it->GetGameSubType());
+		pSvr->set_uuid(it->GetUUID());
+	}
+	pPlayer->SendMsgToClient(&info, net::S2C_MSG_SVRS_INFO);
+	LOG_DEBUG("发送服务器列表:{}--{},cursvr:{}", pPlayer->GetUID(), info.svrs_size(), info.cur_svrid());
+	return 0;
+}
+// 请求进入游戏服务器
+int CHandleClientMsg::handle_msg_enter_gamesvr()
+{
+	net::cli::msg_enter_gamesvr_req msg;
+	PARSE_MSG(msg);
+	uint16_t svrID    = msg.svrid();
+	LOG_DEBUG("请求进入游戏服务器：{}", svrID);
+	CHECK_PLAYER_PLAY
+
+	uint16_t bRet = pPlayer->EnterGameSvr(svrID);
+	if (bRet != RESULT_CODE_SUCCESS)
+	{
+		LOG_DEBUG("无法进入游戏服务器:{}--{}", pPlayer->GetUID(), svrID);
+		net::cli::msg_enter_gamesvr_rep msgrep;
+		msgrep.set_result(bRet);
+		msgrep.set_svrid(pPlayer->GetGameSvrID());
+		pPlayer->SendMsgToClient(&msgrep, net::S2C_MSG_ENTER_SVR_REP);
+		pPlayer->NotifyClientBackLobby(RESULT_CODE_SUCCESS, RESULT_CODE_ENTER_SVR_FAIL);
+	}
 
 	return 0;
 }

@@ -1,7 +1,7 @@
 /*
 * game_server.cpp
 *
-*  modify on: 2015-12-2
+*  modify on: 2019-9-6
 *      Author: toney
 */
 #include "game_define.h"
@@ -16,7 +16,7 @@
 #include "net/dbagent_client.h"
 #include "redis_mgr.h"
 #include "player_mgr.h"
-#include "lobby_mgr.h"
+#include "net/lobby_mgr.h"
 
 using namespace svrlib;
 using namespace std;
@@ -47,7 +47,7 @@ bool CApplication::Initialize()
 		return false;
 	}
 
-	if (!CRedisMgr::Instance().Init(m_ioContext,GameServerConfig::Instance().redisConf))
+	if (!CRedisMgr::Instance().Init(m_ioContext,GameServerConfig::Instance().redisConfs[0]))
 	{
 		LOG_ERROR("init redis fail");
 		return false;

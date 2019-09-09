@@ -48,6 +48,7 @@ class msg_report_svr_info;
 class msg_leave_svr;
 class msg_notify_net_state;
 class msg_enter_into_game_svr;
+class msg_notify_player_lobby_login;
 
 enum SERVER_MSG_ID {
   S2S_MSG_REGISTER = 201,
@@ -60,11 +61,12 @@ enum SERVER_MSG_ID {
   GS2L_MSG_REPORT = 503,
   GS2L_MSG_LEAVE_SVR = 504,
   L2GS_MSG_NOTIFY_NET_STATE = 505,
-  L2GS_MSG_ENTER_INTO_SVR = 506
+  L2GS_MSG_ENTER_INTO_SVR = 506,
+  GS2L_MSG_NOTIFY_PLAYER_LOBBY_LOGIN = 507
 };
 bool SERVER_MSG_ID_IsValid(int value);
 const SERVER_MSG_ID SERVER_MSG_ID_MIN = S2S_MSG_REGISTER;
-const SERVER_MSG_ID SERVER_MSG_ID_MAX = L2GS_MSG_ENTER_INTO_SVR;
+const SERVER_MSG_ID SERVER_MSG_ID_MAX = GS2L_MSG_NOTIFY_PLAYER_LOBBY_LOGIN;
 const int SERVER_MSG_ID_ARRAYSIZE = SERVER_MSG_ID_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* SERVER_MSG_ID_descriptor();
@@ -1248,6 +1250,98 @@ class msg_enter_into_game_svr : public ::google::protobuf::Message {
   void InitAsDefaultInstance();
   static msg_enter_into_game_svr* default_instance_;
 };
+// -------------------------------------------------------------------
+
+class msg_notify_player_lobby_login : public ::google::protobuf::Message {
+ public:
+  msg_notify_player_lobby_login();
+  virtual ~msg_notify_player_lobby_login();
+
+  msg_notify_player_lobby_login(const msg_notify_player_lobby_login& from);
+
+  inline msg_notify_player_lobby_login& operator=(const msg_notify_player_lobby_login& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msg_notify_player_lobby_login& default_instance();
+
+  void Swap(msg_notify_player_lobby_login* other);
+
+  // implements Message ----------------------------------------------
+
+  msg_notify_player_lobby_login* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msg_notify_player_lobby_login& from);
+  void MergeFrom(const msg_notify_player_lobby_login& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 lobby_id = 1;
+  inline bool has_lobby_id() const;
+  inline void clear_lobby_id();
+  static const int kLobbyIdFieldNumber = 1;
+  inline ::google::protobuf::uint32 lobby_id() const;
+  inline void set_lobby_id(::google::protobuf::uint32 value);
+
+  // optional uint32 uid = 2;
+  inline bool has_uid() const;
+  inline void clear_uid();
+  static const int kUidFieldNumber = 2;
+  inline ::google::protobuf::uint32 uid() const;
+  inline void set_uid(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:net.svr.msg_notify_player_lobby_login)
+ private:
+  inline void set_has_lobby_id();
+  inline void clear_has_lobby_id();
+  inline void set_has_uid();
+  inline void clear_has_uid();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 lobby_id_;
+  ::google::protobuf::uint32 uid_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  friend void  protobuf_AddDesc_servers_5fmsg_2eproto();
+  friend void protobuf_AssignDesc_servers_5fmsg_2eproto();
+  friend void protobuf_ShutdownFile_servers_5fmsg_2eproto();
+
+  void InitAsDefaultInstance();
+  static msg_notify_player_lobby_login* default_instance_;
+};
 // ===================================================================
 
 
@@ -2140,6 +2234,54 @@ inline ::google::protobuf::uint32 msg_enter_into_game_svr::play_type() const {
 inline void msg_enter_into_game_svr::set_play_type(::google::protobuf::uint32 value) {
   set_has_play_type();
   play_type_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// msg_notify_player_lobby_login
+
+// optional uint32 lobby_id = 1;
+inline bool msg_notify_player_lobby_login::has_lobby_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void msg_notify_player_lobby_login::set_has_lobby_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void msg_notify_player_lobby_login::clear_has_lobby_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void msg_notify_player_lobby_login::clear_lobby_id() {
+  lobby_id_ = 0u;
+  clear_has_lobby_id();
+}
+inline ::google::protobuf::uint32 msg_notify_player_lobby_login::lobby_id() const {
+  return lobby_id_;
+}
+inline void msg_notify_player_lobby_login::set_lobby_id(::google::protobuf::uint32 value) {
+  set_has_lobby_id();
+  lobby_id_ = value;
+}
+
+// optional uint32 uid = 2;
+inline bool msg_notify_player_lobby_login::has_uid() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void msg_notify_player_lobby_login::set_has_uid() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void msg_notify_player_lobby_login::clear_has_uid() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void msg_notify_player_lobby_login::clear_uid() {
+  uid_ = 0u;
+  clear_has_uid();
+}
+inline ::google::protobuf::uint32 msg_notify_player_lobby_login::uid() const {
+  return uid_;
+}
+inline void msg_notify_player_lobby_login::set_uid(::google::protobuf::uint32 value) {
+  set_has_uid();
+  uid_ = value;
 }
 
 

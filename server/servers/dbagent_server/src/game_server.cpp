@@ -1,7 +1,7 @@
 /*
 * game_server.cpp
 *
-*  modify on: 2018-5-23
+*  modify on: 2019-9-6
 *      Author: toney
 */
 #include "game_define.h"
@@ -28,7 +28,7 @@ bool CApplication::Initialize() {
     }
     LOG_INFO("load config is:id:{},uuid:{}", m_uiServerID,m_uuid);
     // db
-    if (CDBMysqlMgr::Instance().Init(GameServerConfig::Instance().DBConf) == false) {
+    if (CDBMysqlMgr::Instance().Init(GameServerConfig::Instance().DBConfs) == false) {
         LOG_ERROR("init mysqlmgr fail ");
         return false;
     }
@@ -58,7 +58,7 @@ bool CApplication::Initialize() {
             }
         });
         tcpSvr->SetMessageCallback([](const TCPConnPtr& conn, ByteBuffer& buffer) {
-            LOG_DEBUG("recv msg {}",buffer.Size());
+            //LOG_DEBUG("recv msg {}",buffer.Size());
             CServerMgr::Instance().OnHandleClientMsg(conn,(uint8_t*)buffer.Data(),buffer.Size());
         });
         tcpSvr->Start();
