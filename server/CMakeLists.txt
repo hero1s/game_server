@@ -113,6 +113,7 @@ add_executable(server
     server_frame/include/redisclient/redissyncclient.h
     server_frame/include/redisclient/redisvalue.h
     server_frame/include/redisclient/version.h
+    server_frame/include/redisclient/redis_client_wrap.h
     server_frame/include/string/string.hpp
     server_frame/include/string/string_functions.h
     server_frame/include/string/stringutility.h
