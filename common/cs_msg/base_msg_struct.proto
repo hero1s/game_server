@@ -1,29 +1,29 @@
-
+syntax = "proto3";
 package net;
 
 
 // 玩家基本信息
 message base_info 
 {
-	optional uint32 uid				= 1;				// 游戏ID
-	optional bytes	name 			= 2;				// 昵称	
-	optional uint32 sex		    	= 3;				// 性别	
-	optional int64	coin 			= 5;				// 金币		
-	optional uint32 vip 			= 7;				// vip经验值
-	optional uint32 clogin			= 9;				// 连续登陆天数
-	optional uint32 weeklogin		= 10;				// 本周累计登陆天数
-	optional uint32 login_ip		= 14;				// 登陆IP
-	optional uint32 all_login_days  = 15;				// 累计登陆天数
-	optional uint32 offline_time    = 16;				// 下线时间
+	uint32 uid				= 1;				// 游戏ID
+	bytes  name 			= 2;				// 昵称	
+	uint32 sex		    	= 3;				// 性别	
+	int64  coin 			= 5;				// 金币		
+	uint32 vip 				= 7;				// vip经验值
+	uint32 clogin			= 9;				// 连续登陆天数
+	uint32 weeklogin		= 10;				// 本周累计登陆天数
+	uint32 login_ip			= 14;				// 登陆IP
+	uint32 all_login_days  	= 15;				// 累计登陆天数
+	uint32 offline_time    	= 16;				// 下线时间
 }
 //服务器信息
 message svr_info
 {
-	optional uint32 svrid  	   	 = 1;		// 服务器ID
-	optional uint32 svr_type     = 2;		// 服务器类型
-	optional uint32 game_type  	 = 3;		// 游戏类型
-	optional uint32 game_subtype = 4;		// 游戏子类型
-	optional bytes  uuid		 = 5;		// 服务器uuid
+	uint32 svrid  	   	 	= 1;		// 服务器ID
+	uint32 svr_type     	= 2;		// 服务器类型
+	uint32 game_type  	 	= 3;		// 游戏类型
+	uint32 game_subtype 	= 4;		// 游戏子类型
+	bytes  uuid		 		= 5;		// 服务器uuid
 }
 
 

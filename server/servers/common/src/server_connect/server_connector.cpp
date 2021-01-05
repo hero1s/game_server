@@ -18,7 +18,7 @@ CSvrConnectorMgr::CSvrConnectorMgr()
 }
 
 CSvrConnectorMgr::~CSvrConnectorMgr() {
-    if(m_pClientPtr){
+    if (m_pClientPtr) {
         m_pClientPtr->Disconnect();
         m_pClientPtr = nullptr;
     }
@@ -28,7 +28,8 @@ void CSvrConnectorMgr::OnTimer() {
     CApplication::Instance().schedule(&m_timer, 3000);
 }
 
-bool CSvrConnectorMgr::Init(const net::svr::server_info &info, string ip, uint32_t port,string svrName,uint16_t svrid) {
+bool
+CSvrConnectorMgr::Init(const net::svr::server_info &info, string ip, uint32_t port, string svrName, uint16_t svrid) {
     LOG_DEBUG("server connector to :{}:{}", ip, port);
     m_pClientPtr = std::make_shared<TCPClient>(CApplication::Instance().GetAsioContext(), ip, port, svrName);
     m_pClientPtr->SetUID(svrid);
@@ -37,12 +38,12 @@ bool CSvrConnectorMgr::Init(const net::svr::server_info &info, string ip, uint32
             this->OnConnect(true, conn);
             LOG_DEBUG("{},connection accepted", conn->GetName());
         } else {
-            LOG_DEBUG("{},connection disconnecting",conn->GetName());
+            LOG_DEBUG("{},connection disconnecting", conn->GetName());
             this->OnCloseClient(conn);
         }
     });
-    m_pClientPtr->SetMessageCallback([this](const TCPConnPtr &conn, ByteBuffer &buffer) {
-        this->OnHandleClientMsg(conn, (uint8_t *) buffer.Data(), buffer.Size());
+    m_pClientPtr->SetMessageCallback([this](const TCPConnPtr &conn, uint8_t *pData, uint32_t length) {
+        this->OnHandleClientMsg(conn, pData, length);
         //LOG_DEBUG("{} recv msg {}",m_pClientPtr->GetName(), buffer.Size());
     });
 
@@ -63,18 +64,19 @@ void CSvrConnectorMgr::Register() {
     *info = m_curSvrInfo;
 
     SendMsg2Svr(&msg, net::svr::S2S_MSG_REGISTER, 0);
-    LOG_DEBUG("{} register server svrid:{} svrtype:{}--gameType:{}",m_pClientPtr->GetName(), msg.info().svrid(), msg.info().svr_type(),
+    LOG_DEBUG("{} register server svrid:{} svrtype:{}--gameType:{}", m_pClientPtr->GetName(), msg.info().svrid(),
+              msg.info().svr_type(),
               msg.info().game_type());
 }
 
 void CSvrConnectorMgr::RegisterRep(uint16_t svrid, bool rep) {
-    LOG_DEBUG("{} register server Rep svrid:{}--res:{}",m_pClientPtr->GetName(), svrid, rep);
+    LOG_DEBUG("{} register server Rep svrid:{}--res:{}", m_pClientPtr->GetName(), svrid, rep);
 
     m_isRun = rep;
 }
 
 void CSvrConnectorMgr::OnConnect(bool bSuccess, const TCPConnPtr &conn) {
-    LOG_ERROR("{} on connect {},{}",conn->GetName(), bSuccess, conn->GetUID());
+    LOG_ERROR("{} on connect {},{}", conn->GetName(), bSuccess, conn->GetUID());
     if (bSuccess) {
         m_isRun = true;
         Register();
@@ -82,7 +84,7 @@ void CSvrConnectorMgr::OnConnect(bool bSuccess, const TCPConnPtr &conn) {
 }
 
 void CSvrConnectorMgr::OnCloseClient(const TCPConnPtr &conn) {
-    LOG_ERROR("{} OnClose:{}",conn->GetName(), conn->GetUID());
+    LOG_ERROR("{} OnClose:{}", conn->GetName(), conn->GetUID());
     m_isRun = false;
 }
 
@@ -90,13 +92,13 @@ bool CSvrConnectorMgr::IsRun() {
     return m_isRun;
 }
 
-uint16_t CSvrConnectorMgr::GetSvrID()
-{
+uint16_t CSvrConnectorMgr::GetSvrID() {
     return m_svrID;
 }
+
 void CSvrConnectorMgr::SendMsg2Svr(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin, uint8_t route,
                                    uint32_t routeID) {
-    if (!m_isRun || m_pClientPtr == nullptr){
+    if (!m_isRun || m_pClientPtr == nullptr) {
         LOG_ERROR("the connector is not runing");
         return;
     }
@@ -112,7 +114,7 @@ int CSvrConnectorMgr::handle_msg_register_svr_rep() {
     net::svr::msg_register_svr_rep msg;
     PARSE_MSG(msg);
 
-    LOG_DEBUG("{} server register result :{}",m_pClientPtr->GetName(), msg.result());
+    LOG_DEBUG("{} server register result :{}", m_pClientPtr->GetName(), msg.result());
     if (msg.result() == 1) {
         RegisterRep(m_pClientPtr->GetTCPConn()->GetUID(), true);
     } else {
@@ -128,7 +130,7 @@ int CSvrConnectorMgr::handle_msg_server_list_rep() {
     net::svr::msg_server_list_rep msg;
     PARSE_MSG(msg);
 
-    LOG_DEBUG("{} server rep svrlist :{}",m_pClientPtr->GetName(), msg.server_list_size());
+    LOG_DEBUG("{} server rep svrlist :{}", m_pClientPtr->GetName(), msg.server_list_size());
     m_allSvrList.clear();
     for (int i = 0; i < msg.server_list_size(); ++i) {
         m_allSvrList.insert(make_pair(msg.server_list(i).svrid(), msg.server_list(i)));

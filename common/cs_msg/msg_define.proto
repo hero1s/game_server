@@ -1,4 +1,4 @@
-
+syntax = "proto3";
 package net;
 
 import "error_code.proto";
@@ -9,6 +9,7 @@ import "client_logic_msg.proto";
 // 客户端消息ID
 enum  CLIENT_MSG_ID
 {
+	CLIENT_MSG_ID_NULL					= 0;
 	C2S_MSG_HEART						= 1000;	// 心跳包
 	C2S_MSG_LOGIN 	        			= 1001;	// 登录
 	S2C_MSG_LOGIN_REP					= 1002;	// 登录返回

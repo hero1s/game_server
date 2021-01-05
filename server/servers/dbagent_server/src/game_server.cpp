@@ -26,7 +26,7 @@ bool CApplication::Initialize() {
         LOG_ERROR("load center_config fail ");
         return false;
     }
-    LOG_INFO("load config is:id:{},uuid:{}", m_uiServerID,m_uuid);
+    LOG_INFO("load config is:id:{},uuid:{}", m_uiServerID, m_uuid);
     // db
     if (CDBMysqlMgr::Instance().Init(GameServerConfig::Instance().DBConfs) == false) {
         LOG_ERROR("init mysqlmgr fail ");
@@ -35,7 +35,8 @@ bool CApplication::Initialize() {
     // 初始化共享内存缓存
     if (CPlayerCacheMgr::Instance().Init(m_ioContext, 110, false,
                                          [](uint32_t uid, uint8_t cacheType, const string &data) {
-                                             CDBMysqlMgr::Instance().SavePlayerDataInfo(uid,cacheType, data, time::getSysTime());
+                                             CDBMysqlMgr::Instance().SavePlayerDataInfo(uid, cacheType, data,
+                                                                                        time::getSysTime());
                                          }) == false) {
         LOG_ERROR("init player cache mgr fail ");
         return false;
@@ -48,18 +49,17 @@ bool CApplication::Initialize() {
     do {
         auto dbagentIp = m_solLua.get<sol::table>("server_config").get<sol::table>("dbagent");
         auto tcpSvr = std::make_shared<TCPServer>(m_ioContext, "0.0.0.0", dbagentIp.get<int>("port"), "dbagentServer");
-        tcpSvr->SetConnectionCallback([](const TCPConnPtr& conn) {
+        tcpSvr->SetConnectionCallback([](const TCPConnPtr &conn) {
             if (conn->IsConnected()) {
-                LOG_DEBUG("{},connection accepted",conn->GetName());
-            }
-            else {
+                LOG_DEBUG("{},connection accepted", conn->GetName());
+            } else {
                 CServerMgr::Instance().RemoveServer(conn);
-                LOG_DEBUG("{},connection disconnecting",conn->GetName());
+                LOG_DEBUG("{},connection disconnecting", conn->GetName());
             }
         });
-        tcpSvr->SetMessageCallback([](const TCPConnPtr& conn, ByteBuffer& buffer) {
+        tcpSvr->SetMessageCallback([](const TCPConnPtr &conn, uint8_t *pData, uint32_t length) {
             //LOG_DEBUG("recv msg {}",buffer.Size());
-            CServerMgr::Instance().OnHandleClientMsg(conn,(uint8_t*)buffer.Data(),buffer.Size());
+            CServerMgr::Instance().OnHandleClientMsg(conn, pData, length);
         });
         tcpSvr->Start();
         m_tcpServers.push_back(tcpSvr);

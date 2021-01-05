@@ -101,7 +101,7 @@ string CPlayerBase::GetIPStr() {
 bool CPlayerBase::SendMsgToClient(const google::protobuf::Message *msg, uint16_t msg_type) {
     if (m_pSession) {
         //LOG_DEBUG("{} 发送消息:{}--len:{}",GetUID(),msg_type,msg->ByteSize());
-        return pkg_client::SendProtobufMsg(m_pSession, msg, msg_type, GetUID());
+        return pkg_client::SendProtobufMsg(m_pSession, msg, msg_type);
     }
     return false;
 }
@@ -110,7 +110,7 @@ bool
 CPlayerBase::SendMsgToClient(const void *msg, uint16_t msg_len, uint16_t msg_type) {
     if (m_pSession) {
         //LOG_DEBUG("{} 发送消息:{}--len:{}",GetUID(),msg_type,msg_len);
-        return pkg_client::SendBuffMsg(m_pSession, msg, msg_len, msg_type, GetUID());
+        return pkg_client::SendBuffMsg(m_pSession, msg, msg_len, msg_type);
     }
     return false;
 }

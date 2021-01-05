@@ -1,4 +1,4 @@
-
+syntax = "proto3";
 package net.svr;
 import "base_msg_struct.proto";
 
@@ -6,6 +6,7 @@ import "base_msg_struct.proto";
 // 服务器消息ID
 enum  SERVER_MSG_ID
 {
+	SERVER_MSG_ID_NULL 					= 0;
 //------------------------------通用----------------------------------------------
 	S2S_MSG_REGISTER					= 201;  // 注册
 	S2S_MSG_REGISTER_REP				= 202;	// 注册返回	
@@ -29,20 +30,20 @@ enum  SERVER_MSG_ID
 
 message server_info
 {
-	optional uint32 svrid  	   	 = 1;		// 服务器ID
-	optional uint32 svr_type     = 2;		// 服务器类型
-	optional uint32 game_type  	 = 3;		// 游戏类型
-	optional uint32 game_subtype = 4;		// 游戏子类型
-	optional bytes  uuid		 = 5;		// 服务器uuid
+	uint32 svrid  	   	 	= 1;		// 服务器ID
+	uint32 svr_type     	= 2;		// 服务器类型
+	uint32 game_type  	 	= 3;		// 游戏类型
+	uint32 game_subtype 	= 4;		// 游戏子类型
+	bytes  uuid		 		= 5;		// 服务器uuid
 }
 // 注册
 message msg_register_svr_req
 {
-	optional server_info info 	 = 1;		// 服务器信息
+	server_info info 	 = 1;		// 服务器信息
 }
 message msg_register_svr_rep
 {
-	optional uint32 result = 1;			// 返回结果
+	uint32 result = 1;			// 返回结果
 }
 // 服务器列表信息
 message msg_server_list_rep
@@ -54,29 +55,29 @@ message msg_server_list_rep
 // 异步执行sql
 message msg_async_exec_sql
 {
-	optional uint32 db_type = 1;
-	optional bytes  sql_str = 2;
-	optional uint32 is_compress = 3;
+	uint32 db_type 		= 1;
+	bytes  sql_str 		= 2;
+	uint32 is_compress 	= 3;
 }
 // 请求玩家数据
 message msg_load_player_data
 {
-	optional uint32 uid 	  = 1;
-	optional uint32 data_type = 2;
+	uint32 uid 	  	 = 1;
+	uint32 data_type = 2;
 }
 // 请求玩家数据返回
 message msg_load_player_data_rep
 {
-	optional uint32 uid 	  = 1;
-	optional uint32 data_type = 2;
-	optional bytes  load_data = 3;
+	uint32 uid 	  	 = 1;
+	uint32 data_type = 2;
+	bytes  load_data = 3;
 }
 // 保存玩家数据
 message msg_save_player_data
 {
-	optional uint32 uid 	  = 1;
-	optional uint32 data_type = 2;
-	optional bytes  save_data = 3;
+	uint32 uid 	  	 = 1;
+	uint32 data_type = 2;
+	bytes  save_data = 3;
 }
 
 
@@ -84,34 +85,34 @@ message msg_save_player_data
 // 游戏服务器上报大厅信息
 message msg_report_svr_info
 {
-	optional uint32 onlines = 1;		// 在线人数	
+	uint32 onlines = 1;		// 在线人数	
 }
 // 返回大厅
 message msg_leave_svr
 {
-	optional uint32 uid 	 = 1;
+	uint32 uid 	 = 1;
 }
 // 通知网络状态
 message msg_notify_net_state
 {
-	optional uint32 uid   	  = 1;
-	optional uint32 state 	  = 2;	//(0断线，1连接)
-	optional uint32 newip 	  = 3;
-	optional uint32 no_player = 4;	//没有玩家
+	uint32 uid   	  = 1;
+	uint32 state 	  = 2;	//(0断线，1连接)
+	uint32 newip 	  = 3;
+	uint32 no_player  = 4;	//没有玩家
 }
 // 进入游戏服务器
 message msg_enter_into_game_svr
 {
-	optional uint32				player_type		= 1;	// 玩家类型(机器人，玩家)
-	optional base_info  		base_data 		= 2;	// 基本信息
-	optional uint32				play_type		= 3;	// 玩法类型
+	uint32			player_type		= 1;	// 玩家类型(机器人，玩家)
+	base_info  		base_data 		= 2;	// 基本信息
+	uint32			play_type		= 3;	// 玩法类型
 	
 }
 // 通知登录
 message msg_notify_player_lobby_login
 {
-	optional uint32 lobby_id		= 1;	// 大厅服务器ID
-	optional uint32 uid				= 2;	// 玩家ID
+	uint32 lobby_id		= 1;	// 大厅服务器ID
+	uint32 uid			= 2;	// 玩家ID
 }
 
 

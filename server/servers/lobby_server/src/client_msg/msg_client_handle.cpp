@@ -39,7 +39,7 @@ int CHandleClientMsg::OnRecvClientMsg()
 
 #ifndef CHECK_PLAYER_PLAY
 #define CHECK_PLAYER_PLAY   \
-    auto pPlayer = GetPlayer(_connPtr);\
+    auto pPlayer = GetPlayer(m_connPtr);\
     if(pPlayer == nullptr || !pPlayer->IsPlaying())\
         return -1;
 #endif
@@ -51,11 +51,11 @@ int CHandleClientMsg::route_to_game_svr()
 
 	if (pPlayer->GetGameSvrID() > 0)
 	{
-		pPlayer->SendMsgToGameSvr(_pkt_buf,_buf_len,_head->cmd);
+		pPlayer->SendMsgToGameSvr(m_pkt_buf,m_buf_len,m_head->msgID);
 	}
 	else
 	{
-		LOG_DEBUG("玩家不在游戏服uid:{}--cursid {}--cmd:{}", pPlayer->GetUID(), pPlayer->GetGameSvrID(), _head->cmd);
+		LOG_DEBUG("玩家不在游戏服uid:{}--cursid {}--cmd:{}", pPlayer->GetUID(), pPlayer->GetGameSvrID(), m_head->msgID);
 	}
 	return 0;
 }
@@ -63,10 +63,10 @@ int CHandleClientMsg::route_to_game_svr()
 // 心跳包
 int CHandleClientMsg::handle_msg_heart()
 {
-	LOG_DEBUG("心跳包:{}",_connPtr->GetUID());
+	LOG_DEBUG("心跳包:{}",m_connPtr->GetUID());
 	net::cli::msg_heart_test msg;
 	msg.set_svr_time(time::getSysTime());
-	pkg_client::SendProtobufMsg(_connPtr, &msg, net::C2S_MSG_HEART, 0);
+	pkg_client::SendProtobufMsg(m_connPtr, &msg, net::C2S_MSG_HEART);
 	return 0;
 }
 
@@ -82,7 +82,7 @@ int CHandleClientMsg::handle_msg_login()
 	repmsg.set_server_time(time::getSysTime());
 
 	string strDecyPHP = msg.key();
-	auto pPlayerObj = std::dynamic_pointer_cast<CPlayer>(CPlayerMgr::Instance().GetPlayer(_connPtr->GetUID()));
+	auto pPlayerObj = std::dynamic_pointer_cast<CPlayer>(CPlayerMgr::Instance().GetPlayer(m_connPtr->GetUID()));
 	auto pPlayerUid = std::dynamic_pointer_cast<CPlayer>(CPlayerMgr::Instance().GetPlayer(uid));
 
 	// 校验密码
@@ -92,9 +92,9 @@ int CHandleClientMsg::handle_msg_login()
 		if (strDecy != strDecyPHP || std::abs(int64_t(time::getSysTime()) - int64_t(msg.check_time())) > DAY)
 		{
 			LOG_ERROR("check passwd error {}-PHP:{}--c++:{}", uid, strDecyPHP, strDecy);
-			LOG_ERROR("the ip is:{},svrtime:{},sendtime:{}", _connPtr->GetRemoteAddress(), time::getSysTime(), msg.check_time());
+			LOG_ERROR("the ip is:{},svrtime:{},sendtime:{}", m_connPtr->GetRemoteAddress(), time::getSysTime(), msg.check_time());
 			repmsg.set_result(-1);
-			pkg_client::SendProtobufMsg(_connPtr, &repmsg, net::S2C_MSG_LOGIN_REP, 0);
+			pkg_client::SendProtobufMsg(m_connPtr, &repmsg, net::S2C_MSG_LOGIN_REP);
 			return -1;
 		}
 	}
@@ -105,9 +105,9 @@ int CHandleClientMsg::handle_msg_login()
 		if (pPlayerUid == NULL)
 		{
 			repmsg.set_result(0);
-			pkg_client::SendProtobufMsg(_connPtr, &repmsg, net::S2C_MSG_LOGIN_REP, 0);
+			pkg_client::SendProtobufMsg(m_connPtr, &repmsg, net::S2C_MSG_LOGIN_REP);
 			LOG_ERROR("服务器维护状态，只有在玩玩家能进入");
-			_connPtr->Close();
+			m_connPtr->Close();
 			return 0;
 		}
 	}
@@ -146,8 +146,8 @@ int CHandleClientMsg::handle_msg_login()
 				pOldSock->Close();
 			}
 
-			_connPtr->SetUID(uid);
-			pPlayerUid->SetSession(_connPtr);
+			m_connPtr->SetUID(uid);
+			pPlayerUid->SetSession(m_connPtr);
 			pPlayerUid->SetLoginKey(strDecyPHP);
 
 			if (pPlayerUid->GetPlayerState() == PLAYER_STATE_PLAYING)
@@ -163,8 +163,8 @@ int CHandleClientMsg::handle_msg_login()
 		}
 	}
 	auto pPlayer = std::make_shared<CPlayer>(PLAYER_TYPE_ONLINE);
-	_connPtr->SetUID(uid);
-	pPlayer->SetSession(_connPtr);
+	m_connPtr->SetUID(uid);
+	pPlayer->SetSession(m_connPtr);
 	pPlayer->SetUID(uid);
 	CPlayerMgr::Instance().AddPlayer(pPlayer);
 	pPlayer->OnLogin();

@@ -29,15 +29,15 @@ int CCenterClientMgr::OnRecvClientMsg()
 // 转发给客户端
 int CCenterClientMgr::route_to_client()
 {
-    LOG_DEBUG("中心服转发给客户端消息:uid:{}--cmd:{}",_head->uin,_head->cmd);
+    LOG_DEBUG("中心服转发给客户端消息:uid:{}--cmd:{}",m_head->uin,m_head->msgID);
     auto pPlayer = GetPlayer();
     if (pPlayer != nullptr)
     {
-        pPlayer->SendMsgToClient(_pkt_buf, _buf_len, _head->cmd);
+        pPlayer->SendMsgToClient(m_pkt_buf, m_buf_len, m_head->msgID);
     }
     else
     {
-        LOG_DEBUG("中心服转发消息客户端不存在:{}", _head->uin);
+        LOG_DEBUG("中心服转发消息客户端不存在:{}", m_head->uin);
     }
     return 0;
 }
@@ -63,7 +63,7 @@ int CCenterClientMgr::handle_msg_player_login_lobby()
 
 
 std::shared_ptr<CPlayer> CCenterClientMgr::GetPlayer(){
-    auto pPlayer = std::dynamic_pointer_cast<CPlayer>(CPlayerMgr::Instance().GetPlayer(_head->uin));
+    auto pPlayer = std::dynamic_pointer_cast<CPlayer>(CPlayerMgr::Instance().GetPlayer(m_head->uin));
     return pPlayer;
 }
 

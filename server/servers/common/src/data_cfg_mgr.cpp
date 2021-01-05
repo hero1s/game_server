@@ -38,14 +38,14 @@ void CDataCfgMgr::ShutDown()
 bool CDataCfgMgr::Reload()
 {
 	//º”‘ÿΩ«…´≈‰÷√±Ì
-	string file_name = "scp/roles.txt";
+/*	string file_name = "scp/roles.txt";
 	string strRoles = file::read_all(file_name);
 	conf::Roles roles;
 	if(google::protobuf::TextFormat::ParseFromString(strRoles,&roles)){
 		LOG_DEBUG("load roles success:{}",roles.list_size());
 	}else{
 		LOG_ERROR("load roles failed:file: {},file_str size: {}",file_name,strRoles.length());
-	}
+	}*/
 
 	return true;
 }

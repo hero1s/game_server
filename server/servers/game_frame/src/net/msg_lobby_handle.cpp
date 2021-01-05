@@ -27,7 +27,7 @@ CHandleLobbyMsg::~CHandleLobbyMsg()
 
 int CHandleLobbyMsg::OnRecvClientMsg()
 {
-	LOG_DEBUG("收到大厅服务器消息:uin:{}--cmd:{}",_head->uin,_head->cmd);
+	LOG_DEBUG("收到大厅服务器消息:uin:{}--cmd:{}",m_head->uin,m_head->msgID);
 	if (CProtobufHandleBase::OnRecvClientMsg() == 1)
 	{
 		return handle_msg_gameing_oper();
@@ -38,13 +38,13 @@ int CHandleLobbyMsg::OnRecvClientMsg()
 // 游戏内消息
 int CHandleLobbyMsg::handle_msg_gameing_oper()
 {
-	LOG_DEBUG("游戏内部消息:uid:{}--msg:{}",_head->uin,_head->cmd);
+	LOG_DEBUG("游戏内部消息:uid:{}--msg:{}",m_head->uin,m_head->msgID);
 	auto pGamePlayer = GetGamePlayer();
 	if (pGamePlayer == nullptr)
 	{
 		return 0;
 	}
-	pGamePlayer->OnMessage(_head->cmd, _pkt_buf, _buf_len);
+	pGamePlayer->OnMessage(m_head->msgID, m_pkt_buf, m_buf_len);
 
 	return 0;
 }
@@ -80,7 +80,7 @@ int CHandleLobbyMsg::handle_msg_enter_svr()
 {
 	net::svr::msg_enter_into_game_svr msg;
 	PARSE_MSG(msg);
-	uint32_t uid = _head->uin;
+	uint32_t uid = m_head->uin;
 	LOG_DEBUG("进入游戏服务器:{}",uid);
 
 	auto pGamePlayer = GetGamePlayer();
@@ -103,7 +103,7 @@ int CHandleLobbyMsg::handle_msg_enter_svr()
 			return 0;
 		}
 	}
-	pGamePlayer->SetLoginLobbySvrID(_connPtr->GetUID());
+	pGamePlayer->SetLoginLobbySvrID(m_connPtr->GetUID());
 
 	net::cli::msg_enter_gamesvr_rep msgrep;
 	msgrep.set_result(RESULT_CODE_SUCCESS);
@@ -122,7 +122,7 @@ int CHandleLobbyMsg::handle_msg_back_lobby()
 {
 	net::cli::msg_back_lobby_req msg;
 	PARSE_MSG(msg);
-	uint32_t uid = _head->uin;
+	uint32_t uid = m_head->uin;
 	LOG_DEBUG("请求返回大厅:{} -- {}", uid, msg.is_action());
 	auto pGamePlayer = GetGamePlayer();
 	if (pGamePlayer != nullptr)
@@ -163,10 +163,10 @@ int CHandleLobbyMsg::handle_msg_back_lobby()
 
 std::shared_ptr<CGamePlayer> CHandleLobbyMsg::GetGamePlayer()
 {
-	auto pPlayer = std::dynamic_pointer_cast<CGamePlayer>(CPlayerMgr::Instance().GetPlayer(_head->uin));
+	auto pPlayer = std::dynamic_pointer_cast<CGamePlayer>(CPlayerMgr::Instance().GetPlayer(m_head->uin));
 	if (pPlayer == nullptr)
 	{
-		LOG_DEBUG("游戏玩家不存在:{}",_head->uin);
+		LOG_DEBUG("游戏玩家不存在:{}",m_head->uin);
 	}
 	else
 	{
@@ -177,7 +177,7 @@ std::shared_ptr<CGamePlayer> CHandleLobbyMsg::GetGamePlayer()
 
 void CHandleLobbyMsg::ReplyMsg(const google::protobuf::Message* msg, uint16_t msg_type, uint32_t uin)
 {
-	pkg_inner::SendProtobufMsg(_connPtr, msg, msg_type, uin,0,0);
+	pkg_inner::SendProtobufMsg(m_connPtr, msg, msg_type, uin,0,0);
 }
 
 

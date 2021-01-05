@@ -201,7 +201,7 @@ void CServerClientMgr::GetAllServerInfo(vector<shared_ptr<CServerClient>>& svrli
 
 int CServerClientMgr::OnRecvClientMsg() {
     m_msgMinCount++;
-    if (_head->route > 0)
+    if (m_head->route > 0)
     {
         return OnRouteDispMsg();
     }
@@ -211,23 +211,23 @@ int CServerClientMgr::OnRecvClientMsg() {
 
 //路由分发消息
 int CServerClientMgr::OnRouteDispMsg() {
-    switch (_head->route)
+    switch (m_head->route)
     {
         case emROUTE_TYPE_ALL_SERVER:
         {
             //LOG_DEBUG("转发全部游戏服{}", head->cmd);
-            SendMsg2AllGameServer(_head->routeID, _pkt_buf, _buf_len, _head->cmd, _head->uin);
+            SendMsg2AllGameServer(m_head->routeID, m_pkt_buf, m_buf_len, m_head->msgID, m_head->uin);
             break;
         }
         case emROUTE_TYPE_ONE_SERVER:
         {
             //LOG_DEBUG("转发单个游戏服{}--{}--{}", head->cmd, head->routeMain, head->routeSub);
-            SendMsg2Server(_head->routeID, _pkt_buf, _buf_len, _head->cmd, _head->uin);
+            SendMsg2Server(m_head->routeID, m_pkt_buf, m_buf_len, m_head->msgID, m_head->uin);
             break;
         }
         default:
         {
-            LOG_ERROR("route type error :{}", _head->route);
+            LOG_ERROR("route type error :{}", m_head->route);
             break;
         }
     }
@@ -244,14 +244,14 @@ int CServerClientMgr::handle_msg_register_svr() {
               msg.info().game_type(), msg.info().game_subtype());
     net::svr::msg_register_svr_rep repmsg;
 
-    bool bRet = AddServer(_connPtr, msg.info());
+    bool bRet = AddServer(m_connPtr, msg.info());
     if (!bRet)
     {
         LOG_ERROR("Register Server fail svrid:{}", msg.info().svrid());
     }
     repmsg.set_result(bRet);
 
-    pkg_inner::SendProtobufMsg(_connPtr, &repmsg, net::svr::S2S_MSG_REGISTER_REP, 0, 0, 0);
+    pkg_inner::SendProtobufMsg(m_connPtr, &repmsg, net::svr::S2S_MSG_REGISTER_REP, 0, 0, 0);
 
     return 0;
 }
