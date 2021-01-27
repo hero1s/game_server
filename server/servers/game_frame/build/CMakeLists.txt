@@ -5,6 +5,7 @@
 # gameServer cmake
 
 cmake_minimum_required(VERSION 2.8.3)
+project(game_frame VERSION 1.0 LANGUAGES C CXX)
 
 include(../../../cmake_config/config.cmake)
 include(../../../cmake_config/macros.cmake)

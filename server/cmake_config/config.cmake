@@ -21,8 +21,8 @@ set(RELEASE 1)
 set( WITH_GPROF 0)
 
 #set( CMAKE_BUILD_TYPE "Debug" )
-#set( CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb" )
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O2 -g -static-libstdc++ -static-libgcc")
+set( CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O2 -Wall -g -ggdb" )
+#set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O2 -g -static-libstdc++ -static-libgcc")
 
 if (WITH_GPROF)
     set(CMAKE_CXX_FLAGS " -pg ${CMAKE_CXX_FLAGS}")
