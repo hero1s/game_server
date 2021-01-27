@@ -40,7 +40,7 @@ add_link_lib(stdc++fs)
 add_link_lib(rt)
 add_link_lib(pthread)
 add_link_lib(dl)
-#add_link_lib(jemalloc)
+add_link_lib(jemalloc)
 
 
 build_executable(dbagentServer ../../../release/dbagent_server/)
