@@ -77,9 +77,9 @@ bool CApplication::Initialize() {
                 LOG_DEBUG("{},connection disconnecting", conn->GetName());
             }
         });
-        tcpSvr->SetMessageCallback([](const TCPConnPtr &conn, uint8_t *pData, uint32_t length) {
+        tcpSvr->SetMessageCallback([](const TCPConnPtr &conn, char *pData, uint32_t length) {
             //LOG_DEBUG("recv msg {}",std::string(buffer.Data(), buffer.Size()));
-            CHandleClientMsg::Instance().OnHandleClientMsg(conn, pData, length);
+            CHandleClientMsg::Instance().OnHandleClientMsg(conn, (uint8_t*)pData, length);
         });
         tcpSvr->Start();
         m_tcpServers.push_back(tcpSvr);
@@ -95,9 +95,9 @@ bool CApplication::Initialize() {
                 CGameServerMgr::Instance().RemoveServer(conn);
             }
         });
-        tcpSvr->SetMessageCallback([](const TCPConnPtr &conn, uint8_t *pData, uint32_t length) {
+        tcpSvr->SetMessageCallback([](const TCPConnPtr &conn, char *pData, uint32_t length) {
             //LOG_DEBUG("recv msg {}",std::string(buffer.Data(), buffer.Size()));
-            CGameServerMgr::Instance().OnHandleClientMsg(conn, pData, length);
+            CGameServerMgr::Instance().OnHandleClientMsg(conn, (uint8_t*)pData, length);
         });
         tcpSvr->Start();
         m_tcpServers.push_back(tcpSvr);

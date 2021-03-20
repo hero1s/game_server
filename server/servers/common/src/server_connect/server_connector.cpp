@@ -43,8 +43,8 @@ CSvrConnectorMgr::Init(const net::svr::server_info &info, string ip, uint32_t po
             this->OnCloseClient(conn);
         }
     });
-    m_pClientPtr->SetMessageCallback([this](const TCPConnPtr &conn, uint8_t *pData, uint32_t length) {
-        this->OnHandleClientMsg(conn, pData, length);
+    m_pClientPtr->SetMessageCallback([this](const TCPConnPtr &conn, char *pData, uint32_t length) {
+        this->OnHandleClientMsg(conn, (uint8_t*)pData, length);
         //LOG_DEBUG("{} recv msg {}",m_pClientPtr->GetName(), buffer.Size());
     });
 
