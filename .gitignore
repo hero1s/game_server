@@ -1,3 +1,4 @@
 _gsdata_/
 server/cmake-build-debug/
-
+.idea
+server/CMakeLists.txt
