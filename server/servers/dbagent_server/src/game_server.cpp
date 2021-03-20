@@ -52,6 +52,7 @@ bool CApplication::Initialize() {
         tcpSvr->SetConnectionCallback([](const TCPConnPtr &conn) {
             if (conn->IsConnected()) {
                 LOG_DEBUG("{},connection accepted", conn->GetName());
+                conn->SetMessageDecode(make_shared<InnerDecode>());
             } else {
                 CServerMgr::Instance().RemoveServer(conn);
                 LOG_DEBUG("{},connection disconnecting", conn->GetName());

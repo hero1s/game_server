@@ -35,6 +35,7 @@ CSvrConnectorMgr::Init(const net::svr::server_info &info, string ip, uint32_t po
     m_pClientPtr->SetUID(svrid);
     m_pClientPtr->SetConnCallback([this](const TCPConnPtr &conn) {
         if (conn->IsConnected()) {
+            conn->SetMessageDecode(make_shared<InnerDecode>());
             this->OnConnect(true, conn);
             LOG_DEBUG("{},connection accepted", conn->GetName());
         } else {

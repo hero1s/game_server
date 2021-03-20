@@ -63,6 +63,7 @@ bool CApplication::Initialize() {
         tcpSvr->SetConnectionCallback([](const TCPConnPtr &conn) {
             if (conn->IsConnected()) {
                 LOG_DEBUG("{},connection accepted", conn->GetName());
+                conn->SetMessageDecode(make_shared<ClientDecode>());
             } else {
                 LOG_ERROR("client ondisconnect:{}--{}", conn->GetUID(), conn->GetRemoteAddress());
                 uint32_t uid = conn->GetUID();
@@ -88,6 +89,7 @@ bool CApplication::Initialize() {
         tcpSvr->SetConnectionCallback([](const TCPConnPtr &conn) {
             if (conn->IsConnected()) {
                 LOG_DEBUG("{},connection accepted", conn->GetName());
+                conn->SetMessageDecode(make_shared<InnerDecode>());
             } else {
                 LOG_ERROR("gameServer ondisconnect:{}--{}", conn->GetUID(), conn->GetRemoteAddress());
                 CGameServerMgr::Instance().RemoveServer(conn);

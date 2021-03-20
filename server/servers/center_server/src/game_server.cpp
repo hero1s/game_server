@@ -38,6 +38,7 @@ bool CApplication::Initialize() {
             if (conn->IsConnected()) {
                 LOG_DEBUG("{},connection accepted", conn->GetName());
                 //conn->SetHeartTimeOut(60);
+                conn->SetMessageDecode(make_shared<InnerDecode>());
             } else {
                 CCenterMgr::Instance().RemoveServer(conn);
                 LOG_DEBUG("{},connection disconnecting", conn->GetName());
