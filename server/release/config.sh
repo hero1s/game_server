@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #全部游戏服
-all_game_svrs=(13 )
+all_game_svrs=( )
 
 #全部大厅服
 all_lobby_svrs=(1 )

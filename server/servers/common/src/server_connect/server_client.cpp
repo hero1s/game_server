@@ -113,6 +113,7 @@ shared_ptr<CServerClient> CServerClientMgr::GetServerBySvrID(uint16_t svrID) {
     if (it != m_mpServers.end()) {
         return it->second;
     }
+    LOG_ERROR("server id is null:{}",svrID);
     return nullptr;
 }
 
@@ -124,17 +125,18 @@ CServerClientMgr::SendMsg2Server(uint16_t svrID, const google::protobuf::Message
         LOG_DEBUG("send msg svr is not exist £º{}", svrID);
         return;
     }
+    LOG_DEBUG("SendMsg2Svr:msgType:{},uid:{},s_ser_type:{},s_ser_id:{},d_ser_type:{},d_ser_id:{}",msg_type, uid, s_ser_type, s_ser_id, d_ser_type, d_ser_id);
     pServer->SendMsg(msg, msg_type, uid, s_ser_type, s_ser_id, d_ser_type, d_ser_id);
 }
 
-void CServerClientMgr::SendMsg2Server(uint16_t svrID, const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type,
-                                      uint32_t uid,
+void CServerClientMgr::SendMsg2Server(uint16_t svrID, const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uid,
                                       uint8_t s_ser_type, uint32_t s_ser_id, uint8_t d_ser_type, uint32_t d_ser_id) {
     auto pServer = GetServerBySvrID(svrID);
     if (pServer == nullptr) {
         LOG_DEBUG("send msg svr is not exist£º{}", svrID);
         return;
     }
+    LOG_DEBUG("SendMsg2Svr:msgType:{},uid:{},s_ser_type:{},s_ser_id:{},d_ser_type:{},d_ser_id:{}",msg_type, uid, s_ser_type, s_ser_id, d_ser_type, d_ser_id);
     pServer->SendMsg(pkt_buf, buf_len, msg_type, uid, s_ser_type, s_ser_id, d_ser_type, d_ser_id);
 }
 

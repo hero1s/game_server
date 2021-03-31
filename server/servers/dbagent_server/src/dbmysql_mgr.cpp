@@ -19,7 +19,15 @@ using namespace svrlib;
 namespace
 {
 	static string s_PlayerDataFields[] = {"Base","Task"};//玩家二进制数据字段名
-
+/* 测试用表
+ CREATE TABLE `t_player` (
+  `PlayerID` int NOT NULL DEFAULT '0' COMMENT 'uid',
+  `Base` varbinary(500) NOT NULL DEFAULT '' COMMENT 'base',
+  `Task` varbinary(500) NOT NULL DEFAULT '' COMMENT 'Task',
+  `OfflineTime` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`PlayerID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+*/
 };
 
 CDBMysqlMgr::CDBMysqlMgr()

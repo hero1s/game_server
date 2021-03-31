@@ -103,6 +103,7 @@ void CSvrConnectorMgr::SendMsg2Svr(const google::protobuf::Message *msg, uint16_
         LOG_ERROR("the connector is not runing");
         return;
     }
+    LOG_DEBUG("SendMsg2Svr:msgType:{},uid:{},s_ser_type:{},s_ser_id:{},d_ser_type:{},d_ser_id:{}",msg_type, uid, s_ser_type, s_ser_id, d_ser_type, d_ser_id);
     pkg_inner::SendProtobufMsg(m_pClientPtr->GetTCPConn(), msg, msg_type, uid, s_ser_type, s_ser_id, d_ser_type,
                                d_ser_id);
 }

@@ -69,7 +69,7 @@ int CServerMgr::handle_load_player_data() {
     } else {
 
         CDBMysqlMgr::Instance().AsyncLoadPlayerData(uid,dataType, [uid, sid, dataType,this](shared_ptr<CDBEventRep> &pRep) {
-            LOG_DEBUG("OnLoadPlayerData:{}", uid);
+            LOG_DEBUG("OnLoadPlayerData:{},size:{}", uid,pRep->vecData.size());
             if (pRep->vecData.size() > 0) {
                 auto &refRows = pRep->vecData[0];
                 string strData = refRows["data"].as<string>();
