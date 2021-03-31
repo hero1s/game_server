@@ -129,21 +129,21 @@ bool CApplication::Initialize() {
     }
 
     //Á¬½ÓDBAgent
-/*    auto dbagentIp = m_solLua.get<sol::table>("server_config").get<sol::table>("dbagent");
+    auto dbagentIp = m_solLua.get<sol::table>("server_config").get<sol::table>("dbagent");
     if (CDBAgentClientMgr::Instance().Init(info, dbagentIp.get<string>("ip"), dbagentIp.get<int>("port"),
                                            "dbagent_connector", 1) == false) {
         LOG_ERROR("init dbagent client mgr fail");
         return false;
-    }*/
+    }
 
     m_luaService->start();
 
     //test toney
     static TimerEvent<std::function<void()>> timer([]() {
-        //auto pPlayer = std::make_shared<CPlayer>(PLAYER_TYPE_ONLINE);
-        //pPlayer->SetUID(110);
-        //CPlayerMgr::Instance().AddPlayer(pPlayer);
-        //pPlayer->OnLogin();
+        auto pPlayer = std::make_shared<CPlayer>(PLAYER_TYPE_ONLINE);
+        pPlayer->SetUID(110);
+        CPlayerMgr::Instance().AddPlayer(pPlayer);
+        pPlayer->OnLogin();
     });
     Schedule(&timer, 20000);
 

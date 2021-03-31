@@ -44,8 +44,8 @@ CSvrConnectorMgr::Init(const net::svr::server_info &info, string ip, uint32_t po
         }
     });
     m_pClientPtr->SetMessageCallback([this](const TCPConnPtr &conn, char *pData, uint32_t length) {
-        this->OnHandleClientMsg(conn, (uint8_t*)pData, length);
-        //LOG_DEBUG("{} recv msg {}",m_pClientPtr->GetName(), buffer.Size());
+        this->OnHandleClientMsg(conn, (uint8_t *) pData, length);
+        LOG_DEBUG("{} recv msg {}", m_pClientPtr->GetName(), length);
     });
 
     m_pClientPtr->Connect();
@@ -64,7 +64,7 @@ void CSvrConnectorMgr::Register() {
     net::svr::server_info *info = msg.mutable_info();
     *info = m_curSvrInfo;
 
-    SendMsg2Svr(&msg, net::svr::S2S_MSG_REGISTER, 0,0,0,0,0);
+    SendMsg2Svr(&msg, net::svr::S2S_MSG_REGISTER, 0, 0, 0, 0, 0);
     LOG_DEBUG("{} register server svrid:{} svrtype:{}--gameType:{}", m_pClientPtr->GetName(), msg.info().svrid(),
               msg.info().svr_type(),
               msg.info().game_type());
@@ -103,7 +103,8 @@ void CSvrConnectorMgr::SendMsg2Svr(const google::protobuf::Message *msg, uint16_
         LOG_ERROR("the connector is not runing");
         return;
     }
-    pkg_inner::SendProtobufMsg(m_pClientPtr->GetTCPConn(), msg, msg_type, uid, s_ser_type, s_ser_id, d_ser_type, d_ser_id);
+    pkg_inner::SendProtobufMsg(m_pClientPtr->GetTCPConn(), msg, msg_type, uid, s_ser_type, s_ser_id, d_ser_type,
+                               d_ser_id);
 }
 
 bool CSvrConnectorMgr::IsExistSvr(uint16_t sid) {
