@@ -20,12 +20,12 @@ void CPlayerMgr::OnTimer()
 {
 	OnTimeTick();
 	CheckRecoverPlayer();
-	CApplication::Instance().schedule(&m_timer, 1000);
+	CApplication::Instance().Schedule(&m_timer, 1000);
 }
 
 bool CPlayerMgr::Init()
 {
-	CApplication::Instance().schedule(&m_timer, 1000);
+	CApplication::Instance().Schedule(&m_timer, 1000);
 	return true;
 }
 

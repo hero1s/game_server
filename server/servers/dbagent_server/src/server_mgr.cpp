@@ -65,7 +65,7 @@ int CServerMgr::handle_load_player_data() {
         rep.set_data_type(msg.data_type());
         rep.set_load_data(data);
 
-        SendMsg2Server(sid, &rep, net::svr::DBA2S_LOAD_PLAYER_DATA_REP);
+        SendMsg2Server(sid, &rep, net::svr::DBA2S_LOAD_PLAYER_DATA_REP,0,0,0,0,0);
     } else {
 
         CDBMysqlMgr::Instance().AsyncLoadPlayerData(uid,dataType, [uid, sid, dataType,this](shared_ptr<CDBEventRep> &pRep) {
@@ -79,7 +79,7 @@ int CServerMgr::handle_load_player_data() {
                 rep.set_data_type(dataType);
                 rep.set_load_data(strData);
 
-                this->SendMsg2Server(sid, &rep, net::svr::DBA2S_LOAD_PLAYER_DATA_REP);
+                this->SendMsg2Server(sid, &rep, net::svr::DBA2S_LOAD_PLAYER_DATA_REP,0,0,0,0,0);
 
                 CPlayerCacheMgr::Instance().SetPlayerCacheData(uid,dataType,strData, false);
             }

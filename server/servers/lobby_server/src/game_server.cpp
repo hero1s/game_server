@@ -145,7 +145,7 @@ bool CApplication::Initialize() {
         //CPlayerMgr::Instance().AddPlayer(pPlayer);
         //pPlayer->OnLogin();
     });
-    schedule(&timer, 20000);
+    Schedule(&timer, 20000);
 
     return true;
 }

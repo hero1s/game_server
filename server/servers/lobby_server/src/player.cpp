@@ -262,7 +262,7 @@ void CPlayer::NotifyLobbyLogin()
     msg.set_lobby_id(CApplication::Instance().GetServerID());
     msg.set_uid(GetUID());
     //广播全部大厅
-    CCenterClientMgr::Instance().SendMsg2Svr(&msg, net::svr::GS2L_MSG_NOTIFY_PLAYER_LOBBY_LOGIN, GetUID(), emROUTE_TYPE_ALL_SERVER,emSERVER_TYPE_LOBBY);
+    CCenterClientMgr::Instance().SendMsg2Svr(&msg, net::svr::GS2L_MSG_NOTIFY_PLAYER_LOBBY_LOGIN, GetUID(), 0,0,emSERVER_TYPE_LOBBY,0);
 }
 // 构建初始化
 void CPlayer::BuildInit()
@@ -321,7 +321,7 @@ bool CPlayer::SendMsgToGameSvr(const google::protobuf::Message* msg, uint16_t ms
 {
     if (m_curSvrID == 0)
         return false;
-    CGameServerMgr::Instance().SendMsg2Server(m_curSvrID, msg, msg_type, GetUID());
+    CGameServerMgr::Instance().SendMsg2Server(m_curSvrID, msg, msg_type, GetUID(),0,0,0,0);
     return true;
 }
 
@@ -329,7 +329,7 @@ bool CPlayer::SendMsgToGameSvr(const void* msg, uint16_t msg_len, uint16_t msg_t
 {
     if (m_curSvrID == 0)
         return false;
-    CGameServerMgr::Instance().SendMsg2Server(m_curSvrID, (uint8_t*) msg, msg_len, msg_type, GetUID());
+    CGameServerMgr::Instance().SendMsg2Server(m_curSvrID, (uint8_t*) msg, msg_len, msg_type, GetUID(),0,0,0,0);
     return true;
 }
 // 通知网络状态

@@ -29,7 +29,7 @@ void CDBAgentClientMgr::AsyncExecSql(uint8_t dbType, string &sqlStr, bool isComp
     }else{
         msg.set_sql_str(sqlStr);
     }
-    SendMsg2Svr(&msg, net::svr::S2DBA_MSG_ASYNC_EXEC_SQL);
+    SendMsg2Svr(&msg, net::svr::S2DBA_MSG_ASYNC_EXEC_SQL,0,0,0,0,0);
 }
 
 

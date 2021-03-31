@@ -27,7 +27,7 @@ int CCenterClientMgr::OnRecvClientMsg()
 // 转发给客户端
 int CCenterClientMgr::route_to_client()
 {
-    LOG_DEBUG("中心服转发给客户端消息:uid:{}--cmd:{}",m_head->uin,m_head->msgID);
+    LOG_DEBUG("中心服转发给客户端消息:uid:{}--cmd:{}",m_head->uid,m_head->msgID);
     auto pPlayer = GetPlayer();
     if (pPlayer != nullptr)
     {
@@ -41,7 +41,7 @@ int CCenterClientMgr::route_to_client()
 }
 
 std::shared_ptr<CGamePlayer> CCenterClientMgr::GetPlayer(){
-    auto pPlayer = std::dynamic_pointer_cast<CGamePlayer>(CPlayerMgr::Instance().GetPlayer(m_head->uin));
+    auto pPlayer = std::dynamic_pointer_cast<CGamePlayer>(CPlayerMgr::Instance().GetPlayer(m_head->uid));
     return pPlayer;
 }
 

@@ -22,9 +22,11 @@ public:
 
     virtual ~CServerClient();
 
-    void SendMsg(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin);
+    void SendMsg(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uid,
+                 uint8_t s_ser_type, uint32_t s_ser_id, uint8_t d_ser_type, uint32_t d_ser_id);
 
-    void SendMsg(const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin);
+    void SendMsg(const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uid,
+                 uint8_t s_ser_type, uint32_t s_ser_id, uint8_t d_ser_type, uint32_t d_ser_id);
 
     TCPConnPtr GetNetObj();
 
@@ -64,19 +66,25 @@ public:
     shared_ptr<CServerClient> GetServerBySvrID(uint16_t svrID);
 
     // 指定游戏服发送消息
-    void SendMsg2Server(uint16_t svrID, const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin = 0);
+    void SendMsg2Server(uint16_t svrID, const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uid,
+                        uint8_t s_ser_type, uint32_t s_ser_id, uint8_t d_ser_type, uint32_t d_ser_id);
 
-    void SendMsg2Server(uint16_t svrID, const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin = 0);
+    void SendMsg2Server(uint16_t svrID, const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uid,
+                        uint8_t s_ser_type, uint32_t s_ser_id, uint8_t d_ser_type, uint32_t d_ser_id);
 
     // 给指定类型游戏服发送消息
-    void SendMsg2AllGameServer(uint16_t gameType, const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin = 0);
+    void SendMsg2AllGameServer(uint16_t gameType, const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uid,
+                               uint8_t s_ser_type, uint32_t s_ser_id, uint8_t d_ser_type, uint32_t d_ser_id);
 
-    void SendMsg2AllGameServer(uint16_t gameType, const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin = 0);
+    void SendMsg2AllGameServer(uint16_t gameType, const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uid,
+                               uint8_t s_ser_type, uint32_t s_ser_id, uint8_t d_ser_type, uint32_t d_ser_id);
 
     // 全服广播
-    void SendMsg2All(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin);
+    void SendMsg2All(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uid,
+                     uint8_t s_ser_type, uint32_t s_ser_id, uint8_t d_ser_type, uint32_t d_ser_id);
 
-    void SendMsg2All(const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uin);
+    void SendMsg2All(const uint8_t *pkt_buf, uint16_t buf_len, uint16_t msg_type, uint32_t uid,
+                     uint8_t s_ser_type, uint32_t s_ser_id, uint8_t d_ser_type, uint32_t d_ser_id);
 
     // 更新服务器列表给全部服务器
     void UpdateServerList();

@@ -33,7 +33,7 @@ void CDBAgentClientMgr::AsyncExecSql(uint8_t dbType, string &sqlStr, bool isComp
     }else{
         msg.set_sql_str(sqlStr);
     }
-    SendMsg2Svr(&msg, net::svr::S2DBA_MSG_ASYNC_EXEC_SQL);
+    SendMsg2Svr(&msg, net::svr::S2DBA_MSG_ASYNC_EXEC_SQL,0,0,0,0,0);
 }
 
 // 请求玩家数据
@@ -42,7 +42,7 @@ void CDBAgentClientMgr::LoadPlayerData(uint32_t uid, uint32_t data_type) {
     net::svr::msg_load_player_data msg;
     msg.set_uid(uid);
     msg.set_data_type(data_type);
-    SendMsg2Svr(&msg, net::svr::S2DBA_LOAD_PLAYER_DATA);
+    SendMsg2Svr(&msg, net::svr::S2DBA_LOAD_PLAYER_DATA,0,0,0,0,0);
 }
 
 // 保存玩家数据
@@ -52,7 +52,7 @@ void CDBAgentClientMgr::SavePlayerData(uint32_t uid, uint32_t data_type, const s
     msg.set_uid(uid);
     msg.set_data_type(data_type);
     msg.set_save_data(saveData);
-    SendMsg2Svr(&msg, net::svr::S2DBA_SAVE_PLAYER_DATA);
+    SendMsg2Svr(&msg, net::svr::S2DBA_SAVE_PLAYER_DATA,0,0,0,0,0);
 }
 
 //请求数据返回

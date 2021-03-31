@@ -35,7 +35,7 @@ CDBMysqlMgr::~CDBMysqlMgr()
 
 void CDBMysqlMgr::OnTimer()
 {
-	CApplication::Instance().schedule(&m_reportTimer, 20*1000);
+	CApplication::Instance().Schedule(&m_reportTimer, 20*1000);
 }
 
 bool CDBMysqlMgr::Init(const vector<stDBConf>& DBConfs)
@@ -52,7 +52,7 @@ bool CDBMysqlMgr::Init(const vector<stDBConf>& DBConfs)
 	}
 	StartAsyncDB();
 
-	CApplication::Instance().schedule(&m_reportTimer, 5*1000);
+	CApplication::Instance().Schedule(&m_reportTimer, 5*1000);
 
 	return true;
 }

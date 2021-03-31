@@ -38,8 +38,8 @@ public:
 
     uint16_t GetSvrID();
 
-    void SendMsg2Svr(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin = 0, uint8_t route = 0,
-                     uint32_t routeID = 0);
+    void SendMsg2Svr(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uid,
+                     uint8_t s_ser_type, uint32_t s_ser_id, uint8_t d_ser_type, uint32_t d_ser_id);
 
     bool IsExistSvr(uint16_t sid);
 

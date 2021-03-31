@@ -30,7 +30,7 @@ CLobbyMgr::CLobbyMgr()
 void CLobbyMgr::OnTimer()
 {
 	ReportInfo2Lobby();
-	CApplication::Instance().schedule(&m_timer, 3000);
+	CApplication::Instance().Schedule(&m_timer, 3000);
 }
 
 bool CLobbyMgr::Init()
@@ -53,7 +53,7 @@ bool CLobbyMgr::Init()
     lobbyClient->RegisterSubHandle(std::make_shared<CHandleLobbyMsg>());
 	m_lobbySvrs.insert(make_pair(lobbyClient->GetSvrID(),lobbyClient));
 
-	CApplication::Instance().schedule(&m_timer, 3000);
+	CApplication::Instance().Schedule(&m_timer, 3000);
 
 	return true;
 }
@@ -63,7 +63,7 @@ bool CLobbyMgr::SendMsg2Client(const google::protobuf::Message* msg, uint16_t ms
 	auto pSvr = GetLobbySvrBySvrID(svrid);
 	if (pSvr != nullptr)
 	{
-		pSvr->SendMsg2Svr(msg,msg_type,uin);
+		pSvr->SendMsg2Svr(msg,msg_type,uin,0,0,0,0);
 		return true;
 	}
 	return false;
@@ -74,7 +74,7 @@ bool CLobbyMgr::SendMsg2Lobby(const google::protobuf::Message* msg, uint16_t msg
 	auto pSvr = GetLobbySvrBySvrID(svrid);
 	if (pSvr == nullptr)
 		return false;
-	pSvr->SendMsg2Svr(msg,msg_type);
+	pSvr->SendMsg2Svr(msg,msg_type,0,0,0,0,0);
 	return true;
 }
 
@@ -83,7 +83,7 @@ bool CLobbyMgr::SendMsg2AllLobby(const google::protobuf::Message* msg, uint16_t 
 	for (auto& it : m_lobbySvrs)
 	{
 		auto pSvr = it.second;
-		pSvr->SendMsg2Svr(msg, msg_type);
+		pSvr->SendMsg2Svr(msg, msg_type,0,0,0,0,0);
 	}
 	return true;
 }

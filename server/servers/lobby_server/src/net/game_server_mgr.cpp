@@ -41,18 +41,18 @@ int CGameServerMgr::OnRecvClientMsg() {
 
 // 转发给客户端
 int CGameServerMgr::route_to_client() {
-    LOG_DEBUG("转发给客户端消息:uid:{}--cmd:{}", m_head->uin, m_head->msgID);
+    LOG_DEBUG("转发给客户端消息:uid:{}--cmd:{}", m_head->uid, m_head->msgID);
     auto pPlayer = GetPlayer();
     if (pPlayer != nullptr) {
         pPlayer->SendMsgToClient(m_pkt_buf, m_buf_len, m_head->msgID);
     } else {
-        LOG_DEBUG("转发消息客户端不存在，通知游戏服断线:{}", m_head->uin);
+        LOG_DEBUG("转发消息客户端不存在，通知游戏服断线:{}", m_head->uid);
         net::svr::msg_notify_net_state msg;
-        msg.set_uid(m_head->uin);
+        msg.set_uid(m_head->uid);
         msg.set_state(0);
         msg.set_newip(0);
         msg.set_no_player(1);
-        pkg_inner::SendProtobufMsg(m_connPtr, &msg, net::svr::L2GS_MSG_NOTIFY_NET_STATE, m_head->uin, 0, 0);
+        pkg_inner::SendProtobufMsg(m_connPtr, &msg, net::svr::L2GS_MSG_NOTIFY_NET_STATE, m_head->uid, 0, 0,0,0);
     }
     return 0;
 }
@@ -88,7 +88,7 @@ int CGameServerMgr::handle_msg_leave_svr() {
 
 
 std::shared_ptr<CPlayer> CGameServerMgr::GetPlayer() {
-    auto pPlayer = std::dynamic_pointer_cast<CPlayer>(CPlayerMgr::Instance().GetPlayer(m_head->uin));
+    auto pPlayer = std::dynamic_pointer_cast<CPlayer>(CPlayerMgr::Instance().GetPlayer(m_head->uid));
     return pPlayer;
 }
 

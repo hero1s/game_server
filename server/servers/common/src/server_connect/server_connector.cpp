@@ -25,7 +25,7 @@ CSvrConnectorMgr::~CSvrConnectorMgr() {
 }
 
 void CSvrConnectorMgr::OnTimer() {
-    CApplication::Instance().schedule(&m_timer, 3000);
+    CApplication::Instance().Schedule(&m_timer, 3000);
 }
 
 bool
@@ -54,7 +54,7 @@ CSvrConnectorMgr::Init(const net::svr::server_info &info, string ip, uint32_t po
     m_isRun = false;
     m_svrID = svrid;
 
-    CApplication::Instance().schedule(&m_timer, 3000);
+    CApplication::Instance().Schedule(&m_timer, 3000);
 
     return true;
 }
@@ -64,7 +64,7 @@ void CSvrConnectorMgr::Register() {
     net::svr::server_info *info = msg.mutable_info();
     *info = m_curSvrInfo;
 
-    SendMsg2Svr(&msg, net::svr::S2S_MSG_REGISTER, 0);
+    SendMsg2Svr(&msg, net::svr::S2S_MSG_REGISTER, 0,0,0,0,0);
     LOG_DEBUG("{} register server svrid:{} svrtype:{}--gameType:{}", m_pClientPtr->GetName(), msg.info().svrid(),
               msg.info().svr_type(),
               msg.info().game_type());
@@ -97,13 +97,13 @@ uint16_t CSvrConnectorMgr::GetSvrID() {
     return m_svrID;
 }
 
-void CSvrConnectorMgr::SendMsg2Svr(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uin, uint8_t route,
-                                   uint32_t routeID) {
+void CSvrConnectorMgr::SendMsg2Svr(const google::protobuf::Message *msg, uint16_t msg_type, uint32_t uid,
+                                   uint8_t s_ser_type, uint32_t s_ser_id, uint8_t d_ser_type, uint32_t d_ser_id) {
     if (!m_isRun || m_pClientPtr == nullptr) {
         LOG_ERROR("the connector is not runing");
         return;
     }
-    pkg_inner::SendProtobufMsg(m_pClientPtr->GetTCPConn(), msg, msg_type, uin, route, routeID);
+    pkg_inner::SendProtobufMsg(m_pClientPtr->GetTCPConn(), msg, msg_type, uid, s_ser_type, s_ser_id, d_ser_type, d_ser_id);
 }
 
 bool CSvrConnectorMgr::IsExistSvr(uint16_t sid) {
