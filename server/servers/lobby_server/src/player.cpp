@@ -4,9 +4,8 @@
 #include <time.h>
 #include "player_mgr.h"
 #include "common_logic.h"
-#include "net/dbagent_client.h"
-#include "net/game_server_mgr.h"
 #include "net/center_client.h"
+#include "net/game_server_mgr.h"
 
 using namespace svrlib;
 using namespace std;
@@ -57,7 +56,7 @@ void CPlayer::OnLogin()
     SendMsgToClient(&repmsg, net::S2C_MSG_LOGIN_REP);
     uint32_t uid = GetUID();
 
-    CDBAgentClientMgr::Instance().LoadPlayerData(uid, emACCDATA_TYPE_BASE);
+    CCenterClientMgr::Instance().LoadPlayerData(uid, emACCDATA_TYPE_BASE);
 
     SetPlayerState(PLAYER_STATE_LOAD_DATA);
 
@@ -421,7 +420,7 @@ void CPlayer::SavePlayerBaseInfo()
 
     LOG_DEBUG("save player data uid:{},datalen:{},{}", GetUID(), baseData.length(), m_baseInfo.offline_time);
 
-    CDBAgentClientMgr::Instance().SavePlayerData(GetUID(), emACCDATA_TYPE_BASE, baseData);
+    CCenterClientMgr::Instance().SavePlayerData(GetUID(), emACCDATA_TYPE_BASE, baseData);
 }
 
 

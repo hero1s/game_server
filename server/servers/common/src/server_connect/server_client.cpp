@@ -212,14 +212,14 @@ int CServerClientMgr::OnRecvClientMsg() {
 int CServerClientMgr::OnRouteDispMsg() {
     if (m_head->d_ser_type != 0) {
         if (m_head->d_ser_id != 0) {
-            LOG_DEBUG("转发单个游戏服{}--{}--{}", m_head->msgID, m_head->d_ser_type, m_head->d_ser_id);
+            LOG_DEBUG("disp to one server:{}--{}--{}", m_head->msgID, m_head->d_ser_type, m_head->d_ser_id);
             SendMsg2Server(m_head->d_ser_id, m_pkt_buf, m_buf_len, m_head->msgID, m_head->uid,m_head->s_ser_type,m_head->s_ser_id,m_head->d_ser_type,m_head->d_ser_id);
         } else {
-            LOG_DEBUG("转发全部游戏服{}", m_head->d_ser_type);
+            LOG_DEBUG("disp to all server {}", m_head->d_ser_type);
             SendMsg2AllGameServer(m_head->d_ser_type, m_pkt_buf, m_buf_len, m_head->msgID, m_head->uid,m_head->s_ser_type,m_head->s_ser_id,m_head->d_ser_type,m_head->d_ser_id);
         }
     } else {
-        LOG_ERROR("消息转发类型未设置:{}", m_head->msgID);
+        LOG_ERROR("disp error msg:{}", m_head->msgID);
     }
     return 0;
 }

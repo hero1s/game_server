@@ -7,12 +7,12 @@
 #include "game_define.h"
 #include "framework/application.h"
 #include "game_server_config.h"
-#include "server_mgr.h"
 #include "dbmysql_mgr.h"
 #include "svrlib.h"
 #include <iostream>
 #include "time/time.hpp"
 #include "msg_define.pb.h"
+#include "center_client.h"
 
 using namespace svrlib;
 using namespace std;
@@ -41,32 +41,21 @@ bool CApplication::Initialize() {
         LOG_ERROR("init player cache mgr fail ");
         return false;
     }
-    if (CServerMgr::Instance().Init() == false) {
-        LOG_ERROR("CenterMgr init fail");
+
+    net::svr::server_info info;
+    info.set_svrid(GetServerID());
+    info.set_game_type(0);
+    info.set_game_subtype(0);
+    info.set_svr_type(emSERVER_TYPE_DBA);
+    info.set_uuid(m_uuid);
+
+    //连接中心服
+    auto centerIp = m_solLua.get<sol::table>("server_config").get<sol::table>("center");
+    if (CDBACenterClientMgr::Instance().Init(info, centerIp.get<string>("ip"), centerIp.get<int>("port"),
+                                          "center_connector", 1) == false) {
+        LOG_ERROR("init center client mgr fail");
         return false;
     }
-
-    do {
-        auto dbagentIp = m_solLua.get<sol::table>("server_config").get<sol::table>("dbagent");
-        auto tcpSvr = std::make_shared<TCPServer>(m_ioContext, "0.0.0.0", dbagentIp.get<int>("port"), "dbagentServer");
-        tcpSvr->SetConnectionCallback([](const TCPConnPtr &conn) {
-            if (conn->IsConnected()) {
-                LOG_DEBUG("{},connection accepted", conn->GetName());
-                conn->SetMessageDecode(make_shared<InnerDecode>());
-            } else {
-                CServerMgr::Instance().RemoveServer(conn);
-                LOG_DEBUG("{},connection disconnecting", conn->GetName());
-            }
-        });
-        tcpSvr->SetMessageCallback([](const TCPConnPtr &conn, char *pData, uint32_t length) {
-            //LOG_DEBUG("recv msg {}",buffer.Size());
-            CServerMgr::Instance().OnHandleClientMsg(conn, (uint8_t*)pData, length);
-        });
-        tcpSvr->Start();
-        m_tcpServers.push_back(tcpSvr);
-
-    } while (false);
-
 
     LOG_INFO("dbagent server start is successed {}", m_uiServerID);
 

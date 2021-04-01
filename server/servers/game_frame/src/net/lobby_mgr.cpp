@@ -30,7 +30,7 @@ CLobbyMgr::CLobbyMgr()
 void CLobbyMgr::OnTimer()
 {
 	ReportInfo2Lobby();
-	CApplication::Instance().Schedule(&m_timer, 3000);
+	CApplication::Instance().Schedule(&m_timer, 30000);
 }
 
 bool CLobbyMgr::Init()

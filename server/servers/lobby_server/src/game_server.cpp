@@ -13,7 +13,6 @@
 #include "time/time.hpp"
 #include "lua_logic/lua_logic.h"
 #include "net/center_client.h"
-#include "net/dbagent_client.h"
 #include "player_mgr.h"
 #include "redis_mgr.h"
 #include "player.h"
@@ -125,14 +124,6 @@ bool CApplication::Initialize() {
     if (CCenterClientMgr::Instance().Init(info, centerIp.get<string>("ip"), centerIp.get<int>("port"),
                                           "center_connector", 1) == false) {
         LOG_ERROR("init center client mgr fail");
-        return false;
-    }
-
-    //Á¬½ÓDBAgent
-    auto dbagentIp = m_solLua.get<sol::table>("server_config").get<sol::table>("dbagent");
-    if (CDBAgentClientMgr::Instance().Init(info, dbagentIp.get<string>("ip"), dbagentIp.get<int>("port"),
-                                           "dbagent_connector", 1) == false) {
-        LOG_ERROR("init dbagent client mgr fail");
         return false;
     }
 
