@@ -10,16 +10,14 @@ using namespace svrlib;
 
 CCenterClientMgr::CCenterClientMgr()
 {
-
 }
 
-CCenterClientMgr::~CCenterClientMgr() {
-
+CCenterClientMgr::~CCenterClientMgr()
+{
 }
 int CCenterClientMgr::OnRecvClientMsg()
 {
-    if (CProtobufHandleBase::OnRecvClientMsg()==1)
-    {
+    if (CProtobufHandleBase::OnRecvClientMsg() == 1) {
         return route_to_client();
     }
     return 0;
@@ -27,32 +25,18 @@ int CCenterClientMgr::OnRecvClientMsg()
 // 转发给客户端
 int CCenterClientMgr::route_to_client()
 {
-    LOG_DEBUG("中心服转发给客户端消息:uid:{}--cmd:{}",m_head->uid,m_head->msgID);
+    LOG_DEBUG("中心服转发给客户端消息:uid:{}--cmd:{}", m_head->uid, m_head->msgID);
     auto pPlayer = GetPlayer();
-    if (pPlayer != nullptr)
-    {
+    if (pPlayer != nullptr) {
         //pPlayer->SendMsgToClient(_pkt_buf, _buf_len, _head->cmd);
-    }
-    else
-    {
-        LOG_DEBUG("中心服转发消息客户端不存在:{}", m_head->uin);
+    } else {
+        LOG_DEBUG("中心服转发消息客户端不存在:{}", m_head->uid);
     }
     return 0;
 }
 
-std::shared_ptr<CGamePlayer> CCenterClientMgr::GetPlayer(){
+std::shared_ptr<CGamePlayer> CCenterClientMgr::GetPlayer()
+{
     auto pPlayer = std::dynamic_pointer_cast<CGamePlayer>(CPlayerMgr::Instance().GetPlayer(m_head->uid));
     return pPlayer;
 }
-
-
-
-
-
-
-
-
-
-
-
-

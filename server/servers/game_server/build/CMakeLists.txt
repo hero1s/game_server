@@ -4,7 +4,7 @@
 # 2013-04-18
 # gameServer cmake
 
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.1)
 project(game_server VERSION 1.0 LANGUAGES C CXX)
 
 include(../../../cmake_config/config.cmake)

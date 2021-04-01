@@ -1,11 +1,11 @@
 
 
 #include "game_server_mgr.h"
-#include "msg_define.pb.h"
 #include "game_define.h"
-#include "utility/profile_manager.h"
+#include "msg_define.pb.h"
 #include "player.h"
 #include "player_mgr.h"
+#include "utility/profile_manager.h"
 
 using namespace svrlib;
 using namespace Network;
@@ -15,24 +15,29 @@ namespace {
 }
 
 //--------------------------------------------------------------------------------------------
-CGameServerMgr::CGameServerMgr() {
+CGameServerMgr::CGameServerMgr()
+{
     bind_handler(this, net::svr::GS2L_MSG_REPORT, &CGameServerMgr::handle_msg_report);
     bind_handler(this, net::svr::GS2L_MSG_LEAVE_SVR, &CGameServerMgr::handle_msg_leave_svr);
 }
 
-CGameServerMgr::~CGameServerMgr() {
+CGameServerMgr::~CGameServerMgr()
+{
 }
 
-bool CGameServerMgr::Init() {
+bool CGameServerMgr::Init()
+{
     CServerClientMgr::Init();
     return true;
 }
 
-void CGameServerMgr::ShutDown() {
+void CGameServerMgr::ShutDown()
+{
     CServerClientMgr::ShutDown();
 }
 
-int CGameServerMgr::OnRecvClientMsg() {
+int CGameServerMgr::OnRecvClientMsg()
+{
     if (CProtobufHandleBase::OnRecvClientMsg() == 1) {
         return route_to_client();
     }
@@ -40,7 +45,8 @@ int CGameServerMgr::OnRecvClientMsg() {
 }
 
 // 转发给客户端
-int CGameServerMgr::route_to_client() {
+int CGameServerMgr::route_to_client()
+{
     LOG_DEBUG("转发给客户端消息:uid:{}--cmd:{}", m_head->uid, m_head->msgID);
     auto pPlayer = GetPlayer();
     if (pPlayer != nullptr) {
@@ -52,25 +58,27 @@ int CGameServerMgr::route_to_client() {
         msg.set_state(0);
         msg.set_newip(0);
         msg.set_no_player(1);
-        pkg_inner::SendProtobufMsg(m_connPtr, &msg, net::svr::L2GS_MSG_NOTIFY_NET_STATE, m_head->uid, 0, 0,0,0);
+        pkg_inner::SendProtobufMsg(m_connPtr, &msg, net::svr::L2GS_MSG_NOTIFY_NET_STATE, m_head->uid, 0, 0, 0, 0);
     }
     return 0;
 }
 
 // 服务器上报信息
-int CGameServerMgr::handle_msg_report() {
+int CGameServerMgr::handle_msg_report()
+{
     net::svr::msg_report_svr_info msg;
     PARSE_MSG(msg);
 
     uint32_t players = msg.onlines();
 
-    //LOG_DEBUG("游戏服上报信息:sid {}--{}",_connPtr->GetUID(),players);
+    LOG_DEBUG("游戏服上报信息:sid {}--{}", m_connPtr->GetUID(), players);
 
     return 0;
 }
 
 // 返回大厅
-int CGameServerMgr::handle_msg_leave_svr() {
+int CGameServerMgr::handle_msg_leave_svr()
+{
     net::svr::msg_leave_svr msg;
     PARSE_MSG(msg);
 
@@ -86,28 +94,8 @@ int CGameServerMgr::handle_msg_leave_svr() {
     return 0;
 }
 
-
-std::shared_ptr<CPlayer> CGameServerMgr::GetPlayer() {
+std::shared_ptr<CPlayer> CGameServerMgr::GetPlayer()
+{
     auto pPlayer = std::dynamic_pointer_cast<CPlayer>(CPlayerMgr::Instance().GetPlayer(m_head->uid));
     return pPlayer;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
