@@ -5,6 +5,7 @@
 #include "common_logic.h"
 #include "redis_mgr.h"
 #include "helper/helper.h"
+#include "packet/protobuf_pkg.h"
 
 using namespace std;
 using namespace svrlib;

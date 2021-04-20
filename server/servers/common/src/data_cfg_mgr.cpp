@@ -4,7 +4,6 @@
 #include "crypt/md5.h"
 #include "db_struct_define.h"
 #include "msg_define.pb.h"
-#include "nlohmann/json_wrap.h"
 #include "file/file.hpp"
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/message.h>

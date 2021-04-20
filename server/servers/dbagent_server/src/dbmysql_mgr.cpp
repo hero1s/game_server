@@ -10,9 +10,6 @@
 #include "game_server_config.h"
 #include "dbmysql/db_wrap.h"
 
-#include "nlohmann/json.hpp"
-using json = nlohmann::json;
-
 using namespace std;
 using namespace svrlib;
 

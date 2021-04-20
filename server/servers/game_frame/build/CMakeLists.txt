@@ -15,6 +15,9 @@ include(../../../cmake_config/common_path.cmake)
 clear_all_list()
 
 add_include_path(../../../server_frame/include)
+add_include_path(../../../server_frame//network)
+add_include_path(../../../server_frame//packet)
+
 add_include_path(../../common/src)
 add_include_path(../../pb/src)
 

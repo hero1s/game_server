@@ -3,6 +3,7 @@
 
 #include "packet/protobuf_pkg.h"
 #include "crypt/md5.h"
+#include "utility/singleton.h"
 
 class CPlayer;
 

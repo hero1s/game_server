@@ -76,7 +76,7 @@ bool CApplication::Initialize() {
                 LOG_DEBUG("{},connection disconnecting", conn->GetName());
             }
         });
-        tcpSvr->SetMessageCallback([](const TCPConnPtr &conn, char *pData, uint32_t length) {
+        tcpSvr->SetMessageCallback([](const TCPConnPtr &conn, const char *pData, uint32_t length) {
             //LOG_DEBUG("recv msg {}",std::string(buffer.Data(), buffer.Size()));
             CHandleClientMsg::Instance().OnHandleClientMsg(conn, (uint8_t*)pData, length);
         });
@@ -94,9 +94,26 @@ bool CApplication::Initialize() {
                 CGameServerMgr::Instance().RemoveServer(conn);
             }
         });
-        tcpSvr->SetMessageCallback([](const TCPConnPtr &conn, char *pData, uint32_t length) {
+        tcpSvr->SetMessageCallback([](const TCPConnPtr &conn, const char *pData, uint32_t length) {
             //LOG_DEBUG("recv msg {}",std::string(buffer.Data(), buffer.Size()));
             CGameServerMgr::Instance().OnHandleClientMsg(conn, (uint8_t*)pData, length);
+        });
+        tcpSvr->Start();
+        m_tcpServers.push_back(tcpSvr);
+
+        //ÓÎÏ··þhttp¶Ë¿Ú
+        tcpSvr = std::make_shared<TCPServer>(m_ioContext, "0.0.0.0", 8080, "httpServer",SocketParserType_Http);
+        tcpSvr->SetConnectionCallback([](const TCPConnPtr &conn) {
+            if (conn->IsConnected()) {
+                LOG_DEBUG("{},connection accepted", conn->GetName());
+                conn->SetHeartTimeOut(10,10);
+            } else {
+                LOG_ERROR("gameServer ondisconnect:{}--{}", conn->GetUID(), conn->GetRemoteAddress());
+            }
+        });
+        tcpSvr->SetMessageCallback([](const TCPConnPtr &conn, const char *pData, uint32_t length) {
+            LOG_DEBUG("{} http body recv msg {}",conn->GetRemoteAddress(),std::string(pData, length));
+            conn->Send(pData,length);
         });
         tcpSvr->Start();
         m_tcpServers.push_back(tcpSvr);
