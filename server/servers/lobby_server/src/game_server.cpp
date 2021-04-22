@@ -90,7 +90,7 @@ bool CApplication::Initialize() {
                 LOG_DEBUG("{},connection accepted", conn->GetName());
                 conn->SetMessageDecode(make_shared<InnerDecode>());
             } else {
-                LOG_ERROR("gameServer ondisconnect:{}--{}", conn->GetUID(), conn->GetRemoteAddress());
+                LOG_ERROR("{} ondisconnect:{}--{}",conn->GetName(), conn->GetUID(), conn->GetRemoteAddress());
                 CGameServerMgr::Instance().RemoveServer(conn);
             }
         });
@@ -108,7 +108,7 @@ bool CApplication::Initialize() {
                 LOG_DEBUG("{},connection accepted", conn->GetName());
                 conn->SetHeartTimeOut(10,10);
             } else {
-                LOG_ERROR("gameServer ondisconnect:{}--{}", conn->GetUID(), conn->GetRemoteAddress());
+                LOG_ERROR("{} ondisconnect:{}--{}",conn->GetName(), conn->GetUID(), conn->GetRemoteAddress());
             }
         });
         tcpSvr->SetMessageCallback([](const TCPConnPtr &conn, const char *pData, uint32_t length) {
